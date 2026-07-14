@@ -77,16 +77,17 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Lovable Generated Project" },
-      { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Lovable Generated Project" },
+      { title: "SBGBT — Soch Badlo, Gaon Badlo | Rural Change Movement" },
+      { name: "description", content: "Soch Badlo Gaon Badlo Team is a grassroots movement transforming Indian villages through education, women empowerment, health, and sustainable development." },
+      { property: "og:title", content: "SBGBT — Soch Badlo, Gaon Badlo" },
+      { property: "og:description", content: "A grassroots movement transforming Indian villages through education, empowerment and sustainable development." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:site", content: "@Lovable" },
     ],
     links: [
+      { rel: "preconnect", href: "https://fonts.googleapis.com" },
+      { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
+      { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700;9..144,900&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Tiro+Devanagari+Hindi&display=swap" },
       {
         rel: "stylesheet",
         href: appCss,
