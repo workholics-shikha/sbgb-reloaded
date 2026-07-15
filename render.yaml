@@ -1,0 +1,6 @@
+services:
+  - type: web
+    name: sbgb-reloaded
+    runtime: node
+    buildCommand: npm ci && npm run build
+    startCommand: npm run start
