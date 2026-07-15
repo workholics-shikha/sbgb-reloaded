@@ -1,10 +1,11 @@
-import { createFileRoute } from "@tanstack/react-router";
-import { useEffect, useState } from "react";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import {
   ArrowRight, GraduationCap, Sprout, HeartPulse, Users2, Landmark, Sparkles,
-  Mail, Phone, Facebook, Youtube, Instagram, Twitter, Menu, X, PlayCircle,
-  MapPin, Calendar, TrendingUp, BookOpen, HandHeart,
+  PlayCircle, MapPin, Calendar, TrendingUp, BookOpen, HandHeart,
 } from "lucide-react";
+import { SiteHeader } from "@/components/site/SiteHeader";
+import { SiteFooter } from "@/components/site/SiteFooter";
+
 
 import heroEducation from "@/assets/hero-education.jpg";
 import galEnv from "@/assets/gallery-environment.jpg";
