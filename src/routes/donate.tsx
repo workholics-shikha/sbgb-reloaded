@@ -3,6 +3,7 @@ import { useState } from "react";
 import { BadgeCheck, GraduationCap, HandHeart, HeartPulse, Landmark, Sprout, Users2, Building2 } from "lucide-react";
 import { SiteHeader } from "@/components/site/SiteHeader";
 import { SiteFooter, PageHero } from "@/components/site/SiteFooter";
+import donateHeroReal from "@/assets/donate-hero-real.jpg";
 
 export const Route = createFileRoute("/donate")({
   head: () => ({
@@ -42,6 +43,8 @@ function Donate() {
         title="Your contribution builds a classroom, plants a forest, saves a life."
         hi="दान करें · SBGBT सदस्य बनें"
         sub="100% of donations are field-deployed. SBGBT is a registered non-profit — donations are eligible for tax exemption under Section 80G."
+        imageSrc={donateHeroReal}
+        imageAlt="SBGBT recognition and community support"
       />
 
       <section className="mx-auto max-w-7xl px-4 sm:px-6 py-16 sm:py-20 grid lg:grid-cols-[1.1fr_1fr] gap-10">

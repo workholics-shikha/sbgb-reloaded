@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Mail, MapPin, Phone, Send, Facebook, Twitter, Instagram, Youtube, Clock } from "lucide-react";
 import { SiteHeader } from "@/components/site/SiteHeader";
 import { SiteFooter, PageHero } from "@/components/site/SiteFooter";
+import contactHeroReal from "@/assets/contact-hero-real.jpg";
 
 export const Route = createFileRoute("/contact")({
   head: () => ({
@@ -26,6 +27,8 @@ function Contact() {
         title="Write to us. We answer every message."
         hi="संपर्क करें"
         sub="Partnerships, volunteering, media enquiries, or a question about SPGBP — the SBGBT team is one message away."
+        imageSrc={contactHeroReal}
+        imageAlt="SBGBT community meeting"
       />
 
       <section className="mx-auto max-w-7xl px-4 sm:px-6 py-16 sm:py-20 grid lg:grid-cols-[1fr_1.2fr] gap-10">

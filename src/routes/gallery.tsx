@@ -8,6 +8,10 @@ import galHealth from "@/assets/gallery-health.jpg";
 import galAwards from "@/assets/gallery-awards.jpg";
 import galVillage from "@/assets/gallery-village.jpg";
 import heroEducation from "@/assets/hero-education.jpg";
+import galleryHeroReal from "@/assets/gallery-hero-real.jpg";
+import activitiesHeroReal from "@/assets/activities-hero-real.jpg";
+import aboutHeroReal from "@/assets/about-hero-real-2.jpg";
+import contactHeroReal from "@/assets/contact-hero-real.jpg";
 import { useState } from "react";
 
 export const Route = createFileRoute("/gallery")({
@@ -32,8 +36,9 @@ const items: Item[] = [
   { src: galHealth, title: "Village Health Camp", tag: "Health" },
   { src: galAwards, title: "SPGBP Award Ceremony", tag: "Scholarship" },
   { src: galVillage, title: "Model Village Aerial — Dhanora", tag: "Smart Village" },
-  { src: galEnv, title: "Green Village Campaign", tag: "Environment" },
-  { src: galWomen, title: "Skills Training Workshop", tag: "Women" },
+  { src: activitiesHeroReal, title: "Green Village Campaign", tag: "Environment" },
+  { src: aboutHeroReal, title: "Community Outreach Workshop", tag: "Women" },
+  { src: contactHeroReal, title: "Village Community Gathering", tag: "Smart Village" },
 ];
 
 const tags = ["All", "Education", "Environment", "Women", "Health", "Scholarship", "Smart Village"] as const;
@@ -52,6 +57,8 @@ function Gallery() {
         title="Moments from the villages we serve."
         hi="फोटो गैलरी"
         sub="A living archive of SBGBT's on-the-ground work — filter by program or open any image full-screen."
+        imageSrc={galleryHeroReal}
+        imageAlt="SBGBT field gallery"
       />
 
       <section className="mx-auto max-w-7xl px-4 sm:px-6 py-10 sm:py-14">

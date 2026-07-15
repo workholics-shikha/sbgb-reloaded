@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight, CalendarClock, Download, FileText, GraduationCap, Sparkles, Trophy, UserCheck } from "lucide-react";
 import { SiteHeader } from "@/components/site/SiteHeader";
 import { SiteFooter, PageHero } from "@/components/site/SiteFooter";
+import spgbpHeroReal from "@/assets/spgbp-hero-real.jpg";
 
 export const Route = createFileRoute("/spgbp")({
   head: () => ({
@@ -37,6 +38,8 @@ function SPGBP() {
         title="Shiksha Pao — Gyan Badhao Pratiyogita."
         hi="शिक्षा पाओ — ज्ञान बढ़ाओ प्रतियोगिता"
         sub="An annual rural competition that finds hidden talent in remote villages, mentors them, and funds their journey. Registration for 2025–26 is now open."
+        imageSrc={spgbpHeroReal}
+        imageAlt="SBGBT students and school community"
       />
 
       {/* CTA row */}

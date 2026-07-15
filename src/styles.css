@@ -44,30 +44,30 @@
 
 :root {
   --radius: 0.875rem;
-  --background: oklch(0.985 0.012 85);
+  --background: oklch(0.982 0.016 84);
   --foreground: oklch(0.22 0.03 40);
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.22 0.03 40);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.22 0.03 40);
-  --primary: oklch(0.42 0.09 165);           /* deep teal */
+  --primary: oklch(0.4 0.11 168);
   --primary-foreground: oklch(0.98 0.01 85);
-  --secondary: oklch(0.95 0.03 80);
+  --secondary: oklch(0.955 0.045 82);
   --secondary-foreground: oklch(0.28 0.05 40);
-  --muted: oklch(0.95 0.015 85);
+  --muted: oklch(0.955 0.022 84);
   --muted-foreground: oklch(0.5 0.03 60);
-  --accent: oklch(0.72 0.17 55);             /* saffron accent */
+  --accent: oklch(0.76 0.18 58);
   --accent-foreground: oklch(0.22 0.03 40);
-  --saffron: oklch(0.72 0.17 55);
-  --leaf: oklch(0.55 0.12 150);
-  --earth: oklch(0.45 0.08 40);
+  --saffron: oklch(0.8 0.16 74);
+  --leaf: oklch(0.58 0.14 151);
+  --earth: oklch(0.5 0.1 42);
   --ink: oklch(0.22 0.03 40);
-  --cream: oklch(0.97 0.02 85);
+  --cream: oklch(0.975 0.026 86);
   --destructive: oklch(0.58 0.22 25);
   --destructive-foreground: oklch(0.98 0 0);
-  --border: oklch(0.9 0.02 80);
-  --input: oklch(0.9 0.02 80);
-  --ring: oklch(0.42 0.09 165);
+  --border: oklch(0.89 0.028 80);
+  --input: oklch(0.89 0.028 80);
+  --ring: oklch(0.4 0.11 168);
 }
 
 @layer base {
@@ -75,6 +75,10 @@
   html { scroll-behavior: smooth; }
   body {
     background-color: var(--color-background);
+    background-image:
+      linear-gradient(to bottom, oklch(0.985 0.02 84), oklch(0.978 0.012 86)),
+      radial-gradient(circle at top left, oklch(0.76 0.18 58 / 0.08), transparent 30%),
+      radial-gradient(circle at top right, oklch(0.4 0.11 168 / 0.08), transparent 32%);
     color: var(--color-foreground);
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
@@ -85,9 +89,22 @@
 
 @utility grain-bg {
   background-image:
-    radial-gradient(circle at 20% 10%, oklch(0.72 0.17 55 / 0.08), transparent 40%),
-    radial-gradient(circle at 80% 30%, oklch(0.42 0.09 165 / 0.08), transparent 45%),
-    radial-gradient(circle at 50% 90%, oklch(0.55 0.12 150 / 0.06), transparent 50%);
+    radial-gradient(circle at 20% 10%, oklch(0.76 0.18 58 / 0.12), transparent 40%),
+    radial-gradient(circle at 80% 30%, oklch(0.4 0.11 168 / 0.12), transparent 45%),
+    radial-gradient(circle at 50% 90%, oklch(0.58 0.14 151 / 0.09), transparent 50%);
+}
+
+@utility festive-band {
+  background-image:
+    linear-gradient(135deg, oklch(0.955 0.05 82), oklch(0.985 0.016 84)),
+    radial-gradient(circle at 0% 0%, oklch(0.76 0.18 58 / 0.16), transparent 28%),
+    radial-gradient(circle at 100% 0%, oklch(0.4 0.11 168 / 0.14), transparent 30%);
+}
+
+@utility vibrant-panel {
+  background-image:
+    linear-gradient(145deg, oklch(1 0 0), oklch(0.975 0.022 85)),
+    radial-gradient(circle at top right, oklch(0.76 0.18 58 / 0.08), transparent 24%);
 }
 
 @utility text-balance {

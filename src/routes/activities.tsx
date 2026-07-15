@@ -5,6 +5,7 @@ import {
 } from "lucide-react";
 import { SiteHeader } from "@/components/site/SiteHeader";
 import { SiteFooter, PageHero } from "@/components/site/SiteFooter";
+import activitiesHeroReal from "@/assets/activities-hero-real.jpg";
 
 export const Route = createFileRoute("/activities")({
   head: () => ({
@@ -70,6 +71,8 @@ function Activities() {
         title="Ten programs. One thread — dignity for rural India."
         hi="हमारी गतिविधियाँ"
         sub="Every SBGBT program is designed with the village, led by local coordinators, and sustained by long-term partnerships."
+        imageSrc={activitiesHeroReal}
+        imageAlt="SBGBT village activities"
       />
 
       <section className="mx-auto max-w-7xl px-4 sm:px-6 py-16 sm:py-20">
