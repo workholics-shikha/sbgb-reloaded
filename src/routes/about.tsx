@@ -110,6 +110,21 @@ const highlights = [
   { value: "सतत", label: "रचनात्मक अभियान" },
 ];
 
+const journeyNotes = [
+  {
+    title: "शुरुआत",
+    desc: "गांव की समस्याओं को समझकर वहीं से समाधान की सोच बनी।",
+  },
+  {
+    title: "सहभागिता",
+    desc: "युवा, महिलाएं और विद्यार्थियों ने इसे एक साझा अभियान बनाया।",
+  },
+  {
+    title: "विस्तार",
+    desc: "शिक्षा, स्वास्थ्य, पर्यावरण और जागरूकता तक इसका दायरा बढ़ा।",
+  },
+];
+
 function About() {
   return (
     <div className="min-h-screen bg-background text-foreground">
@@ -307,25 +322,72 @@ function About() {
 
       <section className="bg-ink text-cream">
         <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 sm:py-24">
-          <div className="max-w-2xl">
-            <div className="text-xs font-semibold uppercase tracking-widest text-accent">उद्भव</div>
-            <h2 className="mt-3 font-display text-3xl font-black sm:text-4xl lg:text-5xl">
-              धनौरा से शुरू हुई सोच, कई गांवों तक पहुंची।
-            </h2>
-          </div>
+          <div className="grid gap-12 lg:grid-cols-[0.95fr_1.05fr] lg:items-start">
+            <div>
+              <div className="max-w-2xl">
+                <div className="text-xs font-semibold uppercase tracking-widest text-accent">उद्भव</div>
+                <h2 className="mt-3 font-display text-3xl font-black sm:text-4xl lg:text-5xl">
+                  धनौरा से शुरू हुई सोच, कई गांवों तक पहुंची।
+                </h2>
+              </div>
 
-          <ol className="relative mt-12 ml-4 space-y-8 border-l border-cream/15">
-            {timeline.map((item) => (
-              <li key={item.y} className="relative pl-8">
-                <span className="absolute -left-[9px] top-1 grid size-4 place-items-center rounded-full bg-accent">
-                  <span className="size-1.5 rounded-full bg-ink" />
-                </span>
-                <div className="font-display text-2xl font-black text-accent">{item.y}</div>
-                <div className="mt-1 font-semibold">{item.t}</div>
-                <p className="mt-1 max-w-2xl text-sm text-cream/75">{item.d}</p>
-              </li>
-            ))}
-          </ol>
+              <ol className="relative mt-12 ml-4 space-y-8 border-l border-cream/15">
+                {timeline.map((item) => (
+                  <li key={item.y} className="relative pl-8">
+                    <span className="absolute -left-[9px] top-1 grid size-4 place-items-center rounded-full bg-accent">
+                      <span className="size-1.5 rounded-full bg-ink" />
+                    </span>
+                    <div className="font-display text-2xl font-black text-accent">{item.y}</div>
+                    <div className="mt-1 font-semibold">{item.t}</div>
+                    <p className="mt-1 max-w-2xl text-sm text-cream/75">{item.d}</p>
+                  </li>
+                ))}
+              </ol>
+            </div>
+
+            <div className="grid gap-5">
+              <div className="relative overflow-hidden rounded-[2rem] border border-cream/10 bg-cream/5 p-3 shadow-2xl">
+                <div className="absolute -right-10 -top-10 size-32 rounded-full bg-accent/20 blur-3xl" />
+                <img
+                  src={galVillage}
+                  alt="SBGBT village journey"
+                  className="relative aspect-[4/3] w-full rounded-[1.5rem] object-cover"
+                />
+                <div className="relative mt-4 rounded-[1.5rem] bg-cream/8 p-5 backdrop-blur">
+                  <div className="text-xs uppercase tracking-[0.2em] text-accent/80">SBGBT Journey</div>
+                  <div className="mt-2 font-display text-2xl font-black">विचार से अभियान तक</div>
+                  <p className="mt-3 text-sm leading-relaxed text-cream/75">
+                    धनौरा की जमीन से उभरी यह सोच आज गांव, युवा और जनसहभागिता को एक सूत्र में
+                    जोड़ने वाला मंच बन चुकी है।
+                  </p>
+                </div>
+              </div>
+
+              <div className="grid gap-4 sm:grid-cols-3">
+                {journeyNotes.map((item) => (
+                  <div
+                    key={item.title}
+                    className="rounded-[1.5rem] border border-cream/10 bg-cream/6 p-5 shadow-lg backdrop-blur"
+                  >
+                    <div className="text-sm font-semibold uppercase tracking-[0.18em] text-accent">{item.title}</div>
+                    <p className="mt-3 text-sm leading-relaxed text-cream/75">{item.desc}</p>
+                  </div>
+                ))}
+              </div>
+
+              <div className="grid gap-4 sm:grid-cols-2">
+                {highlights.map((item) => (
+                  <div
+                    key={item.label}
+                    className="rounded-[1.5rem] border border-cream/10 bg-gradient-to-br from-cream/8 to-transparent p-5 shadow-lg"
+                  >
+                    <div className="font-display text-3xl font-black text-accent">{item.value}</div>
+                    <div className="mt-2 text-sm font-semibold text-cream">{item.label}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 

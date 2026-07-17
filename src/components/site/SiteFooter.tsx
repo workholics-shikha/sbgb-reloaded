@@ -3,6 +3,29 @@ import { Facebook, Instagram, Mail, MapPin, Phone, Twitter, Youtube } from "luci
 import sbgbLogo from "@/assets/sbgb-logo.png";
 import { navLinks } from "./SiteHeader";
 
+export const socialLinks = [
+  {
+    label: "Facebook",
+    href: "https://www.facebook.com/sbgbteam/",
+    icon: Facebook,
+  },
+  {
+    label: "X",
+    href: "https://twitter.com/sbgbteam",
+    icon: Twitter,
+  },
+  {
+    label: "Instagram",
+    href: "https://www.instagram.com/sbgbteam/",
+    icon: Instagram,
+  },
+  {
+    label: "YouTube",
+    href: "https://www.youtube.com/channel/UCOQAQS7J5cKft2mlwjpZn-A",
+    icon: Youtube,
+  },
+] as const;
+
 export function SiteFooter() {
   return (
     <footer className="bg-ink text-cream">
@@ -18,19 +41,21 @@ export function SiteFooter() {
             />
             <div>
               <div className="font-display text-xl font-black">SBGBT</div>
-              <div className="text-xs text-cream/60">Soch Badlo · Gaon Badlo</div>
+              <div className="text-xs text-cream/60">सोच बदलो · गांव बदलो</div>
             </div>
           </div>
           <p className="mt-5 max-w-md text-sm leading-relaxed text-cream/70">
-            A grassroots non-profit rebuilding rural India through education, empowerment,
-            health and sustainable development.
+            ग्रामीण भारत में शिक्षा, सशक्तिकरण, स्वास्थ्य और सतत विकास के माध्यम से
+            सकारात्मक बदलाव लाने वाला एक जमीनी सामाजिक अभियान।
           </p>
           <div className="mt-6 flex gap-3">
-            {[Facebook, Twitter, Instagram, Youtube].map((Icon, index) => (
+            {socialLinks.map(({ label, href, icon: Icon }) => (
               <a
-                key={index}
-                href="#"
-                aria-label="social"
+                key={label}
+                href={href}
+                aria-label={label}
+                target="_blank"
+                rel="noreferrer"
                 className="grid size-9 place-items-center rounded-full bg-cream/10 transition hover:bg-accent hover:text-accent-foreground"
               >
                 <Icon className="size-4" />
@@ -69,7 +94,7 @@ export function SiteFooter() {
             </li>
             <li className="flex gap-3">
               <MapPin className="mt-0.5 size-4 shrink-0 text-accent" />
-              <span>Sarmathura, Dholpur, Rajasthan</span>
+              <span>सरमथुरा, धौलपुर, राजस्थान</span>
             </li>
           </ul>
         </div>
@@ -77,8 +102,8 @@ export function SiteFooter() {
 
       <div className="border-t border-cream/10">
         <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-3 px-4 py-5 text-xs text-cream/50 sm:px-6">
-          <div>© {new Date().getFullYear()} Soch Badlo Gaon Badlo Team. All rights reserved.</div>
-          <div>Made with intent, for rural India.</div>
+          <div>© {new Date().getFullYear()} सोच बदलो गांव बदलो टीम। सर्वाधिकार सुरक्षित।</div>
+          <div>ग्रामीण भारत के लिए समर्पित।</div>
         </div>
       </div>
     </footer>

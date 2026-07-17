@@ -1,6 +1,13 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 import { CalendarDays, Clapperboard, Newspaper, PlayCircle, Ticket } from "lucide-react";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 import { SiteHeader } from "@/components/site/SiteHeader";
 import { SiteFooter } from "@/components/site/SiteFooter";
 import galAwards from "@/assets/gallery-awards.jpg";
@@ -207,30 +214,46 @@ function Media() {
 
         <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {videos.map((video) => (
-            <a
-              key={video.id}
-              href={`https://www.youtube.com/watch?v=${video.id}`}
-              target="_blank"
-              rel="noreferrer"
-              className="group relative overflow-hidden rounded-[1.75rem] border border-border bg-ink shadow-xl"
-            >
-              <img
-                src={`https://img.youtube.com/vi/${video.id}/hqdefault.jpg`}
-                alt={video.title}
-                className="aspect-video w-full object-cover opacity-85 transition duration-700 group-hover:scale-105 group-hover:opacity-100"
-                width={1280}
-                height={720}
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-ink/95 via-ink/20 to-transparent" />
-              <div className="absolute inset-0 grid place-items-center">
-                <div className="grid size-16 place-items-center rounded-full bg-cream/95 text-primary shadow-2xl transition group-hover:scale-110">
-                  <PlayCircle className="size-8" strokeWidth={1.5} />
+            <Dialog key={video.id}>
+              <DialogTrigger asChild>
+                <button
+                  type="button"
+                  className="group relative overflow-hidden rounded-[1.75rem] border border-border bg-ink text-left shadow-xl"
+                >
+                  <img
+                    src={`https://img.youtube.com/vi/${video.id}/hqdefault.jpg`}
+                    alt={video.title}
+                    className="aspect-video w-full object-cover opacity-85 transition duration-700 group-hover:scale-105 group-hover:opacity-100"
+                    width={1280}
+                    height={720}
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-ink/95 via-ink/20 to-transparent" />
+                  <div className="absolute inset-0 grid place-items-center">
+                    <div className="grid size-16 place-items-center rounded-full bg-cream/95 text-primary shadow-2xl transition group-hover:scale-110">
+                      <PlayCircle className="size-8" strokeWidth={1.5} />
+                    </div>
+                  </div>
+                  <div className="absolute inset-x-0 bottom-0 p-4 text-cream">
+                    <div className="font-hi text-base font-semibold">{video.title}</div>
+                  </div>
+                </button>
+              </DialogTrigger>
+              <DialogContent className="max-w-4xl border-border bg-background p-3 sm:p-4">
+                <DialogHeader>
+                  <DialogTitle className="pr-8 font-hi text-base sm:text-lg">{video.title}</DialogTitle>
+                </DialogHeader>
+                <div className="overflow-hidden rounded-2xl bg-black">
+                  <iframe
+                    src={`https://www.youtube.com/embed/${video.id}?autoplay=1&rel=0`}
+                    title={video.title}
+                    className="aspect-video w-full"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    referrerPolicy="strict-origin-when-cross-origin"
+                    allowFullScreen
+                  />
                 </div>
-              </div>
-              <div className="absolute inset-x-0 bottom-0 p-4 text-cream">
-                <div className="font-hi text-base font-semibold">{video.title}</div>
-              </div>
-            </a>
+              </DialogContent>
+            </Dialog>
           ))}
         </div>
       </section>
