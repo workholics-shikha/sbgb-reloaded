@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import {
   Dialog,
@@ -8,6 +9,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import {
+  ArrowDown,
   ArrowRight,
   BadgeCheck,
   BookOpen,
@@ -27,7 +29,10 @@ import {
 
 import { SiteHeader } from "@/components/site/SiteHeader";
 import { SiteFooter } from "@/components/site/SiteFooter";
+import blogBgPaper from "@/assets/blog-bg-paper.png";
 import heroEducation from "@/assets/hero-education.jpg";
+import heroDividerRough from "@/assets/hero-divider-rough.png";
+import heroHeartSprade from "@/assets/hero-heart-sprade.png";
 import galEnv from "@/assets/gallery-environment.jpg";
 import galWomen from "@/assets/gallery-women.jpg";
 import galLib from "@/assets/gallery-library.jpg";
@@ -195,7 +200,7 @@ const initiativeHighlights = [
   {
     title: "गांव से शुरुआत",
     value: "10",
-    note: "मुख्य अभियान जिन्हें homepage पर प्रमुख रूप से दिखाया गया है",
+    note: "मुख्य अभियान जिन्हें प्रमुख रूप से दिखाया गया है",
   },
   {
     title: "कार्य की दिशा",
@@ -272,6 +277,8 @@ const valueMoments = [
 function Home() {
   const [activeHeroSlide, setActiveHeroSlide] = useState(0);
   const [activeVideoIndex, setActiveVideoIndex] = useState(2);
+  const [activeInitiativeIndex, setActiveInitiativeIndex] = useState(1);
+  const [scrollProgress, setScrollProgress] = useState(0);
 
   useEffect(() => {
     const interval = window.setInterval(() => {
@@ -282,6 +289,7 @@ function Home() {
   }, []);
 
   const currentHeroSlide = heroSlides[activeHeroSlide];
+  const nextHeroSlide = heroSlides[(activeHeroSlide + 1) % heroSlides.length];
 
 
   useEffect(() => {
@@ -292,18 +300,55 @@ function Home() {
     return () => window.clearInterval(interval);
   }, []);
 
+  useEffect(() => {
+    const interval = window.setInterval(() => {
+      setActiveInitiativeIndex((current) => (current + 1) % initiatives.length);
+    }, 4200);
+
+    return () => window.clearInterval(interval);
+  }, []);
+
+  useEffect(() => {
+    const updateScrollProgress = () => {
+      const scrollTop = window.scrollY;
+      const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = scrollHeight > 0 ? (scrollTop / scrollHeight) * 100 : 0;
+      setScrollProgress(Math.min(100, Math.max(0, progress)));
+    };
+
+    updateScrollProgress();
+    window.addEventListener("scroll", updateScrollProgress, { passive: true });
+
+    return () => window.removeEventListener("scroll", updateScrollProgress);
+  }, []);
+
   const getWrappedVideoIndex = (offset: number) => (activeVideoIndex + offset + videos.length) % videos.length;
+  const getWrappedInitiativeIndex = (offset: number) =>
+    (activeInitiativeIndex + offset + initiatives.length) % initiatives.length;
   const visibleVideos = [
     { video: videos[getWrappedVideoIndex(-1)], offset: -1 },
     { video: videos[getWrappedVideoIndex(0)], offset: 0 },
     { video: videos[getWrappedVideoIndex(1)], offset: 1 },
   ] as const;
+  const visibleInitiatives = [
+    { item: initiatives[getWrappedInitiativeIndex(-1)], offset: -1 },
+    { item: initiatives[getWrappedInitiativeIndex(0)], offset: 0 },
+    { item: initiatives[getWrappedInitiativeIndex(1)], offset: 1 },
+  ] as const;
+  const progressOffset = 113.1 - (113.1 * scrollProgress) / 100;
 
   return (
     <div className="min-h-screen bg-[linear-gradient(180deg,#f5f0df_0%,#f1ecd7_28%,#f7f3e7_100%)] text-foreground">
       <SiteHeader />
 
-      <section className="relative overflow-hidden bg-[linear-gradient(135deg,#0f463c_0%,#145446_48%,#193e34_100%)] text-cream">
+      <section className="relative overflow-hidden bg-[linear-gradient(135deg,#0f463c_0%,#145446_48%,#193e34_100%)] pt-10 text-cream">
+        <div className="pointer-events-none absolute inset-x-0 top-0 z-20 h-[48px] overflow-hidden">
+          <div
+            className="absolute inset-0 bg-[length:100%_100%] bg-no-repeat"
+            style={{ backgroundImage: `url(${heroDividerRough})`, filter: "contrast(1.02)" }}
+          />
+          <div className="absolute inset-x-0 top-0 h-[16px] bg-[linear-gradient(180deg,#f5f0df_0%,#f5f0df_48%,rgba(245,240,223,0.82)_72%,rgba(245,240,223,0)_100%)]" />
+        </div>
         <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.04),transparent_26%,rgba(0,0,0,0.12)_100%)]" />
 
         <div className="mx-auto grid max-w-7xl gap-12 px-4 py-10 sm:px-6 sm:py-16 lg:grid-cols-[1.05fr_0.95fr] lg:items-center lg:gap-16">
@@ -316,14 +361,30 @@ function Home() {
               शिक्षा, जनजागरूकता और
               <span className="block text-accent drop-shadow-[0_6px_18px_rgba(0,0,0,0.24)]">ग्राम उत्थान की सशक्त पहल।</span>
             </h1>
-            <p className="mt-4 max-w-2xl font-hi text-xl leading-relaxed text-cream/85 sm:text-2xl">
+            {/* <p className="mt-4 max-w-2xl font-hi text-xl leading-relaxed text-cream/85 sm:text-2xl">
               सोच बदलो, गांव बदलो
-            </p>
+            </p> */}
             <p className="mt-5 max-w-2xl text-base leading-relaxed text-cream/88 sm:text-lg">
               SBGBT शिक्षा, जन जागरूकता, महिला सशक्तिकरण, स्मार्ट विलेज, पर्यावरण संरक्षण,
               स्वास्थ्य और समाज व राष्ट्र निर्माण जैसे कार्यों के माध्यम से ग्रामीण समाज को
               मजबूत बनाने के लिए लगातार प्रयासरत है।
             </p>
+
+            <div className="mt-6 inline-flex items-center gap-3 rounded-full border border-white/12 bg-white/8 px-4 py-2 text-cream shadow-[0_18px_38px_-26px_rgba(0,0,0,0.8)] backdrop-blur">
+              <span className="grid size-11 place-items-center rounded-full bg-accent/12 ring-1 ring-accent/25">
+                <img
+                  src={heroHeartSprade}
+                  alt=""
+                  aria-hidden="true"
+                  className="hero-heartbeat h-8 w-8 object-contain"
+                  width={32}
+                  height={32}
+                />
+              </span>
+              <span className="text-sm font-medium text-cream/90 sm:text-[15px]">
+                हर सहयोग से बदलाव की धड़कन और मजबूत होती है
+              </span>
+            </div>
 
             <div className="hidden">
               <div className="relative overflow-hidden rounded-[2.2rem] border border-white/10 bg-white/6 p-3 shadow-[0_28px_55px_-34px_rgba(0,0,0,0.88)] backdrop-blur">
@@ -373,19 +434,6 @@ function Home() {
                   </div>
                 </div>
 
-                <div className="mt-4 flex items-center gap-2 px-2">
-                  {heroSlides.map((slide, index) => (
-                    <button
-                      key={slide.title}
-                      type="button"
-                      onClick={() => setActiveHeroSlide(index)}
-                      aria-label={slide.title}
-                      className={`h-2.5 rounded-full transition-all ${
-                        index === activeHeroSlide ? "w-10 bg-cream" : "w-2.5 bg-cream/45 hover:bg-cream/70"
-                      }`}
-                    />
-                  ))}
-                </div>
               </div>
             </div>
 
@@ -406,28 +454,30 @@ function Home() {
               </a>
             </div>
 
-            <div className="mt-10 grid gap-4 sm:grid-cols-3">
+            <div className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-3">
               {valueMoments.map((item, index) => (
                 <div
                   key={item.label}
-                  className={`rounded-[1.5rem] border border-white/10 bg-white/8 p-4 shadow-[0_20px_40px_-28px_rgba(0,0,0,0.9)] backdrop-blur ${
-                    index === 1 ? "sm:-translate-y-4" : ""
-                  }`}
+                  className="group min-w-0 rounded-[1.5rem] border border-white/10 bg-white/8 p-4 shadow-[0_20px_40px_-28px_rgba(0,0,0,0.9)] backdrop-blur transition duration-300 hover:-translate-y-2 hover:scale-[1.03] hover:border-accent/35 hover:bg-white/12 hover:shadow-[0_28px_56px_-24px_rgba(0,0,0,0.88)]"
                 >
-                  <div className="font-display text-2xl font-black text-accent">{item.label}</div>
-                  <div className="mt-1 text-sm text-cream/72">{item.note}</div>
+                  <div className="font-display text-[1.7rem] font-black leading-none text-accent transition duration-300 group-hover:scale-[1.02] lg:text-2xl">
+                    {item.label}
+                  </div>
+                  <div className="mt-1 text-xs leading-snug text-cream/72 transition duration-300 group-hover:text-cream/90 lg:text-sm">
+                    {item.note}
+                  </div>
                 </div>
               ))}
             </div>
           </div>
 
           <div className="relative">
-            <div className="relative z-10 overflow-hidden rounded-[2.5rem] border border-white/10 bg-black/10 p-3 shadow-[0_38px_80px_-32px_rgba(0,0,0,0.95)]">
+            <div className="relative z-10 rounded-[2rem] shadow-[0_38px_80px_-32px_rgba(0,0,0,0.95)]">
               <div className="relative overflow-hidden rounded-[2rem]">
                 <img
                   src={currentHeroSlide.image}
                   alt={currentHeroSlide.title}
-                  className="aspect-[4/5] w-full object-cover transition duration-700 sm:aspect-[5/6]"
+                  className="aspect-[4/5] w-full scale-[1.02] object-cover object-center transition duration-700 sm:aspect-[5/6]"
                   width={1600}
                   height={1200}
                 />
@@ -441,34 +491,39 @@ function Home() {
                   </p>
                 </div>
               </div>
+            </div>
 
-              <div className="mt-4 flex items-center gap-2 px-2">
-                {heroSlides.map((slide, index) => (
-                  <button
-                    key={slide.title}
-                    type="button"
-                    onClick={() => setActiveHeroSlide(index)}
-                    aria-label={slide.title}
-                    className={`h-2.5 rounded-full transition-all ${
-                      index === activeHeroSlide ? "w-10 bg-cream" : "w-2.5 bg-cream/45 hover:bg-cream/70"
-                    }`}
-                  />
-                ))}
-              </div>
+            <div className="absolute -right-7 top-1/2 z-20 hidden -translate-y-1/2 flex-col gap-3 lg:flex xl:-right-10">
+              <button
+                type="button"
+                onClick={() => setActiveHeroSlide((current) => (current - 1 + heroSlides.length) % heroSlides.length)}
+                aria-label="Previous slide"
+                className="grid size-14 place-items-center rounded-full border border-white/20 bg-[#0f463c] text-cream shadow-[0_22px_40px_-22px_rgba(0,0,0,0.7),0_0_0_8px_rgba(245,240,223,0.16)] transition duration-300 motion-safe:animate-[floatArrow_3.2s_ease-in-out_infinite] hover:-translate-y-0.5 hover:brightness-110"
+              >
+                <ArrowRight className="size-5 rotate-180" />
+              </button>
+              <button
+                type="button"
+                onClick={() => setActiveHeroSlide((current) => (current + 1) % heroSlides.length)}
+                aria-label="Next slide"
+                className="grid size-14 place-items-center rounded-full border border-[#fff1a6]/55 bg-[#f1bd1a] text-[#111111] shadow-[0_22px_40px_-22px_rgba(0,0,0,0.7),0_0_0_8px_rgba(245,240,223,0.16)] transition duration-300 motion-safe:animate-[floatArrow_3.2s_ease-in-out_infinite_180ms] hover:translate-y-0.5 hover:brightness-95"
+              >
+                <ArrowRight className="size-5" />
+              </button>
             </div>
             <div className="absolute -inset-4 rounded-[2.5rem] bg-gradient-to-br from-accent/30 via-transparent to-[#2f7a65]/30 blur-3xl" />
-            <div className="hidden overflow-hidden rounded-[2.5rem] border border-white/12 bg-black/20 shadow-[0_38px_80px_-32px_rgba(0,0,0,0.95)]">
+            <div className="hidden absolute -right-3 top-14 w-[34%] overflow-hidden rounded-[1.75rem] bg-[#f8f3e7]/92 shadow-[0_26px_48px_-32px_rgba(0,0,0,0.72)] backdrop-blur">
               <img
-                src={heroEducation}
-                alt="SBGBT rural education initiative"
-                className="aspect-[4/5] w-full object-cover sm:aspect-[5/6]"
-                width={1600}
+                src={nextHeroSlide.image}
+                alt={nextHeroSlide.title}
+                className="aspect-[3/4] w-full object-cover object-center"
+                width={900}
                 height={1200}
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-ink/85 via-ink/10 to-transparent" />
-              <div className="absolute inset-x-0 bottom-0 p-5 text-cream sm:p-6">
-                <div className="text-xs uppercase tracking-[0.2em] text-cream/75">SBGBT</div>
-                <div className="mt-2 font-display text-2xl font-black sm:text-3xl">
+              <div className="absolute inset-0 bg-gradient-to-t from-ink/70 via-ink/5 to-transparent" />
+              <div className="absolute inset-x-0 bottom-0 p-4 text-cream">
+                <div className="text-[10px] uppercase tracking-[0.24em] text-cream/75">Next Focus</div>
+                <div className="mt-2 font-display text-xl font-black leading-tight">
                   ग्रामीण शिक्षा सबलीकरण
                 </div>
                 <p className="mt-2 max-w-md text-sm leading-relaxed text-cream/92">
@@ -548,10 +603,7 @@ function Home() {
               सदस्यता, सार्थक सहयोग और पंजीकरण के प्रमुख विकल्प।
             </h2>
           </div>
-          <div className="rounded-[2rem] border border-[#255247]/12 bg-[linear-gradient(145deg,rgba(255,251,239,0.96),rgba(243,235,210,0.96))] p-5 text-sm leading-relaxed text-earth shadow-[0_26px_50px_-38px_rgba(17,63,52,0.72)]">
-            इन्हीं रास्तों से visitor action लेता है, इसलिए इन cards को थोड़ा ज्यादा bold,
-            bright aur tactile बनाया गया है ताकि homepage static list जैसा न लगे।
-          </div>
+          
         </div>
 
         <div className="mt-8 grid gap-4 md:grid-cols-3">
@@ -593,14 +645,13 @@ function Home() {
         <div className="absolute right-0 top-40 size-72 rounded-full bg-primary/10 blur-3xl" />
         <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-20">
           <div className="grid gap-8 xl:grid-cols-[0.9fr_1.1fr] xl:items-end">
-            <div>
+            <div className="text-white">
               <div className="text-xs font-semibold uppercase tracking-[0.2em] text-primary">हमारी पहलें</div>
-              <h2 className="mt-3 font-display text-3xl font-black text-balance sm:text-4xl lg:text-5xl">
+              <h2 className="mt-3 font-display text-3xl font-black text-accent text-balance sm:text-4xl lg:text-5xl">
                 SBGBT की प्रमुख विकास पहलें।
               </h2>
               <p className="mt-4 max-w-2xl text-muted-foreground">
-                जन जागरूकता से लेकर समाज व राष्ट्र निर्माण प्रयास तक, नीचे दिए गए सभी अभियान
-                live homepage के मूल content पर आधारित हैं।
+                
               </p>
             </div>
 
@@ -646,41 +697,100 @@ function Home() {
               </div>
             </div>
 
-            <div className="grid gap-4 p-4 sm:grid-cols-2 xl:grid-cols-3 sm:p-6">
-              {initiatives.map((item, index) => (
-                <article
-                  key={item.title}
-                  className="group relative overflow-hidden rounded-[1.9rem] border border-border bg-card p-6 transition duration-300 hover:-translate-y-1 hover:border-primary/35 hover:shadow-xl motion-safe:animate-in motion-safe:duration-300 motion-safe:fade-in-0 motion-safe:slide-in-from-bottom-2"
-                  style={{
-                    animationDelay: `${index * 60}ms`,
-                    animationFillMode: "backwards",
-                  }}
-                >
-                  <div
-                    className={`absolute inset-0 bg-gradient-to-br ${item.accent} opacity-0 transition duration-300 group-hover:opacity-100`}
-                  />
-                  <div className="relative">
-                    <div className="flex items-start justify-between gap-4">
-                      <div className="grid size-12 place-items-center rounded-2xl bg-primary/10 text-primary transition duration-300 group-hover:scale-105 group-hover:bg-primary group-hover:text-primary-foreground">
-                        <item.icon className="size-5" />
-                      </div>
-                      <span className="font-display text-3xl font-black text-muted-foreground/20 transition duration-300 group-hover:text-primary/30">
-                        {(index + 1).toString().padStart(2, "0")}
-                      </span>
-                    </div>
-                    <h3 className="mt-5 font-display text-xl font-black transition duration-300 group-hover:text-primary">
-                      {item.title}
-                    </h3>
-                    <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{item.desc}</p>
-                    <div className="mt-5 h-1.5 overflow-hidden rounded-full bg-secondary">
+            <div className="relative p-4 sm:p-6">
+              <button
+                type="button"
+                onClick={() => setActiveInitiativeIndex((current) => (current - 1 + initiatives.length) % initiatives.length)}
+                className="absolute left-0 top-1/2 z-20 hidden size-12 -translate-y-1/2 place-items-center rounded-full bg-primary text-primary-foreground shadow-[0_18px_36px_-22px_rgba(17,63,52,0.72)] transition hover:-translate-y-[52%] hover:brightness-110 lg:grid"
+                aria-label="Previous initiative"
+              >
+                <ArrowRight className="size-4 rotate-180" />
+              </button>
+              <button
+                type="button"
+                onClick={() => setActiveInitiativeIndex((current) => (current + 1) % initiatives.length)}
+                className="absolute right-0 top-1/2 z-20 hidden size-12 -translate-y-1/2 place-items-center rounded-full bg-accent text-accent-foreground shadow-[0_18px_36px_-22px_rgba(214,181,74,0.72)] transition hover:-translate-y-[52%] hover:brightness-95 lg:grid"
+                aria-label="Next initiative"
+              >
+                <ArrowRight className="size-4" />
+              </button>
+
+              <div className="grid items-stretch gap-5 lg:grid-cols-3 lg:px-12">
+                {visibleInitiatives.map(({ item, offset }) => {
+                  const isActive = offset === 0;
+                  const itemIndex = initiatives.findIndex((entry) => entry.title === item.title);
+
+                  return (
+                    <motion.button
+                      key={item.title}
+                      layout
+                      type="button"
+                      onClick={() => setActiveInitiativeIndex(itemIndex)}
+                      onFocus={() => setActiveInitiativeIndex(itemIndex)}
+                      animate={{
+                        scale: isActive ? 1 : 0.97,
+                        y: 0,
+                        opacity: isActive ? 1 : 0.9,
+                      }}
+                      transition={{ type: "spring", stiffness: 110, damping: 24, mass: 1.05 }}
+                      className="group relative min-h-[370px] text-left"
+                    >
                       <div
-                        className="h-full rounded-full bg-gradient-to-r from-primary via-accent to-leaf transition duration-300 group-hover:brightness-110"
-                        style={{ width: `${58 + (index % 4) * 10}%` }}
+                        className="absolute inset-0 bg-center bg-no-repeat"
+                        style={{
+                          backgroundImage: `url(https://charifund.template.wowtheme7.com/assets/images/difference/bg-two.png)`,
+                          backgroundSize: "100% 100%",
+                          filter: isActive ? "hue-rotate(22deg) saturate(1.08)" : "none",
+                        }}
                       />
-                    </div>
-                  </div>
-                </article>
-              ))}
+                      <div
+                        className={`relative mx-auto mt-5 h-[84%] min-h-[310px] w-[75%] overflow-hidden rounded-[34%_31%_36%_33%/24%_24%_30%_30%] border px-6 pb-8 pt-10 shadow-[0_28px_56px_-34px_rgba(16,47,39,0.36)] ${
+                          isActive
+                            ? "border-[#efd5b7] bg-[linear-gradient(180deg,#fbf1e6_0%,#f6e8d8_100%)]"
+                            : "border-[#dde2da] bg-[linear-gradient(180deg,#f8fbf9_0%,#edf1ee_100%)]"
+                        }`}
+                      >
+                        <div className="pointer-events-none absolute inset-3 rounded-[30%_28%_32%_30%/22%_22%_28%_28%] border-[4px] border-white/65" />
+                        <div className="pointer-events-none absolute inset-x-5 top-4 h-5 rounded-full bg-white/55 blur-sm" />
+
+                        <div className="relative flex h-full flex-col items-center text-center">
+                          <motion.div
+                            whileHover={{ rotateY: 180 }}
+                            transition={{ duration: 0.7, ease: "easeInOut" }}
+                            style={{ transformStyle: "preserve-3d" }}
+                            className={`grid size-24 place-items-center rounded-full ${
+                              isActive ? "bg-accent text-accent-foreground" : "bg-primary text-primary-foreground"
+                            } shadow-[0_18px_34px_-18px_rgba(0,0,0,0.35)]`}
+                          >
+                            <item.icon className="size-10" />
+                          </motion.div>
+
+                          <h3 className="mt-8 font-display text-[1.65rem] font-black text-[#173f37]">
+                            {item.title}
+                          </h3>
+                          <p className="mt-4 max-w-[13.5rem] text-[0.96rem] leading-7 text-[#5e6c67]">
+                            {item.desc}
+                          </p>
+                        </div>
+                      </div>
+                    </motion.button>
+                  );
+                })}
+              </div>
+
+              <div className="mt-7 flex justify-center gap-2.5">
+                {initiatives.map((item, index) => (
+                  <button
+                    key={item.title}
+                    type="button"
+                    onClick={() => setActiveInitiativeIndex(index)}
+                    aria-label={item.title}
+                    className={`rounded-full transition-all duration-300 ${
+                      index === activeInitiativeIndex ? "h-2.5 w-12 bg-primary" : "h-2.5 w-2.5 bg-primary/30"
+                    }`}
+                  />
+                ))}
+              </div>
             </div>
           </div>
         </div>
@@ -704,7 +814,7 @@ function Home() {
           <button
             type="button"
             onClick={() => setActiveVideoIndex((current) => (current - 1 + videos.length) % videos.length)}
-            className="absolute left-2 top-1/2 z-20 hidden size-14 -translate-y-1/2 place-items-center rounded-full bg-primary text-primary-foreground shadow-[0_18px_40px_-22px_rgba(17,63,52,0.7)] transition hover:-translate-y-[52%] hover:brightness-110 lg:grid"
+            className="absolute left-4 top-1/2 z-20 hidden size-14 -translate-y-1/2 place-items-center rounded-full bg-primary text-primary-foreground shadow-[0_18px_40px_-22px_rgba(17,63,52,0.7)] transition hover:-translate-y-[52%] hover:brightness-110 lg:grid"
             aria-label="पिछला वीडियो"
           >
             <ArrowRight className="size-5 rotate-180" />
@@ -712,13 +822,13 @@ function Home() {
           <button
             type="button"
             onClick={() => setActiveVideoIndex((current) => (current + 1) % videos.length)}
-            className="absolute right-2 top-1/2 z-20 hidden size-14 -translate-y-1/2 place-items-center rounded-full bg-accent text-accent-foreground shadow-[0_18px_40px_-22px_rgba(214,181,74,0.6)] transition hover:-translate-y-[52%] hover:brightness-95 lg:grid"
+            className="absolute right-4 top-1/2 z-20 hidden size-14 -translate-y-1/2 place-items-center rounded-full bg-accent text-accent-foreground shadow-[0_18px_40px_-22px_rgba(214,181,74,0.6)] transition hover:-translate-y-[52%] hover:brightness-95 lg:grid"
             aria-label="अगला वीडियो"
           >
             <ArrowRight className="size-5" />
           </button>
 
-          <div className="space-y-5 lg:hidden">
+          <div className="grid items-center gap-4 px-14 lg:grid-cols-3 lg:gap-5 lg:px-20">
             {visibleVideos.map(({ video, offset }) => {
               const isActive = offset === 0;
               const cardIndex = videos.findIndex((item) => item.title === video.title);
@@ -726,44 +836,52 @@ function Home() {
               return (
                 <Dialog key={video.title}>
                   <DialogTrigger asChild>
-                    <button
+                    <motion.button
+                      layout
                       type="button"
                       onClick={() => setActiveVideoIndex(cardIndex)}
                       onFocus={() => setActiveVideoIndex(cardIndex)}
-                      className={`group relative min-h-[320px] w-full overflow-hidden rounded-[2.4rem] border text-left transition-all duration-700 ${
+                      animate={{
+                        scale: isActive ? 1.035 : 0.965,
+                        y: isActive ? -8 : 0,
+                        opacity: isActive ? 1 : 0.88,
+                      }}
+                      transition={{ type: "spring", stiffness: 165, damping: 23, mass: 0.92 }}
+                      className={`group relative min-h-[320px] w-full overflow-hidden rounded-[2.4rem] border text-left ${
                         isActive
-                          ? "border-primary/20 shadow-[0_32px_70px_-34px_rgba(17,63,52,0.55)]"
-                          : "border-primary/10 opacity-85 shadow-[0_20px_48px_-34px_rgba(17,63,52,0.32)]"
+                          ? "min-h-[344px] border-primary/20 shadow-[0_32px_70px_-34px_rgba(17,63,52,0.55)]"
+                          : "border-primary/10 shadow-[0_20px_48px_-34px_rgba(17,63,52,0.32)]"
                       }`}
                     >
                       <img
                         src={video.image}
                         alt={video.title}
-                        className={`absolute inset-0 h-full w-full object-cover transition duration-700 ${
-                          isActive ? "grayscale-0" : "grayscale"
+                        className={`absolute inset-0 h-full w-full object-cover transition duration-700 ease-out ${
+                          isActive ? "scale-100 grayscale-0" : "scale-[0.985] grayscale"
                         }`}
                         width={1200}
                         height={900}
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-ink/85 via-ink/15 to-transparent" />
-                      <div className="absolute inset-0 grid place-items-center">
-                        <div
-                          className={`grid place-items-center rounded-full transition duration-500 ${
-                            isActive
-                              ? "size-24 bg-primary text-primary-foreground shadow-[0_20px_44px_-18px_rgba(17,63,52,0.72)]"
-                              : "size-14 bg-cream/90 text-primary"
-                          }`}
-                        >
-                          <ArrowRight className={isActive ? "size-10 -rotate-45" : "size-6"} strokeWidth={2} />
+                      <div className="absolute inset-0 bg-gradient-to-t from-ink/78 via-ink/12 to-transparent" />
+                      {isActive ? (
+                        <div className="absolute inset-x-0 top-[22%] z-10 flex justify-center">
+                          <div className="group/play relative grid size-12 place-items-center rounded-full bg-primary text-primary-foreground shadow-[0_20px_42px_-18px_rgba(17,63,52,0.72)]">
+                            <div className="absolute inset-0 rounded-full border border-white/15" />
+                            <div className="absolute inset-[-8px] rounded-full border border-primary/18 opacity-0 transition duration-500 group-hover:opacity-100" />
+                            <div className="absolute inset-[-18%] rounded-full bg-[conic-gradient(from_0deg,rgba(255,255,255,0)_0deg,rgba(255,255,255,0.42)_60deg,rgba(255,255,255,0)_140deg,rgba(255,255,255,0)_360deg)] opacity-0 transition duration-700 group-hover:opacity-100 group-hover:rotate-180" />
+                            <ArrowRight className="relative z-10 size-8 -rotate-45 transition duration-500 group-hover/play:translate-x-0.5 group-hover/play:-translate-y-0.5" strokeWidth={2.2} />
+                          </div>
                         </div>
-                      </div>
-                      <div className="absolute inset-x-0 bottom-0 z-10 p-6 text-cream">
+                      ) : null}
+                      <div className="absolute inset-x-4 bottom-4 z-10 rounded-[1.35rem] border border-white/14 bg-[linear-gradient(180deg,rgba(38,29,24,0.6),rgba(23,18,16,0.76))] p-5 text-cream shadow-[0_20px_40px_-28px_rgba(0,0,0,0.85)]">
+                        <div className="relative">
                         <div className="text-[11px] uppercase tracking-[0.22em] text-cream/70">{video.tag}</div>
-                        <div className={`mt-3 font-display font-black leading-tight ${isActive ? "text-3xl" : "text-xl"}`}>
+                        <div className={`mt-2 font-display font-black leading-tight ${isActive ? "text-[1.1rem] sm:text-[1.22rem]" : "text-[0.92rem] sm:text-[0.98rem]"}`}>
                           {video.title}
                         </div>
                       </div>
-                    </button>
+                      </div>
+                    </motion.button>
                   </DialogTrigger>
                   <DialogContent className="max-w-4xl border-border bg-background p-3 sm:p-4">
                     <DialogHeader>
@@ -785,7 +903,7 @@ function Home() {
             })}
           </div>
 
-          <div className="relative hidden h-[32rem] lg:block">
+          <div className="hidden">
             {visibleVideos.map(({ video, offset }) => {
               const isActive = offset === 0;
               const cardIndex = videos.findIndex((item) => item.title === video.title);
@@ -797,55 +915,42 @@ function Home() {
                       type="button"
                       onClick={() => setActiveVideoIndex(cardIndex)}
                       onFocus={() => setActiveVideoIndex(cardIndex)}
-                      className={`group absolute top-1/2 overflow-hidden rounded-[2.5rem] border text-left transition-all duration-1000 ease-in-out ${
+                      className={`group relative min-h-[28rem] overflow-hidden rounded-[1.8rem] border text-left transition-all duration-500 ${
                         isActive
-                          ? "left-1/2 z-20 h-[29rem] w-[36%] border-primary/20 shadow-[0_32px_70px_-34px_rgba(17,63,52,0.55)]"
-                          : offset < 0
-                            ? "left-[5%] z-10 h-[24rem] w-[28%] border-primary/10 opacity-85 shadow-[0_20px_48px_-34px_rgba(17,63,52,0.32)]"
-                            : "right-[5%] z-10 h-[24rem] w-[28%] border-primary/10 opacity-85 shadow-[0_20px_48px_-34px_rgba(17,63,52,0.32)]"
+                          ? "border-primary/18 shadow-[0_28px_58px_-34px_rgba(17,63,52,0.42)]"
+                          : "border-primary/10 shadow-[0_18px_40px_-34px_rgba(17,63,52,0.24)]"
                       }`}
-                      style={{
-                        transform: isActive
-                          ? "translate(-50%, -50%) scale(1)"
-                          : offset < 0
-                            ? "translateY(-44%) rotate(-4deg) scale(0.94)"
-                            : "translateY(-44%) rotate(4deg) scale(0.94)",
-                      }}
                     >
                       <img
                         src={video.image}
                         alt={video.title}
-                        className={`absolute inset-0 h-full w-full object-cover transition duration-1000 ${
-                          isActive ? "grayscale-0" : "grayscale-[0.2]"
+                        className={`absolute inset-0 h-full w-full object-cover transition duration-500 group-hover:scale-[1.03] ${
+                          isActive ? "grayscale-0" : "grayscale-[0.12]"
                         }`}
                         width={1200}
                         height={900}
                       />
-                      <div className={`absolute inset-0 ${
-                        isActive
-                          ? "bg-gradient-to-t from-ink/85 via-ink/10 to-transparent"
-                          : "bg-gradient-to-t from-black/85 via-black/35 to-black/20"
-                      }`} />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/78 via-black/16 to-transparent" />
 
                       {isActive ? (
-                        <div className="absolute inset-0 grid place-items-center">
-                          <div className="grid size-28 place-items-center rounded-full bg-primary text-primary-foreground shadow-[0_20px_44px_-18px_rgba(17,63,52,0.72)] transition duration-500 group-hover:scale-105">
-                            <ArrowRight className="size-12 -rotate-45" strokeWidth={2.1} />
+                        <>
+                          <div className="absolute inset-0 grid place-items-center">
+                            <div className="grid size-24 place-items-center rounded-full bg-primary text-primary-foreground shadow-[0_22px_48px_-20px_rgba(17,63,52,0.72)] transition duration-500 group-hover:scale-105">
+                              <ArrowRight className="size-10 -rotate-45" strokeWidth={2.1} />
+                            </div>
                           </div>
-                        </div>
+                          <div className="absolute inset-x-0 bottom-8 z-10 px-8 text-center text-cream">
+                            <div className="text-[11px] uppercase tracking-[0.22em] text-cream/72">{video.tag}</div>
+                            <div className="mt-3 font-display text-4xl font-black leading-tight">{video.title}</div>
+                            <div className="mt-2 text-sm text-cream/78">वीडियो कहानी देखें</div>
+                          </div>
+                        </>
                       ) : (
-                        <div className="absolute bottom-8 left-8 grid size-10 place-items-center rounded-full bg-primary/85 text-primary-foreground shadow-lg">
-                          <span className="size-2 rounded-full bg-accent" />
+                        <div className="absolute inset-x-0 bottom-6 z-10 px-5 text-cream">
+                          <div className="text-[10px] uppercase tracking-[0.18em] text-cream/64">{video.tag}</div>
+                          <div className="mt-2 font-display text-[1.65rem] font-black leading-tight">{video.title}</div>
                         </div>
                       )}
-
-                      <div className={`absolute inset-x-0 bottom-0 z-10 p-6 text-cream ${isActive ? "text-center" : "text-left"}`}>
-                        <div className="text-[11px] uppercase tracking-[0.22em] text-cream/70">{video.tag}</div>
-                        <div className={`mt-3 font-display font-black leading-tight ${isActive ? "text-3xl sm:text-4xl" : "text-2xl"}`}>
-                          {video.title}
-                        </div>
-                        <div className="mt-2 text-sm text-cream/75">{isActive ? "वीडियो कहानी देखें" : "प्रेरक झलक"}</div>
-                      </div>
                     </button>
                   </DialogTrigger>
                   <DialogContent className="max-w-4xl border-border bg-background p-3 sm:p-4">
@@ -882,14 +987,18 @@ function Home() {
           </div>
         </div>
       </section>
-      <section className="bg-[linear-gradient(180deg,#f3ecd5_0%,#f7f2e6_100%)]">
-        <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-20">
+      <section className="relative overflow-hidden bg-[linear-gradient(135deg,#083a32_0%,#0d4b3e_48%,#08352d_100%)] text-cream">
+        <div className="absolute inset-0 opacity-[0.22]">
+          <div className="h-full w-full bg-[length:42px_24px] bg-[linear-gradient(135deg,transparent_33%,rgba(255,255,255,0.065)_33%,rgba(255,255,255,0.065)_37%,transparent_37%),linear-gradient(225deg,transparent_33%,rgba(255,255,255,0.065)_33%,rgba(255,255,255,0.065)_37%,transparent_37%)]" />
+        </div>
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.06),transparent_34%),radial-gradient(circle_at_25%_0%,rgba(214,181,74,0.08),transparent_24%)]" />
+        <div className="relative mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-20">
           <div className="flex flex-wrap items-end justify-between gap-4">
             <div>
               <div className="text-xs font-semibold uppercase tracking-[0.2em] text-primary">मीडिया कवरेज</div>
               <h2 className="mt-3 font-display text-3xl font-black sm:text-4xl">समाचारों और मीडिया उल्लेखों में SBGBT।</h2>
             </div>
-            <Link to="/media" className="inline-flex items-center gap-2 text-sm font-semibold text-primary transition hover:gap-3">
+            <Link to="/media" className="inline-flex items-center gap-2 text-sm font-semibold text-accent transition hover:gap-3 hover:text-white">
               सभी देखें <ArrowRight className="size-4" />
             </Link>
           </div>
@@ -898,18 +1007,18 @@ function Home() {
             {mediaItems.map((item, index) => (
               <article
                 key={item.title}
-                className={`rounded-[1.75rem] border border-[#255247]/10 bg-[linear-gradient(145deg,rgba(255,251,244,0.96),rgba(242,236,216,0.96))] p-6 transition hover:border-primary/35 hover:shadow-lg ${
+                className={`rounded-[1.75rem] border border-white/10 bg-[linear-gradient(145deg,rgba(255,255,255,0.1),rgba(255,255,255,0.06))] p-6 text-cream shadow-[0_22px_48px_-34px_rgba(0,0,0,0.45)] transition hover:border-accent/35 hover:bg-[linear-gradient(145deg,rgba(255,255,255,0.13),rgba(255,255,255,0.08))] hover:shadow-lg ${
                   index === 0 ? "md:col-span-2" : ""
                 }`}
               >
-                <div className="flex flex-wrap items-center gap-3 text-xs">
-                  <span className="inline-flex items-center gap-2 rounded-full bg-primary/10 px-3 py-1 font-semibold text-primary">
+                <div className="flex flex-wrap items-center gap-3 text-xs text-cream/68">
+                  <span className="inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1 font-semibold text-accent">
                     <Newspaper className="size-3.5" />
                     {item.category}
                   </span>
                   <span className="text-muted-foreground">प्रकाशित तिथि: {item.date}</span>
                 </div>
-                <h3 className="mt-4 font-hi text-lg font-semibold leading-relaxed">{item.title}</h3>
+                <h3 className="mt-4 font-hi text-lg font-semibold leading-relaxed text-white">{item.title}</h3>
               </article>
             ))}
           </div>
@@ -957,39 +1066,93 @@ function Home() {
         </div>
       </section>
 
-      <section id="donate" className="relative overflow-hidden">
-        <div className="absolute inset-0 bg-[linear-gradient(135deg,#0d3f36_0%,#0f5248_48%,#163a30_100%)]" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_10%,rgba(214,181,74,0.16),transparent_24%),radial-gradient(circle_at_84%_76%,rgba(62,150,119,0.2),transparent_30%)]" />
-        <div className="absolute left-1/2 top-0 h-full w-px -translate-x-1/2 bg-cream/10" />
-        <div className="relative mx-auto max-w-6xl px-4 py-16 text-center text-primary-foreground sm:px-6 sm:py-20">
-          <span className="inline-flex items-center gap-2 rounded-full bg-cream/15 px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] backdrop-blur">
-            <HandHeart className="size-3.5" />
+      <section
+        id="donate"
+        className="relative overflow-hidden bg-[#fbf7ef] text-[#143c35]"
+      >
+        <div
+          className="absolute inset-0 bg-repeat opacity-[0.82]"
+          style={{ backgroundImage: `url(${blogBgPaper})`, backgroundSize: "cover" }}
+        />
+        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.38),rgba(255,255,255,0.12))]" />
+        <div className="absolute left-[4%] top-1/2 hidden -translate-y-1/2 xl:block">
+          <img
+            src={heroHeartSprade}
+            alt=""
+            aria-hidden="true"
+            className="hero-heartbeat h-48 w-48 object-contain opacity-40"
+            width={192}
+            height={192}
+          />
+        </div>
+        <div className="relative mx-auto max-w-6xl px-4 py-16 text-center sm:px-6 sm:py-20">
+          <span className="inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-primary">
+            <img
+              src={heroHeartSprade}
+              alt=""
+              aria-hidden="true"
+              className="hero-heartbeat h-5 w-5 object-contain"
+              width={20}
+              height={20}
+            />
             सार्थक सहयोग
           </span>
-          <h2 className="mt-5 font-display text-4xl font-black text-balance sm:text-5xl lg:text-6xl">
+          <h2 className="mt-5 font-display text-4xl font-black text-balance text-[#143c35] sm:text-5xl lg:text-6xl">
             SBGBT से जुड़ें और परिवर्तन के भागीदार बनें।
           </h2>
-          <p className="mx-auto mt-5 max-w-2xl text-primary-foreground/80">
+          <p className="mx-auto mt-5 max-w-2xl text-[#35544c]/82">
             शिक्षा, पर्यावरण, महिला सशक्तिकरण, स्वास्थ्य और ग्रामीण जन-जागरूकता अभियानों को
             आपकी भागीदारी और सार्थक सहयोग की जरूरत है।
           </p>
           <div className="mt-8 flex flex-wrap justify-center gap-3">
-            <Link
+            {/* <Link
               to="/donate"
-              className="inline-flex items-center gap-2 rounded-full bg-accent px-6 py-3 text-sm font-bold text-accent-foreground shadow-xl transition hover:-translate-y-0.5 hover:brightness-95"
+              className="inline-flex items-center gap-2 rounded-full bg-accent px-6 py-3 text-sm font-bold text-accent-foreground shadow-[0_18px_38px_-20px_rgba(241,189,26,0.75)] transition hover:-translate-y-0.5 hover:brightness-95"
             >
               <HandHeart className="size-4" />
               दान करें
-            </Link>
+            </Link> */}
             <Link
               to="/contact"
-              className="inline-flex items-center gap-2 rounded-full border border-cream/40 bg-cream/10 px-6 py-3 text-sm font-semibold backdrop-blur transition hover:bg-cream/20"
+              className="inline-flex items-center gap-2 rounded-full border border-[#143c35]/16 bg-white/72 px-6 py-3 text-sm font-semibold text-[#143c35] shadow-sm backdrop-blur transition hover:bg-white"
             >
               सदस्य बनें
             </Link>
           </div>
+           
         </div>
       </section>
+
+      <button
+        type="button"
+        aria-label="Back to top"
+        onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+        className="group fixed bottom-5 right-5 z-50 grid size-[72px] place-items-center rounded-full bg-white/90 shadow-[0_22px_40px_-24px_rgba(20,60,53,0.5)] ring-1 ring-[#143c35]/10 backdrop-blur transition duration-300 hover:-translate-y-1 hover:bg-white sm:bottom-7 sm:right-7"
+      >
+        <svg
+          className="absolute inset-0 -rotate-90"
+          viewBox="0 0 72 72"
+          aria-hidden="true"
+        >
+          <circle cx="36" cy="36" r="18" fill="none" stroke="rgba(20,60,53,0.12)" strokeWidth="3.5" />
+          <circle
+            cx="36"
+            cy="36"
+            r="18"
+            fill="none"
+            stroke="#f1bd1a"
+            strokeWidth="3.5"
+            strokeLinecap="round"
+            strokeDasharray="113.1"
+            strokeDashoffset={progressOffset}
+            className="transition-[stroke-dashoffset] duration-300 ease-out"
+          />
+        </svg>
+        <span className="relative flex h-11 w-11 items-center justify-center overflow-hidden rounded-full bg-[#143c35] text-white shadow-[0_14px_30px_-16px_rgba(20,60,53,0.72)]">
+          <ArrowDown className="absolute size-5 -translate-y-10 rotate-180 transition duration-300 group-hover:translate-y-0" />
+          <ArrowDown className="absolute size-5 rotate-180 transition duration-300 group-hover:translate-y-10" />
+        </span>
+      </button>
 
       <SiteFooter />
     </div>
