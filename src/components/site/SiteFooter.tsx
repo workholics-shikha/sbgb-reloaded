@@ -129,7 +129,7 @@ export function SiteFooter() {
             />
             <button
               type="button"
-              className="inline-flex h-14 items-center justify-center gap-2 rounded-2xl bg-[#f0c84b] px-7 text-base font-bold text-[#13362e] shadow-[0_18px_38px_-20px_rgba(240,200,75,0.85)] transition hover:-translate-y-0.5 hover:brightness-105"
+              className="inline-flex h-14 items-center justify-center gap-2 rounded-2xl bg-[#f1bd1a] px-7 text-base font-bold text-[#13362e] shadow-[0_18px_38px_-20px_rgba(240,200,75,0.85)] transition hover:-translate-y-0.5 hover:brightness-105"
             >
               Subscribe <ArrowUpRight className="size-4" />
             </button>

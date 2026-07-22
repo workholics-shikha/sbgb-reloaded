@@ -29,6 +29,8 @@ import {
 import { SiteHeader } from "@/components/site/SiteHeader";
 import { SiteFooter } from "@/components/site/SiteFooter";
 import blogBgPaper from "@/assets/blog-bg-paper.png";
+import aboutHeroRealOne from "@/assets/about-user-signs.jpg";
+import aboutHeroRealTwo from "@/assets/about-user-volunteers.jpg";
 import heroEducation from "@/assets/hero-education.jpg";
 import heroDividerRough from "@/assets/hero-divider-rough.png";
 import heroHeartSprade from "@/assets/hero-heart-sprade.png";
@@ -41,6 +43,10 @@ import galVillage from "@/assets/gallery-village.jpg";
 import initiativeBgOne from "@/assets/initiative-bg-one.png";
 import initiativeBgTwo from "@/assets/initiative-bg-two.png";
 import initiativeBgThree from "@/assets/initiative-bg-three.png";
+import mediaSbgb01 from "@/assets/media-sbgb-01.jpg";
+import mediaSbgb02 from "@/assets/media-sbgb-02.jpg";
+import mediaSbgb03 from "@/assets/media-sbgb-03.jpg";
+import mediaSbgb04 from "@/assets/media-sbgb-04.jpg";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -354,6 +360,139 @@ const mediaItemVisualsHindi = [
     summary:
       "महिला नेतृत्व, आत्मविश्वास और सार्थक सामाजिक परिवर्तन से जुड़ी उल्लेखनीय उपलब्धियों को इस रिपोर्ट में उभारा गया है।",
   },
+] as const;
+
+const mediaMonthLabels: Record<string, string> = {
+  "01": "Jan",
+  "02": "Feb",
+  "03": "Mar",
+  "04": "Apr",
+  "05": "May",
+  "06": "Jun",
+  "07": "Jul",
+  "08": "Aug",
+  "09": "Sep",
+  "10": "Oct",
+  "11": "Nov",
+  "12": "Dec",
+  january: "Jan",
+  february: "Feb",
+  march: "Mar",
+  april: "Apr",
+  may: "May",
+  june: "Jun",
+  july: "Jul",
+  august: "Aug",
+  september: "Sep",
+  october: "Oct",
+  november: "Nov",
+  december: "Dec",
+  "जनवरी": "Jan",
+  "फ़रवरी": "Feb",
+  "फरवरी": "Feb",
+  "मार्च": "Mar",
+  "अप्रैल": "Apr",
+  "मई": "May",
+  "जून": "Jun",
+  "जुलाई": "Jul",
+  "अगस्त": "Aug",
+  "सितंबर": "Sep",
+  "अक्टूबर": "Oct",
+  "नवंबर": "Nov",
+  "दिसंबर": "Dec",
+};
+
+function getMediaDateParts(date: string) {
+  const compactDate = date.trim().replace(/\s+/g, " ");
+  const slashMatch = compactDate.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/);
+
+  if (slashMatch) {
+    const [, day, month, year] = slashMatch;
+    return {
+      day: day.padStart(2, "0"),
+      month: mediaMonthLabels[month.padStart(2, "0")] ?? month.padStart(2, "0"),
+      year,
+    };
+  }
+
+  const monthFirstMatch = compactDate.match(/^(.+?)\s+(\d{1,2})\s+(\d{4})$/);
+  if (monthFirstMatch) {
+    const [, monthLabel, day, year] = monthFirstMatch;
+    return {
+      day: day.padStart(2, "0"),
+      month: mediaMonthLabels[monthLabel.toLowerCase()] ?? monthLabel.slice(0, 3),
+      year,
+    };
+  }
+
+  const dayFirstMatch = compactDate.match(/^(\d{1,2})\s+(.+?)\s+(\d{4})$/);
+  if (dayFirstMatch) {
+    const [, day, monthLabel, year] = dayFirstMatch;
+    return {
+      day: day.padStart(2, "0"),
+      month: mediaMonthLabels[monthLabel.toLowerCase()] ?? monthLabel.slice(0, 3),
+      year,
+    };
+  }
+
+  return {
+    day: compactDate.slice(0, 2),
+    month: compactDate.slice(2, 5),
+    year: compactDate.slice(-4),
+  };
+}
+
+const latestMediaItemsHindi = [
+  {
+    date: "जुलाई 18 2018",
+    title: "गांवों में पौधारोपण अभियान चलाया जाता है",
+    category: "सोच बदलो गांव बदलो यात्रा",
+  },
+  {
+    date: "जुलाई 18 2018",
+    title: "चंबल के बीहड़ों से निकले देश का मॉडल विलेज",
+    category: "ग्रामीण विकास: जागरूकता लेख",
+  },
+  {
+    date: "20 जून 2018",
+    title: "हर गांव धनौरा की तरह आदर्श बने- नन्नूमल पहाड़िया",
+    category: "सोच बदलो गांव बदलो यात्रा",
+  },
+  {
+    date: "जुलाई 18 2018",
+    title: "सोच बदलो – गाँव बदलो की जनजागृति ने दी स्मार्ट विलेज धनौरा को विकसित गाँव की पहचान",
+    category: "सोच बदलो गांव बदलो यात्रा",
+  },
+] as const;
+
+const latestMediaItemVisualsHindi = [
+  {
+    image: mediaSbgb01,
+    summary:
+      "दैनिक भास्कर में प्रकाशित यह कवरेज गांवों में चल रहे पौधारोपण अभियान और उससे जुड़ी जनभागीदारी को प्रमुखता से सामने लाती है।",
+  },
+  {
+    image: mediaSbgb02,
+    summary:
+      "यह रिपोर्ट चंबल क्षेत्र से उभरे मॉडल विलेज की पहचान और राष्ट्रीय स्तर पर उसके प्रभाव को रेखांकित करती है।",
+  },
+  {
+    image: mediaSbgb03,
+    summary:
+      "धौलपुर भास्कर में प्रकाशित यह लेख धनौरा गांव को आदर्श गांव बनाने की दिशा में चल रहे विचार और प्रेरणा को सामने लाता है।",
+  },
+  {
+    image: mediaSbgb04,
+    summary:
+      "हिंदुस्तान एक्सप्रेस की यह खबर स्मार्ट विलेज धनौरा को विकसित गांव की पहचान मिलने और जनजागृति अभियान के असर को दर्शाती है।",
+  },
+] as const;
+
+const mediaCoverageLabels = [
+  "पर्यावरण अभियान",
+  "मॉडल विलेज पहल",
+  "प्रेरक संवाद",
+  "जनजागृति अभियान",
 ] as const;
 
 const galleryItems = [
@@ -920,6 +1059,142 @@ function Home() {
         </div>
       </motion.section>
 
+      <motion.section
+        {...sectionRevealProps}
+        className="relative overflow-hidden bg-[linear-gradient(180deg,#fbf7ee_0%,#f6f0e0_100%)]"
+      >
+        <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/15 to-transparent" />
+        <div className="absolute left-[-4rem] top-12 size-44 rounded-full bg-accent/12 blur-3xl" />
+        <div className="absolute right-[-5rem] bottom-10 size-56 rounded-full bg-primary/10 blur-3xl" />
+        <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-20">
+          <div className="grid gap-12 xl:grid-cols-[1.02fr_1.08fr] xl:items-center">
+            <motion.div
+              whileHover={{ y: -5 }}
+              transition={{ duration: 0.35, ease: "easeOut" }}
+              className="relative mx-auto w-full max-w-[38rem] xl:mx-0"
+            >
+              <div className="relative min-h-[28rem] sm:min-h-[33rem]">
+                <div className="absolute -left-4 top-8 h-28 w-28 rounded-full border border-white/30 bg-white/16 blur-2xl" />
+                <div className="absolute right-8 top-4 h-24 w-24 rounded-full border border-accent/18 bg-accent/12 blur-2xl" />
+                <motion.div
+                  whileHover={{ scale: 1.015, y: -4 }}
+                  transition={{ duration: 0.35, ease: "easeOut" }}
+                  className="about-oval-reveal about-glass-shine absolute left-0 top-0 z-0 h-[22rem] w-[18rem] overflow-hidden rounded-[999px] border border-white/80 bg-white p-2 shadow-[0_38px_74px_-34px_rgba(14,63,51,0.42)] sm:h-[31rem] sm:w-[23rem]"
+                >
+                  <img
+                    src={aboutHeroRealOne}
+                    alt="SBGBT community members together"
+                    className="h-full w-full rounded-[999px] object-cover"
+                    width={900}
+                    height={1200}
+                  />
+                </motion.div>
+                <motion.div
+                  whileHover={{ scale: 1.02, y: -6 }}
+                  transition={{ duration: 0.35, ease: "easeOut" }}
+                  className="about-oval-reveal about-glass-shine about-oval-reveal-delayed absolute bottom-0 right-0 z-20 h-[16rem] w-[14rem] overflow-hidden rounded-[999px] border border-white/80 bg-white p-2 shadow-[0_38px_74px_-34px_rgba(14,63,51,0.45)] sm:h-[24rem] sm:w-[19rem]"
+                >
+                  <img
+                    src={aboutHeroRealTwo}
+                    alt="SBGBT grassroots activity"
+                    className="h-full w-full rounded-[999px] object-cover"
+                    width={900}
+                    height={900}
+                  />
+                </motion.div>
+                <motion.div
+                  whileHover={{ y: -4, scale: 1.03 }}
+                  transition={{ duration: 0.3, ease: "easeOut" }}
+                  className="absolute left-[10rem] top-[13rem] z-30 rounded-[1.25rem] border border-white/60 bg-[linear-gradient(135deg,rgba(255,255,255,0.7),rgba(255,255,255,0.34))] px-5 py-4 text-center text-primary shadow-[0_28px_48px_-24px_rgba(14,63,51,0.34)] backdrop-blur-xl sm:left-[13.5rem] sm:top-[23rem]"
+                >
+                  <div className="font-display text-4xl font-black leading-none">25+</div>
+                  <div className="mt-2 text-sm font-semibold leading-snug">वर्षों का अनुभव</div>
+                  <div className="mt-3 h-px bg-primary/12" />
+                  <div className="mt-3 text-[11px] font-medium uppercase tracking-[0.18em] text-primary/68">Community Trust</div>
+                </motion.div>
+              </div>
+            </motion.div>
+
+            <div className="relative">
+              <div className="inline-flex items-center gap-2 rounded-full border border-white/60 bg-white/65 px-4 py-2 text-sm font-semibold text-primary shadow-[0_16px_30px_-20px_rgba(14,63,51,0.32)] backdrop-blur-xl">
+                <span className="size-2 rounded-full bg-accent" />
+                हमारे बारे में
+              </div>
+              <h2 className="mt-5 max-w-3xl font-display text-[2.4rem] font-black leading-[1.14] text-primary text-balance sm:text-[3.2rem] lg:text-[2rem]">
+                सेवा, सहभागिता और ग्राम उत्थान से
+                <span className="block text-earth">आशा का मजबूत अभियान।</span>
+              </h2>
+              <p className="mt-5 max-w-2xl text-base leading-relaxed text-muted-foreground sm:text-lg">
+                सोच बदलो गांव बदलो टीम ग्रामीण क्षेत्रों में शिक्षा, जन-जागरूकता, महिला सशक्तिकरण,
+                पर्यावरण संरक्षण और सामुदायिक सहयोग के माध्यम से सकारात्मक बदलाव की निरंतर दिशा
+                बना रही है।
+              </p>
+
+              <motion.div
+                whileHover={{ y: -4 }}
+                transition={{ duration: 0.32, ease: "easeOut" }}
+                className="mt-8 grid gap-5 rounded-[2rem] border border-white/55 bg-[linear-gradient(135deg,rgba(255,255,255,0.72),rgba(255,255,255,0.38))] p-5 shadow-[0_30px_70px_-38px_rgba(14,63,51,0.34)] backdrop-blur-xl sm:grid-cols-[1fr_15rem] sm:p-6"
+              >
+                <div className="relative">
+                  <div className="absolute -right-4 top-4 h-20 w-20 rounded-full bg-accent/10 blur-2xl" />
+                  <div className="grid size-14 place-items-center rounded-full bg-accent/90 text-accent-foreground shadow-[0_14px_26px_-14px_rgba(241,189,26,0.7)]">
+                    <Users2 className="size-6" />
+                  </div>
+                  <h3 className="mt-5 font-display text-2xl font-black text-primary">समुदाय के साथ विकास</h3>
+                  <div className="mt-4 h-px w-full bg-primary/10" />
+                  <div className="mt-5 space-y-3 text-muted-foreground">
+                    <div className="flex items-start gap-3">
+                      <span className="mt-1 grid size-5 shrink-0 place-items-center rounded-full bg-accent/20 text-earth">
+                        <BadgeCheck className="size-3.5" />
+                      </span>
+                      <p className="text-sm leading-relaxed sm:text-base">
+                        स्थानीय ज़रूरतों को समझकर शिक्षा, संवाद और सहयोग आधारित पहलें चलाई जाती हैं।
+                      </p>
+                    </div>
+                    <div className="flex items-start gap-3">
+                      <span className="mt-1 grid size-5 shrink-0 place-items-center rounded-full bg-accent/20 text-earth">
+                        <BadgeCheck className="size-3.5" />
+                      </span>
+                      <p className="text-sm leading-relaxed sm:text-base">
+                        युवा, महिलाएं और ग्रामीण परिवार बदलाव की प्रक्रिया में सक्रिय भागीदार बनते हैं।
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div className="overflow-hidden rounded-[1.5rem] border border-white/40 bg-white/20 p-1.5 shadow-[0_24px_44px_-28px_rgba(14,63,51,0.38)] backdrop-blur">
+                  <img
+                    src={galVillage}
+                    alt="SBGBT outreach in rural community"
+                    className="h-full w-full rounded-[1.15rem] object-cover transition duration-500 hover:scale-[1.03]"
+                    width={700}
+                    height={900}
+                  />
+                </div>
+              </motion.div>
+
+              <div className="mt-7 flex flex-wrap items-center gap-4 border-t border-primary/10 pt-7">
+                <Link
+                  to="/about"
+                  className="inline-flex items-center gap-2 rounded-xl bg-accent px-6 py-3 text-sm font-semibold text-accent-foreground shadow-[0_18px_30px_-18px_rgba(241,189,26,0.78)] transition duration-300 hover:-translate-y-0.5 hover:brightness-[0.98]"
+                >
+                  हमारे बारे में
+                  <ArrowRight className="size-4" />
+                </Link>
+                <Link
+                  to="/activities"
+                  className="inline-flex items-center gap-3 rounded-xl border border-primary/18 bg-transparent px-4 py-3 text-sm font-semibold text-primary transition duration-300 hover:-translate-y-0.5 hover:border-primary/30 hover:bg-white/35"
+                >
+                  <span className="grid size-12 place-items-center rounded-full border border-primary/20 bg-transparent text-primary shadow-[0_16px_28px_-18px_rgba(14,63,51,0.22)]">
+                    <BookOpen className="size-5" />
+                  </span>
+                  हमारे कार्यक्रम देखें
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+      </motion.section>
+
 
       <motion.section
         {...sectionRevealProps}
@@ -1299,9 +1574,7 @@ function Home() {
             <div className="max-w-3xl">
               <div className="text-xs font-semibold uppercase tracking-[0.2em] text-accent">मीडिया कवरेज</div>
               <h2 className="mt-3 font-display text-3xl font-black text-white sm:text-4xl">समाचारों और मीडिया उल्लेखों में SBGBT।</h2>
-              <p className="mt-3 max-w-2xl text-sm leading-7 text-cream/74 sm:text-[15px]">
-                Community impact stories, regional mentions, and field headlines in a more editorial showcase.
-              </p>
+            
             </div>
             <Link to="/media" className="inline-flex items-center gap-2 text-sm font-semibold text-accent transition hover:gap-3 hover:text-white">
               सभी देखें <ArrowRight className="size-4" />
@@ -1312,7 +1585,7 @@ function Home() {
             <div className="news-ticker-track flex min-w-max items-center gap-8 px-5">
               {Array.from({ length: 2 }).map((_, loopIndex) => (
                 <div key={loopIndex} className="flex items-center gap-8">
-                  {mediaItemsHindi.map((item) => (
+                  {latestMediaItemsHindi.map((item) => (
                     <span key={`${loopIndex}-${item.title}`} className="inline-flex items-center gap-3 whitespace-nowrap">
                       <span className="h-1.5 w-1.5 rounded-full bg-accent" />
                       {item.category}
@@ -1324,56 +1597,61 @@ function Home() {
           </div>
 
           <div className="mt-7 grid gap-4 lg:grid-cols-2">
-            {mediaItemsHindi.map((item, index) => (
-              <article
-                key={item.title}
-                className="news-float group relative min-h-[320px] overflow-hidden rounded-[1.7rem] border border-white/10 bg-[linear-gradient(145deg,rgba(255,255,255,0.12),rgba(255,255,255,0.05))] text-cream shadow-[0_20px_44px_-34px_rgba(0,0,0,0.52)] transition duration-500 hover:-translate-y-1 hover:border-accent/30 hover:shadow-[0_26px_50px_-32px_rgba(0,0,0,0.6)]"
-                style={index > 0 ? { animationDelay: `${index * 180}ms` } : undefined}
-              >
-                <div className="grid min-h-full h-full md:grid-cols-[0.95fr_1.05fr]">
-                  <div className="relative min-h-[220px] overflow-hidden md:min-h-full">
-                    <img
-                      src={mediaItemVisualsHindi[index % mediaItemVisualsHindi.length].image}
-                      alt={item.title}
-                      className="absolute inset-0 h-full w-full object-cover transition duration-700 group-hover:scale-105"
-                      width={1200}
-                      height={900}
-                    />
-                    <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(8,28,24,0.1),rgba(8,28,24,0.68))]" />
-                    {index === 0 ? (
-                      <div className="absolute inset-x-5 bottom-5 rounded-[1.35rem] border border-white/10 bg-black/24 p-4 backdrop-blur-sm">
-                        <div className="text-[10px] font-semibold uppercase tracking-[0.28em] text-accent">Front Page Highlight</div>
-                        <div className="mt-2 font-hi text-lg font-semibold leading-relaxed text-white">
-                          {item.title}
+            {latestMediaItemsHindi.map((item, index) => (
+              (() => {
+                const dateParts = getMediaDateParts(item.date);
+
+                return (
+                  <article
+                    key={item.title}
+                    className="news-float group relative min-h-[320px] overflow-hidden rounded-[1.7rem] border border-white/10 bg-[linear-gradient(145deg,rgba(255,255,255,0.12),rgba(255,255,255,0.05))] text-cream shadow-[0_20px_44px_-34px_rgba(0,0,0,0.52)] transition duration-500 hover:-translate-y-1 hover:border-accent/30 hover:shadow-[0_26px_50px_-32px_rgba(0,0,0,0.6)]"
+                    style={index > 0 ? { animationDelay: `${index * 180}ms` } : undefined}
+                  >
+                    <div className="grid min-h-full h-full md:grid-cols-[0.95fr_1.05fr]">
+                      <div className="relative min-h-[220px] overflow-hidden md:min-h-full">
+                        <img
+                          src={latestMediaItemVisualsHindi[index % latestMediaItemVisualsHindi.length].image}
+                          alt={item.title}
+                          className="absolute inset-0 h-full w-full object-cover transition duration-700 group-hover:scale-105"
+                          width={1200}
+                          height={900}
+                        />
+                        <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(8,28,24,0.1),rgba(8,28,24,0.68))]" />
+                         
                         </div>
+                      <div className="relative flex min-h-full flex-col p-5 sm:p-6">
+                        <div className="absolute right-4 top-4 h-14 w-14 rounded-full bg-accent/10 blur-2xl" />
+                        <div className="relative flex items-start justify-between gap-3">
+                          <span className="inline-flex items-center gap-2 rounded-full bg-[#0d4b3e]/78 px-3 py-1 font-semibold text-accent backdrop-blur">
+                            <Newspaper className="size-3.5" />
+                            {mediaCoverageLabels[index % mediaCoverageLabels.length]}
+                          </span>
+                          <div className="relative h-[74px] w-[74px] shrink-0">
+                            <div className="absolute left-[8px] top-[4px] h-[48px] w-[52px] rounded-[1.2rem_1.35rem_1rem_1.45rem] bg-[#6eb29f] rotate-[18deg]" />
+                            <div className="absolute right-[4px] top-[6px] h-[46px] w-[50px] rounded-[1.35rem_1rem_1.35rem_1rem] bg-accent/85 -rotate-[18deg] opacity-90" />
+                            <div className="absolute inset-[10px] flex flex-col items-center justify-center rounded-[1.3rem_1.45rem_1.1rem_1.5rem] bg-[#145446] text-[#fbf7ef] shadow-[0_18px_30px_-18px_rgba(0,0,0,0.42)] ring-1 ring-white/10">
+                              <span className="text-[1.35rem] font-black leading-none">{dateParts.day}</span>
+                              <span className="mt-0.5 text-[0.72rem] font-semibold uppercase leading-none tracking-[0.06em]">
+                                {dateParts.month}
+                              </span>
+                              <span className="mt-1 text-[0.52rem] font-medium leading-none text-[#fbf7ef]/72">
+                                {dateParts.year}
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                        <h3 className="relative mt-4 font-hi text-base font-semibold leading-relaxed text-white drop-shadow-[0_2px_10px_rgba(0,0,0,0.18)] sm:text-[1.08rem]">
+                          {item.title}
+                        </h3>
+                        <p className="relative mt-3 text-sm leading-6 text-cream/76 md:mt-4">
+                          {latestMediaItemVisualsHindi[index % latestMediaItemVisualsHindi.length].summary}
+                        </p>
+                      
                       </div>
-                    ) : null}
-                  </div>
-                  <div className="relative flex min-h-full flex-col p-5 sm:p-6">
-                    <div className="absolute right-4 top-4 h-14 w-14 rounded-full bg-accent/10 blur-2xl" />
-                    <div className="relative flex flex-wrap items-center gap-2 text-[11px] uppercase tracking-[0.18em]">
-                      <span className="inline-flex items-center gap-2 rounded-full bg-[#0d4b3e]/78 px-3 py-1 font-semibold text-accent backdrop-blur">
-                        <Newspaper className="size-3.5" />
-                        {item.category}
-                      </span>
-                      <span className="rounded-full bg-white/8 px-3 py-1 text-cream/66 backdrop-blur">{item.date}</span>
                     </div>
-                    {index === 0 ? (
-                      <div className="mt-4 h-px w-full bg-white/10 md:hidden" />
-                    ) : (
-                      <h3 className="relative mt-4 font-hi text-base font-semibold leading-relaxed text-white drop-shadow-[0_2px_10px_rgba(0,0,0,0.18)] sm:text-[1.08rem]">
-                        {item.title}
-                      </h3>
-                    )}
-                    <p className={`relative ${index === 0 ? "mt-5 max-w-xl text-sm leading-7 text-cream/82 md:mt-6" : "mt-3 text-sm leading-6 text-cream/76"}`}>
-                      {mediaItemVisualsHindi[index % mediaItemVisualsHindi.length].summary}
-                    </p>
-                    <div className={`relative mt-auto inline-flex items-center gap-2 pt-5 font-semibold text-accent ${index === 0 ? "text-sm" : "text-xs uppercase tracking-[0.16em]"}`}>
-                      {index === 0 ? "Featured story" : "Read feature"} <ArrowRight className="size-4 transition group-hover:translate-x-1" />
-                    </div>
-                  </div>
-                </div>
-              </article>
+                  </article>
+                );
+              })()
             ))}
           </div>
         </div>

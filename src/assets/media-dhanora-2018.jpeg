@@ -1,0 +1,1593 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>SBGBT </title>
+    <!-- website icon -->
+    <link rel="icon" href="https://www.sbgbteam.com/public/public/frontassets/img/logo.png" type="image/x-icon">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
+    <link href="https://fonts.googleapis.com/css2?family=Hind:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Bootstrap core CSS -->
+    <!-- <link rel="stylesheet" href="https://www.sbgbteam.com/public/public/frontassets/css/bootstrap.min.css.map">
+    <link rel="stylesheet" href="https://www.sbgbteam.com/public/public/frontassets/css/bootstrap.css.map"> -->
+    <link rel="stylesheet" href="https://www.sbgbteam.com/public/public/frontassets/css/bootstrap.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker.css"
+        rel="stylesheet" />
+    <!-- slick slider styles -->
+    <link rel="stylesheet" href="https://www.sbgbteam.com/public/public/frontassets/css/slick-theme.css">
+    <link rel="stylesheet" href="https://www.sbgbteam.com/public/public/frontassets/css/slick.css">
+
+    <!-- Your custom styles -->
+    <link rel="stylesheet" href="https://www.sbgbteam.com/public/public/frontassets/css/custom.css?v=1784723730">
+    <link rel="stylesheet" href="https://www.sbgbteam.com/public/public/frontassets/css/responsive.css?v=1784723730">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.css">
+
+    <script type="text/javascript">
+        var base_url = "https://www.sbgbteam.com/public";
+    </script>
+
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-MLJYQ7XMYP"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+
+        gtag('config', 'G-MLJYQ7XMYP');
+    </script>
+    <!-- End Global site tag (gtag.js) - Google Analytics -->
+
+</head>
+
+<body>
+    <style type="text/css">
+        .skiptranslate span {
+            display: none !important;
+        }
+
+        .goog-te-gadget {
+            color: #fff !important;
+            margin-top: 9px;
+            height: 26px;
+            overflow: hidden;
+        }
+
+        .dropdown-menu.show a:hover {
+            color: #000;
+        }
+
+        .view_pass {
+            position: absolute;
+            right: 36px;
+            top: 46px;
+
+        }
+    </style>
+    <!-- ================  Header start here ================= -->
+    <header class="top-header noPrint">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-5 col-xs-8 pr-sm-0">
+                    <ul class="nav">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/cdn-cgi/l/email-protection#88fbeaefeafcede9e5c8efe5e9e1e4a6ebe7e5"><i class="far fa-envelope"></i>
+                                <span class="__cf_email__" data-cfemail="13607174716776727e53747e727a7f3d707c7e">[email&#160;protected]</span></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="tel:+919314408609"><i class="fas fa-mobile-alt"></i> +91
+                                9314408609</a>
+                        </li>
+                        <!--  <li class="nav-item">
+                            <a class="nav-link" href="tel:9314408609"><i class="fas fa-mobile-alt"></i> 9314408609</a>
+                        </li> -->
+
+                    </ul>
+                </div>
+                <div class="col-md-7 col-xs-4 pl-sm-0">
+                    <ul class="nav  justify-content-end social-nav">
+                        <li class="nav-item sm-col">
+                            <a class="nav-link facebook" target="_blank"
+                                href="https://www.facebook.com/groups/1869919303259444/"><i
+                                    class="fas fa-users"></i></a>
+                        </li>
+                        <li class="nav-item sm-col">
+                            <a class="nav-link facebook" target="_blank" href="https://www.facebook.com/sbgbteam/"><i
+                                    class="fab fa-facebook-square"></i></a>
+                        </li>
+                        <li class="nav-item sm-col">
+                            <a class="nav-link twitter" target="_blank" href="https://twitter.com/sbgbteam"><i
+                                    class="fab fa-twitter-square"></i></a>
+                        </li>
+                        <li class="nav-item sm-col">
+                            <a class="nav-link instagram" target="_blank" href="https://www.instagram.com/sbgbteam/"><i
+                                    class="fab fa-instagram"></i></a>
+                        </li>
+                        <li class="nav-item sm-col">
+                            <a class="nav-link youtube" target="_blank"
+                                href="https://www.youtube.com/channel/UCOQAQS7J5cKft2mlwjpZn-A"><i
+                                    class="fab fa-youtube-square"></i></a>
+                        </li>
+                        <li class="nav-item sm-col">
+                            <a class="nav-link blogspot" target="_blank"
+                                href="https://drsatyapalsinghmeena.blogspot.com/"><i class="fas fa-rss-square"></i></a>
+                        </li>
+                        <li class="nav-item">
+                            <div id="google_translate_element"></div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </header>
+    <header class="main-header noPrint">
+        <!-- main header -->
+        <div class="container-fluid">
+            <div class="row md-header">
+                <div class="col-lg-5 col-md-5 pr-md-0 d-flex align-items-center">
+                    <!-- left Links -->
+                    <ul class="nav">
+                        <li class="nav-item">
+                            <a class="nav-link" href="https://www.sbgbteam.com/public">होम</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="https://www.sbgbteam.com/public/about-us">हमारे बारे में</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="https://www.sbgbteam.com/public/ongoing-events">हमारे कार्य</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="https://www.sbgbteam.com/public/stories">सफलता की कहानी</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="https://www.sbgbteam.com/public/patrikas">उत्थान पत्रिका</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-lg-2 col-md-2">
+                    <div class="header-logo">
+                        <a class="navbar-brand" href="https://www.sbgbteam.com/public">
+                            <img src="https://www.sbgbteam.com/public/public/frontassets/img/logo.png" alt="">
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-5 col-md-5 pl-md-0 d-flex align-items-center justify-content-end">
+                    <!-- right Links -->
+                    <ul class="nav justify-content-end">
+                        
+                          <li class="nav-item">
+                                <a class="nav-link login-link" href="https://www.sbgbteam.com/public/galleries">
+                                गेलरी</a>
+                            </li>    
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbardrop2"
+                                data-toggle="dropdown">
+                                <span>मीडिया कॉर्नर</span></a>
+                            <div class="dropdown-menu">
+
+                                <a class="nav-link" href="https://www.sbgbteam.com/public/articles">जागरूकता लेख </a>
+                                <a class="nav-link" href="https://www.sbgbteam.com/public/patrikas"> उत्थान पत्रिका</a>
+                                <a class="nav-link" href="https://www.sbgbteam.com/public/medias">प्रिंट मीडिया</a>
+                                <a class="nav-link" href="https://www.sbgbteam.com/public/medias">इलेकट्रोनिक मीडिया</a>
+                            </div>
+
+                        </li>
+
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbardrop3"
+                                data-toggle="dropdown">
+                                <span>संपर्क</span></a>
+                            <div class="dropdown-menu">
+                                <a class="nav-link" href="https://www.sbgbteam.com/public/contact-us">सामान्य जानकारी</a>
+
+                                <a class="nav-link" href="https://www.sbgbteam.com/public/csr-partnership">CSR पार्ट्नर्शिप</a>
+                                <a class="nav-link" href="https://www.sbgbteam.com/public/donation">दान करें</a>
+
+                            </div>
+                        </li>
+
+
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbardrop"
+                                data-toggle="dropdown">
+                                <span>रजिस्ट्रेशन</span></a>
+                            <div class="dropdown-menu">
+                                <a class="nav-link" href="https://www.sbgbteam.com/public/talent-felicitation-ceremony">प्रतिभा-सम्मान
+                                    समागम रजिस्ट्रेशन</a>
+                                <a class="nav-link" href="https://www.sbgbteam.com/public/utthan-coaching-organizations">उत्थान कोचिंग
+                                    रजिस्ट्रेशन</a>
+                                <a class="nav-link" href="https://www.sbgbteam.com/public/sbgbp-registration">शिक्षा पाओ ज्ञान बढ़ाओ
+                                    प्रतियोगिता (SPGBP) रजिस्ट्रेशन</a>
+                            </div>
+                        </li>
+
+
+                                                    <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbardrop1"
+                                    data-toggle="dropdown">
+                                    <span>लॉगिन करें</span> </a>
+                                <div class="dropdown-menu">
+                                    <a class="nav-link" href="https://www.sbgbteam.com/public/sbgbt-manager-login">SBGBT प्रबंधक
+                                        लॉगिन</a>
+                                    <a class="nav-link" href="https://www.sbgbteam.com/public/coaching-login">उत्थान कोचिंग प्रबंधक
+                                        लॉगिन</a>
+                                    <a class="nav-link" href="https://www.sbgbteam.com/public/manager-login">SPGBP प्रबंधक लॉगिन</a>
+                                    <a class="nav-link" href="https://www.sbgbteam.com/public/user-login">SBGBT सदस्य लॉगिन</a>
+                                </div>
+                            </li>
+                        
+                    </ul>
+                </div>
+            </div>
+            <div class="row mb-header">
+                <nav class="navbar navbar-expand-lg navbar-dark">
+                    <a class="navbar-brand" href="https://www.sbgbteam.com/public">
+                        <img src="https://www.sbgbteam.com/public/public/frontassets/img/logo.png" alt="">
+                    </a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse"
+                        data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false"
+                        aria-label="Toggle navigation">
+                        <div class="toggler-icon"></div>
+                        <div class="toggler-icon"></div>
+                        <div class="toggler-icon"></div>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarCollapse">
+                        <ul class="navbar-nav mr-auto">
+                            <li class="nav-item">
+                                <a class="nav-link closebtn p-0" href="javascript:void(0)">x</a>
+                            </li>
+                            <li class="nav-item active">
+                                <a class="nav-link" href="https://www.sbgbteam.com/public">होम</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="https://www.sbgbteam.com/public/about-us">हमारे बारे में</a>
+                            </li>
+                             <li class="nav-item">
+                               <a class="nav-link" href="https://www.sbgbteam.com/public/sbgbp-registration">शिक्षा पाओ-ज्ञान बढ़ाओ प्रतियोगिता (SPGBP) रजिस्ट्रेशन</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="https://www.sbgbteam.com/public/ongoing-events">हमारे कार्य</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="https://www.sbgbteam.com/public/stories">सफलता की कहानी</a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="https://www.sbgbteam.com/public/patrikas">उत्थान पत्रिका</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link login-link" href="https://www.sbgbteam.com/public/galleries">
+                                गेलरी</a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbardrop2"
+                                    data-toggle="dropdown">
+                                    <span>मीडिया कॉर्नर</span></a>
+                                <div class="dropdown-menu">
+                                    <a class="nav-link" href="https://www.sbgbteam.com/public/articles">जागरूकता लेख </a>
+                                    <a class="nav-link" href="https://www.sbgbteam.com/public/patrikas"> उत्थान पत्रिका</a>
+                                    <a class="nav-link" href="https://www.sbgbteam.com/public/medias">प्रिंट मीडिया</a>
+                                    <a class="nav-link" href="https://www.sbgbteam.com/public/medias">इलेकट्रोनिक मीडिया</a>
+                                </div>
+                            </li>
+
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbardrop3"
+                                    data-toggle="dropdown">
+                                    <span>संपर्क</span></a>
+                                <div class="dropdown-menu">
+                                    <a class="nav-link" href="https://www.sbgbteam.com/public/contact-us">सामान्य जानकारी</a>
+
+                                    <a class="nav-link" href="https://www.sbgbteam.com/public/csr-partnership">CSR पार्ट्नर्शिप</a>
+                                    <a class="nav-link" href="https://www.sbgbteam.com/public/donation">दान करें</a>
+
+                                </div>
+                            </li>
+
+
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbardrop"
+                                    data-toggle="dropdown">
+                                    <span>रजिस्ट्रेशन</span></a>
+                                <div class="dropdown-menu">
+                                    <a class="nav-link" href="https://www.sbgbteam.com/public/utthan-coaching-organizations">उत्थान
+                                        कोचिंग रजिस्ट्रेशन</a>
+                                    <a class="nav-link" href="https://www.sbgbteam.com/public/sbgbp-registration">शिक्षा पाओ ज्ञान बढ़ाओ
+                                        प्रतियोगिता (SPGBP) रजिस्ट्रेशन</a>
+                                </div>
+                            </li>
+
+
+                                                            <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" id="navbardrop1"
+                                        data-toggle="dropdown">
+                                        <span>लॉगिन करें</span> </a>
+                                    <div class="dropdown-menu">
+                                        <a class="nav-link" href="https://www.sbgbteam.com/public/sbgbt-manager-login">SBGBT प्रबंधक
+                                            लॉगिन</a>
+                                        <a class="nav-link" href="https://www.sbgbteam.com/public/coaching-login">उत्थान कोचिंग प्रबंधक
+                                            लॉगिन</a>
+                                        <a class="nav-link" href="https://www.sbgbteam.com/public/manager-login">SPGBP प्रबंधक लॉगिन</a>
+                                        <a class="nav-link" href="https://www.sbgbteam.com/public/user-login">SBGBT सदस्य लॉगिन</a>
+                                    </div>
+                                </li>
+                                                    </ul>
+                        <ul class="nav social_links_nav">
+                            <li class="nav-item">
+                                <a class="nav-link facebook" target="_blank"
+                                    href="https://www.facebook.com/groups/1869919303259444/"><i
+                                        class="fas fa-users"></i></a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link facebook" target="_blank"
+                                    href="https://www.facebook.com/groups/1869919303259444/"><i
+                                        class="fab fa-facebook-square"></i></a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link twitter" target="_blank" href="https://twitter.com/sbgbteam"><i
+                                        class="fab fa-twitter-square"></i></a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link instagram" target="_blank"
+                                    href="https://www.instagram.com/sbgbteam/"><i class="fab fa-instagram"></i></a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link youtube" target="_blank"
+                                    href="https://www.youtube.com/channel/UCOQAQS7J5cKft2mlwjpZn-A"><i
+                                        class="fab fa-youtube-square"></i></a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link blogspot" target="_blank"
+                                    href="https://drsatyapalsinghmeena.blogspot.com/"><i
+                                        class="fas fa-rss-square"></i></a>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+        </div>
+        <!-- top header end -->
+    </header>
+    <!-- login modal -->
+    <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <!-- <div class="modal-body-head text-center mb-4">
+                    <h5 class="modal-title" id="loginModalLabel">लॉग इन करें</h5>
+                </div> -->
+                    <form action="https://www.sbgbteam.com/public/utthan-ragistration-login" method="post" id="utthan-ragistration">
+                        <input type="hidden" name="_token" value="hdpODAIcfIxu7KEfLushHi1yKHlVUAl7IgjQVsBT">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="msglogin"></div>
+                                <div class="form-group">
+                                    <input type="text" class="form-control numbers"
+                                        placeholder="अपना ईमेल दर्ज करें" id="cmobile" name="email" required>
+                                    <span class="mobile_error"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <input type="password" class="form-control cotpcheck"
+                                        placeholder="पासवर्ड दर्ज करें" id="cotp" name="password" required>
+                                    <span class="otpmesssageshow"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group text-center">
+                                    <!--  <button type="button" class="btn main-btn" onclick="window.location.href='profile.php'">Log in</button> -->
+                                    <button type="submit" class="btn main-btn cfd">लॉग इन करें</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- login modal end -->
+
+    <!-- ================= Header end here =================== -->
+
+    <style type="text/css">
+div#demo5 {
+    top: -260px;
+}
+</style>
+    <!-- =============== section-1 start here =============== -->
+     <section class="home-section1">
+         <div class="container pt-3 pb-3">
+            <marquee class="h5 text-danger fw-bold" direction="left" scrollamount="7" style="background: #fffbe6; border: 1px solid #ffe58f; border-radius: 5px; padding: 10px;">
+                शिक्षा पाओ-ज्ञान बढ़ाओ प्रतियोगिता (SPGBP):2025-26 रजिस्ट्रेशन प्रारंभ - अधिक जानकारी के लिए नीचे दिए गए नोटिफिकेशन और Annexures(परिशिष्ट) डाउनलोड करें।
+            </marquee>
+            <div class="row mt-3 justify-content-center">
+                <div class="col-auto">
+                    <a href="https://www.sbgbteam.com/public/public/adminassets/SPGBP2025-26Notification-1.pdf" class="btn btn-outline-danger btn-sm" download>
+                        SPGBP 2025-26 Notification
+                    </a>
+                </div>
+                <div class="col-auto">
+                    <a href="https://www.sbgbteam.com/public/public/adminassets/Annexure-I-doc.pdf" class="btn btn-outline-primary btn-sm" download>
+                        Annexure-I (Instructions)
+                    </a>
+                </div>
+                <div class="col-auto">
+                    <a href="https://www.sbgbteam.com/public/public/adminassets/Annexure-II_photo.pdf" class="btn btn-outline-success btn-sm" download>
+                        Annexure-II (Photo Sample)
+                    </a>
+                </div>
+                <div class="col-auto">
+                    <a href="https://www.sbgbteam.com/sbgbp-registration" class="btn btn-outline-warning btn-sm" target="_blank">
+                        Click for Registration
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="slider autoplay">
+
+            
+            <!-- slide 1 -->
+            <!-- <div>
+                <div class="hs-slide-wrapper1">
+                    <div class="slide-img-box">
+                        <img class="ms-slide-img" src="https://www.sbgbteam.com/public/public/slider/02-25-2021_0415pm35923.png" alt="">
+                        <img class="ms-slide-img" src="https://www.sbgbteam.com/public/public/frontassets/img/banner_new_img1.jpg" alt="">
+                    </div>
+                     <div id="demo5" class="carousel slide" data-ride="carousel">
+                        <div class="carousel-inner">
+                                                                                                                                           <div class="carousel-item text-center  active ">
+                                <h2 class="h2-tittle h-text">जन जागरूकता</h2>
+                            </div> 
+                                                                                     <div class="carousel-item text-center ">
+                                <h2 class="h2-tittle h-text">ग्रामीण शिक्षा सबलीकरण</h2>
+                            </div> 
+                                                                                     <div class="carousel-item text-center ">
+                                <h2 class="h2-tittle h-text">SBGBT उत्थान संकल्पना</h2>
+                            </div> 
+                                                                                     <div class="carousel-item text-center ">
+                                <h2 class="h2-tittle h-text">महिला सशक्तिकरण</h2>
+                            </div> 
+                                                                                     <div class="carousel-item text-center ">
+                                <h2 class="h2-tittle h-text">स्मार्ट विलेज योजना</h2>
+                            </div> 
+                                                                                     <div class="carousel-item text-center ">
+                                <h2 class="h2-tittle h-text">पंचायती राज सुदृढ़ीकरण प्रयास</h2>
+                            </div> 
+                                                                                     <div class="carousel-item text-center ">
+                                <h2 class="h2-tittle h-text">आत्मनिर्भर व समृद्ध गांव संकल्पना</h2>
+                            </div> 
+                                                                                     <div class="carousel-item text-center ">
+                                <h2 class="h2-tittle h-text">पर्यावरण संरक्षण व संवर्धन कार्यक्रम</h2>
+                            </div> 
+                                                                                     <div class="carousel-item text-center ">
+                                <h2 class="h2-tittle h-text">जन स्वस्थ - राष्ट्र स्वस्थ</h2>
+                            </div> 
+                                                                                     <div class="carousel-item text-center ">
+                                <h2 class="h2-tittle h-text">समाज व राष्ट्र निर्माण प्रयास</h2>
+                            </div> 
+                                                                                 </div>
+                     </div>
+                    <div class="hs-slide-content-box">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-6 col-xs-6 text-right">
+                                    <button type="button" class="donate-link" onclick="window.location.href='#'">SBGBT सदस्य बनें</button>
+                                </div>
+                                <div class="col-md-6 col-xs-6">
+                                    <button class="donate-link" onclick="window.location.href='https://www.sbgbteam.com/public/contact-us'">दान करें</button>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> -->
+            <!-- slide 2 -->
+            <div>
+                <div class="hs-slide-wrapper1">
+                    <div class="slide-img-box">
+                        <img class="ms-slide-img" src="https://www.sbgbteam.com/public/public/frontassets/img/bannerimage.jpg"  alt="">
+                    </div>
+                    <div class="hs-slide-content-box">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-6 col-xs-6 text-right">
+                                    <button type="button" class="donate-link" onclick="window.location.href='https://www.sbgbteam.com/public/new-member-joining'">SBGBT सदस्य बनें</button>
+                                </div>
+                                <div class="col-md-6 col-xs-6">
+                                    <button class="donate-link" onclick="window.location.href='https://www.sbgbteam.com/public/donation'">दान करें</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div class="hs-slide-wrapper1">
+                    <div class="slide-img-box">
+                        <img class="ms-slide-img" src="https://www.sbgbteam.com/public/public/frontassets/img/banner_new_img8.jpg" alt="">
+                    </div>
+                    <div class="hs-slide-content-box">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-6 col-xs-6 text-right">
+                                    <button type="button" class="donate-link" onclick="window.location.href='https://www.sbgbteam.com/public/new-member-joining'">SBGBT सदस्य बनें</button>
+                                </div>
+                                <div class="col-md-6 col-xs-6">
+                                    <button class="donate-link" onclick="window.location.href='https://www.sbgbteam.com/public/donation'">दान करें</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- slide 3 -->
+            <div>
+                <div class="hs-slide-wrapper1">
+                    <div class="slide-img-box">
+                        <img class="ms-slide-img" src="https://www.sbgbteam.com/public/public/frontassets/img/banner_new_img7.jpg" alt="">
+                    </div>
+                    <div class="hs-slide-content-box">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-6 col-xs-6 text-right">
+                                    <button type="button" class="donate-link" onclick="window.location.href='https://www.sbgbteam.com/public/new-member-joining'">SBGBT सदस्य बनें</button>
+                                </div>
+                                <div class="col-md-6 col-xs-6">
+                                    <button class="donate-link" onclick="window.location.href='https://www.sbgbteam.com/public/contact-us'">दान करें</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- slide 4 -->
+            <div>
+                <div class="hs-slide-wrapper1">
+                    <div class="slide-img-box">
+                        <img class="ms-slide-img" src="https://www.sbgbteam.com/public/public/frontassets/img/banner_new_img6.jpg" alt="">
+                    </div>
+                    <div class="hs-slide-content-box">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-6 col-xs-6 text-right">
+                                    <button type="button" class="donate-link" onclick="window.location.href='https://www.sbgbteam.com/public/new-member-joining'">SBGBT सदस्य बनें</button>
+                                </div>
+                                <div class="col-md-6 col-xs-6">
+                                    <button class="donate-link" onclick="window.location.href='https://www.sbgbteam.com/public/contact-us'">दान करें</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- slide 5 -->
+            <div>
+                <div class="hs-slide-wrapper1">
+                    <div class="slide-img-box">
+                        <img class="ms-slide-img" src="https://www.sbgbteam.com/public/public/frontassets/img/banner_new_img5.jpg" alt="">
+                    </div>
+                    <div class="hs-slide-content-box">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-6 col-xs-6 text-right">
+                                    <button type="button" class="donate-link" onclick="window.location.href='https://www.sbgbteam.com/public/new-member-joining'">SBGBT सदस्य बनें</button>
+                                </div>
+                                <div class="col-md-6 col-xs-6">
+                                    <button class="donate-link" onclick="window.location.href='https://www.sbgbteam.com/public/contact-us'">दान करें</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- slide 6 -->
+            <div>
+                <div class="hs-slide-wrapper1">
+                    <div class="slide-img-box">
+                        <img class="ms-slide-img" src="https://www.sbgbteam.com/public/public/frontassets/img/banner_new_img4.jpg" alt="">
+                    </div>
+                    <div class="hs-slide-content-box">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-6 col-xs-6 text-right">
+                                    <button type="button" class="donate-link" onclick="window.location.href='#'">SBGBT सदस्य बनें</button>
+                                </div>
+                                <div class="col-md-6 col-xs-6">
+                                    <button class="donate-link" onclick="window.location.href='https://www.sbgbteam.com/public/contact-us'">दान करें</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- slide 7 -->
+            <div>
+                <div class="hs-slide-wrapper1">
+                    <div class="slide-img-box">
+                        <img class="ms-slide-img" src="https://www.sbgbteam.com/public/public/frontassets/img/banner_new_img9.jpg" alt="">
+                    </div>
+                    <div class="hs-slide-content-box">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-6 col-xs-6 text-right">
+                                    <button type="button" class="donate-link" onclick="window.location.href='#'">SBGBT सदस्य बनें</button>
+                                </div>
+                                <div class="col-md-6 col-xs-6">
+                                    <button class="donate-link" onclick="window.location.href='https://www.sbgbteam.com/public/contact-us'">दान करें</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- slide 8 -->
+            <div>
+                <div class="hs-slide-wrapper1">
+                    <div class="slide-img-box">
+                        <img class="ms-slide-img" src="https://www.sbgbteam.com/public/public/frontassets/img/banner_new_img10.jpg" alt="">
+                    </div>
+                    <div class="hs-slide-content-box">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-6 col-xs-6 text-right">
+                                    <button type="button" class="donate-link" onclick="window.location.href='#'">SBGBT सदस्य बनें</button>
+                                </div>
+                                <div class="col-md-6 col-xs-6">
+                                    <button class="donate-link" onclick="window.location.href='https://www.sbgbteam.com/public/contact-us'">दान करें</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- slide 9 -->
+            <div>
+                <div class="hs-slide-wrapper1">
+                    <div class="slide-img-box">
+                        <img class="ms-slide-img" src="https://www.sbgbteam.com/public/public/frontassets/img/banner_new_img3.jpg" alt="">
+                    </div>
+                    <div class="hs-slide-content-box">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-6 col-xs-6 text-right">
+                                    <button type="button" class="donate-link" onclick="window.location.href='#'">SBGBT सदस्य बनें</button>
+                                </div>
+                                <div class="col-md-6 col-xs-6">
+                                    <button class="donate-link" onclick="window.location.href='https://www.sbgbteam.com/public/contact-us'">दान करें</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- slide 10 -->
+            <div>
+                <div class="hs-slide-wrapper1">
+                    <div class="slide-img-box">
+                        <img class="ms-slide-img" src="https://www.sbgbteam.com/public/public/frontassets/img/banner_new_img2.jpg" alt="">
+                    </div>
+                    <div class="hs-slide-content-box">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-6 col-xs-6 text-right">
+                                    <button type="button" class="donate-link" onclick="window.location.href='#'">SBGBT सदस्य बनें</button>
+                                </div>
+                                <div class="col-md-6 col-xs-6">
+                                    <button class="donate-link" onclick="window.location.href='https://www.sbgbteam.com/public/contact-us'">दान करें</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- slide 11 -->
+            <div>
+                <div class="hs-slide-wrapper1">
+                    <div class="slide-img-box">
+                        <img class="ms-slide-img" src="https://www.sbgbteam.com/public/public/frontassets/img/banner_new_img1.jpg" alt="">
+                    </div>
+                    <div class="hs-slide-content-box">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-6 col-xs-6 text-right">
+                                    <button type="button" class="donate-link" onclick="window.location.href='#'">SBGBT सदस्य बनें</button>
+                                </div>
+                                <div class="col-md-6 col-xs-6">
+                                    <button class="donate-link" onclick="window.location.href='https://www.sbgbteam.com/public/contact-us'">दान करें</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- slide 11 end -->
+        </div>
+    </section>
+    <!-- =============== section-1 end here ================= -->
+
+    <!-- =============== section-2 start here =============== -->
+    <section class="home-section2">
+
+        <div class="container-fluid">
+           
+            <!-- row 1 -->
+            <div class="row">
+
+                
+                    <div class="col-md-6 col-xs-6 home_img_wrap">
+                    <div class="right-img-wrapper1">
+                        <img src="https://www.sbgbteam.com/public/public/activity/02-25-2021_0538pm74783.png" alt="">
+                    </div>
+                  </div>
+
+                    <div class="col-md-6 col-xs-6">
+                    <div class="right-content-wrapper">
+                        <img class="left-arrow-img" src="https://www.sbgbteam.com/public/public/frontassets/img/12.png" alt="">
+
+                        <a href="https://www.sbgbteam.com/public/activity-details/Z2FsbGVyeQ==/NA==">
+                            <h2 class="h2-tittle">जन जागरूकता</h2>
+
+                            <p class="para-desc">
+                             इसके अंतर्गत टीम सरकारी योजनाओं (केंद्र /राज्य /नाबार्ड ) की जानकारी लोगों तक पहुंचाने और उनके लाभ लाभार्थियों तक पहुँचाने में सरकारी एजेंसीज का सहयोग करना| स्वयं सहायता समूह , किसान समूह ,महिला मंडल , युवा संगठन एवं चौपाल जैसी संगठनों को स्थापित करके लोगों को नियमित रूप... 
+                                
+                            </p>
+                          
+                        </a>
+                    </div>
+                </div>
+                
+
+
+                            <div class="col-md-6 col-xs-6">
+                    <div class="left-content-wrapper">
+                        <img class="right-arrow-img" src="https://www.sbgbteam.com/public/public/frontassets/img/13.png" alt="">
+                        <a href="https://www.sbgbteam.com/public/activity-details/ZXZlbnQ=/NQ==">
+                            <h2 class="h2-tittle">ग्रामीण शिक्षा सबलीकरण</h2>
+                            <p class="para-desc">
+                            सोच बदलो गांव बदलो संस्था द्वारा ग्रामीण प्रतिभाओं को निखारने, उनको प्रोत्साहित करने उनका मार्गदर्शन करने और गरीब और जरूरतमंद विद्यार्थियों को आर्थिक सहयोग प्रदान करने के उद्देश्य से इस प्रतियोगिता का आयोजन किया जाता है। ग्रामीण बच्चों में स्वस्थ प्रतिस्पर्धा और... 
+                            </p>
+                           
+                        </a>
+                    </div>
+                </div>
+                <div class="col-md-6 col-xs-6 home_img_wrap">
+                    <div class="right-img-wrapper1">
+                        <img src="https://www.sbgbteam.com/public/public/activity/02-26-2021_0124pm45427.png" alt="">
+                    </div>
+                </div>
+
+                 
+                    <div class="col-md-6 col-xs-6 home_img_wrap">
+                    <div class="right-img-wrapper1">
+                        <img src="https://www.sbgbteam.com/public/public/activity/02-26-2021_0129pm27774.png" alt="">
+                    </div>
+                  </div>
+
+                    <div class="col-md-6 col-xs-6">
+                    <div class="right-content-wrapper">
+                        <img class="left-arrow-img" src="https://www.sbgbteam.com/public/public/frontassets/img/12.png" alt="">
+
+                        <a href="https://www.sbgbteam.com/public/activity-details/ZXZlbnQ=/Ng==">
+                            <h2 class="h2-tittle">SBGBT उत्थान संकल्पना</h2>
+
+                            <p class="para-desc">
+                             &nbsp;
+
+सोच बदलो गाँव बदलो टीम (SBGBT) &ldquo;उत्थान-भवन&rdquo; &ldquo;उत्थान-लाइब्रेरी&rdquo;, और &ldquo;उत्थान कोचिंग संस्थान&rdquo; के माध्यम से युवाओं को राष्ट्र के &ldquo;समृद्ध मानव संसाधन&rdquo; के रूप में तैयार करने के लिए निरंतर प्रयासरत है। 
+
+विद्यार्थियों को पढ़ाई का उचित वातावरण प्रदान करने के लिए... 
+                                
+                            </p>
+                          
+                        </a>
+                    </div>
+                </div>
+                
+
+
+                            <div class="col-md-6 col-xs-6">
+                    <div class="left-content-wrapper">
+                        <img class="right-arrow-img" src="https://www.sbgbteam.com/public/public/frontassets/img/13.png" alt="">
+                        <a href="https://www.sbgbteam.com/public/activity-details/ZXZlbnQ=/Nw==">
+                            <h2 class="h2-tittle">महिला सशक्तिकरण</h2>
+                            <p class="para-desc">
+                            महिला सशक्तिकरण विशेष रूप से ग्रामीण क्षेत्र की प्रतिभाशाली बच्चियों शिक्षा के क्षेत्र में आगे बढ़ाने, उनका मार्गदर्शन करने, बच्चियों में स्वावलंबन और आत्मविश्वास पैदा करने, ग्रामीण महिलाओं के लिए स्वरोजगार के अवसर उपलब्ध कराने, &nbsp;स्वच्छता और स्वास्थ्य के विषय में... 
+                            </p>
+                           
+                        </a>
+                    </div>
+                </div>
+                <div class="col-md-6 col-xs-6 home_img_wrap">
+                    <div class="right-img-wrapper1">
+                        <img src="https://www.sbgbteam.com/public/public/activity/02-26-2021_0129pm24753.png" alt="">
+                    </div>
+                </div>
+
+                 
+                    <div class="col-md-6 col-xs-6 home_img_wrap">
+                    <div class="right-img-wrapper1">
+                        <img src="https://www.sbgbteam.com/public/public/activity/12-24-2020_0805pm38246.png" alt="">
+                    </div>
+                  </div>
+
+                    <div class="col-md-6 col-xs-6">
+                    <div class="right-content-wrapper">
+                        <img class="left-arrow-img" src="https://www.sbgbteam.com/public/public/frontassets/img/12.png" alt="">
+
+                        <a href="https://www.sbgbteam.com/public/activity-details/ZXZlbnQ=/OA==">
+                            <h2 class="h2-tittle">स्मार्ट विलेज योजना</h2>
+
+                            <p class="para-desc">
+                             गाँवों में सकारात्मक सोच और रचनात्मक कार्यों द्वारा जन जागरूकता पैदा करना और विकास के लिए जनचेतना पैदा करना ताकि हम अपने अधिकारों और स्लावों के प्रति संवेदनशील बनें और विकास प्रक्रिया का हिस्सा बनें | 
+                                
+                            </p>
+                          
+                        </a>
+                    </div>
+                </div>
+                
+
+
+                            <div class="col-md-6 col-xs-6">
+                    <div class="left-content-wrapper">
+                        <img class="right-arrow-img" src="https://www.sbgbteam.com/public/public/frontassets/img/13.png" alt="">
+                        <a href="https://www.sbgbteam.com/public/activity-details/ZXZlbnQ=/OQ==">
+                            <h2 class="h2-tittle">पंचायती राज सुदृढ़ीकरण प्रयास</h2>
+                            <p class="para-desc">
+                            ग्रामीणों को सरकारी योजनाओं और विकास कार्यक्रमों की जानकारी देना। सरकारी योजनाओं (केंद्र / राज्य / नाबार्ड) की जानकारी और उनके लाभ लाभार्थियों तक पहुँचाने में सरकारी एजेंसीज का सहयोग करना। इस अभियान का मूल मंत्र है 
+                            </p>
+                           
+                        </a>
+                    </div>
+                </div>
+                <div class="col-md-6 col-xs-6 home_img_wrap">
+                    <div class="right-img-wrapper1">
+                        <img src="https://www.sbgbteam.com/public/public/activity/02-26-2021_0132pm22929.png" alt="">
+                    </div>
+                </div>
+
+                 
+                    <div class="col-md-6 col-xs-6 home_img_wrap">
+                    <div class="right-img-wrapper1">
+                        <img src="https://www.sbgbteam.com/public/public/activity/12-24-2020_0807pm38040.png" alt="">
+                    </div>
+                  </div>
+
+                    <div class="col-md-6 col-xs-6">
+                    <div class="right-content-wrapper">
+                        <img class="left-arrow-img" src="https://www.sbgbteam.com/public/public/frontassets/img/12.png" alt="">
+
+                        <a href="https://www.sbgbteam.com/public/activity-details/ZXZlbnQ=/MTA=">
+                            <h2 class="h2-tittle">आत्मनिर्भर व समृद्ध गांव संकल्पना</h2>
+
+                            <p class="para-desc">
+                             &quot;वित्तीय समावेशन&quot; सुनिश्चित करने के लिए वित्तीय साक्षरता कार्यक्रम आयोजित करना। वित्तीय समावेशन के महत्व के प्रति ग्रामीणों को जागरूक करना और क्रेडिट (KCC / GCC / ACC) के विषय में मनोविज्ञान लाना। 
+                                
+                            </p>
+                          
+                        </a>
+                    </div>
+                </div>
+                
+
+
+                            <div class="col-md-6 col-xs-6">
+                    <div class="left-content-wrapper">
+                        <img class="right-arrow-img" src="https://www.sbgbteam.com/public/public/frontassets/img/13.png" alt="">
+                        <a href="https://www.sbgbteam.com/public/activity-details/ZXZlbnQ=/MTE=">
+                            <h2 class="h2-tittle">पर्यावरण संरक्षण व संवर्धन कार्यक्रम</h2>
+                            <p class="para-desc">
+                            सोच बदलो गांव बदलो संस्था स्वच्छता और पर्यावरण संरक्षण के प्रति जन जागरूकता पैदा करने हेतु &quot;ग्रीन विलेज - क्लीन विलेज&quot; अभियान का संचालन कर रही है। इस अभियान के सफल संचालन के लिए गांव-गांव में कॉर्डिनेटर्स की नियुक्ति की गई है। इस अभियान के प्रमुख उद्देश्य- ग्रामीणों... 
+                            </p>
+                           
+                        </a>
+                    </div>
+                </div>
+                <div class="col-md-6 col-xs-6 home_img_wrap">
+                    <div class="right-img-wrapper1">
+                        <img src="https://www.sbgbteam.com/public/public/activity/02-26-2021_0148pm81634.png" alt="">
+                    </div>
+                </div>
+
+                 
+                    <div class="col-md-6 col-xs-6 home_img_wrap">
+                    <div class="right-img-wrapper1">
+                        <img src="https://www.sbgbteam.com/public/public/activity/02-26-2021_0346pm65466.png" alt="">
+                    </div>
+                  </div>
+
+                    <div class="col-md-6 col-xs-6">
+                    <div class="right-content-wrapper">
+                        <img class="left-arrow-img" src="https://www.sbgbteam.com/public/public/frontassets/img/12.png" alt="">
+
+                        <a href="https://www.sbgbteam.com/public/activity-details/ZXZlbnQ=/MTI=">
+                            <h2 class="h2-tittle">जन स्वस्थ - राष्ट्र स्वस्थ</h2>
+
+                            <p class="para-desc">
+                             &quot;वित्तीय समावेशन&quot; सुनिश्चित करने के लिए वित्तीय साक्षरता कार्यक्रम आयोजित करना। वित्तीय समावेशन के महत्व के प्रति ग्रामीणों को जागरूक करना और क्रेडिट (KCC / GCC / ACC) के विषय में मनोविज्ञान लाना। 
+                                
+                            </p>
+                          
+                        </a>
+                    </div>
+                </div>
+                
+
+
+                            <div class="col-md-6 col-xs-6">
+                    <div class="left-content-wrapper">
+                        <img class="right-arrow-img" src="https://www.sbgbteam.com/public/public/frontassets/img/13.png" alt="">
+                        <a href="https://www.sbgbteam.com/public/activity-details/ZXZlbnQ=/MTM=">
+                            <h2 class="h2-tittle">समाज व राष्ट्र निर्माण प्रयास</h2>
+                            <p class="para-desc">
+                            गाँवों की स्थानीय समस्याओं पर विचार करना और उनका स्थानीय स्तर पर समाधान खोजने का प्रयास करना। गाँवों के विकास को गति देने के लिए &quot;गाँव विकास समितियों&quot; का गठन करना। 
+                            </p>
+                           
+                        </a>
+                    </div>
+                </div>
+                <div class="col-md-6 col-xs-6 home_img_wrap">
+                    <div class="right-img-wrapper1">
+                        <img src="https://www.sbgbteam.com/public/public/activity/02-26-2021_0347pm45359.png" alt="">
+                    </div>
+                </div>
+
+                             </div>
+
+            
+        </div>
+    </section>
+    <!-- =============== section-2 end here ================= -->
+    <!-- =============== section-3 Start here ================= -->
+    <section class="home_slider pt-5 pb-5">
+        <div class="container">
+            <div class="row"> 
+                <div class="col-md-6 col-xs-6">
+                    <h3 class="pb-3">वीडियो</h3> 
+                </div>
+                <div class="col-md-6 col-xs-6 text-right">
+                    <a class="btn btn-info" href="https://www.sbgbteam.com/public/sbgbp-registration-admit-card">Download Admit Card </a>  &nbsp;
+                    <a class="see_all_link" href="https://www.sbgbteam.com/public/videos">सभी देखें</a>
+                </div>
+                <div class="col-md-12">
+                    <div id="demo" class="carousel slide" data-ride="carousel"> 
+                    <!-- The slideshow -->
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                        <div class="row">
+                                                                                                                                            <div class="col-md-4">
+                                <div class="video-card" style="min-height: unset !important;">
+                                    <div class="video-wrap">
+                                        <img src="https://img.youtube.com/vi/Mqw26LHHR9E/hqdefault.jpg" class="img-fluid rounded">
+                                        <div class="play-box">
+                                            <a href="https://www.youtube.com/embed/Mqw26LHHR9E" data-toggle="lightbox" data-gallery="gallery">
+                                                <i class="far fa-play-circle"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="content-box">
+                                        <h6 class="h6-tittle">शिक्षा का मंदिर_ उत्थान भवन सरमथुरा</h6>
+                                    </div>
+                                </div>
+                            </div>
+                                                                                                                <div class="col-md-4">
+                                <div class="video-card" style="min-height: unset !important;">
+                                    <div class="video-wrap">
+                                        <img src="https://img.youtube.com/vi/kUMosORZmOo/hqdefault.jpg" class="img-fluid rounded">
+                                        <div class="play-box">
+                                            <a href="https://www.youtube.com/embed/kUMosORZmOo" data-toggle="lightbox" data-gallery="gallery">
+                                                <i class="far fa-play-circle"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="content-box">
+                                        <h6 class="h6-tittle">मानवता की सेवा ही ईश्वर की सेवा है</h6>
+                                    </div>
+                                </div>
+                            </div>
+                                                                                                                <div class="col-md-4">
+                                <div class="video-card" style="min-height: unset !important;">
+                                    <div class="video-wrap">
+                                        <img src="https://img.youtube.com/vi/3RjwYoCyWrI/hqdefault.jpg" class="img-fluid rounded">
+                                        <div class="play-box">
+                                            <a href="https://www.youtube.com/embed/3RjwYoCyWrI" data-toggle="lightbox" data-gallery="gallery">
+                                                <i class="far fa-play-circle"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="content-box">
+                                        <h6 class="h6-tittle">सोच बदलो गाँव बदलो यात्रा</h6>
+                                    </div>
+                                </div>
+                            </div>
+                                                            </div>
+                            </div>
+                            <div class="carousel-item">
+                            <div class="row">
+                                                                                                                <div class="col-md-4">
+                                <div class="video-card" style="min-height: unset !important;">
+                                    <div class="video-wrap">
+                                        <img src="https://img.youtube.com/vi/mycj-BJ08Wk/hqdefault.jpg" class="img-fluid rounded">
+                                        <div class="play-box">
+                                            <a href="https://www.youtube.com/embed/mycj-BJ08Wk" data-toggle="lightbox" data-gallery="gallery">
+                                                <i class="far fa-play-circle"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="content-box">
+                                        <h6 class="h6-tittle">स्थापना दिवस की शुभकामनाएँ व बधाइयाँ।</h6>
+                                    </div>
+                                </div>
+                            </div>
+                                                                                                                <div class="col-md-4">
+                                <div class="video-card" style="min-height: unset !important;">
+                                    <div class="video-wrap">
+                                        <img src="https://img.youtube.com/vi/DH3KPEHgAA4/hqdefault.jpg" class="img-fluid rounded">
+                                        <div class="play-box">
+                                            <a href="https://www.youtube.com/embed/DH3KPEHgAA4" data-toggle="lightbox" data-gallery="gallery">
+                                                <i class="far fa-play-circle"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="content-box">
+                                        <h6 class="h6-tittle">स्मार्ट विलेज कॉन्सेप्ट एंड अचीवमेंट्स</h6>
+                                    </div>
+                                </div>
+                            </div>
+                                                                                                                <div class="col-md-4">
+                                <div class="video-card" style="min-height: unset !important;">
+                                    <div class="video-wrap">
+                                        <img src="https://img.youtube.com/vi/wy3rBd3F-hg/hqdefault.jpg" class="img-fluid rounded">
+                                        <div class="play-box">
+                                            <a href="https://www.youtube.com/embed/wy3rBd3F-hg" data-toggle="lightbox" data-gallery="gallery">
+                                                <i class="far fa-play-circle"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="content-box">
+                                        <h6 class="h6-tittle">ज़िंदगी को ऐसे जिया कि लोगों के लिए प्रेरण...</h6>
+                                    </div>
+                                </div>
+                            </div>
+                                                                                                        </div>
+                        </div>
+                
+                    </div>
+    
+                    <!-- Left and right controls -->
+                    <a class="carousel-control-prev" href="#demo" data-slide="prev">
+                        <i class="fa fa-angle-left" aria-hidden="true"></i>
+                    </a>
+                    <a class="carousel-control-next" href="#demo" data-slide="next">
+                        <i class="fa fa-angle-right" aria-hidden="true"></i>
+                    </a>
+                    </div>
+                </div>
+            </div>  
+        </div>
+    </section>
+    <section class="home_media_section">
+        <div class="container">
+           <div class="row">
+                <div class="col-md-6 col-xs-6">
+                    <h3 class="pb-3">मीडिया कवरेज</h3> 
+                </div>
+                <div class="col-md-6 col-xs-6 text-right">
+                    <a class="see_all_link" href="https://www.sbgbteam.com/public/medias">सभी देखें</a>
+                </div>
+                <div class="col-md-12">
+                    <div id="demo1" class="carousel slide" data-ride="carousel"> 
+                    <!-- The slideshow -->
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                        <div class="row">
+                                                                                                                                            <div class="col-md-4">
+                                <div class="slider_inner">
+                                    <img src="https://www.sbgbteam.com/public/public/media/04-01-2025_1135am1434.jpg">
+                                    <h6 class="h6-tittle">Testing Media 2</h6>
+                                <p class="para-desc2"><i class="fa fa-calendar"></i> प्रकाशित तिथि: 06/02/2025</p>
+                                    <p class="para-desc2"><i class="fa fa-newspaper"></i> श्रेणी:  सोच बदलो गांव बदलो...</p>
+                                </div>
+                            </div>
+                                                                                                                <div class="col-md-4">
+                                <div class="slider_inner">
+                                    <img src="https://www.sbgbteam.com/public/public/media/01-29-2021_0533pm31924.jpg">
+                                    <h6 class="h6-tittle">गांवों में पौधारोपण अभियान चलाया जाता है</h6>
+                                <p class="para-desc2"><i class="fa fa-calendar"></i> प्रकाशित तिथि: जुलाई 18 2018</p>
+                                    <p class="para-desc2"><i class="fa fa-newspaper"></i> श्रेणी:  सोच बदलो गांव बदलो...</p>
+                                </div>
+                            </div>
+                                                                                                                <div class="col-md-4">
+                                <div class="slider_inner">
+                                    <img src="https://www.sbgbteam.com/public/public/media/01-29-2021_0531pm60497.jpg">
+                                    <h6 class="h6-tittle">चंबल के बीहड़ो से निकले देश का मॉडल विलेज...</h6>
+                                <p class="para-desc2"><i class="fa fa-calendar"></i> प्रकाशित तिथि: जुलाई 18 2018</p>
+                                    <p class="para-desc2"><i class="fa fa-newspaper"></i> श्रेणी:  ग्रामीण विकास: जाग...</p>
+                                </div>
+                            </div>
+                                                            </div>
+                            </div>
+                            <div class="carousel-item">
+                            <div class="row">
+                                                                                                                <div class="col-md-4">
+                                <div class="slider_inner">
+                                    <img src="https://www.sbgbteam.com/public/public/media/01-29-2021_0529pm47329.jpg">
+                                    <h6 class="h6-tittle">हर गांव धनौरा की तरह आदर्श बने- नन्नूमल पह...</h6>
+                                <p class="para-desc2"><i class="fa fa-calendar"></i> प्रकाशित तिथि: 20 जून 2018</p>
+                                    <p class="para-desc2"><i class="fa fa-newspaper"></i> श्रेणी:  सोच बदलो गांव बदलो...</p>
+                                </div>
+                            </div>
+                                                                                                                <div class="col-md-4">
+                                <div class="slider_inner">
+                                    <img src="https://www.sbgbteam.com/public/public/media/01-29-2021_0526pm53800.jpg">
+                                    <h6 class="h6-tittle">सोच बदलो – गाँव बदलो की जनजागृति ने दी स्म...</h6>
+                                <p class="para-desc2"><i class="fa fa-calendar"></i> प्रकाशित तिथि: जुलाई 18 2018</p>
+                                    <p class="para-desc2"><i class="fa fa-newspaper"></i> श्रेणी:  सोच बदलो गांव बदलो...</p>
+                                </div>
+                            </div>
+                                                                                                                <div class="col-md-4">
+                                <div class="slider_inner">
+                                    <img src="https://www.sbgbteam.com/public/public/media/01-29-2021_0523pm10256.jpg">
+                                    <h6 class="h6-tittle">न्यू इंडिया कॉन्क्लेव में भाग ले रहे धनौरा...</h6>
+                                <p class="para-desc2"><i class="fa fa-calendar"></i> प्रकाशित तिथि: जुलाई 18 2018</p>
+                                    <p class="para-desc2"><i class="fa fa-newspaper"></i> श्रेणी:  सोच बदलो गांव बदलो...</p>
+                                </div>
+                            </div>
+                                                                                                        </div>
+                        </div>
+                
+                    </div>
+    
+                    <!-- Left and right controls -->
+                    <a class="carousel-control-prev" href="#demo1" data-slide="prev">
+                        <i class="fa fa-angle-left" aria-hidden="true"></i>
+                    </a>
+                    <a class="carousel-control-next" href="#demo1" data-slide="next">
+                        <i class="fa fa-angle-right" aria-hidden="true"></i>
+                    </a>
+                    </div>
+                </div> 
+            </div>  
+        </div>
+    </section>
+    <section class="home_gallary_section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 col-xs-6">
+                    <h3 class="pb-3">फोटो गेलरी</h3> 
+                </div>
+                <div class="col-md-6 col-xs-6 text-right">
+                    <a class="see_all_link" href="https://www.sbgbteam.com/public/galleries">सभी देखें</a>
+                </div>
+                <div class="col-md-12">
+                    <div id="demo2" class="carousel slide" data-ride="carousel"> 
+                    <!-- The slideshow -->
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                        <div class="row">
+                                                                                                                                            <div class="col-md-4">
+                                <div class="slider_inner2">
+                                    <img src="https://www.sbgbteam.com/public/public/gallery/04-10-2025_0453pm37333.png">
+                                    <h3>On event gallery</h3>
+                                </div>
+                            </div>
+                                                                                                                <div class="col-md-4">
+                                <div class="slider_inner2">
+                                    <img src="https://www.sbgbteam.com/public/public/gallery/04-10-2025_0413pm99366.png">
+                                    <h3>आओ पढे-आगे बढे</h3>
+                                </div>
+                            </div>
+                                                                                                                <div class="col-md-4">
+                                <div class="slider_inner2">
+                                    <img src="https://www.sbgbteam.com/public/public/gallery/03-31-2025_0245pm26149.jpg">
+                                    <h3>Journey 4</h3>
+                                </div>
+                            </div>
+                            )
+                            </div>
+                        </div>
+                        <div class="carousel-item">
+                        <div class="row">
+                                                                                                                <div class="col-md-4">
+                                <div class="slider_inner2">
+                                    <img src="https://www.sbgbteam.com/public/public/gallery/03-31-2025_0241pm89634.jpg">
+                                    <h3>Journey 2</h3>
+                                </div>
+                            </div>
+                                                                                                                <div class="col-md-4">
+                                <div class="slider_inner2">
+                                    <img src="https://www.sbgbteam.com/public/public/gallery/03-31-2025_1151am69288.png">
+                                    <h3>Journey 1</h3>
+                                </div>
+                            </div>
+                                                                                                                <div class="col-md-4">
+                                <div class="slider_inner2">
+                                    <img src="https://www.sbgbteam.com/public/public/gallery/01-30-2021_0641pm19388.jpg">
+                                    <h3>ब्लड की कमी से किसी की जान नहीं जा सकेगी</h3>
+                                </div>
+                            </div>
+                                                                                                        </div>
+                        </div>
+                
+                    </div>
+    
+                    <!-- Left and right controls -->
+                    <a class="carousel-control-prev" href="#demo2" data-slide="prev">
+                        <i class="fa fa-angle-left" aria-hidden="true"></i>
+                    </a>
+                    <a class="carousel-control-next" href="#demo2" data-slide="next">
+                        <i class="fa fa-angle-right" aria-hidden="true"></i>
+                    </a>
+                    </div>
+                </div>
+            </div>  
+        </div>
+    </section>
+    <!-- =============== section-3 end here ================= -->
+    <section class="home-social-feed-section pt-5 pb-5">
+        <div class="container">
+            <div class="row">
+
+                <div class="col-md-6 ">
+                    <div class="feeds-slide-wrapper3 bg-facebook">
+                        <iframe src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Fsbgbteam%2F&tabs=timeline&width=500px&height=500px&small_header=true&adapt_container_width=true&hide_cover=false&show_facepile=false&appId" width="500px" height="500px" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
+                    </div>
+                </div>
+                <div class="col-md-6 ">
+                    <div class="feeds-slide-wrapper3 bg-twitter">
+                        <!-- <a class="twitter-timeline" data-height="500" data-theme="light" href="https://twitter.com/sbgbteam?ref_src=twsrc%5Etfw">Tweets by sbgbteam</a>  -->
+                        <!-- <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script> -->
+                        <blockquote class="twitter-tweet"><p lang="hi" dir="ltr">SBGBT का “ग्रीन विलेज - क्लीन विलेज” <br>धरती मां के श्रृंगार का एक छोटा सा प्रयास<a href="https://t.co/59dKzv4f8R">https://t.co/59dKzv4f8R</a> <a href="https://twitter.com/TataPower?ref_src=twsrc%5Etfw">@TataPower</a> <a href="https://t.co/YlmAPFkBi2">https://t.co/YlmAPFkBi2</a></p>&mdash; SBGBT_सोच बदलो-गाँव बदलो टीम (@sbgbteam) <a href="https://twitter.com/sbgbteam/status/1785552652652122159?ref_src=twsrc%5Etfw">May 1, 2024</a></blockquote> <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+
+
+
+    <!-- =============== slider section-3 start here ================= -->
+        <section class="footer-slider-section noPrint">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <h5 class="h5-tittle text-center">हमारे समर्थक</h5>
+                    <div class="slider autoplay2">
+                        <!-- slide 1 -->
+                                                                                    <div>
+                                    <div class="fss-slide-wrapper1">
+                                                                                    <img src="https://www.sbgbteam.com/public/public/slider/02-25-2021_0416pm10267.png" alt="">
+                                                                            </div>
+                                </div>
+                                                            <div>
+                                    <div class="fss-slide-wrapper1">
+                                                                                    <a href="https://workholics.com/">
+                                                <img src="https://www.sbgbteam.com/public/public/slider/12-26-2024_1250pm35172.png" alt="">
+                                            </a>
+                                                                            </div>
+                                </div>
+                                                                        </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- =============== section-3 end here ================= -->
+    <!-- =================== Footer ========================  -->
+    <footer class="footer noPrint">
+        <div class="container">
+            <div class="row">
+                <!-- column-1 -->
+                <div class="col-lg-3 col-md-6">
+                    <div class="footer-left-wrapper">
+                        <div class="img-box">
+                            <a class="navbar-brand" href="https://www.sbgbteam.com/public">
+                                <img src="https://www.sbgbteam.com/public/public/frontassets/img/logo.png" alt="">
+                            </a>
+                        </div>
+                        <div class="content-box">
+                            <h6 class="h6-tittle">SBGBT <span>टीम द्वारा कॉपीराइट 2020 | <br> सभी अधिकार सुरक्षित
+                                    |</span></h6>
+                            <a href="/cdn-cgi/l/email-protection#abd8c9ccc9dfcecac6ebccc6cac2c785c8c4c6"><i class="far fa-envelope"></i> <span class="__cf_email__" data-cfemail="344756535640515559745359555d581a575b59">[email&#160;protected]</span></a>
+                            <a href="tel: +919314408609"><i class="fas fa-phone-alt"></i> +91 9314408609</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- column-2 -->
+                <div class="col-lg-3 col-md-6">
+                    <div class="footer-right-content">
+                        <a href="https://www.sbgbteam.com/public">होम</a>
+                        <a href="https://www.sbgbteam.com/public/about-us">हमारे बारे में</a>
+                        <a href="https://www.sbgbteam.com/public/ongoing-events">हमारे कार्य</a>
+                        <a href="https://www.sbgbteam.com/public/stories">सफलता की कहानी</a>
+                        <a href="https://www.sbgbteam.com/public/patrikas"> उत्थान पत्रिका</a>
+                    </div>
+                </div>
+                <!-- column-3 -->
+                <div class="col-lg-3 col-md-6">
+                    <div class="footer-right-content">
+                        <a href="https://www.sbgbteam.com/public/articles">मीडिया कॉर्नर</a>
+                        <a href="https://www.sbgbteam.com/public/contact-us">संपर्क</a>
+                        <a href="https://www.sbgbteam.com/public/sbgbp-registration">रजिस्ट्रेशन</a>
+                        <a href="https://www.sbgbteam.com/public/user-login">लॉगिन करें </a>
+                    </div>
+                </div>
+                <!-- column-4 -->
+                <div class="col-lg-3 col-md-6">
+                    <div class="footer-right-content">
+                        <a href="https://www.sbgbteam.com/public/important-links">महत्वपूर्ण लिंक</a>
+                        <a href="https://www.sbgbteam.com/public/galleries">फोटो गेलरी</a>
+                        <a href="https://www.sbgbteam.com/public/videos">वीडियो</a>
+                        <a href="https://www.sbgbteam.com/public/feedback">फीडबैक</a>
+                        <!-- <a href="https://www.sbgbteam.com/public/guest-book">अतिथि पुस्तक</a> -->
+                    </div>
+                </div>
+                <!-- column-2 end -->
+            </div>
+
+        </div>
+        <div class="d-comp-wrapper">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-8 col-md-7 text-right pr-5">
+                        <p class="para-desc2 mr-4">Design & Developed By <a href="https://workholics.com/">Workholics
+                                Info Corp</a></p>
+                    </div>
+
+                    <div class="col-lg-4 col-md-5 text-right">
+                        <ul class="nav  justify-content-end social-nav">
+                            <li class="nav-item">
+                                <a class="nav-link" target="_blank" href="https://www.instagram.com/sbgbteam/"><i
+                                        class="fab fa-instagram"></i></a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" target="_blank" href="https://www.facebook.com/sbgbteam/"><i
+                                        class="fab fa-facebook-square"></i></a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" target="_blank"
+                                    href="https://www.youtube.com/channel/UCOQAQS7J5cKft2mlwjpZn-A"><i
+                                        class="fab fa-youtube-square"></i></a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" target="_blank" href="https://twitter.com/sbgbteam"><i
+                                        class="fab fa-twitter-square"></i></a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" target="_blank" href="#"><i
+                                        class="fab fa-whatsapp"></i></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ======================= Footer ======================= -->
+
+
+    <!-- jQuery -->
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script type="text/javascript" src="https://www.sbgbteam.com/public/public/frontassets/js/jquery.min.js"></script>
+    <!-- Bootstrap tooltips -->
+    <script type="text/javascript" src="https://www.sbgbteam.com/public/public/frontassets/js/popper.min.js"></script>
+    <!-- Bootstrap core JavaScript -->
+    <script type="text/javascript" src="https://www.sbgbteam.com/public/public/frontassets/js/bootstrap.min.js"></script>
+    <!-- <script type="text/javascript" src="js/bootstrap.min.js.map"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.js"></script>
+
+    <!-- slick slider javascript -->
+    <script type="text/javascript" src="https://www.sbgbteam.com/public/public/frontassets/js/slick.min.js"></script>
+    <!-- Your custom scripts -->
+    <script type="text/javascript" src="https://www.sbgbteam.com/public/public/frontassets/js/custom.js?v=1784723730"></script>
+
+    <script src="https://www.sbgbteam.com/public/public/adminassets/js/demo.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.min.js"></script>
+
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({
+                pageLanguage: 'hi',
+                includedLanguages: 'en,hi,ur,sd,bn,gu,ml,pa,mr,ta,te'
+            }, 'google_translate_element');
+        }
+    </script>
+
+    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit">
+    </script>
+
+
+    <script type="text/javascript">
+        const togglePassword = document.querySelector('#togglePassword');
+        const password = document.querySelector('#login_pwd');
+
+        togglePassword.addEventListener('click', function(e) {
+            // toggle the type attribute
+            const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+            password.setAttribute('type', type);
+            // toggle the eye / eye slash icon
+            this.classList.toggle('bi-eye');
+        });
+
+        $(document).ready(function() {
+
+            $('#state_id').on('change', function() {
+                var stateID = $(this).val();
+
+                if (stateID != '') {
+                    $.ajax({
+                        type: "GET",
+                        url: "https://www.sbgbteam.com/public/getCityList?state_id=" + stateID,
+                        success: function(res) {
+                            if (res) {
+                                $("#city_id").empty();
+                                $("#city_id").append(
+                                    '<option value=""  disabled > Choose City</option>'
+                                    );
+                                $.each(res, function(key, value) {
+                                    $("#city_id").append('<option value="' + value.id +
+                                        '">' + value.city_name + '</option>');
+                                });
+
+                            } else {
+                                $("#city_id").empty();
+                                $("#city_id").append(
+                                    '<option value=""> Choose state first</option>'
+                                    );
+                            }
+                        }
+                    });
+                } else {
+                    $("#city_id").empty();
+                    $("#city_id").append('<option value=""> Choose state first</option>');
+                }
+
+            });
+
+
+            $('#memberformAction').on('submit', function(e) {
+                e.preventDefault();
+                var url = $(this).attr('action'),
+                    post = $(this).attr('method'),
+                    data = new FormData(this);
+                $('.cmt-btn').html("कृपया प्रतीक्षा करें");
+
+                $.ajax({
+                    url: url,
+                    method: post,
+                    data: data,
+                    dataType: "json",
+                    success: function(response) {
+                        var message = response.message;
+                        if (data.status == 1) {
+                            window.location.href = response.url;
+                        } else {
+                            alert(message);
+                            $('.cmt-btn').html("अब सम्मिलित हों");
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        alert(xhr.responseText);
+                    },
+                    processData: false,
+                    contentType: false
+                });
+            });
+
+
+
+            $('#joinFormAction').on('submit', function(e) {
+                e.preventDefault();
+                var url = $(this).attr('action'),
+                    post = $(this).attr('method'),
+                    data = new FormData(this);
+                $('.cmt-btn').html("कृपया प्रतीक्षा करें");
+
+                $.ajax({
+                    url: url,
+                    method: post,
+                    data: data,
+                    dataType: "json",
+                    success: function(data) {
+                        var message = data.message;
+                        if (data.status == 1) {
+                            alert(data.message);
+                            $('.cmt-btn').html("अब सम्मिलित हों");
+                            location.reload(true);
+                        } else {
+                            alert(message);
+                            $('.cmt-btn').html("अब सम्मिलित हों");
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        alert(xhr.responseText);
+                    },
+                    processData: false,
+                    contentType: false
+                });
+            });
+
+
+            $('#joinFormAction1').on('submit', function(e) {
+                e.preventDefault();
+                var url = $(this).attr('action'),
+                    post = $(this).attr('method'),
+                    data = new FormData(this);
+                $('.cmt-btn').html("Please wait");
+
+                $.ajax({
+                    url: url,
+                    method: post,
+                    data: data,
+                    dataType: "json",
+                    success: function(data) {
+                        var message = data.message;
+                        if (data.status == 1) {
+                            alert(data.message);
+                            $('.cmt-btn').html("अब सम्मिलित हों");
+                            location.reload(true);
+                        } else {
+                            alert(message);
+                            $('.cmt-btn').html("अब सम्मिलित हों");
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        alert(xhr.responseText);
+                    },
+                    processData: false,
+                    contentType: false
+                });
+            });
+
+
+
+            $('.checkname').keyup(function() {
+                var yourInput = $(this).val();
+                re = /[`~!@#$%^&*()_|+\-=?;:'",.0123456789<>\{\}\[\]\\\/]/gi;
+            var isSplChar = re.test(yourInput);
+            if (isSplChar) {
+                var no_spl_char = yourInput.replace(
+                    /[`~!@#$%^&*()_|+\-=?;:'",.0123456789<>\{\}\[\]\\\/]/gi, '');
+                    $(this).val(no_spl_char);
+                }
+            });
+
+
+            $('.checkadd').keyup(function() {
+                var yourInput = $(this).val();
+                re = /[`~!@#$%^&*_|+\=?;'"<>\{\}\[\]\\\/]/gi;
+            var isSplChar = re.test(yourInput);
+            if (isSplChar) {
+                var no_spl_char = yourInput.replace(/[`~!@#$%^&*_|+\=?;<>\{\}\[\]\\\/]/gi, '');
+                    $(this).val(no_spl_char);
+                }
+            });
+
+        });
+    </script>
+
+<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"b2d2b787c8f048afa5bc17e374f78d19","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
+</body>
+
+</html>
