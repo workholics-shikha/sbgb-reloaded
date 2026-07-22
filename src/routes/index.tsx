@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   Dialog,
   DialogContent,
@@ -13,7 +13,6 @@ import {
   ArrowRight,
   BadgeCheck,
   BookOpen,
-  Download,
   FileText,
   GraduationCap,
   HandHeart,
@@ -39,6 +38,9 @@ import galLib from "@/assets/gallery-library.jpg";
 import galHealth from "@/assets/gallery-health.jpg";
 import galAwards from "@/assets/gallery-awards.jpg";
 import galVillage from "@/assets/gallery-village.jpg";
+import initiativeBgOne from "@/assets/initiative-bg-one.png";
+import initiativeBgTwo from "@/assets/initiative-bg-two.png";
+import initiativeBgThree from "@/assets/initiative-bg-three.png";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -71,33 +73,39 @@ const noticeLinks = [
     label: "Click for Registration",
     href: "https://www.sbgbteam.com/sbgbp-registration",
   },
+  {
+    label: "Download Admit Card",
+    href: "https://www.sbgbteam.com/sbgbp-registration-admit-card",
+  },
 ];
 
-const quickActions = [
-  {
-    title: "SBGBT सदस्य बनें",
-    desc: "संस्था के मिशन से जुड़ें और गांवों में सकारात्मक बदलाव का हिस्सा बनें।",
-    href: "/contact",
-    icon: Users2,
-    tone: "from-primary to-primary/85 text-primary-foreground",
-    internal: true,
-  },
-  {
-    title: "दान करें",
-    desc: "शिक्षा, स्वास्थ्य, पौधारोपण और ग्रामीण विकास अभियानों को सार्थक सहयोग दें।",
-    href: "/donate",
-    icon: HandHeart,
-    tone: "from-accent to-saffron text-accent-foreground",
-    internal: true,
-  },
-  {
-    title: "Download Admit Card",
-    desc: "शिक्षा पाओ-ज्ञान बढ़ाओ प्रतियोगिता के लिए एडमिट कार्ड डाउनलोड करें।",
-    href: "https://www.sbgbteam.com/sbgbp-registration-admit-card",
-    icon: Download,
-    tone: "from-card to-secondary text-foreground",
-  },
-];
+const getNoticeMeta = (label: string) => {
+  if (label.includes("Registration")) {
+    return { tag: "Apply", icon: GraduationCap, featured: true };
+  }
+
+  if (label.includes("Admit Card")) {
+    return { tag: "Download", icon: FileText, featured: true };
+  }
+
+  if (label.includes("Notification")) {
+    return { tag: "New", icon: Sparkles, featured: false };
+  }
+
+  if (label.includes("Annexure-I")) {
+    return { tag: "Guide", icon: FileText, featured: false };
+  }
+
+  return { tag: "Sample", icon: Images, featured: false };
+};
+
+const sectionRevealProps = {
+  initial: { opacity: 0, y: 34 },
+  whileInView: { opacity: 1, y: 0 },
+  viewport: { once: true, amount: 0.2 },
+  transition: { duration: 0.72, ease: [0.22, 1, 0.36, 1] as const },
+};
+
 
 const heroTags = [
   "जन जागरूकता",
@@ -196,6 +204,30 @@ const initiatives = [
   },
 ];
 
+const initiativeFrameBackgrounds = [
+  initiativeBgOne,
+  initiativeBgTwo,
+  initiativeBgThree,
+] as const;
+
+const initiativeBadgeTones = [
+  {
+    inner: "border-[#8ec1b3] bg-[#7fb5a6] text-white",
+    ring: "border-[#d7e7e0] bg-white/88",
+    innerRing: "border-white/22",
+  },
+  {
+    inner: "border-accent/55 bg-accent text-accent-foreground",
+    ring: "border-accent/20 bg-white/88",
+    innerRing: "border-white/24",
+  },
+  {
+    inner: "border-[#184c41] bg-[#113f37] text-white",
+    ring: "border-[#d7e7e0] bg-white/88",
+    innerRing: "border-white/18",
+  },
+] as const;
+
 const initiativeHighlights = [
   {
     title: "गांव से शुरुआत",
@@ -259,6 +291,71 @@ const mediaItems = [
   { date: "20 जून 2018", title: "हर गांव धनौरा की तरह आदर्श बने- नन्नूमल पह...", category: "सोच बदलो, गांव बदलो" },
 ];
 
+const mediaItemVisuals = [
+  {
+    image: galVillage,
+    summary: "A quick media snapshot of awareness drives and village-level impact led by SBGBT.",
+  },
+  {
+    image: galEnv,
+    summary: "Coverage focused on plantation campaigns, environmental care, and community participation.",
+  },
+  {
+    image: galLib,
+    summary: "Stories around rural education, community models, and transformation through local institutions.",
+  },
+  {
+    image: galWomen,
+    summary: "Highlights featuring women's leadership, confidence, and meaningful social change.",
+  },
+] as const;
+
+const mediaItemsHindi = [
+  {
+    date: "06/02/2025",
+    title: "जन-जागरूकता अभियानों की विशेष मीडिया झलक",
+    category: "सोच बदलो, गांव बदलो",
+  },
+  {
+    date: "जुलाई 18 2018",
+    title: "गांवों में पौधारोपण अभियान चलाया जाता है",
+    category: "सोच बदलो, गांव बदलो",
+  },
+  {
+    date: "जुलाई 18 2018",
+    title: "चंबल के बीहड़ों से निकले देश का मॉडल विलेज...",
+    category: "ग्रामीण विकास",
+  },
+  {
+    date: "20 जून 2018",
+    title: "हर गांव धनौरा की तरह आदर्श बने- नन्नूमल पह...",
+    category: "सोच बदलो, गांव बदलो",
+  },
+] as const;
+
+const mediaItemVisualsHindi = [
+  {
+    image: galVillage,
+    summary:
+      "SBGBT द्वारा चलाए गए जन-जागरूकता अभियानों और गांव स्तर पर हुए सकारात्मक बदलावों की यह संक्षिप्त मीडिया झलक है।",
+  },
+  {
+    image: galEnv,
+    summary:
+      "यह कवरेज पौधारोपण अभियानों, पर्यावरण संरक्षण और सामुदायिक भागीदारी से जुड़े प्रयासों को प्रमुखता से दिखाती है।",
+  },
+  {
+    image: galLib,
+    summary:
+      "ग्रामीण शिक्षा, सामुदायिक मॉडल और स्थानीय संस्थानों के माध्यम से आए बदलावों की प्रेरक कहानियां यहां साझा की गई हैं।",
+  },
+  {
+    image: galWomen,
+    summary:
+      "महिला नेतृत्व, आत्मविश्वास और सार्थक सामाजिक परिवर्तन से जुड़ी उल्लेखनीय उपलब्धियों को इस रिपोर्ट में उभारा गया है।",
+  },
+] as const;
+
 const galleryItems = [
   { src: galVillage, title: "On event gallery" },
   { src: galLib, title: "आओ पढे-आगे बढे" },
@@ -277,8 +374,17 @@ const valueMoments = [
 function Home() {
   const [activeHeroSlide, setActiveHeroSlide] = useState(0);
   const [activeVideoIndex, setActiveVideoIndex] = useState(2);
+  const [videoCarouselPosition, setVideoCarouselPosition] = useState(videos.length + 2);
   const [activeInitiativeIndex, setActiveInitiativeIndex] = useState(1);
+  const [initiativeCarouselPosition, setInitiativeCarouselPosition] = useState(initiatives.length + 1);
   const [scrollProgress, setScrollProgress] = useState(0);
+  const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
+  const [cursorVisible, setCursorVisible] = useState(false);
+  const [heroOffset, setHeroOffset] = useState({ x: 0, y: 0 });
+  const videoCarouselRef = useRef<HTMLDivElement | null>(null);
+  const initiativeCarouselRef = useRef<HTMLDivElement | null>(null);
+  const videoResetTimerRef = useRef<number | null>(null);
+  const initiativeResetTimerRef = useRef<number | null>(null);
 
   useEffect(() => {
     const interval = window.setInterval(() => {
@@ -294,7 +400,7 @@ function Home() {
 
   useEffect(() => {
     const interval = window.setInterval(() => {
-      setActiveVideoIndex((current) => (current + 1) % videos.length);
+      setVideoCarouselPosition((current) => current + 1);
     }, 5200);
 
     return () => window.clearInterval(interval);
@@ -302,7 +408,7 @@ function Home() {
 
   useEffect(() => {
     const interval = window.setInterval(() => {
-      setActiveInitiativeIndex((current) => (current + 1) % initiatives.length);
+      setInitiativeCarouselPosition((current) => current + 1);
     }, 4200);
 
     return () => window.clearInterval(interval);
@@ -322,23 +428,172 @@ function Home() {
     return () => window.removeEventListener("scroll", updateScrollProgress);
   }, []);
 
+  useEffect(() => {
+    const mediaQuery = window.matchMedia("(pointer: fine)");
+
+    const handleMouseMove = (event: MouseEvent) => {
+      if (!mediaQuery.matches) {
+        return;
+      }
+
+      setCursorPosition({ x: event.clientX, y: event.clientY });
+      setCursorVisible(true);
+      setHeroOffset({
+        x: (event.clientX / window.innerWidth - 0.5) * 2,
+        y: (event.clientY / window.innerHeight - 0.5) * 2,
+      });
+    };
+
+    const handleMouseLeave = () => {
+      setCursorVisible(false);
+      setHeroOffset({ x: 0, y: 0 });
+    };
+
+    const handleTouchStart = () => {
+      setCursorVisible(false);
+      setHeroOffset({ x: 0, y: 0 });
+    };
+
+    window.addEventListener("mousemove", handleMouseMove);
+    window.addEventListener("mouseout", handleMouseLeave);
+    window.addEventListener("touchstart", handleTouchStart, { passive: true });
+
+    return () => {
+      window.removeEventListener("mousemove", handleMouseMove);
+      window.removeEventListener("mouseout", handleMouseLeave);
+      window.removeEventListener("touchstart", handleTouchStart);
+    };
+  }, []);
+
   const getWrappedVideoIndex = (offset: number) => (activeVideoIndex + offset + videos.length) % videos.length;
-  const getWrappedInitiativeIndex = (offset: number) =>
-    (activeInitiativeIndex + offset + initiatives.length) % initiatives.length;
   const visibleVideos = [
     { video: videos[getWrappedVideoIndex(-1)], offset: -1 },
     { video: videos[getWrappedVideoIndex(0)], offset: 0 },
     { video: videos[getWrappedVideoIndex(1)], offset: 1 },
   ] as const;
-  const visibleInitiatives = [
-    { item: initiatives[getWrappedInitiativeIndex(-1)], offset: -1 },
-    { item: initiatives[getWrappedInitiativeIndex(0)], offset: 0 },
-    { item: initiatives[getWrappedInitiativeIndex(1)], offset: 1 },
-  ] as const;
-  const progressOffset = 113.1 - (113.1 * scrollProgress) / 100;
+  const progressCircumference = 188.5;
+  const progressOffset =
+    progressCircumference - (progressCircumference * scrollProgress) / 100;
+  const loopedVideos = [...videos, ...videos, ...videos];
+  const loopedInitiatives = [...initiatives, ...initiatives, ...initiatives];
+
+  useEffect(() => {
+    const container = videoCarouselRef.current;
+    if (!container) {
+      return;
+    }
+
+    const cards = container.querySelectorAll<HTMLElement>("[data-video-card]");
+    const targetCard = cards[videoCarouselPosition];
+
+    if (!targetCard) {
+      return;
+    }
+
+    container.scrollTo({
+      left: targetCard.offsetLeft,
+      behavior: "smooth",
+    });
+
+    setActiveVideoIndex(((videoCarouselPosition % videos.length) + videos.length) % videos.length);
+
+    if (videoResetTimerRef.current) {
+      window.clearTimeout(videoResetTimerRef.current);
+    }
+
+    if (videoCarouselPosition >= videos.length * 2 || videoCarouselPosition < videos.length) {
+      videoResetTimerRef.current = window.setTimeout(() => {
+        const normalizedIndex = ((videoCarouselPosition % videos.length) + videos.length) % videos.length;
+        const resetPosition = videos.length + normalizedIndex;
+        const resetCard = cards[resetPosition];
+
+        if (!resetCard || !videoCarouselRef.current) {
+          return;
+        }
+
+        videoCarouselRef.current.scrollTo({
+          left: resetCard.offsetLeft,
+          behavior: "auto",
+        });
+        setVideoCarouselPosition(resetPosition);
+      }, 720);
+    }
+
+    return () => {
+      if (videoResetTimerRef.current) {
+        window.clearTimeout(videoResetTimerRef.current);
+      }
+    };
+  }, [videoCarouselPosition]);
+
+  useEffect(() => {
+    const container = initiativeCarouselRef.current;
+    if (!container) {
+      return;
+    }
+
+    const cards = container.querySelectorAll<HTMLElement>("[data-initiative-card]");
+    const targetCard = cards[initiativeCarouselPosition];
+
+    if (!targetCard) {
+      return;
+    }
+
+    container.scrollTo({
+      left: targetCard.offsetLeft,
+      behavior: "smooth",
+    });
+
+    setActiveInitiativeIndex(
+      ((initiativeCarouselPosition % initiatives.length) + initiatives.length) % initiatives.length,
+    );
+
+    if (initiativeResetTimerRef.current) {
+      window.clearTimeout(initiativeResetTimerRef.current);
+    }
+
+    if (
+      initiativeCarouselPosition >= initiatives.length * 2 ||
+      initiativeCarouselPosition < initiatives.length
+    ) {
+      initiativeResetTimerRef.current = window.setTimeout(() => {
+        const normalizedIndex =
+          ((initiativeCarouselPosition % initiatives.length) + initiatives.length) % initiatives.length;
+        const resetPosition = initiatives.length + normalizedIndex;
+        const resetCard = cards[resetPosition];
+
+        if (!resetCard || !initiativeCarouselRef.current) {
+          return;
+        }
+
+        initiativeCarouselRef.current.scrollTo({
+          left: resetCard.offsetLeft,
+          behavior: "auto",
+        });
+        setInitiativeCarouselPosition(resetPosition);
+      }, 720);
+    }
+
+    return () => {
+      if (initiativeResetTimerRef.current) {
+        window.clearTimeout(initiativeResetTimerRef.current);
+      }
+    };
+  }, [initiativeCarouselPosition]);
 
   return (
     <div className="min-h-screen bg-[linear-gradient(180deg,#f5f0df_0%,#f1ecd7_28%,#f7f3e7_100%)] text-foreground">
+      <motion.div
+        aria-hidden="true"
+        className="pointer-events-none fixed left-0 top-0 z-[70] hidden h-2.5 w-2.5 rounded-full bg-accent shadow-[0_0_0_6px_rgba(241,189,26,0.12),0_0_18px_rgba(241,189,26,0.24)] mix-blend-normal lg:block"
+        animate={{
+          x: cursorPosition.x - 5,
+          y: cursorPosition.y - 5,
+          opacity: cursorVisible ? 1 : 0,
+          scale: cursorVisible ? 1 : 0.7,
+        }}
+        transition={{ type: "spring", stiffness: 180, damping: 24, mass: 0.8 }}
+      />
       <SiteHeader />
 
       <section className="relative overflow-hidden bg-[linear-gradient(135deg,#0f463c_0%,#145446_48%,#193e34_100%)] pt-10 text-cream">
@@ -353,25 +608,69 @@ function Home() {
 
         <div className="mx-auto grid max-w-7xl gap-12 px-4 py-10 sm:px-6 sm:py-16 lg:grid-cols-[1.05fr_0.95fr] lg:items-center lg:gap-16">
           <div className="relative z-10">
-            <span className="inline-flex items-center gap-2 rounded-full border border-cream/15 bg-white/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.22em] text-cream shadow-sm backdrop-blur">
-              <span className="size-1.5 rounded-full bg-accent shadow-[0_0_18px_rgba(214,181,74,0.9)]" />
+            <motion.span
+              initial={{ opacity: 0, y: 14 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.55, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
+              className="inline-flex -translate-y-1 items-center gap-2 rounded-full border border-cream/15 bg-white/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.22em] text-cream shadow-sm backdrop-blur sm:-translate-y-2"
+            >
+              <span className="size-1.5 rounded-full bg-accent shadow-[0_0_18px_rgba(241,189,26,0.9)]" />
               सोच बदलो, गांव बदलो टीम
-            </span>
-            <h1 className="mt-5 font-display text-4xl font-black leading-[0.98] text-balance text-white drop-shadow-[0_8px_24px_rgba(0,0,0,0.28)] sm:text-5xl lg:text-7xl">
+            </motion.span>
+            
+            <motion.h1
+              initial={{ opacity: 0, y: 24 }}
+              animate={{
+                opacity: 1,
+                y: 0,
+                x: heroOffset.x * -10,
+              }}
+              transition={{
+                opacity: { duration: 0.8, delay: 0.14, ease: [0.22, 1, 0.36, 1] },
+                y: { duration: 0.8, delay: 0.14, ease: [0.22, 1, 0.36, 1] },
+                x: { type: "spring", stiffness: 90, damping: 18, mass: 1.1 },
+              }}
+              className="mt-7 font-display text-4xl font-black leading-[1.08] text-balance text-white drop-shadow-[0_8px_24px_rgba(0,0,0,0.28)] sm:mt-8 sm:text-5xl lg:mt-10 lg:text-7xl lg:leading-[1.04]"
+            >
               शिक्षा, जनजागरूकता और
               <span className="block text-accent drop-shadow-[0_6px_18px_rgba(0,0,0,0.24)]">ग्राम उत्थान की सशक्त पहल।</span>
-            </h1>
-            {/* <p className="mt-4 max-w-2xl font-hi text-xl leading-relaxed text-cream/85 sm:text-2xl">
-              सोच बदलो, गांव बदलो
-            </p> */}
-            <p className="mt-5 max-w-2xl text-base leading-relaxed text-cream/88 sm:text-lg">
+            </motion.h1>
+            
+            <motion.p
+              initial={{ opacity: 0, y: 18 }}
+              animate={{
+                opacity: 1,
+                y: 0,
+                x: heroOffset.x * -6,
+              }}
+              transition={{
+                opacity: { duration: 0.72, delay: 0.22, ease: [0.22, 1, 0.36, 1] },
+                y: { duration: 0.72, delay: 0.22, ease: [0.22, 1, 0.36, 1] },
+                x: { type: "spring", stiffness: 84, damping: 18, mass: 1.15 },
+              }}
+              className="mt-5 max-w-2xl text-base leading-relaxed text-cream/88 sm:text-lg"
+            >
               SBGBT शिक्षा, जन जागरूकता, महिला सशक्तिकरण, स्मार्ट विलेज, पर्यावरण संरक्षण,
               स्वास्थ्य और समाज व राष्ट्र निर्माण जैसे कार्यों के माध्यम से ग्रामीण समाज को
               मजबूत बनाने के लिए लगातार प्रयासरत है।
-            </p>
+            </motion.p>
 
-            <div className="mt-6 inline-flex items-center gap-3 rounded-full border border-white/12 bg-white/8 px-4 py-2 text-cream shadow-[0_18px_38px_-26px_rgba(0,0,0,0.8)] backdrop-blur">
-              <span className="grid size-11 place-items-center rounded-full bg-accent/12 ring-1 ring-accent/25">
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              animate={{
+                opacity: 1,
+                y: 0,
+                x: heroOffset.x * -4,
+              }}
+              transition={{
+                opacity: { duration: 0.66, delay: 0.3, ease: [0.22, 1, 0.36, 1] },
+                y: { duration: 0.66, delay: 0.3, ease: [0.22, 1, 0.36, 1] },
+                x: { type: "spring", stiffness: 80, damping: 18, mass: 1.2 },
+              }}
+              className="premium-capsule relative mt-6 inline-flex items-center gap-3 overflow-hidden rounded-full border border-white/12 bg-[linear-gradient(135deg,rgba(255,255,255,0.14),rgba(255,255,255,0.06))] px-4 py-2 text-cream backdrop-blur-md transition duration-500 hover:-translate-y-0.5 hover:border-white/18"
+            >
+              <div className="absolute inset-0 bg-[radial-gradient(circle_at_left,rgba(241,189,26,0.08),transparent_26%),linear-gradient(135deg,rgba(255,255,255,0.06),rgba(255,255,255,0))]" />
+              <span className="relative grid size-11 place-items-center rounded-full bg-accent/12 ring-1 ring-accent/25 shadow-[inset_0_1px_0_rgba(255,255,255,0.08)]">
                 <img
                   src={heroHeartSprade}
                   alt=""
@@ -381,14 +680,14 @@ function Home() {
                   height={32}
                 />
               </span>
-              <span className="text-sm font-medium text-cream/90 sm:text-[15px]">
+              <span className="relative text-sm font-medium text-cream/92 sm:text-[15px]">
                 हर सहयोग से बदलाव की धड़कन और मजबूत होती है
               </span>
-            </div>
+            </motion.div>
 
             <div className="hidden">
               <div className="relative overflow-hidden rounded-[2.2rem] border border-white/10 bg-white/6 p-3 shadow-[0_28px_55px_-34px_rgba(0,0,0,0.88)] backdrop-blur">
-                <div className="relative overflow-hidden rounded-[1.8rem]">
+                <motion.div className="relative overflow-hidden rounded-[1.8rem]">
                   <img
                     src={currentHeroSlide.image}
                     alt={currentHeroSlide.title}
@@ -432,46 +731,27 @@ function Home() {
                       {currentHeroSlide.note}
                     </p>
                   </div>
-                </div>
+                </motion.div>
 
               </div>
             </div>
 
-            <div className="mt-8 flex flex-wrap gap-3">
-              <Link
-                to="/about"
-                className="inline-flex items-center gap-2 rounded-full bg-accent px-6 py-3 text-sm font-semibold text-accent-foreground shadow-[0_18px_34px_-16px_rgba(214,181,74,0.92)] transition hover:-translate-y-0.5 hover:brightness-105"
-              >
-                हमारे बारे में <ArrowRight className="size-4" />
-              </Link>
-              <a
-                href="https://www.sbgbteam.com/sbgbp-registration"
-                target="_blank"
-                rel="noreferrer"
-                className="inline-flex items-center gap-2 rounded-full border border-cream/18 bg-white/8 px-6 py-3 text-sm font-semibold text-cream shadow-sm backdrop-blur transition hover:border-accent/70 hover:bg-white/12"
-              >
-                SPGBP पंजीकरण
-              </a>
-            </div>
-
-            <div className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-3">
-              {valueMoments.map((item, index) => (
-                <div
-                  key={item.label}
-                  className="group min-w-0 rounded-[1.5rem] border border-white/10 bg-white/8 p-4 shadow-[0_20px_40px_-28px_rgba(0,0,0,0.9)] backdrop-blur transition duration-300 hover:-translate-y-2 hover:scale-[1.03] hover:border-accent/35 hover:bg-white/12 hover:shadow-[0_28px_56px_-24px_rgba(0,0,0,0.88)]"
-                >
-                  <div className="font-display text-[1.7rem] font-black leading-none text-accent transition duration-300 group-hover:scale-[1.02] lg:text-2xl">
-                    {item.label}
-                  </div>
-                  <div className="mt-1 text-xs leading-snug text-cream/72 transition duration-300 group-hover:text-cream/90 lg:text-sm">
-                    {item.note}
-                  </div>
-                </div>
-              ))}
-            </div>
           </div>
 
-          <div className="relative">
+          <motion.div
+            className="group/hero relative"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{
+              opacity: 1,
+              y: heroOffset.y * 10,
+              x: heroOffset.x * 12,
+            }}
+            transition={{
+              opacity: { duration: 0.85, delay: 0.16, ease: [0.22, 1, 0.36, 1] },
+              y: { type: "spring", stiffness: 82, damping: 18, mass: 1.15 },
+              x: { type: "spring", stiffness: 82, damping: 18, mass: 1.15 },
+            }}
+          >
             <div className="relative z-10 rounded-[2rem] shadow-[0_38px_80px_-32px_rgba(0,0,0,0.95)]">
               <div className="relative overflow-hidden rounded-[2rem]">
                 <img
@@ -493,12 +773,12 @@ function Home() {
               </div>
             </div>
 
-            <div className="absolute -right-7 top-1/2 z-20 hidden -translate-y-1/2 flex-col gap-3 lg:flex xl:-right-10">
+            <div className="absolute -right-7 top-1/2 z-20 hidden -translate-y-1/2 flex-col gap-3 opacity-0 transition duration-300 group-hover/hero:opacity-100 lg:flex xl:-right-10">
               <button
                 type="button"
                 onClick={() => setActiveHeroSlide((current) => (current - 1 + heroSlides.length) % heroSlides.length)}
                 aria-label="Previous slide"
-                className="grid size-14 place-items-center rounded-full border border-white/20 bg-[#0f463c] text-cream shadow-[0_22px_40px_-22px_rgba(0,0,0,0.7),0_0_0_8px_rgba(245,240,223,0.16)] transition duration-300 motion-safe:animate-[floatArrow_3.2s_ease-in-out_infinite] hover:-translate-y-0.5 hover:brightness-110"
+                className="pointer-events-none grid size-14 place-items-center rounded-full border border-white/20 bg-[#0f463c] text-cream shadow-[0_22px_40px_-22px_rgba(0,0,0,0.7)] transition duration-300 motion-safe:animate-[floatArrow_3.2s_ease-in-out_infinite] group-hover/hero:pointer-events-auto hover:-translate-y-0.5 hover:brightness-110"
               >
                 <ArrowRight className="size-5 rotate-180" />
               </button>
@@ -506,12 +786,16 @@ function Home() {
                 type="button"
                 onClick={() => setActiveHeroSlide((current) => (current + 1) % heroSlides.length)}
                 aria-label="Next slide"
-                className="grid size-14 place-items-center rounded-full border border-[#fff1a6]/55 bg-[#f1bd1a] text-[#111111] shadow-[0_22px_40px_-22px_rgba(0,0,0,0.7),0_0_0_8px_rgba(245,240,223,0.16)] transition duration-300 motion-safe:animate-[floatArrow_3.2s_ease-in-out_infinite_180ms] hover:translate-y-0.5 hover:brightness-95"
+                className="pointer-events-none grid size-14 place-items-center rounded-full border border-accent/40 bg-accent text-accent-foreground shadow-[0_22px_40px_-22px_rgba(0,0,0,0.7)] transition duration-300 motion-safe:animate-[floatArrow_3.2s_ease-in-out_infinite_180ms] group-hover/hero:pointer-events-auto hover:translate-y-0.5 hover:brightness-95"
               >
                 <ArrowRight className="size-5" />
               </button>
             </div>
-            <div className="absolute -inset-4 rounded-[2.5rem] bg-gradient-to-br from-accent/30 via-transparent to-[#2f7a65]/30 blur-3xl" />
+            <motion.div
+              className="absolute -inset-4 rounded-[2.5rem] bg-gradient-to-br from-accent/30 via-transparent to-[#2f7a65]/30 blur-3xl"
+              animate={{ x: heroOffset.x * 22, y: heroOffset.y * 18 }}
+              transition={{ type: "spring", stiffness: 72, damping: 18, mass: 1.18 }}
+            />
             <div className="hidden absolute -right-3 top-14 w-[34%] overflow-hidden rounded-[1.75rem] bg-[#f8f3e7]/92 shadow-[0_26px_48px_-32px_rgba(0,0,0,0.72)] backdrop-blur">
               <img
                 src={nextHeroSlide.image}
@@ -558,88 +842,89 @@ function Home() {
                 </div>
               </div>
             </div>
-          </div>
+          </motion.div>
         </div>
       </section>
 
-      <section className="border-y border-[#255247]/20 bg-[linear-gradient(180deg,#f1ebd4_0%,#efe7cd_100%)]">
+      <motion.section
+        {...sectionRevealProps}
+        className="border-y border-[#255247]/20 bg-[linear-gradient(180deg,#f1ebd4_0%,#efe7cd_100%)]"
+      >
         <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6">
-          <div className="grid gap-5 lg:grid-cols-[1.15fr_0.85fr] lg:items-center">
+          <div className="space-y-5">
             <div className="flex items-start gap-3">
               <div className="grid size-11 shrink-0 place-items-center rounded-full bg-accent text-accent-foreground shadow-md">
                 <Sparkles className="size-5" />
               </div>
-              <div>
+              <div className="w-full">
                 <div className="text-xs font-semibold uppercase tracking-[0.2em] text-earth">महत्वपूर्ण सूचना</div>
-                <p className="mt-1 font-hi text-base leading-relaxed sm:text-lg">
+                <p className="mt-1 max-w-none font-hi text-base leading-relaxed sm:text-lg lg:whitespace-nowrap">
                   शिक्षा पाओ-ज्ञान बढ़ाओ प्रतियोगिता (SPGBP):2025-26 रजिस्ट्रेशन प्रारंभ -
                   अधिक जानकारी के लिए नीचे दिए गए नोटिफिकेशन और Annexures(परिशिष्ट)
                   डाउनलोड करें।
                 </p>
               </div>
             </div>
-            <div className="flex flex-wrap gap-2">
-              {noticeLinks.map((item) => (
-                <a
-                  key={item.label}
-                  href={item.href}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="rounded-full border border-primary/20 bg-white/80 px-3 py-2 text-xs font-semibold text-primary shadow-sm transition hover:-translate-y-0.5 hover:border-primary hover:bg-primary hover:text-primary-foreground"
-                >
-                  {item.label}
-                </a>
-              ))}
+            <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-[1.15fr_1.15fr_1fr_1fr_1fr]">
+              {noticeLinks.map((item) => {
+                const meta = getNoticeMeta(item.label);
+                const Icon = meta.icon;
+
+                return (
+                  <a
+                    key={item.label}
+                    href={item.href}
+                    target="_blank"
+                    rel="noreferrer"
+                    className={`group rounded-[1.35rem] border px-4 py-3 shadow-sm transition duration-300 hover:-translate-y-1 ${
+                      meta.featured
+                        ? "border-accent/35 bg-accent text-accent-foreground shadow-[0_18px_34px_-24px_rgba(241,189,26,0.78)] hover:brightness-[0.98]"
+                        : "border-primary/15 bg-white/84 text-primary hover:border-primary/30 hover:bg-white"
+                    }`}
+                  >
+                    <div className="flex items-start gap-3">
+                      <div
+                        className={`grid size-10 shrink-0 place-items-center rounded-full transition duration-300 ${
+                          meta.featured
+                            ? "bg-black/10 text-accent-foreground"
+                            : "bg-primary/8 text-primary group-hover:bg-primary group-hover:text-primary-foreground"
+                        }`}
+                      >
+                        <Icon className="size-4.5" />
+                      </div>
+                      <div className="min-w-0">
+                        <div
+                          className={`inline-flex rounded-full px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.22em] ${
+                            meta.featured
+                              ? "bg-black/10 text-accent-foreground/80"
+                              : "bg-primary/7 text-primary/70"
+                          }`}
+                        >
+                          {meta.tag}
+                        </div>
+                        <div className="mt-2 text-sm font-semibold leading-snug">
+                          {item.label}
+                        </div>
+                      </div>
+                      <ArrowRight
+                        className={`ml-auto mt-1 size-4 shrink-0 transition duration-300 group-hover:translate-x-1 ${
+                          meta.featured ? "text-accent-foreground" : "text-primary/70"
+                        }`}
+                      />
+                    </div>
+                  </a>
+                );
+              })}
             </div>
           </div>
         </div>
-      </section>
+      </motion.section>
 
-      <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-20">
-        <div className="grid gap-8 lg:grid-cols-[0.8fr_1.2fr] lg:items-end">
-          <div>
-            <div className="text-xs font-semibold uppercase tracking-[0.2em] text-primary">त्वरित पहुँच</div>
-            <h2 className="mt-3 font-display text-3xl font-black text-balance sm:text-4xl">
-              सदस्यता, सार्थक सहयोग और पंजीकरण के प्रमुख विकल्प।
-            </h2>
-          </div>
-          
-        </div>
 
-        <div className="mt-8 grid gap-4 md:grid-cols-3">
-          {quickActions.map((item, index) => {
-            const content = (
-              <div
-                className={`relative flex h-full flex-col overflow-hidden rounded-[2rem] border border-[#255247]/10 bg-gradient-to-br p-6 shadow-[0_24px_45px_-34px_rgba(17,63,52,0.65)] transition duration-300 hover:-translate-y-1 hover:shadow-xl ${item.tone} ${
-                  index === 1 ? "md:-translate-y-4" : ""
-                }`}
-              >
-                <div className="absolute right-0 top-0 size-28 rounded-full bg-white/10 blur-2xl" />
-                <div className="grid size-12 place-items-center rounded-2xl bg-black/10">
-                  <item.icon className="size-5" />
-                </div>
-                <h3 className="mt-5 font-display text-2xl font-black">{item.title}</h3>
-                <p className="mt-3 flex-1 text-sm leading-relaxed opacity-85">{item.desc}</p>
-                <div className="mt-5 inline-flex items-center gap-2 text-sm font-semibold">
-                  विस्तार से जानें <ArrowRight className="size-4" />
-                </div>
-              </div>
-            );
-
-            return item.internal ? (
-              <Link key={item.title} to={item.href} className="block">
-                {content}
-              </Link>
-            ) : (
-              <a key={item.title} href={item.href} target="_blank" rel="noreferrer" className="block">
-                {content}
-              </a>
-            );
-          })}
-        </div>
-      </section>
-
-      <section className="relative overflow-hidden bg-[linear-gradient(180deg,#f0e8d0_0%,#f7f2e5_100%)]">
+      <motion.section
+        {...sectionRevealProps}
+        className="relative overflow-hidden bg-[linear-gradient(180deg,#f0e8d0_0%,#f7f2e5_100%)]"
+      >
         <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/20 to-transparent" />
         <div className="absolute left-0 top-24 size-56 rounded-full bg-accent/10 blur-3xl" />
         <div className="absolute right-0 top-40 size-72 rounded-full bg-primary/10 blur-3xl" />
@@ -647,7 +932,7 @@ function Home() {
           <div className="grid gap-8 xl:grid-cols-[0.9fr_1.1fr] xl:items-end">
             <div className="text-white">
               <div className="text-xs font-semibold uppercase tracking-[0.2em] text-primary">हमारी पहलें</div>
-              <h2 className="mt-3 font-display text-3xl font-black text-accent text-balance sm:text-4xl lg:text-5xl">
+              <h2 className="mt-3 font-display text-3xl font-black leading-[1.18] text-accent text-balance sm:text-4xl lg:text-5xl">
                 SBGBT की प्रमुख विकास पहलें।
               </h2>
               <p className="mt-4 max-w-2xl text-muted-foreground">
@@ -655,21 +940,40 @@ function Home() {
               </p>
             </div>
 
-            <div className="grid gap-4 sm:grid-cols-3">
-              {initiativeHighlights.map((item, index) => (
-                <div
-                  key={item.title}
-                  className={`rounded-[1.75rem] border border-[#255247]/10 bg-white/75 p-5 shadow-[0_18px_40px_-30px_rgba(17,63,52,0.52)] backdrop-blur ${
-                    index === 1 ? "sm:-translate-y-4" : ""
-                  }`}
-                >
-                  <div className="text-[11px] font-semibold uppercase tracking-[0.18em] text-primary/80">
-                    {item.title}
-                  </div>
-                  <div className="mt-3 font-display text-3xl font-black text-primary">{item.value}</div>
-                  <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{item.note}</p>
-                </div>
-              ))}
+            <div className="grid items-stretch gap-4 sm:grid-cols-3">
+              {initiativeHighlights.map((item, index) => {
+                const highlightImage = [galVillage, galEnv, galWomen][index % 3];
+
+                return (
+                  <motion.div
+                    key={item.title}
+                    whileHover={{ y: -6, scale: 1.018, rotate: index === 1 ? -0.25 : 0.25 }}
+                    transition={{ duration: 0.3, ease: "easeOut" }}
+                    className="group relative overflow-hidden rounded-[1.75rem] border border-[#255247]/10 bg-white/75 p-5 shadow-[0_18px_40px_-30px_rgba(17,63,52,0.52)] backdrop-blur transition duration-300 hover:-translate-y-1 hover:border-primary/25"
+                  >
+                    <img
+                      src={highlightImage}
+                      alt=""
+                      aria-hidden="true"
+                      className="absolute inset-0 h-full w-full object-cover opacity-0 transition duration-500 group-hover:scale-105 group-hover:opacity-18"
+                      width={800}
+                      height={600}
+                    />
+                    <div className="absolute inset-0 bg-[linear-gradient(145deg,rgba(17,63,52,0),rgba(17,63,52,0))] transition duration-500 group-hover:bg-[linear-gradient(145deg,rgba(17,63,52,0.78),rgba(241,189,26,0.28))]" />
+                    <div className="relative">
+                      <div className="inline-flex rounded-full px-2.5 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-primary/80 transition duration-300 group-hover:bg-white/12 group-hover:text-accent">
+                        {item.title}
+                      </div>
+                      <div className="mt-3 font-display text-3xl font-black text-primary transition duration-300 group-hover:text-white">
+                        {item.value}
+                      </div>
+                      <p className="mt-2 text-sm leading-relaxed text-muted-foreground transition duration-300 group-hover:text-white/88">
+                        {item.note}
+                      </p>
+                    </div>
+                  </motion.div>
+                );
+              })}
             </div>
           </div>
 
@@ -697,78 +1001,84 @@ function Home() {
               </div>
             </div>
 
-            <div className="relative p-4 sm:p-6">
+            <div className="group/initiative relative p-4 sm:p-6">
               <button
                 type="button"
-                onClick={() => setActiveInitiativeIndex((current) => (current - 1 + initiatives.length) % initiatives.length)}
-                className="absolute left-0 top-1/2 z-20 hidden size-12 -translate-y-1/2 place-items-center rounded-full bg-primary text-primary-foreground shadow-[0_18px_36px_-22px_rgba(17,63,52,0.72)] transition hover:-translate-y-[52%] hover:brightness-110 lg:grid"
+                onClick={() => setInitiativeCarouselPosition((current) => current - 1)}
+                className="absolute left-0 top-1/2 z-20 hidden size-12 -translate-y-1/2 place-items-center rounded-full bg-primary text-primary-foreground opacity-0 shadow-[0_18px_36px_-22px_rgba(17,63,52,0.72)] transition duration-300 hover:-translate-y-[52%] hover:brightness-110 group-hover/initiative:opacity-100 lg:grid"
                 aria-label="Previous initiative"
               >
                 <ArrowRight className="size-4 rotate-180" />
               </button>
               <button
                 type="button"
-                onClick={() => setActiveInitiativeIndex((current) => (current + 1) % initiatives.length)}
-                className="absolute right-0 top-1/2 z-20 hidden size-12 -translate-y-1/2 place-items-center rounded-full bg-accent text-accent-foreground shadow-[0_18px_36px_-22px_rgba(214,181,74,0.72)] transition hover:-translate-y-[52%] hover:brightness-95 lg:grid"
+                onClick={() => setInitiativeCarouselPosition((current) => current + 1)}
+                className="absolute right-0 top-1/2 z-20 hidden size-12 -translate-y-1/2 place-items-center rounded-full bg-accent text-accent-foreground opacity-0 shadow-[0_18px_36px_-22px_rgba(241,189,26,0.72)] transition duration-300 hover:-translate-y-[52%] hover:brightness-95 group-hover/initiative:opacity-100 lg:grid"
                 aria-label="Next initiative"
               >
                 <ArrowRight className="size-4" />
               </button>
 
-              <div className="grid items-stretch gap-5 lg:grid-cols-3 lg:px-12">
-                {visibleInitiatives.map(({ item, offset }) => {
-                  const isActive = offset === 0;
-                  const itemIndex = initiatives.findIndex((entry) => entry.title === item.title);
+              <div
+                ref={initiativeCarouselRef}
+                className="flex snap-x snap-mandatory gap-1 overflow-x-auto scroll-smooth px-1 pb-2 lg:gap-2 lg:px-12 [&::-webkit-scrollbar]:hidden"
+                style={{ scrollbarWidth: "none" }}
+              >
+                {loopedInitiatives.map((item, renderedIndex) => {
+                  const itemIndex = renderedIndex % initiatives.length;
+                  const frameBackground =
+                    initiativeFrameBackgrounds[
+                      (renderedIndex + initiativeFrameBackgrounds.length) % initiativeFrameBackgrounds.length
+                    ];
+                  const badgeTone =
+                    initiativeBadgeTones[
+                      (renderedIndex + initiativeBadgeTones.length) % initiativeBadgeTones.length
+                    ];
 
                   return (
                     <motion.button
-                      key={item.title}
-                      layout
+                      key={`${item.title}-${renderedIndex}`}
+                      data-initiative-card
                       type="button"
-                      onClick={() => setActiveInitiativeIndex(itemIndex)}
-                      onFocus={() => setActiveInitiativeIndex(itemIndex)}
-                      animate={{
-                        scale: isActive ? 1 : 0.97,
-                        y: 0,
-                        opacity: isActive ? 1 : 0.9,
-                      }}
-                      transition={{ type: "spring", stiffness: 110, damping: 24, mass: 1.05 }}
-                      className="group relative min-h-[370px] text-left"
+                      onClick={() => setInitiativeCarouselPosition(renderedIndex)}
+                      onFocus={() => setInitiativeCarouselPosition(renderedIndex)}
+                      whileHover={{ y: -8, scale: 1.014, rotate: itemIndex % 2 === 0 ? 0.2 : -0.2 }}
+                      transition={{ duration: 0.35, ease: "easeOut" }}
+                      className="group relative min-h-[424px] w-[88%] shrink-0 snap-center text-left sm:w-[54%] lg:w-[35%]"
                     >
                       <div
                         className="absolute inset-0 bg-center bg-no-repeat"
                         style={{
-                          backgroundImage: `url(https://charifund.template.wowtheme7.com/assets/images/difference/bg-two.png)`,
-                          backgroundSize: "100% 100%",
-                          filter: isActive ? "hue-rotate(22deg) saturate(1.08)" : "none",
+                          backgroundImage: `url(${frameBackground})`,
+                          backgroundSize: "95% 95%",
+                          backgroundPosition: "center center",
+                          filter: "saturate(0.96) brightness(1)",
+                          transform: "scale(0.985)",
                         }}
                       />
-                      <div
-                        className={`relative mx-auto mt-5 h-[84%] min-h-[310px] w-[75%] overflow-hidden rounded-[34%_31%_36%_33%/24%_24%_30%_30%] border px-6 pb-8 pt-10 shadow-[0_28px_56px_-34px_rgba(16,47,39,0.36)] ${
-                          isActive
-                            ? "border-[#efd5b7] bg-[linear-gradient(180deg,#fbf1e6_0%,#f6e8d8_100%)]"
-                            : "border-[#dde2da] bg-[linear-gradient(180deg,#f8fbf9_0%,#edf1ee_100%)]"
-                        }`}
-                      >
-                        <div className="pointer-events-none absolute inset-3 rounded-[30%_28%_32%_30%/22%_22%_28%_28%] border-[4px] border-white/65" />
-                        <div className="pointer-events-none absolute inset-x-5 top-4 h-5 rounded-full bg-white/55 blur-sm" />
+                      <div className="relative mx-auto mt-5 flex min-h-[382px] w-[84%] max-w-[350px] flex-col items-center px-5 pb-9 pt-7 text-center">
+                        <div className="pointer-events-none absolute inset-x-4 top-5 h-6 rounded-full bg-white/45 blur-md" />
 
-                        <div className="relative flex h-full flex-col items-center text-center">
+                        <div className="relative flex h-full w-full flex-col items-center text-center">
                           <motion.div
-                            whileHover={{ rotateY: 180 }}
-                            transition={{ duration: 0.7, ease: "easeInOut" }}
+                            whileHover={{ rotateY: 180, scale: 1.04 }}
+                            transition={{ duration: 0.75, ease: "easeInOut" }}
                             style={{ transformStyle: "preserve-3d" }}
-                            className={`grid size-24 place-items-center rounded-full ${
-                              isActive ? "bg-accent text-accent-foreground" : "bg-primary text-primary-foreground"
-                            } shadow-[0_18px_34px_-18px_rgba(0,0,0,0.35)]`}
+                            className={`relative mt-3 flex h-[88px] w-[88px] shrink-0 items-center justify-center rounded-full border shadow-[0_12px_24px_-18px_rgba(16,47,39,0.3)] ${badgeTone.ring}`}
                           >
-                            <item.icon className="size-10" />
+                            <div
+                              className={`flex h-[70px] w-[70px] items-center justify-center rounded-full border shadow-[inset_0_1px_0_rgba(255,255,255,0.2)] ${badgeTone.inner}`}
+                            >
+                              <div className={`flex h-[56px] w-[56px] items-center justify-center rounded-full border ${badgeTone.innerRing}`}>
+                                <item.icon className="size-8" strokeWidth={2.1} />
+                              </div>
+                            </div>
                           </motion.div>
 
-                          <h3 className="mt-8 font-display text-[1.65rem] font-black text-[#173f37]">
+                          <h3 className="mt-7 max-w-[14rem] text-balance font-display text-[1.55rem] font-black leading-[1.18] text-[#173f37]">
                             {item.title}
                           </h3>
-                          <p className="mt-4 max-w-[13.5rem] text-[0.96rem] leading-7 text-[#5e6c67]">
+                          <p className="mt-4 max-w-[14.5rem] text-[0.92rem] leading-7 text-[#5e6c67]">
                             {item.desc}
                           </p>
                         </div>
@@ -783,7 +1093,7 @@ function Home() {
                   <button
                     key={item.title}
                     type="button"
-                    onClick={() => setActiveInitiativeIndex(index)}
+                    onClick={() => setInitiativeCarouselPosition(initiatives.length + index)}
                     aria-label={item.title}
                     className={`rounded-full transition-all duration-300 ${
                       index === activeInitiativeIndex ? "h-2.5 w-12 bg-primary" : "h-2.5 w-2.5 bg-primary/30"
@@ -794,9 +1104,12 @@ function Home() {
             </div>
           </div>
         </div>
-      </section>
+      </motion.section>
 
-      <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-20">
+      <motion.section
+        {...sectionRevealProps}
+        className="mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-20"
+      >
         <div className="text-center">
           <div className="text-xs font-semibold uppercase tracking-[0.2em] text-primary">वीडियो गैलरी</div>
           <h2 className="mt-3 font-display text-3xl font-black text-balance sm:text-4xl lg:text-5xl">
@@ -807,79 +1120,65 @@ function Home() {
           </p>
         </div>
 
-        <div className="relative mt-12 overflow-hidden rounded-[2.8rem] border border-primary/10 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.86),rgba(244,237,217,0.92)_44%,rgba(239,232,214,0.98)_100%)] px-4 py-10 shadow-[0_34px_80px_-46px_rgba(19,67,56,0.38)] sm:px-6 lg:px-16 lg:py-14">
+        <div className="group/video relative mt-12 overflow-hidden rounded-[2.8rem] border border-primary/10 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.86),rgba(244,237,217,0.92)_44%,rgba(239,232,214,0.98)_100%)] px-4 py-10 shadow-[0_34px_80px_-46px_rgba(19,67,56,0.38)] sm:px-6 lg:px-16 lg:py-14">
           <div className="absolute left-1/2 top-0 h-12 w-28 -translate-x-1/2 rounded-b-[2rem] bg-background/95" />
           <div className="absolute bottom-0 left-1/2 h-10 w-24 -translate-x-1/2 rounded-t-[2rem] bg-background/95" />
 
           <button
             type="button"
-            onClick={() => setActiveVideoIndex((current) => (current - 1 + videos.length) % videos.length)}
-            className="absolute left-4 top-1/2 z-20 hidden size-14 -translate-y-1/2 place-items-center rounded-full bg-primary text-primary-foreground shadow-[0_18px_40px_-22px_rgba(17,63,52,0.7)] transition hover:-translate-y-[52%] hover:brightness-110 lg:grid"
+            onClick={() => setVideoCarouselPosition((current) => current - 1)}
+            className="absolute left-3 top-1/2 z-20 hidden size-14 -translate-y-1/2 place-items-center rounded-full bg-primary text-primary-foreground opacity-0 shadow-[0_18px_40px_-22px_rgba(17,63,52,0.7)] transition duration-300 hover:-translate-y-[52%] hover:brightness-110 group-hover/video:opacity-100 lg:grid"
             aria-label="पिछला वीडियो"
           >
             <ArrowRight className="size-5 rotate-180" />
           </button>
           <button
             type="button"
-            onClick={() => setActiveVideoIndex((current) => (current + 1) % videos.length)}
-            className="absolute right-4 top-1/2 z-20 hidden size-14 -translate-y-1/2 place-items-center rounded-full bg-accent text-accent-foreground shadow-[0_18px_40px_-22px_rgba(214,181,74,0.6)] transition hover:-translate-y-[52%] hover:brightness-95 lg:grid"
+            onClick={() => setVideoCarouselPosition((current) => current + 1)}
+            className="absolute right-3 top-1/2 z-20 hidden size-14 -translate-y-1/2 place-items-center rounded-full bg-accent text-accent-foreground opacity-0 shadow-[0_18px_40px_-22px_rgba(241,189,26,0.6)] transition duration-300 hover:-translate-y-[52%] hover:brightness-95 group-hover/video:opacity-100 lg:grid"
             aria-label="अगला वीडियो"
           >
             <ArrowRight className="size-5" />
           </button>
 
-          <div className="grid items-center gap-4 px-14 lg:grid-cols-3 lg:gap-5 lg:px-20">
-            {visibleVideos.map(({ video, offset }) => {
-              const isActive = offset === 0;
-              const cardIndex = videos.findIndex((item) => item.title === video.title);
-
-              return (
-                <Dialog key={video.title}>
+          <div className="overflow-hidden px-8 sm:px-10 lg:px-20">
+            <div
+              ref={videoCarouselRef}
+              className="flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-smooth pb-2 lg:gap-5 [&::-webkit-scrollbar]:hidden"
+              style={{ scrollbarWidth: "none" }}
+            >
+              {loopedVideos.map((video, renderedIndex) => (
+                <Dialog key={`${video.title}-${renderedIndex}`}>
                   <DialogTrigger asChild>
                     <motion.button
-                      layout
+                      data-video-card
                       type="button"
-                      onClick={() => setActiveVideoIndex(cardIndex)}
-                      onFocus={() => setActiveVideoIndex(cardIndex)}
-                      animate={{
-                        scale: isActive ? 1.035 : 0.965,
-                        y: isActive ? -8 : 0,
-                        opacity: isActive ? 1 : 0.88,
-                      }}
-                      transition={{ type: "spring", stiffness: 165, damping: 23, mass: 0.92 }}
-                      className={`group relative min-h-[320px] w-full overflow-hidden rounded-[2.4rem] border text-left ${
-                        isActive
-                          ? "min-h-[344px] border-primary/20 shadow-[0_32px_70px_-34px_rgba(17,63,52,0.55)]"
-                          : "border-primary/10 shadow-[0_20px_48px_-34px_rgba(17,63,52,0.32)]"
-                      }`}
+                      onClick={() => setVideoCarouselPosition(renderedIndex)}
+                      onFocus={() => setVideoCarouselPosition(renderedIndex)}
+                      whileHover={{ y: -8, scale: 1.016, rotate: renderedIndex % 2 === 0 ? 0.2 : -0.2 }}
+                      transition={{ duration: 0.35, ease: "easeOut" }}
+                      className="group relative min-h-[336px] w-[100%] shrink-0 snap-center overflow-hidden rounded-[2.4rem] border border-primary/10 text-left shadow-[0_22px_50px_-34px_rgba(17,63,52,0.34)] sm:w-[calc((100%-1rem)/2)] lg:w-[calc((100%-2.5rem)/3)]"
                     >
                       <img
                         src={video.image}
                         alt={video.title}
-                        className={`absolute inset-0 h-full w-full object-cover transition duration-700 ease-out ${
-                          isActive ? "scale-100 grayscale-0" : "scale-[0.985] grayscale"
-                        }`}
+                        className="absolute inset-0 h-full w-full object-cover transition duration-700 ease-out group-hover:scale-[1.02]"
                         width={1200}
                         height={900}
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-ink/78 via-ink/12 to-transparent" />
-                      {isActive ? (
-                        <div className="absolute inset-x-0 top-[22%] z-10 flex justify-center">
-                          <div className="group/play relative grid size-12 place-items-center rounded-full bg-primary text-primary-foreground shadow-[0_20px_42px_-18px_rgba(17,63,52,0.72)]">
-                            <div className="absolute inset-0 rounded-full border border-white/15" />
-                            <div className="absolute inset-[-8px] rounded-full border border-primary/18 opacity-0 transition duration-500 group-hover:opacity-100" />
-                            <div className="absolute inset-[-18%] rounded-full bg-[conic-gradient(from_0deg,rgba(255,255,255,0)_0deg,rgba(255,255,255,0.42)_60deg,rgba(255,255,255,0)_140deg,rgba(255,255,255,0)_360deg)] opacity-0 transition duration-700 group-hover:opacity-100 group-hover:rotate-180" />
-                            <ArrowRight className="relative z-10 size-8 -rotate-45 transition duration-500 group-hover/play:translate-x-0.5 group-hover/play:-translate-y-0.5" strokeWidth={2.2} />
-                          </div>
-                        </div>
-                      ) : null}
-                      <div className="absolute inset-x-4 bottom-4 z-10 rounded-[1.35rem] border border-white/14 bg-[linear-gradient(180deg,rgba(38,29,24,0.6),rgba(23,18,16,0.76))] p-5 text-cream shadow-[0_20px_40px_-28px_rgba(0,0,0,0.85)]">
-                        <div className="relative">
-                        <div className="text-[11px] uppercase tracking-[0.22em] text-cream/70">{video.tag}</div>
-                        <div className={`mt-2 font-display font-black leading-tight ${isActive ? "text-[1.1rem] sm:text-[1.22rem]" : "text-[0.92rem] sm:text-[0.98rem]"}`}>
-                          {video.title}
+                      <div className="absolute inset-x-0 top-[22%] z-10 flex justify-center">
+                        <div className="group/play relative grid size-12 place-items-center rounded-full bg-primary text-primary-foreground shadow-[0_20px_42px_-18px_rgba(17,63,52,0.72)]">
+                          <ArrowRight className="relative z-10 size-8 -rotate-45 transition duration-500 group-hover/play:translate-x-0.5 group-hover/play:-translate-y-0.5" strokeWidth={2.2} />
                         </div>
                       </div>
+                      <div className="absolute inset-x-4 bottom-4 z-10 rounded-[1.35rem] border border-white/14 bg-[linear-gradient(180deg,rgba(38,29,24,0.6),rgba(23,18,16,0.76))] p-5 text-cream shadow-[0_20px_40px_-28px_rgba(0,0,0,0.85)]">
+                        <div className="relative">
+                          <div className="text-[11px] uppercase tracking-[0.22em] text-cream/70">{video.tag}</div>
+                          <div className="mt-2 font-display text-[1rem] font-black leading-tight sm:text-[1.08rem]">
+                            {video.title}
+                          </div>
+                        </div>
                       </div>
                     </motion.button>
                   </DialogTrigger>
@@ -899,8 +1198,8 @@ function Home() {
                     </div>
                   </DialogContent>
                 </Dialog>
-              );
-            })}
+              ))}
+            </div>
           </div>
 
           <div className="hidden">
@@ -977,7 +1276,7 @@ function Home() {
               <button
                 key={video.title}
                 type="button"
-                onClick={() => setActiveVideoIndex(index)}
+                onClick={() => setVideoCarouselPosition(videos.length + index)}
                 aria-label={video.title}
                 className={`rounded-full transition-all duration-500 ${
                   index === activeVideoIndex ? "h-2.5 w-12 bg-primary" : "h-2.5 w-2.5 bg-primary/30"
@@ -986,46 +1285,104 @@ function Home() {
             ))}
           </div>
         </div>
-      </section>
-      <section className="relative overflow-hidden bg-[linear-gradient(135deg,#083a32_0%,#0d4b3e_48%,#08352d_100%)] text-cream">
+      </motion.section>
+      <motion.section
+        {...sectionRevealProps}
+        className="relative overflow-hidden bg-[linear-gradient(135deg,#083a32_0%,#0d4b3e_48%,#08352d_100%)] text-cream"
+      >
         <div className="absolute inset-0 opacity-[0.22]">
           <div className="h-full w-full bg-[length:42px_24px] bg-[linear-gradient(135deg,transparent_33%,rgba(255,255,255,0.065)_33%,rgba(255,255,255,0.065)_37%,transparent_37%),linear-gradient(225deg,transparent_33%,rgba(255,255,255,0.065)_33%,rgba(255,255,255,0.065)_37%,transparent_37%)]" />
         </div>
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.06),transparent_34%),radial-gradient(circle_at_25%_0%,rgba(214,181,74,0.08),transparent_24%)]" />
-        <div className="relative mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-20">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.06),transparent_34%),radial-gradient(circle_at_25%_0%,rgba(241,189,26,0.08),transparent_24%)]" />
+        <div className="relative mx-auto max-w-7xl px-4 py-14 sm:px-6 sm:py-16">
           <div className="flex flex-wrap items-end justify-between gap-4">
-            <div>
-              <div className="text-xs font-semibold uppercase tracking-[0.2em] text-primary">मीडिया कवरेज</div>
-              <h2 className="mt-3 font-display text-3xl font-black sm:text-4xl">समाचारों और मीडिया उल्लेखों में SBGBT।</h2>
+            <div className="max-w-3xl">
+              <div className="text-xs font-semibold uppercase tracking-[0.2em] text-accent">मीडिया कवरेज</div>
+              <h2 className="mt-3 font-display text-3xl font-black text-white sm:text-4xl">समाचारों और मीडिया उल्लेखों में SBGBT।</h2>
+              <p className="mt-3 max-w-2xl text-sm leading-7 text-cream/74 sm:text-[15px]">
+                Community impact stories, regional mentions, and field headlines in a more editorial showcase.
+              </p>
             </div>
             <Link to="/media" className="inline-flex items-center gap-2 text-sm font-semibold text-accent transition hover:gap-3 hover:text-white">
               सभी देखें <ArrowRight className="size-4" />
             </Link>
           </div>
 
-          <div className="mt-8 grid gap-4 md:grid-cols-2">
-            {mediaItems.map((item, index) => (
+          <div className="news-ticker mt-7 overflow-hidden rounded-full border border-white/10 bg-white/8 py-2 text-[11px] font-semibold uppercase tracking-[0.28em] text-cream/70">
+            <div className="news-ticker-track flex min-w-max items-center gap-8 px-5">
+              {Array.from({ length: 2 }).map((_, loopIndex) => (
+                <div key={loopIndex} className="flex items-center gap-8">
+                  {mediaItemsHindi.map((item) => (
+                    <span key={`${loopIndex}-${item.title}`} className="inline-flex items-center gap-3 whitespace-nowrap">
+                      <span className="h-1.5 w-1.5 rounded-full bg-accent" />
+                      {item.category}
+                    </span>
+                  ))}
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="mt-7 grid gap-4 lg:grid-cols-2">
+            {mediaItemsHindi.map((item, index) => (
               <article
                 key={item.title}
-                className={`rounded-[1.75rem] border border-white/10 bg-[linear-gradient(145deg,rgba(255,255,255,0.1),rgba(255,255,255,0.06))] p-6 text-cream shadow-[0_22px_48px_-34px_rgba(0,0,0,0.45)] transition hover:border-accent/35 hover:bg-[linear-gradient(145deg,rgba(255,255,255,0.13),rgba(255,255,255,0.08))] hover:shadow-lg ${
-                  index === 0 ? "md:col-span-2" : ""
-                }`}
+                className="news-float group relative min-h-[320px] overflow-hidden rounded-[1.7rem] border border-white/10 bg-[linear-gradient(145deg,rgba(255,255,255,0.12),rgba(255,255,255,0.05))] text-cream shadow-[0_20px_44px_-34px_rgba(0,0,0,0.52)] transition duration-500 hover:-translate-y-1 hover:border-accent/30 hover:shadow-[0_26px_50px_-32px_rgba(0,0,0,0.6)]"
+                style={index > 0 ? { animationDelay: `${index * 180}ms` } : undefined}
               >
-                <div className="flex flex-wrap items-center gap-3 text-xs text-cream/68">
-                  <span className="inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1 font-semibold text-accent">
-                    <Newspaper className="size-3.5" />
-                    {item.category}
-                  </span>
-                  <span className="text-muted-foreground">प्रकाशित तिथि: {item.date}</span>
+                <div className="grid min-h-full h-full md:grid-cols-[0.95fr_1.05fr]">
+                  <div className="relative min-h-[220px] overflow-hidden md:min-h-full">
+                    <img
+                      src={mediaItemVisualsHindi[index % mediaItemVisualsHindi.length].image}
+                      alt={item.title}
+                      className="absolute inset-0 h-full w-full object-cover transition duration-700 group-hover:scale-105"
+                      width={1200}
+                      height={900}
+                    />
+                    <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(8,28,24,0.1),rgba(8,28,24,0.68))]" />
+                    {index === 0 ? (
+                      <div className="absolute inset-x-5 bottom-5 rounded-[1.35rem] border border-white/10 bg-black/24 p-4 backdrop-blur-sm">
+                        <div className="text-[10px] font-semibold uppercase tracking-[0.28em] text-accent">Front Page Highlight</div>
+                        <div className="mt-2 font-hi text-lg font-semibold leading-relaxed text-white">
+                          {item.title}
+                        </div>
+                      </div>
+                    ) : null}
+                  </div>
+                  <div className="relative flex min-h-full flex-col p-5 sm:p-6">
+                    <div className="absolute right-4 top-4 h-14 w-14 rounded-full bg-accent/10 blur-2xl" />
+                    <div className="relative flex flex-wrap items-center gap-2 text-[11px] uppercase tracking-[0.18em]">
+                      <span className="inline-flex items-center gap-2 rounded-full bg-[#0d4b3e]/78 px-3 py-1 font-semibold text-accent backdrop-blur">
+                        <Newspaper className="size-3.5" />
+                        {item.category}
+                      </span>
+                      <span className="rounded-full bg-white/8 px-3 py-1 text-cream/66 backdrop-blur">{item.date}</span>
+                    </div>
+                    {index === 0 ? (
+                      <div className="mt-4 h-px w-full bg-white/10 md:hidden" />
+                    ) : (
+                      <h3 className="relative mt-4 font-hi text-base font-semibold leading-relaxed text-white drop-shadow-[0_2px_10px_rgba(0,0,0,0.18)] sm:text-[1.08rem]">
+                        {item.title}
+                      </h3>
+                    )}
+                    <p className={`relative ${index === 0 ? "mt-5 max-w-xl text-sm leading-7 text-cream/82 md:mt-6" : "mt-3 text-sm leading-6 text-cream/76"}`}>
+                      {mediaItemVisualsHindi[index % mediaItemVisualsHindi.length].summary}
+                    </p>
+                    <div className={`relative mt-auto inline-flex items-center gap-2 pt-5 font-semibold text-accent ${index === 0 ? "text-sm" : "text-xs uppercase tracking-[0.16em]"}`}>
+                      {index === 0 ? "Featured story" : "Read feature"} <ArrowRight className="size-4 transition group-hover:translate-x-1" />
+                    </div>
+                  </div>
                 </div>
-                <h3 className="mt-4 font-hi text-lg font-semibold leading-relaxed text-white">{item.title}</h3>
               </article>
             ))}
           </div>
         </div>
-      </section>
+      </motion.section>
 
-      <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-20">
+      <motion.section
+        {...sectionRevealProps}
+        className="mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-20"
+      >
         <div className="grid gap-8 lg:grid-cols-[1.05fr_0.95fr] lg:items-end">
           <div>
             <div className="text-xs font-semibold uppercase tracking-[0.2em] text-primary">फोटो गेलरी</div>
@@ -1064,9 +1421,10 @@ function Home() {
             </figure>
           ))}
         </div>
-      </section>
+      </motion.section>
 
-      <section
+      <motion.section
+        {...sectionRevealProps}
         id="donate"
         className="relative overflow-hidden bg-[#fbf7ef] text-[#143c35]"
       >
@@ -1080,7 +1438,7 @@ function Home() {
             src={heroHeartSprade}
             alt=""
             aria-hidden="true"
-            className="hero-heartbeat h-48 w-48 object-contain opacity-40"
+            className="hero-heartbeat h-48 w-48 object-contain opacity-30"
             width={192}
             height={192}
           />
@@ -1091,7 +1449,7 @@ function Home() {
               src={heroHeartSprade}
               alt=""
               aria-hidden="true"
-              className="hero-heartbeat h-5 w-5 object-contain"
+              className="hero-heartbeat h-5 w-5 object-contain opacity-70"
               width={20}
               height={20}
             />
@@ -1105,13 +1463,7 @@ function Home() {
             आपकी भागीदारी और सार्थक सहयोग की जरूरत है।
           </p>
           <div className="mt-8 flex flex-wrap justify-center gap-3">
-            {/* <Link
-              to="/donate"
-              className="inline-flex items-center gap-2 rounded-full bg-accent px-6 py-3 text-sm font-bold text-accent-foreground shadow-[0_18px_38px_-20px_rgba(241,189,26,0.75)] transition hover:-translate-y-0.5 hover:brightness-95"
-            >
-              <HandHeart className="size-4" />
-              दान करें
-            </Link> */}
+           
             <Link
               to="/contact"
               className="inline-flex items-center gap-2 rounded-full border border-[#143c35]/16 bg-white/72 px-6 py-3 text-sm font-semibold text-[#143c35] shadow-sm backdrop-blur transition hover:bg-white"
@@ -1121,34 +1473,41 @@ function Home() {
           </div>
            
         </div>
-      </section>
+      </motion.section>
 
       <button
         type="button"
         aria-label="Back to top"
         onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-        className="group fixed bottom-5 right-5 z-50 grid size-[72px] place-items-center rounded-full bg-white/90 shadow-[0_22px_40px_-24px_rgba(20,60,53,0.5)] ring-1 ring-[#143c35]/10 backdrop-blur transition duration-300 hover:-translate-y-1 hover:bg-white sm:bottom-7 sm:right-7"
+        className="group fixed bottom-5 right-5 z-50 grid size-[72px] place-items-center rounded-full bg-transparent shadow-[0_20px_38px_-24px_rgba(20,60,53,0.42)] transition duration-300 hover:-translate-y-1 sm:bottom-7 sm:right-7"
       >
         <svg
           className="absolute inset-0 -rotate-90"
           viewBox="0 0 72 72"
           aria-hidden="true"
         >
-          <circle cx="36" cy="36" r="18" fill="none" stroke="rgba(20,60,53,0.12)" strokeWidth="3.5" />
           <circle
             cx="36"
             cy="36"
-            r="18"
+            r="30"
             fill="none"
-            stroke="#f1bd1a"
-            strokeWidth="3.5"
+            stroke="rgba(123, 197, 185, 0.24)"
+            strokeWidth="4"
+          />
+          <circle
+            cx="36"
+            cy="36"
+            r="30"
+            fill="none"
+            stroke="#68b8a9"
+            strokeWidth="4"
             strokeLinecap="round"
-            strokeDasharray="113.1"
+            strokeDasharray={progressCircumference}
             strokeDashoffset={progressOffset}
             className="transition-[stroke-dashoffset] duration-300 ease-out"
           />
         </svg>
-        <span className="relative flex h-11 w-11 items-center justify-center overflow-hidden rounded-full bg-[#143c35] text-white shadow-[0_14px_30px_-16px_rgba(20,60,53,0.72)]">
+        <span className="relative flex h-[52px] w-[52px] items-center justify-center overflow-hidden rounded-full bg-[#f7f6ef] text-[#136b60] shadow-[inset_0_0_0_1px_rgba(104,184,169,0.12),0_10px_24px_-18px_rgba(20,60,53,0.28)]">
           <ArrowDown className="absolute size-5 -translate-y-10 rotate-180 transition duration-300 group-hover:translate-y-0" />
           <ArrowDown className="absolute size-5 rotate-180 transition duration-300 group-hover:translate-y-10" />
         </span>
