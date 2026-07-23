@@ -1073,13 +1073,13 @@ function Home() {
               transition={{ duration: 0.35, ease: "easeOut" }}
               className="relative mx-auto w-full max-w-[38rem] xl:mx-0"
             >
-              <div className="relative min-h-[28rem] sm:min-h-[33rem]">
+                <div className="relative min-h-[32rem] sm:min-h-[38rem]">
                 <div className="absolute -left-4 top-8 h-28 w-28 rounded-full border border-white/30 bg-white/16 blur-2xl" />
                 <div className="absolute right-8 top-4 h-24 w-24 rounded-full border border-accent/18 bg-accent/12 blur-2xl" />
                 <motion.div
                   whileHover={{ scale: 1.015, y: -4 }}
                   transition={{ duration: 0.35, ease: "easeOut" }}
-                  className="about-oval-reveal about-glass-shine absolute left-0 top-0 z-0 h-[22rem] w-[18rem] overflow-hidden rounded-[999px] border border-white/80 bg-white p-2 shadow-[0_38px_74px_-34px_rgba(14,63,51,0.42)] sm:h-[31rem] sm:w-[23rem]"
+                    className="about-oval-reveal about-glass-shine absolute left-0 top-0 z-0 h-[26rem] w-[16.5rem] overflow-hidden rounded-[999px] bg-transparent p-0 shadow-[0_38px_74px_-34px_rgba(14,63,51,0.42)] sm:h-[36rem] sm:w-[21.5rem]"
                 >
                   <img
                     src={aboutHeroRealOne}
@@ -1089,24 +1089,24 @@ function Home() {
                     height={1200}
                   />
                 </motion.div>
-                <motion.div
-                  whileHover={{ scale: 1.02, y: -6 }}
-                  transition={{ duration: 0.35, ease: "easeOut" }}
-                  className="about-oval-reveal about-glass-shine about-oval-reveal-delayed absolute bottom-0 right-0 z-20 h-[16rem] w-[14rem] overflow-hidden rounded-[999px] border border-white/80 bg-white p-2 shadow-[0_38px_74px_-34px_rgba(14,63,51,0.45)] sm:h-[24rem] sm:w-[19rem]"
-                >
-                  <img
-                    src={aboutHeroRealTwo}
-                    alt="SBGBT grassroots activity"
-                    className="h-full w-full rounded-[999px] object-cover"
-                    width={900}
-                    height={900}
-                  />
-                </motion.div>
-                <motion.div
-                  whileHover={{ y: -4, scale: 1.03 }}
-                  transition={{ duration: 0.3, ease: "easeOut" }}
-                  className="absolute left-[10rem] top-[13rem] z-30 rounded-[1.25rem] border border-white/60 bg-[linear-gradient(135deg,rgba(255,255,255,0.7),rgba(255,255,255,0.34))] px-5 py-4 text-center text-primary shadow-[0_28px_48px_-24px_rgba(14,63,51,0.34)] backdrop-blur-xl sm:left-[13.5rem] sm:top-[23rem]"
-                >
+                  <motion.div
+                    whileHover={{ scale: 1.02, y: -6 }}
+                    transition={{ duration: 0.35, ease: "easeOut" }}
+                    className="about-oval-reveal about-glass-shine about-oval-reveal-delayed absolute bottom-0 right-0 z-20 h-[19rem] w-[14rem] overflow-hidden rounded-[999px] border border-[#f6f0e0] bg-[#f6f0e0] pb-0 pl-1 pr-0 pt-1 shadow-[0_38px_74px_-34px_rgba(14,63,51,0.45)] sm:h-[28rem] sm:w-[19rem] sm:pl-[6px] sm:pt-[6px]"
+                  >
+                    <img
+                     src={aboutHeroRealTwo}
+                      alt="SBGBT grassroots activity"
+                      className="h-full w-full rounded-[999px] object-cover"
+                      width={900}
+                      height={900}
+                    />
+                  </motion.div>
+                    <motion.div
+                      whileHover={{ y: -4, scale: 1.03 }}
+                      transition={{ duration: 0.3, ease: "easeOut" }}
+                      className="absolute left-[10rem] top-[15rem] z-30 rounded-[1.25rem] border border-white/60 bg-[linear-gradient(135deg,rgba(255,255,255,0.7),rgba(255,255,255,0.34))] px-5 py-4 text-center text-primary shadow-[0_28px_48px_-24px_rgba(14,63,51,0.34)] backdrop-blur-xl sm:left-[13.5rem] sm:top-[26rem]"
+                  >
                   <div className="font-display text-4xl font-black leading-none">25+</div>
                   <div className="mt-2 text-sm font-semibold leading-snug">वर्षों का अनुभव</div>
                   <div className="mt-3 h-px bg-primary/12" />
@@ -1180,15 +1180,7 @@ function Home() {
                   हमारे बारे में
                   <ArrowRight className="size-4" />
                 </Link>
-                <Link
-                  to="/activities"
-                  className="inline-flex items-center gap-3 rounded-xl border border-primary/18 bg-transparent px-4 py-3 text-sm font-semibold text-primary transition duration-300 hover:-translate-y-0.5 hover:border-primary/30 hover:bg-white/35"
-                >
-                  <span className="grid size-12 place-items-center rounded-full border border-primary/20 bg-transparent text-primary shadow-[0_16px_28px_-18px_rgba(14,63,51,0.22)]">
-                    <BookOpen className="size-5" />
-                  </span>
-                  हमारे कार्यक्रम देखें
-                </Link>
+                
               </div>
             </div>
           </div>
