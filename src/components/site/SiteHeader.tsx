@@ -21,27 +21,109 @@ const desktopNavLinks = [
   { to: "/activities", label: "हमारे कार्य", hasMenu: false },
   { to: "/media", label: "उत्थान पत्रिका", hasMenu: false },
   { to: "/gallery", label: "गैलरी", hasMenu: false },
-  { to: "/media", label: "मीडिया कॉर्नर", hasMenu: true },
-  { to: "/contact", label: "संपर्क", hasMenu: true },
+
+  {
+    to: "#",
+    label: "मीडिया कॉर्नर",
+    hasMenu: [
+      { label: "जागरूकता लेख", to: "/articles" },
+      { label: "उत्थान पत्रिका", to: "/media" },
+      { label: "प्रिंट मीडिया", to: "/print-media" },
+      { label: "इलेक्ट्रॉनिक मीडिया", to: "/electronic-media" },
+    ],
+  },
+
+  {
+    to: "/contact",
+    label: "संपर्क",
+    hasMenu: [
+      { label: "सामान्य जानकारी", to: "/contact" },
+      { label: "CSR पार्ट्नर्शिप", to: "/csr-partnership" },
+    ],
+  },
+
   {
     to: "https://www.sbgbteam.com/sbgbp-registration",
     label: "रजिस्ट्रेशन",
-    hasMenu: true,
     external: true,
+    hasMenu: [
+      {
+        label: "प्रतिभा-सम्मान समागम रजिस्ट्रेशन",
+        to: "https://www.sbgbteam.com/sbgbp-registration",
+        external: true,
+      },
+      {
+        label: "उत्थान कोचिंग रजिस्ट्रेशन",
+        to: "https://www.sbgbteam.com/sbgbp-registration-admit-card",
+        external: true,
+      },
+      {
+        label: "शिक्षा पाओ ज्ञान बढ़ाओ प्रतियोगिता (SPGBP) रजिस्ट्रेशन",
+        to: "https://www.sbgbteam.com/sbgbp-registration-admit-card",
+        external: true,
+      },
+    ],
   },
-  { to: "#", label: "लॉगिन करें", hasMenu: true, external: true },
+
+  {
+    to: "#",
+    label: "लॉगिन करें",
+    external: true,
+    hasMenu: [
+      { label: "SBGBT प्रबंधक लॉगिन", to: "/admin-login" },
+      { label: "उत्थान कोचिंग प्रबंधक लॉगिन", to: "/user-login" },
+      { label: "SBGBT प्रबंधक सदस्य लॉगिन", to: "/user-login" }, 
+    ],
+  },
 ] as const;
 
 export const navLinks = [
-  { to: "/", label: "होम" },
-  { to: "/about", label: "हमारे बारे में" },
-  { to: "/activities", label: "हमारे कार्य" },
-  { to: "/gallery", label: "गैलरी" },
-  { to: "/media", label: "उत्थान पत्रिका" },
-  { to: "/media", label: "मीडिया कॉर्नर" },
-  { to: "/contact", label: "संपर्क" },
-  { to: "https://www.sbgbteam.com/sbgbp-registration", label: "रजिस्ट्रेशन" },
-  { to: "#", label: "लॉगिन करें" },
+  { to: "/", label: "होम", hasMenu: false },
+  { to: "/about", label: "हमारे बारे में", hasMenu: false },
+  { to: "/activities", label: "हमारे कार्य", hasMenu: false },
+  { to: "/gallery", label: "गैलरी", hasMenu: false },
+  { to: "/media", label: "उत्थान पत्रिका", hasMenu: false },
+
+  {
+    to: "/media",
+    label: "मीडिया कॉर्नर",
+    hasMenu: [
+      { label: "जागरूकता लेख", to: "/articles" },
+      { label: "उत्थान पत्रिका", to: "/media" },
+      { label: "प्रिंट मीडिया", to: "/print-media" },
+      { label: "इलेक्ट्रॉनिक मीडिया", to: "/electronic-media" },
+    ],
+  },
+
+  {
+    to: "/contact",
+    label: "संपर्क",
+    hasMenu: [
+      { label: "सामान्य जानकारी", to: "/contact" },
+      { label: "CSR पार्ट्नर्शिप", to: "/csr-partnership" },
+    ],
+  },
+
+  {
+    to: "https://www.sbgbteam.com/sbgbp-registration",
+    label: "रजिस्ट्रेशन",
+    external: true,
+    hasMenu: [
+      { label: "SBGBT प्रबंधक लॉगिन", to: "/admin-login" },
+      { label: "उत्थान कोचिंग प्रबंधक लॉगिन", to: "/user-login" },
+      { label: "SBGBT प्रबंधक सदस्य लॉगिन", to: "/user-login" }, 
+    ],
+  },
+
+  {
+    to: "#",
+    label: "लॉगिन करें",
+    external: true,
+    hasMenu: [
+      { label: "Admin Login", to: "/admin-login" },
+      { label: "User Login", to: "/user-login" },
+    ],
+  },
 ] as const;
 
 export function SiteHeader() {
@@ -189,34 +271,64 @@ export function SiteHeader() {
               <motion.div
                 whileHover={{ y: -1 }}
                 transition={{ duration: 0.2 }}
-                className="relative flex h-[56px] w-fit max-w-[940px] shrink items-center justify-center overflow-hidden rounded-full px-12"
+                className="relative flex h-[56px] w-fit max-w-[940px] shrink items-center justify-center overflow-visible rounded-full px-12"
               >
                 <nav className="flex items-center gap-5 pl-3 text-[16px] font-bold text-[#111111] xl:gap-6 xl:pl-4 xl:text-[16px]">
-                  {desktopNavLinks.map((link) =>
-                    link.external ? (
-                      <a
-                        key={`${link.label}-${link.to}`}
-                        href={link.to}
-                        target={link.to.startsWith("http") ? "_blank" : undefined}
-                        rel={link.to.startsWith("http") ? "noreferrer" : undefined}
-                        className="flex items-center gap-1 whitespace-nowrap transition-transform duration-300 hover:-translate-y-0.5 hover:text-[#143c35]"
-                      >
-                        {link.label}
-                        {link.hasMenu ? <ChevronDown className="size-3.5" /> : null}
-                      </a>
-                    ) : (
-                      <Link
-                        key={`${link.label}-${link.to}`}
-                        to={link.to}
-                        activeOptions={{ exact: link.to === "/" }}
-                        activeProps={{ className: "text-[#143c35]" }}
-                        className="flex items-center gap-1 whitespace-nowrap transition-transform duration-300 hover:-translate-y-0.5 hover:text-[#143c35]"
-                      >
-                        {link.label}
-                        {link.hasMenu ? <ChevronDown className="size-3.5" /> : null}
-                      </Link>
-                    ),
-                  )}
+                  {desktopNavLinks.map((link) => (
+                    <div key={`${link.label}-${link.to}`} className="group relative">
+                      {link.external ? (
+                        <a
+                          href={link.to}
+                          target={link.to.startsWith("http") ? "_blank" : undefined}
+                          rel={link.to.startsWith("http") ? "noreferrer" : undefined}
+                          className="flex items-center gap-1 whitespace-nowrap transition-transform duration-300 hover:-translate-y-0.5 hover:text-[#143c35]"
+                        >
+                          {link.label}
+                          {Array.isArray(link.hasMenu) && (
+                            <ChevronDown className="size-3.5 transition-transform duration-300 group-hover:rotate-180" />
+                          )}
+                        </a>
+                      ) : (
+                        <Link
+                          to={link.to}
+                          activeOptions={{ exact: link.to === "/" }}
+                          activeProps={{ className: "text-[#143c35]" }}
+                          className="flex items-center gap-1 whitespace-nowrap transition-transform duration-300 hover:-translate-y-0.5 hover:text-[#143c35]"
+                        >
+                          {link.label}
+                          {Array.isArray(link.hasMenu) && (
+                            <ChevronDown className="size-3.5 transition-transform duration-300 group-hover:rotate-180" />
+                          )}
+                        </Link>
+                      )}
+
+                      {Array.isArray(link.hasMenu) && (
+                        <div className="invisible absolute left-0 top-full z-50 mt-3 min-w-[240px] rounded-2xl bg-white p-2 opacity-0 shadow-xl transition-all duration-300 group-hover:visible group-hover:opacity-100">
+                          {link.hasMenu.map((item) =>
+                            item.external ? (
+                              <a
+                                key={item.label}
+                                href={item.to}
+                                target="_blank"
+                                rel="noreferrer"
+                                className="block rounded-lg px-4 py-3 text-[#143c35] transition hover:bg-[#F6F3EA]"
+                              >
+                                {item.label}
+                              </a>
+                            ) : (
+                              <Link
+                                key={item.label}
+                                to={item.to}
+                                className="block rounded-lg px-4 py-3 text-[#143c35] transition hover:bg-[#F6F3EA]"
+                              >
+                                {item.label}
+                              </Link>
+                            )
+                          )}
+                        </div>
+                      )}
+                    </div>
+                  ))}
                 </nav>
               </motion.div>
             </div>
