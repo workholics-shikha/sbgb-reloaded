@@ -1,17 +1,19 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { motion } from "framer-motion";
 import { useMemo, useState } from "react";
 import { ChevronLeft, ChevronRight, Images, Sparkles } from "lucide-react";
 import { SiteHeader } from "@/components/site/SiteHeader";
-import { SiteFooter, PageHero } from "@/components/site/SiteFooter";
-import galEnv from "@/assets/gallery-environment.jpg";
-import galWomen from "@/assets/gallery-women.jpg";
-import galLib from "@/assets/gallery-library.jpg";
-import galHealth from "@/assets/gallery-health.jpg";
-import galAwards from "@/assets/gallery-awards.jpg";
-import galVillage from "@/assets/gallery-village.jpg";
-import galleryHeroReal from "@/assets/gallery-hero-real.jpg";
-import workholicsLogo from "@/assets/workholicslogo.png";
+import { PageHero, SiteFooter } from "@/components/site/SiteFooter";
 import ecoNeedsLogo from "@/assets/econeeds-logo.png";
+import galAwards from "@/assets/gallery-awards.jpg";
+import galEnv from "@/assets/gallery-environment.jpg";
+import galHealth from "@/assets/gallery-health.jpg";
+import galLib from "@/assets/gallery-library.jpg";
+import galVillage from "@/assets/gallery-village.jpg";
+import galWomen from "@/assets/gallery-women.jpg";
+import workholicsLogo from "@/assets/workholicslogo.png";
+import heroHeartSprade from "@/assets/hero-heart-sprade.png";
+import blogBgPaper from "@/assets/blog-bg-paper.png";
 
 export const Route = createFileRoute("/gallery")({
   head: () => ({
@@ -20,7 +22,7 @@ export const Route = createFileRoute("/gallery")({
       {
         name: "description",
         content:
-          "SBGBT की फोटो गैलरी जिसमें सोच बदलो गांव बदलो यात्रा, शिक्षा, महिला सशक्तिकरण, क्लीन विलेज और ग्रामीण विकास के दृश्य शामिल हैं।",
+          "SBGBT की फोटो गैलरी जिसमें शिक्षा, महिला सशक्तिकरण, पर्यावरण, स्वास्थ्य और ग्राम विकास से जुड़े प्रमुख क्षण शामिल हैं।",
       },
     ],
   }),
@@ -28,14 +30,14 @@ export const Route = createFileRoute("/gallery")({
 });
 
 const categories = [
-  "सब",
+  "सभी",
   "सोच बदलो गांव बदलो यात्रा",
-  "आओ पढ़ो-आगे बढ़ाओ",
-  "क्लीन विलेज-ग्रीन विलेज",
+  "आओ पढ़ो आगे बढ़ो",
+  "क्लीन विलेज ग्रीन विलेज",
   "उत्थान कोचिंग संस्थान",
-  "शिक्षा पाओ-ज्ञान बढ़ाओ",
+  "शिक्षा पाओ ज्ञान बढ़ाओ",
   "महिला सशक्तिकरण",
-  "आधुनिक खेती-हमारा प्रयास",
+  "आधुनिक खेती हमारा प्रयास",
 ] as const;
 
 const years = ["सभी वर्ष", "2019", "2018", "2017"] as const;
@@ -51,109 +53,41 @@ type GalleryItem = {
 };
 
 const galleryItems: GalleryItem[] = [
-  {
-    src: galVillage,
-    title: "सोच बदलो गांव बदलो यात्रा-भवनपुरा",
-    category: "सोच बदलो गांव बदलो यात्रा",
-    year: "2018",
-  },
-  {
-    src: galLib,
-    title: "आओ पढ़े-आगे बढ़े",
-    category: "आओ पढ़ो-आगे बढ़ाओ",
-    year: "2018",
-  },
-  {
-    src: galAwards,
-    title: "शिक्षा पाओ-ज्ञान बढ़ाओ 'धनौरा विकास समिति'",
-    category: "शिक्षा पाओ-ज्ञान बढ़ाओ",
-    year: "2018",
-  },
-  {
-    src: galHealth,
-    title: "ब्लड की कमी से किसी की जान नहीं जा सकेगी",
-    category: "महिला सशक्तिकरण",
-    year: "2018",
-  },
-  {
-    src: galWomen,
-    title: "बालिका शिक्षा ही महिला सशक्तिकरण का आधार है।",
-    category: "महिला सशक्तिकरण",
-    year: "2017",
-  },
-  {
-    src: galEnv,
-    title: "Journey 1",
-    category: "क्लीन विलेज-ग्रीन विलेज",
-    year: "2018",
-  },
-  {
-    src: galWomen,
-    title: "Journey 2",
-    category: "महिला सशक्तिकरण",
-    year: "2018",
-  },
-  {
-    src: galAwards,
-    title: "Journey 4",
-    category: "शिक्षा पाओ-ज्ञान बढ़ाओ",
-    year: "2018",
-  },
-  {
-    src: galVillage,
-    title: "समाजिक क्रांति_ पार्टी गांव स्मार्ट सोच",
-    category: "सोच बदलो गांव बदलो यात्रा",
-    year: "2018",
-  },
-  {
-    src: galLib,
-    title: "शिक्षा पाओ-ज्ञान बढ़ाओ 'हमीरा विकास समिति' 0",
-    category: "शिक्षा पाओ-ज्ञान बढ़ाओ",
-    year: "2018",
-  },
-  {
-    src: galHealth,
-    title: "फिर एक गर्भवती महिला के जीवन को बचाया",
-    category: "महिला सशक्तिकरण",
-    year: "2019",
-  },
-  {
-    src: galEnv,
-    title: "क्लीन विलेज-ग्रीन विलेज",
-    category: "क्लीन विलेज-ग्रीन विलेज",
-    year: "2018",
-  },
-  {
-    src: galVillage,
-    title: "उत्थान कोचिंग संस्थान (3)",
-    category: "उत्थान कोचिंग संस्थान",
-    year: "2019",
-  },
-  {
-    src: galAwards,
-    title: "On event gallery",
-    category: "सोच बदलो गांव बदलो यात्रा",
-    year: "2017",
-  },
-  {
-    src: galEnv,
-    title: "आधुनिक खेती-हमारा प्रयास",
-    category: "आधुनिक खेती-हमारा प्रयास",
-    year: "2018",
-  },
+  { src: galVillage, title: "सोच बदलो गांव बदलो यात्रा – भवनपुरा", category: "सोच बदलो गांव बदलो यात्रा", year: "2018" },
+  { src: galLib, title: "आओ पढ़ो आगे बढ़ो अभियान", category: "आओ पढ़ो आगे बढ़ो", year: "2018" },
+  { src: galAwards, title: "धनौरा विकास समिति सम्मान समारोह", category: "शिक्षा पाओ ज्ञान बढ़ाओ", year: "2018" },
+  { src: galHealth, title: "एनीमिया जागरूकता और स्वास्थ्य सहयोग", category: "महिला सशक्तिकरण", year: "2018" },
+  { src: galWomen, title: "बालिका शिक्षा ही सशक्तिकरण का आधार", category: "महिला सशक्तिकरण", year: "2017" },
+  { src: galEnv, title: "वृक्षारोपण और हरित ग्राम पहल", category: "क्लीन विलेज ग्रीन विलेज", year: "2018" },
+  { src: galWomen, title: "सामुदायिक सहभागिता के प्रेरक पल", category: "महिला सशक्तिकरण", year: "2018" },
+  { src: galAwards, title: "प्रतिभा सम्मान और प्रेरणा समारोह", category: "शिक्षा पाओ ज्ञान बढ़ाओ", year: "2018" },
+  { src: galVillage, title: "सामाजिक चेतना और ग्राम संगठन", category: "सोच बदलो गांव बदलो यात्रा", year: "2018" },
+  { src: galLib, title: "हमीरा विकास समिति की छात्र पहल", category: "शिक्षा पाओ ज्ञान बढ़ाओ", year: "2018" },
+  { src: galHealth, title: "गर्भवती महिलाओं के लिए स्वास्थ्य सहयोग", category: "महिला सशक्तिकरण", year: "2019" },
+  { src: galEnv, title: "स्वच्छता और हरियाली अभियान", category: "क्लीन विलेज ग्रीन विलेज", year: "2018" },
+  { src: galVillage, title: "उत्थान कोचिंग संस्थान के अध्ययन क्षण", category: "उत्थान कोचिंग संस्थान", year: "2019" },
+  { src: galAwards, title: "कार्यक्रम के यादगार दृश्य", category: "सोच बदलो गांव बदलो यात्रा", year: "2017" },
+  { src: galEnv, title: "आधुनिक खेती और आजीविका प्रयास", category: "आधुनिक खेती हमारा प्रयास", year: "2018" },
 ];
 
 const pageSize = 6;
 
+const sectionRevealProps = {
+  initial: { opacity: 0, y: 34 },
+  whileInView: { opacity: 1, y: 0 },
+  viewport: { once: true, amount: 0.2 },
+  transition: { duration: 0.72, ease: [0.22, 1, 0.36, 1] as const },
+};
+
 function Gallery() {
-  const [activeCategory, setActiveCategory] = useState<Category>("सब");
+  const [activeCategory, setActiveCategory] = useState<Category>("सभी");
   const [activeYear, setActiveYear] = useState<Year>("सभी वर्ष");
   const [page, setPage] = useState(1);
   const [selectedItem, setSelectedItem] = useState<GalleryItem | null>(null);
 
   const filteredItems = useMemo(() => {
     return galleryItems.filter((item) => {
-      const matchesCategory = activeCategory === "सब" || item.category === activeCategory;
+      const matchesCategory = activeCategory === "सभी" || item.category === activeCategory;
       const matchesYear = activeYear === "सभी वर्ष" || item.year === activeYear;
       return matchesCategory && matchesYear;
     });
@@ -163,43 +97,23 @@ function Gallery() {
   const safePage = Math.min(page, totalPages);
   const paginatedItems = filteredItems.slice((safePage - 1) * pageSize, safePage * pageSize);
 
-  const changeCategory = (category: Category) => {
-    setActiveCategory(category);
-    setPage(1);
-  };
-
-  const changeYear = (year: Year) => {
-    setActiveYear(year);
-    setPage(1);
-  };
-
   return (
     <div className="min-h-screen bg-background text-foreground">
       <SiteHeader />
 
-      <PageHero
-        eyebrow="Photo gallery"
-        title="गांवों से आए वे दृश्य जो अभियान को जीवंत बनाते हैं।"
-        hi="फोटो गैलरी"
-        sub="पुरानी gallery के वही अभियान, categories और फोटो titles अब SBGBT की current visual theme में, ताकि page बाकी site ke साथ naturally blend करे।"
-        imageSrc={galleryHeroReal}
-        imageAlt="SBGBT photo gallery"
-      />
+         <PageHero title="गैलरी" />
 
-      <section className="festive-band relative overflow-hidden border-y border-border">
-        <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/20 to-transparent" />
-        <div className="absolute -left-10 top-20 size-52 rounded-full bg-accent/10 blur-3xl" />
-        <div className="absolute right-0 top-32 size-72 rounded-full bg-primary/10 blur-3xl" />
+      <section className="border-border bg-background">
         <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 sm:py-16">
           <div className="grid gap-8 xl:grid-cols-[280px_minmax(0,1fr)]">
-            <aside className="vibrant-panel rounded-[2rem] border border-border p-5 shadow-sm">
+            <aside className="rounded-[2rem] border border-border bg-card/90 p-5 shadow-sm">
               <div className="flex items-center gap-3">
                 <div className="grid size-11 place-items-center rounded-2xl bg-primary/10 text-primary">
                   <Images className="size-5" />
                 </div>
                 <div>
-                  <div className="text-xs font-semibold uppercase tracking-[0.2em] text-primary">Filters</div>
-                  <div className="mt-1 font-display text-xl font-black">Gallery Paths</div>
+                  <div className="text-xs font-semibold uppercase tracking-[0.2em] text-primary">फ़िल्टर</div>
+                  <div className="mt-1 font-display text-xl font-black">गैलरी श्रेणियां</div>
                 </div>
               </div>
 
@@ -208,11 +122,14 @@ function Gallery() {
                   <button
                     key={category}
                     type="button"
-                    onClick={() => changeCategory(category)}
+                    onClick={() => {
+                      setActiveCategory(category);
+                      setPage(1);
+                    }}
                     className={`w-full rounded-[1.25rem] border px-4 py-3 text-left font-hi text-base transition ${
                       activeCategory === category
                         ? "border-primary bg-primary text-primary-foreground shadow-md"
-                        : "border-border bg-card/80 text-foreground hover:border-primary/30 hover:bg-card"
+                        : "border-border bg-background/70 text-foreground hover:border-primary/30 hover:bg-card"
                     }`}
                   >
                     {category}
@@ -224,30 +141,33 @@ function Gallery() {
             <div>
               <div className="grid gap-5 lg:grid-cols-[1fr_auto] lg:items-end">
                 <div>
-                  <div className="inline-flex items-center gap-2 rounded-full bg-primary/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-primary">
+                  <div className="inline-flex items-center gap-2 rounded-full bg-primary/10 px-3 py-1 text-xs font-semibold tracking-[0.18em] text-primary">
                     <Sparkles className="size-3.5" />
-                    Curated Moments
+                    चुने हुए क्षण
                   </div>
                   <h2 className="mt-4 font-display text-3xl font-black text-balance sm:text-4xl">
                     {activeCategory}
                   </h2>
                   <p className="mt-3 max-w-2xl text-muted-foreground">
-                    पुरानी gallery content ko उसी category structure में रखा गया है, बस presentation ko current SBGBT homepage aur inner pages की theme के हिसाब से refresh किया गया है।
+                    यहां आप SBGBT की यात्राओं, कार्यक्रमों, सामुदायिक बैठकों और प्रेरक पहलों की दृश्य झलक देख सकते हैं।
                   </p>
                 </div>
 
                 <div className="rounded-[1.5rem] border border-border bg-card/85 p-4 shadow-sm">
                   <div className="text-[11px] font-semibold uppercase tracking-[0.18em] text-primary/80">
-                    Filter By Year
+                    वर्ष चुनें
                   </div>
                   <select
                     value={activeYear}
-                    onChange={(e) => changeYear(e.target.value as Year)}
+                    onChange={(event) => {
+                      setActiveYear(event.target.value as Year);
+                      setPage(1);
+                    }}
                     className="mt-3 w-full rounded-full border border-border bg-background px-4 py-2.5 text-sm outline-none transition focus:border-primary sm:min-w-[180px]"
                   >
                     {years.map((year) => (
                       <option key={year} value={year}>
-                        {year === "सभी वर्ष" ? "Select Year" : year}
+                        {year}
                       </option>
                     ))}
                   </select>
@@ -255,14 +175,12 @@ function Gallery() {
               </div>
 
               <div className="mt-8 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
-                {paginatedItems.map((item, index) => (
+                {paginatedItems.map((item) => (
                   <button
                     key={`${item.title}-${item.year}`}
                     type="button"
                     onClick={() => setSelectedItem(item)}
-                    className={`group relative overflow-hidden rounded-[1.9rem] border border-border bg-card text-left shadow-sm transition hover:-translate-y-1.5 hover:border-primary/35 hover:shadow-xl ${
-                      index % 3 === 1 ? "xl:-translate-y-3" : ""
-                    }`}
+                    className="group relative overflow-hidden rounded-[1.9rem] border border-border bg-card text-left shadow-sm transition hover:-translate-y-1.5 hover:border-primary/35 hover:shadow-xl"
                   >
                     <div className="absolute inset-0 bg-gradient-to-br from-primary/0 via-transparent to-accent/0 opacity-0 transition group-hover:opacity-100 group-hover:from-primary/10 group-hover:to-accent/10" />
                     <img
@@ -271,11 +189,11 @@ function Gallery() {
                       className="h-[280px] w-full object-cover transition duration-700 group-hover:scale-105"
                     />
                     <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-ink/95 via-ink/55 to-transparent px-5 py-5 text-cream">
-                      <div className="inline-flex rounded-full bg-cream/15 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-cream/85">
+                      <div className="inline-flex rounded-full bg-cream/15 px-2.5 py-1 text-[10px] font-semibold tracking-[0.18em] text-cream/85">
                         {item.year}
                       </div>
                       <div className="mt-3 font-hi text-xl leading-snug">{item.title}</div>
-                      <div className="mt-2 text-xs uppercase tracking-[0.18em] text-cream/70">{item.category}</div>
+                      <div className="mt-2 text-xs tracking-[0.18em] text-cream/70">{item.category}</div>
                     </div>
                   </button>
                 ))}
@@ -283,7 +201,7 @@ function Gallery() {
 
               {paginatedItems.length === 0 && (
                 <div className="mt-8 rounded-[1.75rem] border border-border bg-card/85 px-6 py-10 text-center text-muted-foreground shadow-sm">
-                  इस filter में अभी कोई gallery item उपलब्ध नहीं है।
+                  इस फ़िल्टर में अभी कोई गैलरी आइटम उपलब्ध नहीं है।
                 </div>
               )}
 
@@ -326,26 +244,26 @@ function Gallery() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-20">
+      {/* <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-20">
         <div className="grid gap-6 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
           <div>
-            <div className="text-xs font-semibold uppercase tracking-[0.2em] text-primary">Supporters</div>
-            <h3 className="mt-3 font-display text-3xl font-black sm:text-4xl">हमारे समर्थक</h3>
+            <div className="text-xs font-semibold uppercase tracking-[0.2em] text-primary">हमारे सहयोगी</div>
+            <h3 className="mt-3 font-display text-3xl font-black sm:text-4xl">सहयोग से मजबूत होती यात्रा</h3>
             <p className="mt-4 max-w-xl text-muted-foreground">
-              जिन सहयोगियों ने गांव, शिक्षा और जन-जागरूकता से जुड़े हमारे प्रयासों को मजबूती दी, उन्हें gallery experience का हिस्सा बनाकर रखा गया है।
+              जिन साथियों और संस्थाओं ने शिक्षा, ग्राम विकास और जन-जागरूकता से जुड़े हमारे प्रयासों को मजबूती दी, उन्हें यहां सम्मानपूर्वक स्थान दिया गया है।
             </p>
           </div>
 
-          <div className="vibrant-panel rounded-[2rem] border border-border p-6 shadow-sm">
+          <div className="rounded-[2rem] border border-border bg-card/90 p-6 shadow-sm">
             <div className="grid gap-4 sm:grid-cols-2">
-              <div className="rounded-[1.5rem] border border-border bg-card/90 px-6 py-8 text-center shadow-sm">
+              <div className="rounded-[1.5rem] border border-border bg-background/70 px-6 py-8 text-center shadow-sm">
                 <img
                   src={ecoNeedsLogo}
                   alt="Eco Needs Foundation"
                   className="mx-auto h-20 w-auto object-contain sm:h-24"
                 />
               </div>
-              <div className="rounded-[1.5rem] border border-border bg-card/90 px-6 py-8 text-center shadow-sm">
+              <div className="rounded-[1.5rem] border border-border bg-background/70 px-6 py-8 text-center shadow-sm">
                 <img
                   src={workholicsLogo}
                   alt="Workholics"
@@ -355,7 +273,7 @@ function Gallery() {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
 
       {selectedItem && (
         <div
@@ -386,7 +304,7 @@ function Gallery() {
                 onClick={() => setSelectedItem(null)}
                 className="rounded-full border border-border px-4 py-2 text-sm transition hover:border-primary/35 hover:bg-secondary"
               >
-                Close
+                बंद करें
               </button>
             </div>
             <img
@@ -397,6 +315,74 @@ function Gallery() {
           </div>
         </div>
       )}
+
+      {/* CTA */}
+
+  <motion.section
+        {...sectionRevealProps}
+        id="donate"
+        className="relative overflow-hidden bg-[#fbf7ef] text-[#143c35]"
+      >
+        <div
+          className="absolute inset-0 bg-repeat opacity-[0.82]"
+          style={{ backgroundImage: `url(${blogBgPaper})`, backgroundSize: "cover" }}
+        />
+        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.38),rgba(255,255,255,0.12))]" />
+        <div className="absolute left-[4%] top-1/2 hidden -translate-y-1/2 xl:block">
+          <img
+            src={heroHeartSprade}
+            alt=""
+            aria-hidden="true"
+            className="hero-heartbeat h-48 w-48 object-contain opacity-30"
+            width={192}
+            height={192}
+          />
+        </div>
+        <div className="relative mx-auto max-w-6xl px-4 py-16 text-center sm:px-6 sm:py-20">
+          <span className="inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-primary">
+            <img
+              src={heroHeartSprade}
+              alt=""
+              aria-hidden="true"
+              className="hero-heartbeat h-5 w-5 object-contain opacity-70"
+              width={20}
+              height={20}
+            />
+           हमारे सहयोगी
+          </span>
+          <h2 className="mt-5 font-display text-2xl font-black text-balance text-[#143c35] sm:text-5xl lg:text-6xl">
+            सहयोग से मजबूत होती यात्रा
+          </h2>
+          <p className="mx-auto mt-5 max-w-2xl text-[#35544c]/82">
+            जिन साथियों और संस्थाओं ने शिक्षा, ग्राम विकास और जन-जागरूकता से जुड़े हमारे प्रयासों को मजबूती दी, उन्हें यहां सम्मानपूर्वक स्थान दिया गया है।
+          </p>
+          <div className="mt-8 flex flex-wrap justify-center gap-3">
+           
+              <div className="rounded-[2rem] border border-border bg-card/90 p-6 shadow-sm">
+            <div className="grid gap-4 sm:grid-cols-2">
+              <div className="rounded-[1.5rem] border border-border bg-background/70 px-6 py-8 text-center shadow-sm"   style={{ backgroundImage: `url(${blogBgPaper})`, backgroundSize: "cover" }} >
+                <img
+                  src={ecoNeedsLogo}
+                  alt="Eco Needs Foundation"
+                  className="mx-auto h-20 w-auto object-contain sm:h-24"
+                  
+                />
+              </div>
+              <div className="rounded-[1.5rem] border border-border bg-background/70 px-6 py-8 text-center shadow-sm"   style={{ backgroundImage: `url(${blogBgPaper})`, backgroundSize: "cover" }}>
+                <img
+                  src={workholicsLogo}
+                  alt="Workholics"
+                  className="mx-auto h-24 w-auto object-contain sm:h-28"
+                />
+              </div>
+            </div>
+          </div>
+          </div>
+           
+        </div>
+      </motion.section>
+
+      {/* ========= */}
 
       <SiteFooter />
     </div>

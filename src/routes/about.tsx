@@ -1,6 +1,8 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import {
   ArrowRight,
+  BadgeCheck,
+  BookOpen,
   Compass,
   Flag,
   HeartHandshake,
@@ -9,10 +11,11 @@ import {
   Users2,
 } from "lucide-react";
 import { SiteHeader } from "@/components/site/SiteHeader";
-import { SiteFooter, PageHero } from "@/components/site/SiteFooter";
+import { PageHero, SiteFooter } from "@/components/site/SiteFooter";
+import aboutHeroRealOne from "@/assets/about-user-signs.jpg";
+import aboutHeroRealTwo from "@/assets/about-user-volunteers.jpg";
 import heroEducation from "@/assets/hero-education.jpg";
 import galVillage from "@/assets/gallery-village.jpg";
-import aboutHeroReal from "@/assets/about-hero-real-2.jpg";
 
 export const Route = createFileRoute("/about")({
   head: () => ({
@@ -129,17 +132,11 @@ function About() {
   return (
     <div className="min-h-screen bg-background text-foreground">
       <SiteHeader />
+      <PageHero title="हमारे बारे में" />
 
-      <PageHero
-        eyebrow="हमारे बारे में"
-        title="सोच बदलो - गांव बदलो टीम"
-        hi="जनजागरूकता · जनसहभागिता · ग्राम विकास"
-        sub="ग्रामीण परिवेश के जागरूक और पे-बैक टू सोसायटी की सोच रखने वाले युवाओं द्वारा शुरू किया गया यह अभियान गांवों को विकास, आधुनिकता और सकारात्मक सामाजिक परिवर्तन से जोड़ने का सतत प्रयास है।"
-        imageSrc={aboutHeroReal}
-        imageAlt="SBGBT education and community gathering"
-      />
+   
 
-      <section className="relative z-10 mx-auto -mt-10 max-w-7xl px-4 sm:px-6">
+      <section id="about-highlights" className="relative z-10 mx-auto -mt-10 max-w-7xl px-4 sm:px-6">
         <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
           {highlights.map((item) => (
             <div
@@ -163,13 +160,13 @@ function About() {
           <h2 className="mt-5 font-display text-2xl font-black sm:text-3xl">संस्था का परिचय</h2>
           <div className="mt-4 space-y-4 text-muted-foreground leading-relaxed">
             <p>
-              सोच बदलो-गांव बदलो टीम का गठन इस उद्देश्य से किया गया कि ग्रामीण संस्कृति और
-              परिवेश को बनाए रखते हुए गांवों को विकास और आधुनिकता से जोड़ा जा सके।
+              सोच बदलो-गांव बदलो टीम का गठन इस उद्देश्य से किया गया कि ग्रामीण संस्कृति और परिवेश
+              को बनाए रखते हुए गांवों को विकास और आधुनिकता से जोड़ा जा सके।
             </p>
             <p>
-              टीम का मूल ध्येय है कि जनजागरूकता और सक्रिय जनसहभागिता के माध्यम से गांव विकास
-              के लक्ष्य को प्राप्त किया जाए, ताकि शिक्षा, स्वास्थ्य, रोजगार, सरकारी योजनाओं
-              और सामाजिक न्याय तक लोगों की पहुंच मजबूत हो।
+              टीम का मूल ध्येय है कि जनजागरूकता और सक्रिय जनसहभागिता के माध्यम से गांव विकास के
+              लक्ष्य को प्राप्त किया जाए, ताकि शिक्षा, स्वास्थ्य, रोजगार, सरकारी योजनाओं और सामाजिक
+              न्याय तक लोगों की पहुंच मजबूत हो।
             </p>
           </div>
           <p className="mt-5 font-hi text-earth">मानवता की सेवा ही ईश्वर की सेवा है।</p>
@@ -182,13 +179,12 @@ function About() {
           <h2 className="mt-5 font-display text-2xl font-black sm:text-3xl">कार्य की दिशा</h2>
           <div className="mt-4 space-y-4 text-muted-foreground leading-relaxed">
             <p>
-              संस्था जमीनी स्तर पर जागरूकता, शिक्षा, महिला सशक्तिकरण, पर्यावरण संरक्षण,
-              स्वास्थ्य, वित्तीय साक्षरता, खेती, पंचायत सहयोग और सामाजिक सुधार से जुड़े
-              रचनात्मक कार्य करती है।
+              संस्था जमीनी स्तर पर जागरूकता, शिक्षा, महिला सशक्तिकरण, पर्यावरण संरक्षण, स्वास्थ्य,
+              वित्तीय साक्षरता, खेती, पंचायत सहयोग और सामाजिक सुधार से जुड़े रचनात्मक कार्य करती है।
             </p>
             <p>
-              इसका उद्देश्य केवल योजनाएं बताना नहीं, बल्कि गांवों को अपने विकास में सक्रिय
-              भागीदार बनाना है।
+              इसका उद्देश्य केवल योजनाएं बताना नहीं, बल्कि गांवों को अपने विकास में सक्रिय भागीदार
+              बनाना है।
             </p>
           </div>
           <Link
@@ -215,13 +211,12 @@ function About() {
                 अधिकारों, दायित्वों और संभावनाओं के प्रति सजग हों।
               </p>
               <p>
-                टीम ने ग्रामीण युवाओं, गांव के बुद्धिजीवियों, महिलाओं और सामाजिक कार्यकर्ताओं
-                को साथ लेकर ऐसा वातावरण तैयार किया जहां स्थानीय समस्याओं पर स्थानीय समाधान
-                खोजे जा सकें।
+                टीम ने ग्रामीण युवाओं, गांव के बुद्धिजीवियों, महिलाओं और सामाजिक कार्यकर्ताओं को साथ
+                लेकर ऐसा वातावरण तैयार किया जहां स्थानीय समस्याओं पर स्थानीय समाधान खोजे जा सकें।
               </p>
               <p>
-                शिक्षा, जनचेतना, संगठन निर्माण और सकारात्मक नेतृत्व को SBGBT ने अपने अभियान
-                का मुख्य आधार बनाया।
+                शिक्षा, जनचेतना, संगठन निर्माण और सकारात्मक नेतृत्व को SBGBT ने अपने अभियान का मुख्य
+                आधार बनाया।
               </p>
             </div>
           </div>
@@ -272,8 +267,8 @@ function About() {
                   अभियान किन लक्ष्यों के साथ काम करता है।
                 </h2>
                 <p className="mt-4 text-muted-foreground leading-relaxed">
-                  मूल वेबसाइट पर बताए गए प्रमुख उद्देश्यों को यहां संक्षेप में रखा गया है ताकि
-                  पेज साफ भी रहे और संस्था की दिशा भी स्पष्ट दिखे।
+                  मूल वेबसाइट पर बताए गए प्रमुख उद्देश्यों को यहां संक्षेप में रखा गया है ताकि पेज
+                  साफ भी रहे और संस्था की दिशा भी स्पष्ट दिखे।
                 </p>
 
                 <div className="mt-8 grid gap-4 sm:grid-cols-2">
@@ -294,12 +289,10 @@ function About() {
                 </div>
 
                 <div className="mt-6 rounded-2xl border border-dashed border-primary/20 bg-primary/5 p-5">
-                  <div className="text-sm font-semibold text-foreground">
-                    फोकस क्षेत्र
-                  </div>
+                  <div className="text-sm font-semibold text-foreground">फोकस क्षेत्र</div>
                   <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                    शिक्षा, नेतृत्व, सामाजिक सुधार, सरकारी योजनाओं की जानकारी, पर्यावरण संरक्षण
-                    और प्रतिभाशाली विद्यार्थियों का समर्थन।
+                    शिक्षा, नेतृत्व, सामाजिक सुधार, सरकारी योजनाओं की जानकारी, पर्यावरण संरक्षण और
+                    प्रतिभाशाली विद्यार्थियों का समर्थन।
                   </p>
                 </div>
               </div>
@@ -357,8 +350,8 @@ function About() {
                   <div className="text-xs uppercase tracking-[0.2em] text-accent/80">SBGBT Journey</div>
                   <div className="mt-2 font-display text-2xl font-black">विचार से अभियान तक</div>
                   <p className="mt-3 text-sm leading-relaxed text-cream/75">
-                    धनौरा की जमीन से उभरी यह सोच आज गांव, युवा और जनसहभागिता को एक सूत्र में
-                    जोड़ने वाला मंच बन चुकी है।
+                    धनौरा की जमीन से उभरी यह सोच आज गांव, युवा और जनसहभागिता को एक सूत्र में जोड़ने
+                    वाला मंच बन चुकी है।
                   </p>
                 </div>
               </div>
@@ -434,8 +427,8 @@ function About() {
                 अगर आप भी अपने गांव और समाज के विकास में योगदान देना चाहते हैं, तो SBGBT से जुड़ें।
               </h2>
               <p className="mt-4 max-w-2xl opacity-90">
-                सकारात्मक सोच, जनसहभागिता और रचनात्मक कार्यों के साथ मिलकर बदलाव की इस
-                यात्रा को आगे बढ़ाएं।
+                सकारात्मक सोच, जनसहभागिता और रचनात्मक कार्यों के साथ मिलकर बदलाव की इस यात्रा को
+                आगे बढ़ाएं।
               </p>
             </div>
             <div className="flex gap-3">

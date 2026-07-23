@@ -1,6 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { ArrowUpRight, Facebook, Instagram, Mail, MapPin, Phone, Twitter, Youtube } from "lucide-react";
 import sbgbLogo from "@/assets/sbgb-logo.png";
+import heroDividerRough from "@/assets/hero-divider-rough.png";
 import { navLinks } from "./SiteHeader";
 
 export const socialLinks = [
@@ -170,61 +171,45 @@ export function SiteFooter() {
 }
 
 export function PageHero({
-  eyebrow,
   title,
-  hi,
-  sub,
-  imageSrc,
-  imageAlt,
+  bottomWave = false,
+  subtitle = "सोच बदलो, गांव बदलो टीम",
 }: {
-  eyebrow: string;
   title: string;
-  hi?: string;
-  sub?: string;
-  imageSrc?: string;
-  imageAlt?: string;
+  subtitle?: string;
+  bottomWave?: boolean;
 }) {
   return (
-    <section className="grain-bg relative overflow-hidden border-b border-border bg-[radial-gradient(circle_at_top_left,rgba(255,166,0,0.12),transparent_24%),radial-gradient(circle_at_70%_65%,rgba(24,122,92,0.08),transparent_22%),linear-gradient(135deg,rgba(255,247,232,0.98),rgba(249,245,235,0.97)_52%,rgba(244,249,245,0.98))]">
-      <div className="pointer-events-none absolute inset-0">
-        <div className="absolute left-[9%] top-12 h-28 w-28 rounded-full bg-accent/10 blur-3xl" />
-        <div className="absolute right-[10%] top-16 h-36 w-36 rounded-full bg-primary/8 blur-3xl" />
-        <div className="absolute bottom-8 left-[45%] h-24 w-24 rounded-full bg-leaf/8 blur-3xl" />
-        <div className="absolute inset-y-0 right-[18%] hidden w-px bg-gradient-to-b from-transparent via-primary/8 to-transparent lg:block" />
-        <div className="absolute left-0 top-0 h-full w-full bg-[linear-gradient(115deg,transparent_0%,transparent_58%,rgba(255,255,255,0.22)_70%,transparent_82%)]" />
-      </div>
+    <section className="relative overflow-hidden bg-[#155447] text-cream">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_15%_25%,rgba(255,210,92,0.08),transparent_18%),radial-gradient(circle_at_82%_28%,rgba(255,255,255,0.07),transparent_22%),linear-gradient(180deg,rgba(255,255,255,0.03),rgba(255,255,255,0))]" />
+        <div className="absolute -left-16 top-20 size-48 rounded-full bg-accent/10 blur-3xl" />
+        <div className="absolute right-[-4rem] bottom-6 size-56 rounded-full bg-white/6 blur-3xl" />
 
-      <div className="mx-auto max-w-7xl px-4 pb-14 pt-16 sm:px-6 sm:pb-20 sm:pt-24">
-        <div className={`relative grid items-center gap-10 ${imageSrc ? "lg:grid-cols-[1.05fr_0.95fr]" : ""}`}>
-          <div className="max-w-3xl">
-            <span className="inline-flex items-center gap-2 rounded-full border border-border bg-card/60 px-3 py-1 text-xs font-semibold uppercase tracking-widest text-primary">
-              <span className="size-1.5 rounded-full bg-accent" /> {eyebrow}
-            </span>
-            <h1 className="mt-5 font-display text-4xl font-black leading-[1.05] text-balance sm:text-5xl lg:text-6xl">
-              {title}
-            </h1>
-            {hi && <p className="mt-3 font-hi text-xl text-earth sm:text-2xl">{hi}</p>}
-            {sub && (
-              <p className="mt-5 max-w-2xl text-base leading-relaxed text-muted-foreground sm:text-lg">
-                {sub}
+        <div className="relative mx-auto max-w-7xl px-4 pb-14 pt-20 sm:px-6 sm:pb-16 sm:pt-24">
+          <div className="flex min-h-[130px] items-center justify-center text-center sm:min-h-[180px]">
+            <div className="flex flex-col items-center">
+              <h1 className="max-w-4xl font-display text-3xl font-black leading-[1.04] text-balance text-white sm:text-4xl lg:text-5xl">
+                {title}
+              </h1>
+              <span className="mt-4 h-[4px] w-20 rounded-full bg-accent shadow-[0_8px_18px_-10px_rgba(241,189,26,0.9)] sm:w-24" />
+              <p className="mt-3 text-[11px] font-semibold uppercase tracking-[0.22em] text-white/78 sm:text-xs">
+               {subtitle}
               </p>
-            )}
-          </div>
-
-          {imageSrc && (
-            <div className="relative hidden lg:block">
-              <div className="absolute -inset-4 rounded-[2rem] bg-gradient-to-br from-accent/20 via-transparent to-primary/15 blur-2xl" />
-              <div className="relative overflow-hidden rounded-[2rem] border border-border/80 bg-card/70 p-3 shadow-[0_30px_80px_-40px_rgba(0,0,0,0.35)] backdrop-blur-sm">
-                <img
-                  src={imageSrc}
-                  alt={imageAlt ?? title}
-                  className="aspect-[5/3.8] w-full rounded-[1.4rem] object-cover"
-                />
-              </div>
             </div>
-          )}
+          </div>
         </div>
-      </div>
-    </section>
+        <div className="pointer-events-none absolute inset-x-0 bottom-[-2px] h-[80px]" aria-hidden="true">
+          <svg
+            viewBox="0 0 1440 180"
+            preserveAspectRatio="none"
+            className="h-full w-full"
+          >
+            <path
+              d="M0,96 C140,28 260,160 420,110 C600,40 720,176 900,112 C1080,42 1240,162 1440,92 L1440,180 L0,180 Z"
+              fill="#f5f0df"
+            />
+          </svg>
+        </div>
+      </section>
   );
 }
