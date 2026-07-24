@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { useState } from "react";
+import { Link } from "@tanstack/react-router";
 
 import {
   FaEnvelope,
@@ -39,7 +40,14 @@ export default function AdminLoginForm() {
 
       <div className="absolute -bottom-24 -left-24 h-56 w-56 rounded-full bg-[#F1BD1A]/10 blur-[100px]" />
 
-  
+ <div className="mb-4 flex justify-start">
+  <Link
+    to="/"
+    className="inline-flex items-center gap-2 rounded-full bg-[#256053] px-5 py-2.5 text-sm font-semibold text-white shadow-lg transition-all duration-300 hover:bg-[#1F4F45] hover:shadow-xl hover:scale-105"
+  >
+    ← वेबसाइट पर वापस जाएँ
+  </Link>
+</div>
 
       {/* Heading */}
 
