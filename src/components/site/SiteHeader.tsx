@@ -2,16 +2,20 @@ import { Link } from "@tanstack/react-router";
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import {
+  FaUsers,
+  FaFacebookF,
+  FaTwitter,
+  FaInstagram,
+  FaYoutube,
+  FaRss,
+} from "react-icons/fa";
+import {
   ChevronDown,
-  Facebook,
   HandHeart,
   Headset,
-  Instagram,
   Mail,
   Menu,
   Phone,
-  X,
-  Youtube,
 } from "lucide-react";
 import sbgbLogo from "@/assets/sbgb-logo.png";
 
@@ -19,7 +23,7 @@ const desktopNavLinks = [
   { to: "/", label: "होम", hasMenu: false },
   { to: "/about", label: "हमारे बारे में", hasMenu: false },
   { to: "/activities", label: "हमारे कार्य", hasMenu: false },
-  { to: "/media", label: "उत्थान पत्रिका", hasMenu: false },
+  { to: "/patrika", label: "उत्थान पत्रिका", hasMenu: false },
   { to: "/gallery", label: "गैलरी", hasMenu: false },
 
   {
@@ -27,7 +31,7 @@ const desktopNavLinks = [
     label: "मीडिया कॉर्नर",
     hasMenu: [
       { label: "जागरूकता लेख", to: "/articles" },
-      { label: "उत्थान पत्रिका", to: "/media" },
+      { label: "उत्थान पत्रिका", to: "/patrika" },
       { label: "प्रिंट मीडिया", to: "/print-media" },
       { label: "इलेक्ट्रॉनिक मीडिया", to: "/electronic-media" },
     ],
@@ -72,7 +76,7 @@ const desktopNavLinks = [
     hasMenu: [
       { label: "SBGBT प्रबंधक लॉगिन", to: "/admin-login" },
       { label: "उत्थान कोचिंग प्रबंधक लॉगिन", to: "/user-login" },
-      { label: "SBGBT प्रबंधक सदस्य लॉगिन", to: "/user-login" }, 
+      { label: "SBGBT प्रबंधक सदस्य लॉगिन", to: "/user-login" },
     ],
   },
 ] as const;
@@ -82,14 +86,14 @@ export const navLinks = [
   { to: "/about", label: "हमारे बारे में", hasMenu: false },
   { to: "/activities", label: "हमारे कार्य", hasMenu: false },
   { to: "/gallery", label: "गैलरी", hasMenu: false },
-  { to: "/media", label: "उत्थान पत्रिका", hasMenu: false },
+  { to: "/patrika", label: "उत्थान पत्रिका", hasMenu: false },
 
   {
     to: "/media",
     label: "मीडिया कॉर्नर",
     hasMenu: [
       { label: "जागरूकता लेख", to: "/articles" },
-      { label: "उत्थान पत्रिका", to: "/media" },
+      { label: "उत्थान पत्रिका", to: "/patrika" },
       { label: "प्रिंट मीडिया", to: "/print-media" },
       { label: "इलेक्ट्रॉनिक मीडिया", to: "/electronic-media" },
     ],
@@ -111,7 +115,7 @@ export const navLinks = [
     hasMenu: [
       { label: "SBGBT प्रबंधक लॉगिन", to: "/admin-login" },
       { label: "उत्थान कोचिंग प्रबंधक लॉगिन", to: "/user-login" },
-      { label: "SBGBT प्रबंधक सदस्य लॉगिन", to: "/user-login" }, 
+      { label: "SBGBT प्रबंधक सदस्य लॉगिन", to: "/user-login" },
     ],
   },
 
@@ -183,16 +187,20 @@ export function SiteHeader() {
           <div className="flex items-center gap-4">
             <div className="hidden items-center gap-5 text-sm font-medium xl:flex">
               <button className="flex items-center gap-1.5 transition-opacity duration-300 hover:opacity-80">
-                USD
-                <ChevronDown className="size-3.5" />
-              </button>
-              <button className="flex items-center gap-1.5 transition-opacity duration-300 hover:opacity-80">
-                English
-                <ChevronDown className="size-3.5" />
+                English <ChevronDown className="size-3.5" />
               </button>
             </div>
 
             <div className="flex items-center gap-1">
+               <a
+                href="https://www.facebook.com/groups/1869919303259444/"
+                aria-label="Fb Group"
+                target="_blank"
+                rel="noreferrer"
+                className="grid size-8 place-items-center rounded-full transition-colors duration-300 hover:bg-white/10"
+              >
+                <FaUsers className="size-3.5" />
+              </a>
               <a
                 href="https://www.facebook.com/sbgbteam/"
                 aria-label="Facebook"
@@ -200,7 +208,16 @@ export function SiteHeader() {
                 rel="noreferrer"
                 className="grid size-8 place-items-center rounded-full transition-colors duration-300 hover:bg-white/10"
               >
-                <Facebook className="size-3.5" />
+                <FaFacebookF className="size-3.5" />
+              </a>
+               <a
+                href="https://twitter.com/sbgbteam"
+                aria-label="Twitter"
+                target="_blank"
+                rel="noreferrer"
+                className="grid size-8 place-items-center rounded-full transition-colors duration-300 hover:bg-white/10"
+              >
+                <FaTwitter className="size-3.5" />
               </a>
               <a
                 href="https://www.instagram.com/sbgbteam/"
@@ -209,7 +226,7 @@ export function SiteHeader() {
                 rel="noreferrer"
                 className="grid size-8 place-items-center rounded-full transition-colors duration-300 hover:bg-white/10"
               >
-                <Instagram className="size-3.5" />
+                <FaInstagram className="size-3.5" />
               </a>
               <a
                 href="https://www.youtube.com/channel/UCOQAQS7J5cKft2mlwjpZn-A"
@@ -218,7 +235,16 @@ export function SiteHeader() {
                 rel="noreferrer"
                 className="grid size-8 place-items-center rounded-full transition-colors duration-300 hover:bg-white/10"
               >
-                <Youtube className="size-3.5" />
+                <FaYoutube className="size-3.5" />
+              </a>
+              <a
+                href="https://drsatyapalsinghmeena.blogspot.com/"
+                aria-label="Blog"
+                target="_blank"
+                rel="noreferrer"
+                className="grid size-8 place-items-center rounded-full transition-colors duration-300 hover:bg-white/10"
+              >
+                <FaRss className="size-3.5" />
               </a>
             </div>
           </div>

@@ -1,8 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import {
   ArrowRight,
-  BadgeCheck,
-  BookOpen,
   Compass,
   Flag,
   HeartHandshake,
@@ -12,8 +10,6 @@ import {
 } from "lucide-react";
 import { SiteHeader } from "@/components/site/SiteHeader";
 import { PageHero, SiteFooter } from "@/components/site/SiteFooter";
-import aboutHeroRealOne from "@/assets/about-user-signs.jpg";
-import aboutHeroRealTwo from "@/assets/about-user-volunteers.jpg";
 import heroEducation from "@/assets/hero-education.jpg";
 import galVillage from "@/assets/gallery-village.jpg";
 
