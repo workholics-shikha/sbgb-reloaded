@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { LogIn, Send } from "lucide-react";
 import { SiteHeader } from "@/components/site/SiteHeader";
-import sideImage from "@/assets/Login-green.png";
+import sideImage from "@/assets/Partnership.png";
 import { PageHero, SiteFooter } from "@/components/site/SiteFooter";
 
 export const Route = createFileRoute("/csr-partnership")({
@@ -34,13 +34,13 @@ function Contact() {
       <PageHero title="CSR Partnership" />
 
       <section className=" border-border">
-        <div className="mx-auto grid max-w-7xl gap-10 px-4 py-16 sm:px-6 sm:py-20 lg:grid-cols-[1fr_1.15fr]">
+        <div className="mx-auto grid max-w-7xl gap-10 px-4 py-16 sm:px-6 sm:py-20 lg:grid-cols-[1.6fr]">
           <div>
-            <img
+            {/* <img
               src={sideImage}
               alt="SBGBT students and rural education"
               className="rounded-[2rem] "
-            />
+            /> */}
 
           </div>
 
@@ -59,7 +59,7 @@ function Contact() {
               Join hands with SBGBT to create a positive social impact.
             </p>
 
-            <div className="mt-8 grid gap-5 md:grid-cols-2">
+            <div className="mt-8 grid gap-5 md:grid-cols-3">
 
               <label>
                 <span className="mb-2 block text-sm font-medium">
