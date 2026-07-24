@@ -47,7 +47,7 @@ const desktopNavLinks = [
   },
 
   {
-    to: "https://www.sbgbteam.com/sbgbp-registration",
+    to: "/",
     label: "रजिस्ट्रेशन",
     external: true,
     hasMenu: [
@@ -58,7 +58,7 @@ const desktopNavLinks = [
       },
       {
         label: "उत्थान कोचिंग रजिस्ट्रेशन",
-        to: "https://www.sbgbteam.com/sbgbp-registration-admit-card",
+        to: "/utthan-coaching-registration",
         external: true,
       },
       {
@@ -115,7 +115,7 @@ export const navLinks = [
     external: true,
     hasMenu: [
       { label: "SBGBT प्रबंधक लॉगिन", to: "/admin-login" },
-      { label: "उत्थान कोचिंग प्रबंधक लॉगिन", to: "/user-login" },
+      { label: "उत्थान कोचिंग प्रबंधक लॉगिन", to: "/utthan-coaching-registration" },
       { label: "SBGBT प्रबंधक सदस्य लॉगिन", to: "/user-login" },
       { label: "SBGBT", to: "/spgbp" },
     ],

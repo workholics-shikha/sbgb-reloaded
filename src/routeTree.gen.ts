@@ -10,12 +10,13 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as UtthanCoachingRegistrationRouteImport } from './routes/utthan-coaching-registration'
+import { Route as UserLoginRouteImport } from './routes/user-login'
 import { Route as SpgbpRouteImport } from './routes/spgbp'
 import { Route as PatrikaRouteImport } from './routes/patrika'
 import { Route as MediaRouteImport } from './routes/media'
 import { Route as GalleryRouteImport } from './routes/gallery'
 import { Route as DonateRouteImport } from './routes/donate'
-import { Route as CsrfPartnershipRouteImport } from './routes/csrf-partnership'
+import { Route as CsrPartnershipRouteImport } from './routes/csr-partnership'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as ArticlesRouteImport } from './routes/articles'
 import { Route as AdminLoginRouteImport } from './routes/admin-login'
@@ -29,6 +30,11 @@ const UtthanCoachingRegistrationRoute =
     path: '/utthan-coaching-registration',
     getParentRoute: () => rootRouteImport,
   } as any)
+const UserLoginRoute = UserLoginRouteImport.update({
+  id: '/user-login',
+  path: '/user-login',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SpgbpRoute = SpgbpRouteImport.update({
   id: '/spgbp',
   path: '/spgbp',
@@ -54,9 +60,9 @@ const DonateRoute = DonateRouteImport.update({
   path: '/donate',
   getParentRoute: () => rootRouteImport,
 } as any)
-const CsrfPartnershipRoute = CsrfPartnershipRouteImport.update({
-  id: '/csrf-partnership',
-  path: '/csrf-partnership',
+const CsrPartnershipRoute = CsrPartnershipRouteImport.update({
+  id: '/csr-partnership',
+  path: '/csr-partnership',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ContactRoute = ContactRouteImport.update({
@@ -97,12 +103,13 @@ export interface FileRoutesByFullPath {
   '/admin-login': typeof AdminLoginRoute
   '/articles': typeof ArticlesRoute
   '/contact': typeof ContactRoute
-  '/csrf-partnership': typeof CsrfPartnershipRoute
+  '/csr-partnership': typeof CsrPartnershipRoute
   '/donate': typeof DonateRoute
   '/gallery': typeof GalleryRoute
   '/media': typeof MediaRoute
   '/patrika': typeof PatrikaRoute
   '/spgbp': typeof SpgbpRoute
+  '/user-login': typeof UserLoginRoute
   '/utthan-coaching-registration': typeof UtthanCoachingRegistrationRoute
 }
 export interface FileRoutesByTo {
@@ -112,12 +119,13 @@ export interface FileRoutesByTo {
   '/admin-login': typeof AdminLoginRoute
   '/articles': typeof ArticlesRoute
   '/contact': typeof ContactRoute
-  '/csrf-partnership': typeof CsrfPartnershipRoute
+  '/csr-partnership': typeof CsrPartnershipRoute
   '/donate': typeof DonateRoute
   '/gallery': typeof GalleryRoute
   '/media': typeof MediaRoute
   '/patrika': typeof PatrikaRoute
   '/spgbp': typeof SpgbpRoute
+  '/user-login': typeof UserLoginRoute
   '/utthan-coaching-registration': typeof UtthanCoachingRegistrationRoute
 }
 export interface FileRoutesById {
@@ -128,12 +136,13 @@ export interface FileRoutesById {
   '/admin-login': typeof AdminLoginRoute
   '/articles': typeof ArticlesRoute
   '/contact': typeof ContactRoute
-  '/csrf-partnership': typeof CsrfPartnershipRoute
+  '/csr-partnership': typeof CsrPartnershipRoute
   '/donate': typeof DonateRoute
   '/gallery': typeof GalleryRoute
   '/media': typeof MediaRoute
   '/patrika': typeof PatrikaRoute
   '/spgbp': typeof SpgbpRoute
+  '/user-login': typeof UserLoginRoute
   '/utthan-coaching-registration': typeof UtthanCoachingRegistrationRoute
 }
 export interface FileRouteTypes {
@@ -145,12 +154,13 @@ export interface FileRouteTypes {
     | '/admin-login'
     | '/articles'
     | '/contact'
-    | '/csrf-partnership'
+    | '/csr-partnership'
     | '/donate'
     | '/gallery'
     | '/media'
     | '/patrika'
     | '/spgbp'
+    | '/user-login'
     | '/utthan-coaching-registration'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -160,12 +170,13 @@ export interface FileRouteTypes {
     | '/admin-login'
     | '/articles'
     | '/contact'
-    | '/csrf-partnership'
+    | '/csr-partnership'
     | '/donate'
     | '/gallery'
     | '/media'
     | '/patrika'
     | '/spgbp'
+    | '/user-login'
     | '/utthan-coaching-registration'
   id:
     | '__root__'
@@ -175,12 +186,13 @@ export interface FileRouteTypes {
     | '/admin-login'
     | '/articles'
     | '/contact'
-    | '/csrf-partnership'
+    | '/csr-partnership'
     | '/donate'
     | '/gallery'
     | '/media'
     | '/patrika'
     | '/spgbp'
+    | '/user-login'
     | '/utthan-coaching-registration'
   fileRoutesById: FileRoutesById
 }
@@ -191,12 +203,13 @@ export interface RootRouteChildren {
   AdminLoginRoute: typeof AdminLoginRoute
   ArticlesRoute: typeof ArticlesRoute
   ContactRoute: typeof ContactRoute
-  CsrfPartnershipRoute: typeof CsrfPartnershipRoute
+  CsrPartnershipRoute: typeof CsrPartnershipRoute
   DonateRoute: typeof DonateRoute
   GalleryRoute: typeof GalleryRoute
   MediaRoute: typeof MediaRoute
   PatrikaRoute: typeof PatrikaRoute
   SpgbpRoute: typeof SpgbpRoute
+  UserLoginRoute: typeof UserLoginRoute
   UtthanCoachingRegistrationRoute: typeof UtthanCoachingRegistrationRoute
 }
 
@@ -207,6 +220,13 @@ declare module '@tanstack/react-router' {
       path: '/utthan-coaching-registration'
       fullPath: '/utthan-coaching-registration'
       preLoaderRoute: typeof UtthanCoachingRegistrationRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/user-login': {
+      id: '/user-login'
+      path: '/user-login'
+      fullPath: '/user-login'
+      preLoaderRoute: typeof UserLoginRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/spgbp': {
@@ -244,11 +264,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DonateRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/csrf-partnership': {
-      id: '/csrf-partnership'
-      path: '/csrf-partnership'
-      fullPath: '/csrf-partnership'
-      preLoaderRoute: typeof CsrfPartnershipRouteImport
+    '/csr-partnership': {
+      id: '/csr-partnership'
+      path: '/csr-partnership'
+      fullPath: '/csr-partnership'
+      preLoaderRoute: typeof CsrPartnershipRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/contact': {
@@ -303,12 +323,13 @@ const rootRouteChildren: RootRouteChildren = {
   AdminLoginRoute: AdminLoginRoute,
   ArticlesRoute: ArticlesRoute,
   ContactRoute: ContactRoute,
-  CsrfPartnershipRoute: CsrfPartnershipRoute,
+  CsrPartnershipRoute: CsrPartnershipRoute,
   DonateRoute: DonateRoute,
   GalleryRoute: GalleryRoute,
   MediaRoute: MediaRoute,
   PatrikaRoute: PatrikaRoute,
   SpgbpRoute: SpgbpRoute,
+  UserLoginRoute: UserLoginRoute,
   UtthanCoachingRegistrationRoute: UtthanCoachingRegistrationRoute,
 }
 export const routeTree = rootRouteImport
