@@ -104,7 +104,7 @@ function Activities() {
       <SiteHeader />
       <PageHero title="हमारे कार्य" />
 
-      <section className="festive-band border-y border-border">
+      <section className="border-border">
         <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-20">
           <div className="mx-auto max-w-3xl text-center">
             <div className="inline-flex rounded-full border border-primary/15 bg-card/80 px-4 py-1.5 text-xs font-semibold tracking-[0.18em] text-primary">

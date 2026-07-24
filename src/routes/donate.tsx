@@ -57,7 +57,7 @@ function Donate() {
       <SiteHeader />
       <PageHero title="दान करें" />
 
-      <section className="festive-band border-y border-border">
+      <section className="border-border">
         <div className="mx-auto grid max-w-7xl gap-10 px-4 py-16 sm:px-6 sm:py-20 lg:grid-cols-[1.08fr_1fr]">
           <div className="rounded-[2rem] border border-border bg-card/95 p-6 shadow-sm sm:p-8">
             <h2 className="font-display text-2xl font-black sm:text-3xl">अपना सहयोग चुनें</h2>

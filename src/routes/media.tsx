@@ -112,7 +112,7 @@ function Media() {
       <SiteHeader />
       <PageHero title="मीडिया कवरेज" />
 
-      <section className="festive-band border-y border-border">
+      <section className="border-border">
         <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 sm:py-16">
           <div className="flex flex-wrap gap-7 border-b border-primary/15 pb-5">
             {tabs.map((tab) => (

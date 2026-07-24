@@ -9,19 +9,34 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as UtthanCoachingRegistrationRouteImport } from './routes/utthan-coaching-registration'
 import { Route as SpgbpRouteImport } from './routes/spgbp'
+import { Route as PatrikaRouteImport } from './routes/patrika'
 import { Route as MediaRouteImport } from './routes/media'
 import { Route as GalleryRouteImport } from './routes/gallery'
 import { Route as DonateRouteImport } from './routes/donate'
+import { Route as CsrfPartnershipRouteImport } from './routes/csrf-partnership'
 import { Route as ContactRouteImport } from './routes/contact'
+import { Route as ArticlesRouteImport } from './routes/articles'
 import { Route as AdminLoginRouteImport } from './routes/admin-login'
 import { Route as ActivitiesRouteImport } from './routes/activities'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 
+const UtthanCoachingRegistrationRoute =
+  UtthanCoachingRegistrationRouteImport.update({
+    id: '/utthan-coaching-registration',
+    path: '/utthan-coaching-registration',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const SpgbpRoute = SpgbpRouteImport.update({
   id: '/spgbp',
   path: '/spgbp',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PatrikaRoute = PatrikaRouteImport.update({
+  id: '/patrika',
+  path: '/patrika',
   getParentRoute: () => rootRouteImport,
 } as any)
 const MediaRoute = MediaRouteImport.update({
@@ -39,9 +54,19 @@ const DonateRoute = DonateRouteImport.update({
   path: '/donate',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CsrfPartnershipRoute = CsrfPartnershipRouteImport.update({
+  id: '/csrf-partnership',
+  path: '/csrf-partnership',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ContactRoute = ContactRouteImport.update({
   id: '/contact',
   path: '/contact',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ArticlesRoute = ArticlesRouteImport.update({
+  id: '/articles',
+  path: '/articles',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AdminLoginRoute = AdminLoginRouteImport.update({
@@ -70,22 +95,30 @@ export interface FileRoutesByFullPath {
   '/about': typeof AboutRoute
   '/activities': typeof ActivitiesRoute
   '/admin-login': typeof AdminLoginRoute
+  '/articles': typeof ArticlesRoute
   '/contact': typeof ContactRoute
+  '/csrf-partnership': typeof CsrfPartnershipRoute
   '/donate': typeof DonateRoute
   '/gallery': typeof GalleryRoute
   '/media': typeof MediaRoute
+  '/patrika': typeof PatrikaRoute
   '/spgbp': typeof SpgbpRoute
+  '/utthan-coaching-registration': typeof UtthanCoachingRegistrationRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/activities': typeof ActivitiesRoute
   '/admin-login': typeof AdminLoginRoute
+  '/articles': typeof ArticlesRoute
   '/contact': typeof ContactRoute
+  '/csrf-partnership': typeof CsrfPartnershipRoute
   '/donate': typeof DonateRoute
   '/gallery': typeof GalleryRoute
   '/media': typeof MediaRoute
+  '/patrika': typeof PatrikaRoute
   '/spgbp': typeof SpgbpRoute
+  '/utthan-coaching-registration': typeof UtthanCoachingRegistrationRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -93,11 +126,15 @@ export interface FileRoutesById {
   '/about': typeof AboutRoute
   '/activities': typeof ActivitiesRoute
   '/admin-login': typeof AdminLoginRoute
+  '/articles': typeof ArticlesRoute
   '/contact': typeof ContactRoute
+  '/csrf-partnership': typeof CsrfPartnershipRoute
   '/donate': typeof DonateRoute
   '/gallery': typeof GalleryRoute
   '/media': typeof MediaRoute
+  '/patrika': typeof PatrikaRoute
   '/spgbp': typeof SpgbpRoute
+  '/utthan-coaching-registration': typeof UtthanCoachingRegistrationRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -106,33 +143,45 @@ export interface FileRouteTypes {
     | '/about'
     | '/activities'
     | '/admin-login'
+    | '/articles'
     | '/contact'
+    | '/csrf-partnership'
     | '/donate'
     | '/gallery'
     | '/media'
+    | '/patrika'
     | '/spgbp'
+    | '/utthan-coaching-registration'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/about'
     | '/activities'
     | '/admin-login'
+    | '/articles'
     | '/contact'
+    | '/csrf-partnership'
     | '/donate'
     | '/gallery'
     | '/media'
+    | '/patrika'
     | '/spgbp'
+    | '/utthan-coaching-registration'
   id:
     | '__root__'
     | '/'
     | '/about'
     | '/activities'
     | '/admin-login'
+    | '/articles'
     | '/contact'
+    | '/csrf-partnership'
     | '/donate'
     | '/gallery'
     | '/media'
+    | '/patrika'
     | '/spgbp'
+    | '/utthan-coaching-registration'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -140,20 +189,38 @@ export interface RootRouteChildren {
   AboutRoute: typeof AboutRoute
   ActivitiesRoute: typeof ActivitiesRoute
   AdminLoginRoute: typeof AdminLoginRoute
+  ArticlesRoute: typeof ArticlesRoute
   ContactRoute: typeof ContactRoute
+  CsrfPartnershipRoute: typeof CsrfPartnershipRoute
   DonateRoute: typeof DonateRoute
   GalleryRoute: typeof GalleryRoute
   MediaRoute: typeof MediaRoute
+  PatrikaRoute: typeof PatrikaRoute
   SpgbpRoute: typeof SpgbpRoute
+  UtthanCoachingRegistrationRoute: typeof UtthanCoachingRegistrationRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/utthan-coaching-registration': {
+      id: '/utthan-coaching-registration'
+      path: '/utthan-coaching-registration'
+      fullPath: '/utthan-coaching-registration'
+      preLoaderRoute: typeof UtthanCoachingRegistrationRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/spgbp': {
       id: '/spgbp'
       path: '/spgbp'
       fullPath: '/spgbp'
       preLoaderRoute: typeof SpgbpRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/patrika': {
+      id: '/patrika'
+      path: '/patrika'
+      fullPath: '/patrika'
+      preLoaderRoute: typeof PatrikaRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/media': {
@@ -177,11 +244,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DonateRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/csrf-partnership': {
+      id: '/csrf-partnership'
+      path: '/csrf-partnership'
+      fullPath: '/csrf-partnership'
+      preLoaderRoute: typeof CsrfPartnershipRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/contact': {
       id: '/contact'
       path: '/contact'
       fullPath: '/contact'
       preLoaderRoute: typeof ContactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/articles': {
+      id: '/articles'
+      path: '/articles'
+      fullPath: '/articles'
+      preLoaderRoute: typeof ArticlesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/admin-login': {
@@ -220,11 +301,15 @@ const rootRouteChildren: RootRouteChildren = {
   AboutRoute: AboutRoute,
   ActivitiesRoute: ActivitiesRoute,
   AdminLoginRoute: AdminLoginRoute,
+  ArticlesRoute: ArticlesRoute,
   ContactRoute: ContactRoute,
+  CsrfPartnershipRoute: CsrfPartnershipRoute,
   DonateRoute: DonateRoute,
   GalleryRoute: GalleryRoute,
   MediaRoute: MediaRoute,
+  PatrikaRoute: PatrikaRoute,
   SpgbpRoute: SpgbpRoute,
+  UtthanCoachingRegistrationRoute: UtthanCoachingRegistrationRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

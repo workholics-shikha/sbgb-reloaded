@@ -32,8 +32,8 @@ const desktopNavLinks = [
     hasMenu: [
       { label: "जागरूकता लेख", to: "/articles" },
       { label: "उत्थान पत्रिका", to: "/patrika" },
-      { label: "प्रिंट मीडिया", to: "/print-media" },
-      { label: "इलेक्ट्रॉनिक मीडिया", to: "/electronic-media" },
+      { label: "प्रिंट मीडिया", to: "/media" },
+      { label: "इलेक्ट्रॉनिक मीडिया", to: "/media" },
     ],
   },
 
@@ -77,6 +77,7 @@ const desktopNavLinks = [
       { label: "SBGBT प्रबंधक लॉगिन", to: "/admin-login" },
       { label: "उत्थान कोचिंग प्रबंधक लॉगिन", to: "/user-login" },
       { label: "SBGBT प्रबंधक सदस्य लॉगिन", to: "/user-login" },
+      { label: "SBGBT", to: "/spgbp" },
     ],
   },
 ] as const;
@@ -116,6 +117,7 @@ export const navLinks = [
       { label: "SBGBT प्रबंधक लॉगिन", to: "/admin-login" },
       { label: "उत्थान कोचिंग प्रबंधक लॉगिन", to: "/user-login" },
       { label: "SBGBT प्रबंधक सदस्य लॉगिन", to: "/user-login" },
+      { label: "SBGBT", to: "/spgbp" },
     ],
   },
 
@@ -192,7 +194,7 @@ export function SiteHeader() {
             </div>
 
             <div className="flex items-center gap-1">
-               <a
+              <a
                 href="https://www.facebook.com/groups/1869919303259444/"
                 aria-label="Fb Group"
                 target="_blank"
@@ -210,7 +212,7 @@ export function SiteHeader() {
               >
                 <FaFacebookF className="size-3.5" />
               </a>
-               <a
+              <a
                 href="https://twitter.com/sbgbteam"
                 aria-label="Twitter"
                 target="_blank"

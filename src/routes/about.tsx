@@ -12,6 +12,7 @@ import { SiteHeader } from "@/components/site/SiteHeader";
 import { PageHero, SiteFooter } from "@/components/site/SiteFooter";
 import heroEducation from "@/assets/hero-education.jpg";
 import galVillage from "@/assets/gallery-village.jpg";
+import sbgbtTeam from "@/assets/hamr-bare-me-left.jpg";
 
 export const Route = createFileRoute("/about")({
   head: () => ({
@@ -129,10 +130,8 @@ function About() {
     <div className="min-h-screen bg-background text-foreground">
       <SiteHeader />
       <PageHero title="हमारे बारे में" />
-
-   
-
-      <section id="about-highlights" className="relative z-10 mx-auto -mt-10 max-w-7xl px-4 sm:px-6">
+ 
+      <section id="about-highlights" className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6">
         <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
           {highlights.map((item) => (
             <div
@@ -222,7 +221,7 @@ function About() {
             <img
               src={heroEducation}
               alt="SBGBT students and rural education"
-              className="relative aspect-[4/5] w-full rounded-[2rem] border border-border object-cover shadow-2xl"
+              // className="relative aspect-[4/5] w-full rounded-[2rem] border border-border object-cover shadow-2xl"
             />
           </div>
         </div>
@@ -338,7 +337,7 @@ function About() {
               <div className="relative overflow-hidden rounded-[2rem] border border-cream/10 bg-cream/5 p-3 shadow-2xl">
                 <div className="absolute -right-10 -top-10 size-32 rounded-full bg-accent/20 blur-3xl" />
                 <img
-                  src={galVillage}
+                  src={sbgbtTeam}
                   alt="SBGBT village journey"
                   className="relative aspect-[4/3] w-full rounded-[1.5rem] object-cover"
                 />
@@ -364,7 +363,7 @@ function About() {
                 ))}
               </div>
 
-              <div className="grid gap-4 sm:grid-cols-2">
+              {/* <div className="grid gap-4 sm:grid-cols-2">
                 {highlights.map((item) => (
                   <div
                     key={item.label}
@@ -374,7 +373,7 @@ function About() {
                     <div className="mt-2 text-sm font-semibold text-cream">{item.label}</div>
                   </div>
                 ))}
-              </div>
+              </div> */}
             </div>
           </div>
         </div>

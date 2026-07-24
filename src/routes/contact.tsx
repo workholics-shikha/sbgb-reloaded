@@ -32,7 +32,7 @@ function Contact() {
       <SiteHeader />
       <PageHero title="संपर्क करें" />
 
-      <section className="festive-band border-y border-border">
+      <section className="border-border">
         <div className="mx-auto grid max-w-7xl gap-10 px-4 py-16 sm:px-6 sm:py-20 lg:grid-cols-[1fr_1.15fr]">
           <div className="space-y-4">
             {[
