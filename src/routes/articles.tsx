@@ -4,6 +4,17 @@ import { useMemo, useState } from "react";
 import { ChevronLeft, ChevronRight, Images, Sparkles } from "lucide-react";
 import { SiteHeader } from "@/components/site/SiteHeader";
 import { PageHero, SiteFooter } from "@/components/site/SiteFooter";
+import art1 from "@/assets/art1.jpg";
+import art2 from "@/assets/art2.jpg";
+import art3 from "@/assets/art3.jpg";
+import art4 from "@/assets/art4.jpg";
+import art5 from "@/assets/art5.jpg";
+import art6 from "@/assets/art6.jpg";
+import art7 from "@/assets/art7.jpg";
+import art8 from "@/assets/art8.jpg";
+import art9 from "@/assets/art9.jpg";
+import art10 from "@/assets/art10.jpg";
+import art11 from "@/assets/art11.jpg";
 import galAwards from "@/assets/gallery-awards.jpg";
 import galEnv from "@/assets/gallery-environment.jpg";
 import galHealth from "@/assets/gallery-health.jpg";
@@ -38,34 +49,154 @@ const categories = [
   "जागरूकता - मानव अस्तित्व का आधार",
   "पर्यावरण - लेखन पीढ़ियों का भविष्य",
 ] as const;
- 
+
 type Category = (typeof categories)[number];
-  
+
 type GalleryItem = {
   src: string;
   title: string;
   category: Category;
-   description: string;
+  description: string;
   slug: string;
   year: Exclude<Year, "सभी वर्ष">;
 };
 
 const galleryItems: GalleryItem[] = [
-  { src: galVillage, title: "सोच बदलो गांव बदलो यात्रा – भवनपुरा", category: "सोच बदलो गांव बदलो यात्रा", year: "2018" },
-  { src: galLib, title: "शिक्षा - सशक्तीकरण का सूत्र", category: "आओ पढ़ो आगे बढ़ो", year: "2018" },
-  { src: galAwards, title: "धनौरा विकास समिति सम्मान समारोह", category: "शिक्षा पाओ ज्ञान बढ़ाओ", year: "2018" },
-  { src: galHealth, title: "एनीमिया जागरूकता और स्वास्थ्य सहयोग", category: "महिला सशक्तिकरण", year: "2018" },
-  { src: galWomen, title: "बालिका शिक्षा ही सशक्तिकरण का आधार", category: "महिला सशक्तिकरण", year: "2017" },
-  { src: galEnv, title: "वृक्षारोपण और हरित ग्राम पहल", category: "क्लीन विलेज ग्रीन विलेज", year: "2018" },
-  { src: galWomen, title: "सामुदायिक सहभागिता के प्रेरक पल", category: "महिला सशक्तिकरण", year: "2018" },
-  { src: galAwards, title: "प्रतिभा सम्मान और प्रेरणा समारोह", category: "शिक्षा पाओ ज्ञान बढ़ाओ", year: "2018" },
-  { src: galVillage, title: "सामाजिक चेतना और ग्राम संगठन", category: "सोच बदलो गांव बदलो यात्रा", year: "2018" },
-  { src: galLib, title: "हमीरा विकास समिति की छात्र पहल", category: "शिक्षा पाओ ज्ञान बढ़ाओ", year: "2018" },
-  { src: galHealth, title: "गर्भवती महिलाओं के लिए स्वास्थ्य सहयोग", category: "महिला सशक्तिकरण", year: "2019" },
-  { src: galEnv, title: "स्वच्छता और हरियाली अभियान", category: "क्लीन विलेज ग्रीन विलेज", year: "2018" },
-  { src: galVillage, title: "उत्थान कोचिंग संस्थान के अध्ययन क्षण", category: "उत्थान कोचिंग संस्थान", year: "2019" },
-  { src: galAwards, title: "कार्यक्रम के यादगार दृश्य", category: "सोच बदलो गांव बदलो यात्रा", year: "2017" },
-  { src: galEnv, title: "आधुनिक खेती और आजीविका प्रयास", category: "आधुनिक खेती हमारा प्रयास", year: "2018" },
+  {
+    src: art1,
+    title: "विकास प्रक्रिया में हमारी भागीदारी",
+    category: "जागरूकता - मानव अस्तित्व का आधार",
+    year: "2018",
+    slug: "/articles/vikas-prakriya-me-hamari-bhagidari",
+    description:
+      "ग्रामीण विकास के विभिन्न सोपानों, ग्राम पंचायत, ग्राम सभा तथा आमजन की सक्रिय भागीदारी के माध्यम से समग्र विकास की दिशा में महत्वपूर्ण विचार।",
+  },
+  {
+    src: art2,
+    title: "जानकारी और जागरूकता - विकास की पहली आवश्यकता",
+    category: "जागरूकता - मानव अस्तित्व का आधार",
+    year: "2018",
+    slug: "/articles/jankari-aur-jagrukta",
+    description:
+      "सरकारी योजनाओं, विकास कार्यक्रमों और उनके सही क्रियान्वयन की जानकारी ही विकास की पहली आवश्यकता है। जागरूक नागरिक ही परिवर्तन का आधार बनते हैं।",
+  },
+  {
+    src: art3,
+    title: "जानकारी और जागरूकता - समाज परिवर्तन का आधार",
+    category: "जागरूकता - मानव अस्तित्व का आधार",
+    year: "2018",
+    slug: "/articles/samaj-parivartan",
+    description:
+      "समाज और राष्ट्र के विकास में अपनी जिम्मेदारी निभाने तथा सकारात्मक सोच के साथ समाज निर्माण में भागीदारी सुनिश्चित करने का संदेश।",
+  },
+  {
+    src: art4,
+    title: "सार्वजनिक वितरण प्रणाली (PDS)",
+    category: "जागरूकता - मानव अस्तित्व का आधार",
+    year: "2018",
+    slug: "/articles/public-distribution-system",
+    description:
+      "सार्वजनिक वितरण प्रणाली, राशन व्यवस्था, पात्रता, लाभार्थियों के अधिकार और सरकारी योजनाओं की जानकारी सरल भाषा में।",
+  },
+  {
+    src: art5,
+    title: "ग्राम सभा पंचायतीराज व्यवस्था का मूल आधार",
+    category: "जागरूकता - मानव अस्तित्व का आधार",
+    year: "2018",
+    slug: "/articles/gram-sabha",
+    description:
+      "ग्राम सभा लोकतांत्रिक विकेंद्रीकरण की सबसे महत्वपूर्ण इकाई है। गांव के विकास में इसकी भूमिका और नागरिकों की जिम्मेदारियाँ।",
+  },
+  {
+    src: art6,
+    title: "पूनम शर्मा, भारतीय राजस्व सेवा (IRS 2006)",
+    category: "प्रेरणादायक व्यक्तित्व",
+    year: "2018",
+    slug: "/articles/poonam-sharma",
+    description:
+      "सरकारी विद्यालयों में शिक्षा सुधार और सामाजिक बदलाव के प्रेरणादायक प्रयासों से जुड़ी एक प्रेरक प्रशासनिक अधिकारी की कहानी।",
+  },
+  {
+    src: art7,
+    title: "कीर्ति चक्र सम्मानित श्री चेतन कुमार चीता",
+    category: "प्रेरणादायक व्यक्तित्व",
+    year: "2018",
+    slug: "/articles/chetan-kumar-cheeta",
+    description:
+      "देश सेवा, साहस और समर्पण की मिसाल श्री चेतन कुमार चीता के जीवन से प्रेरणा लेने वाला विशेष लेख।",
+  },
+  {
+    src: art8,
+    title: "मोनिका राणा (भारतीय राजस्व सेवा)",
+    category: "प्रेरणादायक व्यक्तित्व",
+    year: "2018",
+    slug: "/articles/monika-rana",
+    description:
+      "समाज के प्रति समर्पण और सरकारी विद्यालयों के विकास में उल्लेखनीय योगदान देने वाली प्रशासनिक अधिकारी की प्रेरक यात्रा।",
+  },
+  {
+    src: art9,
+    title: "पद्मश्री डॉ. जनक पल्टा मैकगिलिगन",
+    category: "प्रेरणादायक व्यक्तित्व",
+    year: "2018",
+    slug: "/articles/janak-palta",
+    description:
+      "मानवीय मूल्यों, ग्रामीण विकास और समाज सेवा के लिए समर्पित पद्मश्री सम्मानित समाजसेवी के जीवन से प्रेरणा।",
+  },
+  {
+    src: art10,
+    title: "प्रो. प्रियानंद अगड़े",
+    category: "प्रेरणादायक व्यक्तित्व",
+    year: "2018",
+    slug: "/articles/priyanand-agade",
+    description:
+      "ग्रामीण विकास, पर्यावरण संरक्षण और स्मार्ट विलेज की अवधारणा को आगे बढ़ाने वाले समाजसेवी एवं मार्गदर्शक का परिचय।",
+  },
+  {
+    src: art11,
+    title: "बालिका शिक्षा ही सशक्तिकरण का आधार",
+    category: "शिक्षा - सशक्तीकरण का सूत्र",
+    year: "2017",
+    slug: "/articles/balika-shiksha",
+    description:
+      "ग्रामीण बालिकाओं की शिक्षा, आत्मनिर्भरता और समाज में समान अवसर सुनिश्चित करने की दिशा में महत्वपूर्ण पहल।",
+  },
+  {
+    src: galLib,
+    title: "आओ पढ़ें आगे बढ़ें",
+    category: "शिक्षा - सशक्तीकरण का सूत्र",
+    year: "2018",
+    slug: "/articles/aao-padhe",
+    description:
+      "बच्चों में गुणवत्तापूर्ण शिक्षा, पुस्तकालय संस्कृति और अध्ययन के अनुकूल वातावरण विकसित करने का अभियान।",
+  },
+  {
+    src: galVillage,
+    title: "सोच बदलो गांव बदलो यात्रा",
+    category: "सोच बदलो गांव बदलो यात्रा",
+    year: "2018",
+    slug: "/articles/soch-badlo",
+    description:
+      "गांव-गांव जाकर सकारात्मक सोच, जनजागरूकता और विकास की नई चेतना फैलाने वाली प्रेरक यात्रा की झलकियाँ।",
+  },
+  {
+    src: galEnv,
+    title: "पर्यावरण संरक्षण एवं हरित ग्राम",
+    category: "पर्यावरण - लेखन पीढ़ियों का भविष्य",
+    year: "2018",
+    slug: "/articles/paryavaran",
+    description:
+      "वृक्षारोपण, जल संरक्षण, स्वच्छता और हरित ग्राम निर्माण के लिए जनभागीदारी पर आधारित अभियान।",
+  },
+  {
+    src: galAwards,
+    title: "आधुनिक खेती हमारा प्रयास",
+    category: "पर्यावरण - लेखन पीढ़ियों का भविष्य",
+    year: "2018",
+    slug: "/articles/adhunik-kheti",
+    description:
+      "किसानों को आधुनिक कृषि तकनीकों, सरकारी योजनाओं और टिकाऊ खेती के माध्यम से आत्मनिर्भर बनाने का प्रयास।",
+  },
 ];
 
 const pageSize = 6;
@@ -134,8 +265,8 @@ function Gallery() {
                         setPage(1);
                       }}
                       className={`rounded-full border px-5 py-2.5 font-hi text-sm font-medium transition-all duration-300 ${activeCategory === category
-                          ? "border-primary bg-primary text-primary-foreground shadow-md"
-                          : "border-border bg-background hover:border-primary hover:bg-primary/10"
+                        ? "border-primary bg-primary text-primary-foreground shadow-md"
+                        : "border-border bg-background hover:border-primary hover:bg-primary/10"
                         }`}
                     >
                       {category}
@@ -164,36 +295,51 @@ function Gallery() {
           </div>
 
           {/* Cards */}
-          <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+          <div className="grid gap-8 lg:grid-cols-1">
             {paginatedItems.map((item) => (
-              <button
+              <article
                 key={`${item.title}-${item.year}`}
-                type="button"
-                onClick={() => setSelectedItem(item)}
-                className="group relative overflow-hidden rounded-[1.9rem] border border-border bg-card text-left shadow-sm transition hover:-translate-y-1.5 hover:border-primary/35 hover:shadow-xl"
+                className="group overflow-hidden rounded-[2rem]   shadow-sm transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl"
               >
-                <div className="absolute inset-0 bg-gradient-to-br from-primary/0 via-transparent to-accent/0 opacity-0 transition group-hover:opacity-100 group-hover:from-primary/10 group-hover:to-accent/10" />
+                {/* Image */}
+                <div className="relative overflow-hidden">
+                  <img
+                    src={item.src}
+                    alt={item.title}
+                    className="h-72 w-full object-cover transition duration-700 group-hover:scale-105"
+                  />
 
-                <img
-                  src={item.src}
-                  alt={item.title}
-                  className="h-[280px] w-full object-cover transition duration-700 group-hover:scale-105"
-                />
-
-                <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-ink/95 via-ink/55 to-transparent px-5 py-5 text-cream">
-                  <div className="inline-flex rounded-full bg-cream/15 px-2.5 py-1 text-[10px] font-semibold tracking-[0.18em] text-cream/85">
-                    {item.year}
-                  </div>
-
-                  <div className="mt-3 font-hi text-xl leading-snug">
-                    {item.title}
-                  </div>
-
-                  <div className="mt-2 text-xs tracking-[0.18em] text-cream/70">
+                  <div className="absolute left-5 top-5 rounded-full bg-primary px-3 py-1 text-xs font-semibold text-white">
                     {item.category}
                   </div>
                 </div>
-              </button>
+
+                {/* Content */}
+                <div className="p-6">
+                  <div className="text-sm text-primary font-medium">
+                    श्रेणी: {item.category}
+                  </div>
+
+                  <h3 className="mt-2 font-display text-2xl font-bold leading-tight">
+                    {item.title}
+                  </h3>
+
+                  <div className="mt-2 text-sm text-muted-foreground">
+                    {item.year}
+                  </div>
+
+                  <p className="mt-4 line-clamp-4 text-base leading-7 text-muted-foreground">
+                    {item.description}
+                  </p>
+
+                  <Link
+                    to={item.slug}
+                    className="mt-6 inline-flex items-center gap-2 rounded-full border-primary px-5 py-2.5 text-l font-bold text-primary transition hover:bg-primary hover:text-white"
+                  >
+                    अधिक पढ़ें →
+                  </Link>
+                </div>
+              </article>
             ))}
           </div>
 
@@ -221,8 +367,8 @@ function Gallery() {
                   type="button"
                   onClick={() => setPage(pageNumber)}
                   className={`grid size-11 place-items-center rounded-full border text-sm font-semibold transition ${safePage === pageNumber
-                      ? "border-primary bg-primary text-primary-foreground shadow-md"
-                      : "border-border bg-card text-foreground hover:border-primary/35 hover:text-primary"
+                    ? "border-primary bg-primary text-primary-foreground shadow-md"
+                    : "border-border bg-card text-foreground hover:border-primary/35 hover:text-primary"
                     }`}
                 >
                   {pageNumber}
@@ -244,49 +390,7 @@ function Gallery() {
         </div>
       </section>
 
-      {selectedItem && (
-        <div
-          className="fixed inset-0 z-50 bg-ink/85 p-4 backdrop-blur"
-          role="button"
-          tabIndex={0}
-          onClick={() => setSelectedItem(null)}
-          onKeyDown={(event) => {
-            if (event.key === "Escape" || event.key === "Enter" || event.key === " ") {
-              setSelectedItem(null);
-            }
-          }}
-        >
-          <div
-            className="mx-auto mt-8 max-w-5xl overflow-hidden rounded-[2rem] border border-border bg-background shadow-2xl"
-            onClick={(event) => event.stopPropagation()}
-            onKeyDown={(event) => event.stopPropagation()}
-          >
-            <div className="flex flex-wrap items-center justify-between gap-3 border-b border-border px-5 py-4">
-              <div>
-                <div className="font-hi text-xl font-semibold text-earth">{selectedItem.title}</div>
-                <div className="mt-1 text-sm text-muted-foreground">
-                  {selectedItem.category} · {selectedItem.year}
-                </div>
-              </div>
-              <button
-                type="button"
-                onClick={() => setSelectedItem(null)}
-                className="rounded-full border border-border px-4 py-2 text-sm transition hover:border-primary/35 hover:bg-secondary"
-              >
-                बंद करें
-              </button>
-            </div>
-            <img
-              src={selectedItem.src}
-              alt={selectedItem.title}
-              className="max-h-[75vh] w-full object-contain bg-black/5"
-            />
-          </div>
-        </div>
-      )}
-
       {/* CTA */}
-
       <motion.section
         {...sectionRevealProps}
         id="donate"
