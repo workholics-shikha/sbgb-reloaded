@@ -7,12 +7,23 @@ import {
   Sparkles,
   Target,
   Users2,
+  BadgeCheck,
 } from "lucide-react";
 import { SiteHeader } from "@/components/site/SiteHeader";
-import { PageHero, SiteFooter } from "@/components/site/SiteFooter";
+import { PageHero, SiteFooter, CTASection } from "@/components/site/SiteFooter";
 import heroEducation from "@/assets/hero-education.jpg";
 import galVillage from "@/assets/gallery-village.jpg";
 import sbgbtTeam from "@/assets/hamr-bare-me-left.jpg";
+import aboutHeroRealOne from "@/assets/about-user-signs.jpg";
+import aboutHeroRealTwo from "@/assets/about-user-volunteers.jpg";
+import { motion } from "framer-motion";
+
+const sectionRevealProps = {
+  initial: { opacity: 0, y: 34 },
+  whileInView: { opacity: 1, y: 0 },
+  viewport: { once: true, amount: 0.2 },
+  transition: { duration: 0.72, ease: [0.22, 1, 0.36, 1] as const },
+};
 
 export const Route = createFileRoute("/about")({
   head: () => ({
@@ -130,7 +141,138 @@ function About() {
     <div className="min-h-screen bg-background text-foreground">
       <SiteHeader />
       <PageHero title="हमारे बारे में" />
- 
+
+      {/* about start */}
+
+      <motion.section
+        {...sectionRevealProps}
+      >
+        <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/15 to-transparent" />
+        <div className="absolute left-[-4rem] top-12 size-44 rounded-full bg-accent/12 blur-3xl" />
+        <div className="absolute right-[-5rem] bottom-10 size-56 rounded-full bg-primary/10 blur-3xl" />
+        <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-20">
+          <div className="grid gap-12 xl:grid-cols-[1.02fr_1.08fr] xl:items-center">
+            <motion.div
+              whileHover={{ y: -5 }}
+              transition={{ duration: 0.35, ease: "easeOut" }}
+              className="relative mx-auto w-full max-w-[38rem] xl:mx-0"
+            >
+              <div className="relative min-h-[32rem] sm:min-h-[38rem]">
+                <div className="absolute -left-4 top-8 h-28 w-28 rounded-full border border-white/30 bg-white/16 blur-2xl" />
+                <div className="absolute right-8 top-4 h-24 w-24 rounded-full border border-accent/18 bg-accent/12 blur-2xl" />
+                <motion.div
+                  whileHover={{ scale: 1.015, y: -4 }}
+                  transition={{ duration: 0.35, ease: "easeOut" }}
+                  className="about-oval-reveal about-glass-shine absolute left-0 top-0 z-0 h-[26rem] w-[16.5rem] overflow-hidden rounded-[999px] bg-transparent p-0 shadow-[0_38px_74px_-34px_rgba(14,63,51,0.42)] sm:h-[36rem] sm:w-[21.5rem]"
+                >
+                  <img
+                    src={aboutHeroRealOne}
+                    alt="SBGBT community members together"
+                    className="h-full w-full rounded-[999px] object-cover"
+                    width={900}
+                    height={1200}
+                  />
+                </motion.div>
+                <motion.div
+                  whileHover={{ scale: 1.02, y: -6 }}
+                  transition={{ duration: 0.35, ease: "easeOut" }}
+                  className="about-oval-reveal about-glass-shine about-oval-reveal-delayed absolute bottom-0 right-0 z-20 h-[19rem] w-[14rem] overflow-hidden rounded-[999px] border border-[#f6f0e0] bg-[#f6f0e0] pb-0 pl-1 pr-0 pt-1 shadow-[0_38px_74px_-34px_rgba(14,63,51,0.45)] sm:h-[28rem] sm:w-[19rem] sm:pl-[6px] sm:pt-[6px]"
+                >
+                  <img
+                    src={aboutHeroRealTwo}
+                    alt="SBGBT grassroots activity"
+                    className="h-full w-full rounded-[999px] object-cover"
+                    width={900}
+                    height={900}
+                  />
+                </motion.div>
+                <motion.div
+                  whileHover={{ y: -4, scale: 1.03 }}
+                  transition={{ duration: 0.3, ease: "easeOut" }}
+                  className="absolute left-[10rem] top-[15rem] z-30 rounded-[1.25rem] border border-white/60 bg-[linear-gradient(135deg,rgba(255,255,255,0.7),rgba(255,255,255,0.34))] px-5 py-4 text-center text-primary shadow-[0_28px_48px_-24px_rgba(14,63,51,0.34)] backdrop-blur-xl sm:left-[13.5rem] sm:top-[26rem]"
+                >
+                  <div className="font-display text-4xl font-black leading-none">25+</div>
+                  <div className="mt-2 text-sm font-semibold leading-snug">वर्षों का अनुभव</div>
+                  <div className="mt-3 h-px bg-primary/12" />
+                  <div className="mt-3 text-[11px] font-medium uppercase tracking-[0.18em] text-primary/68">Community Trust</div>
+                </motion.div>
+              </div>
+            </motion.div>
+
+            <div className="relative">
+              <div className="inline-flex items-center gap-2 rounded-full border border-white/60 bg-white/65 px-4 py-2 text-sm font-semibold text-primary shadow-[0_16px_30px_-20px_rgba(14,63,51,0.32)] backdrop-blur-xl">
+                <span className="size-2 rounded-full bg-accent" />
+                हमारे बारे में
+              </div>
+              <h2 className="mt-5 max-w-3xl font-display text-[2.4rem] font-black leading-[1.14] text-primary text-balance sm:text-[3.2rem] lg:text-[2rem]">
+                सेवा, सहभागिता और ग्राम उत्थान से
+                <span className="block text-earth">आशा का मजबूत अभियान।</span>
+              </h2>
+              <p className="mt-5 max-w-2xl text-base leading-relaxed text-muted-foreground sm:text-lg">
+                सोच बदलो गांव बदलो टीम ग्रामीण क्षेत्रों में शिक्षा, जन-जागरूकता, महिला सशक्तिकरण,
+                पर्यावरण संरक्षण और सामुदायिक सहयोग के माध्यम से सकारात्मक बदलाव की निरंतर दिशा
+                बना रही है।
+              </p>
+
+              <motion.div
+                whileHover={{ y: -4 }}
+                transition={{ duration: 0.32, ease: "easeOut" }}
+                className="mt-8 grid gap-5 rounded-[2rem] border border-white/55 bg-[linear-gradient(135deg,rgba(255,255,255,0.72),rgba(255,255,255,0.38))] p-5 shadow-[0_30px_70px_-38px_rgba(14,63,51,0.34)] backdrop-blur-xl sm:grid-cols-[1fr_15rem] sm:p-6"
+              >
+                <div className="relative">
+                  <div className="absolute -right-4 top-4 h-20 w-20 rounded-full bg-accent/10 blur-2xl" />
+                  <div className="grid size-14 place-items-center rounded-full bg-accent/90 text-accent-foreground shadow-[0_14px_26px_-14px_rgba(241,189,26,0.7)]">
+                    <Users2 className="size-6" />
+                  </div>
+                  <h3 className="mt-5 font-display text-2xl font-black text-primary">समुदाय के साथ विकास</h3>
+                  <div className="mt-4 h-px w-full bg-primary/10" />
+                  <div className="mt-5 space-y-3 text-muted-foreground">
+                    <div className="flex items-start gap-3">
+                      <span className="mt-1 grid size-5 shrink-0 place-items-center rounded-full bg-accent/20 text-earth">
+                        <BadgeCheck className="size-3.5" />
+                      </span>
+                      <p className="text-sm leading-relaxed sm:text-base">
+                        स्थानीय ज़रूरतों को समझकर शिक्षा, संवाद और सहयोग आधारित पहलें चलाई जाती हैं।
+                      </p>
+                    </div>
+                    <div className="flex items-start gap-3">
+                      <span className="mt-1 grid size-5 shrink-0 place-items-center rounded-full bg-accent/20 text-earth">
+                        <BadgeCheck className="size-3.5" />
+                      </span>
+                      <p className="text-sm leading-relaxed sm:text-base">
+                        युवा, महिलाएं और ग्रामीण परिवार बदलाव की प्रक्रिया में सक्रिय भागीदार बनते हैं।
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div className="overflow-hidden rounded-[1.5rem] border border-white/40 bg-white/20 p-1.5 shadow-[0_24px_44px_-28px_rgba(14,63,51,0.38)] backdrop-blur">
+                  <img
+                    src={galVillage}
+                    alt="SBGBT outreach in rural community"
+                    className="h-full w-full rounded-[1.15rem] object-cover transition duration-500 hover:scale-[1.03]"
+                    width={700}
+                    height={900}
+                  />
+                </div>
+              </motion.div>
+
+              <div className="mt-7 flex flex-wrap items-center gap-4 border-t border-primary/10 pt-7">
+                <Link
+                  to="/about"
+                  className="inline-flex items-center gap-2 rounded-xl bg-accent px-6 py-3 text-sm font-semibold text-accent-foreground shadow-[0_18px_30px_-18px_rgba(241,189,26,0.78)] transition duration-300 hover:-translate-y-0.5 hover:brightness-[0.98]"
+                >
+                  हमारे बारे में
+                  <ArrowRight className="size-4" />
+                </Link>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </motion.section>
+
+      {/* about end */}
+
       <section id="about-highlights" className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6">
         <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
           {highlights.map((item) => (
@@ -221,7 +363,7 @@ function About() {
             <img
               src={heroEducation}
               alt="SBGBT students and rural education"
-              // className="relative aspect-[4/5] w-full rounded-[2rem] border border-border object-cover shadow-2xl"
+            // className="relative aspect-[4/5] w-full rounded-[2rem] border border-border object-cover shadow-2xl"
             />
           </div>
         </div>
@@ -262,8 +404,7 @@ function About() {
                   अभियान किन लक्ष्यों के साथ काम करता है।
                 </h2>
                 <p className="mt-4 text-muted-foreground leading-relaxed">
-                  मूल वेबसाइट पर बताए गए प्रमुख उद्देश्यों को यहां संक्षेप में रखा गया है ताकि पेज
-                  साफ भी रहे और संस्था की दिशा भी स्पष्ट दिखे।
+                  
                 </p>
 
                 <div className="mt-8 grid gap-4 sm:grid-cols-2">
@@ -362,18 +503,7 @@ function About() {
                   </div>
                 ))}
               </div>
-
-              {/* <div className="grid gap-4 sm:grid-cols-2">
-                {highlights.map((item) => (
-                  <div
-                    key={item.label}
-                    className="rounded-[1.5rem] border border-cream/10 bg-gradient-to-br from-cream/8 to-transparent p-5 shadow-lg"
-                  >
-                    <div className="font-display text-3xl font-black text-accent">{item.value}</div>
-                    <div className="mt-2 text-sm font-semibold text-cream">{item.label}</div>
-                  </div>
-                ))}
-              </div> */}
+ 
             </div>
           </div>
         </div>
@@ -412,38 +542,9 @@ function About() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-7xl px-4 pb-20 sm:px-6 sm:pb-24">
-        <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-primary to-leaf p-10 text-primary-foreground sm:p-14">
-          <div className="absolute inset-0 opacity-30 grain-bg" />
-          <div className="relative grid items-end gap-6 md:grid-cols-[1fr_auto]">
-            <div>
-              <div className="text-xs uppercase tracking-widest opacity-80">सदस्य बनें</div>
-              <h2 className="mt-3 max-w-2xl font-display text-3xl font-black text-balance sm:text-4xl">
-                अगर आप भी अपने गांव और समाज के विकास में योगदान देना चाहते हैं, तो SBGBT से जुड़ें।
-              </h2>
-              <p className="mt-4 max-w-2xl opacity-90">
-                सकारात्मक सोच, जनसहभागिता और रचनात्मक कार्यों के साथ मिलकर बदलाव की इस यात्रा को
-                आगे बढ़ाएं।
-              </p>
-            </div>
-            <div className="flex gap-3">
-              <Link
-                to="/donate"
-                className="inline-flex items-center gap-2 rounded-full bg-accent px-6 py-3 text-sm font-bold text-accent-foreground shadow-xl transition hover:brightness-95"
-              >
-                <Users2 className="size-4" />
-                सदस्य बनें
-              </Link>
-              <Link
-                to="/contact"
-                className="inline-flex items-center gap-2 rounded-full border border-cream/40 bg-cream/10 px-6 py-3 text-sm font-semibold backdrop-blur transition hover:bg-cream/20"
-              >
-                संपर्क करें
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
+      {/* CTA */}
+      <CTASection />
+      {/* === */} 
 
       <SiteFooter />
     </div>

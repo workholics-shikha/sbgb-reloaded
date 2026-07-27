@@ -11,7 +11,7 @@ import {
   Users2,
 } from "lucide-react";
 import { SiteHeader } from "@/components/site/SiteHeader";
-import { PageHero, SiteFooter } from "@/components/site/SiteFooter";
+import { PageHero, SiteFooter, CTASection} from "@/components/site/SiteFooter";
 
 export const Route = createFileRoute("/donate")({
   head: () => ({
@@ -214,7 +214,9 @@ function Donate() {
           </div>
         </div>
       </section>
-
+      {/* CTA */}
+      <CTASection />
+      {/* === */}
       <SiteFooter />
     </div>
   );

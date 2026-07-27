@@ -1,10 +1,11 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
-import { Send } from "lucide-react";
+import { LogIn, Send } from "lucide-react";
 import { SiteHeader } from "@/components/site/SiteHeader";
-import { PageHero, SiteFooter, CTASection} from "@/components/site/SiteFooter";
+import sideImage from "@/assets/Partnership.png";
+import { PageHero, SiteFooter } from "@/components/site/SiteFooter";
 
-export const Route = createFileRoute("/csr-partnership")({
+export const Route = createFileRoute("/admit-card")({
   head: () => ({
     meta: [
       { title: "CSR Partnership | SBGBT" },
@@ -34,7 +35,15 @@ function Contact() {
 
       <section className=" border-border">
         <div className="mx-auto grid max-w-7xl gap-10 px-4 py-16 sm:px-6 sm:py-20 lg:grid-cols-[1.6fr]">
-         
+          <div>
+            {/* <img
+              src={sideImage}
+              alt="SBGBT students and rural education"
+              className="rounded-[2rem] "
+            /> */}
+
+          </div>
+
           <form
             onSubmit={(e) => {
               e.preventDefault();
@@ -188,9 +197,7 @@ function Contact() {
           </form>
         </div>
       </section>
-      {/* CTA */}
-       <CTASection />
-      {/* === */} 
+
       <SiteFooter />
     </div>
   );

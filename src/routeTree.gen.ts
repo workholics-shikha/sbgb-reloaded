@@ -19,9 +19,11 @@ import { Route as DonateRouteImport } from './routes/donate'
 import { Route as CsrPartnershipRouteImport } from './routes/csr-partnership'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as ArticlesRouteImport } from './routes/articles'
+import { Route as AdmitCardRouteImport } from './routes/admit-card'
 import { Route as AdminLoginRouteImport } from './routes/admin-login'
 import { Route as ActivitiesRouteImport } from './routes/activities'
 import { Route as AboutRouteImport } from './routes/about'
+import { Route as AavedanFormRouteImport } from './routes/aavedan-form'
 import { Route as IndexRouteImport } from './routes/index'
 
 const UtthanCoachingRegistrationRoute =
@@ -75,6 +77,11 @@ const ArticlesRoute = ArticlesRouteImport.update({
   path: '/articles',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdmitCardRoute = AdmitCardRouteImport.update({
+  id: '/admit-card',
+  path: '/admit-card',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AdminLoginRoute = AdminLoginRouteImport.update({
   id: '/admin-login',
   path: '/admin-login',
@@ -90,6 +97,11 @@ const AboutRoute = AboutRouteImport.update({
   path: '/about',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AavedanFormRoute = AavedanFormRouteImport.update({
+  id: '/aavedan-form',
+  path: '/aavedan-form',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -98,9 +110,11 @@ const IndexRoute = IndexRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/aavedan-form': typeof AavedanFormRoute
   '/about': typeof AboutRoute
   '/activities': typeof ActivitiesRoute
   '/admin-login': typeof AdminLoginRoute
+  '/admit-card': typeof AdmitCardRoute
   '/articles': typeof ArticlesRoute
   '/contact': typeof ContactRoute
   '/csr-partnership': typeof CsrPartnershipRoute
@@ -114,9 +128,11 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/aavedan-form': typeof AavedanFormRoute
   '/about': typeof AboutRoute
   '/activities': typeof ActivitiesRoute
   '/admin-login': typeof AdminLoginRoute
+  '/admit-card': typeof AdmitCardRoute
   '/articles': typeof ArticlesRoute
   '/contact': typeof ContactRoute
   '/csr-partnership': typeof CsrPartnershipRoute
@@ -131,9 +147,11 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/aavedan-form': typeof AavedanFormRoute
   '/about': typeof AboutRoute
   '/activities': typeof ActivitiesRoute
   '/admin-login': typeof AdminLoginRoute
+  '/admit-card': typeof AdmitCardRoute
   '/articles': typeof ArticlesRoute
   '/contact': typeof ContactRoute
   '/csr-partnership': typeof CsrPartnershipRoute
@@ -149,9 +167,11 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/aavedan-form'
     | '/about'
     | '/activities'
     | '/admin-login'
+    | '/admit-card'
     | '/articles'
     | '/contact'
     | '/csr-partnership'
@@ -165,9 +185,11 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/aavedan-form'
     | '/about'
     | '/activities'
     | '/admin-login'
+    | '/admit-card'
     | '/articles'
     | '/contact'
     | '/csr-partnership'
@@ -181,9 +203,11 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/aavedan-form'
     | '/about'
     | '/activities'
     | '/admin-login'
+    | '/admit-card'
     | '/articles'
     | '/contact'
     | '/csr-partnership'
@@ -198,9 +222,11 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AavedanFormRoute: typeof AavedanFormRoute
   AboutRoute: typeof AboutRoute
   ActivitiesRoute: typeof ActivitiesRoute
   AdminLoginRoute: typeof AdminLoginRoute
+  AdmitCardRoute: typeof AdmitCardRoute
   ArticlesRoute: typeof ArticlesRoute
   ContactRoute: typeof ContactRoute
   CsrPartnershipRoute: typeof CsrPartnershipRoute
@@ -285,6 +311,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ArticlesRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admit-card': {
+      id: '/admit-card'
+      path: '/admit-card'
+      fullPath: '/admit-card'
+      preLoaderRoute: typeof AdmitCardRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/admin-login': {
       id: '/admin-login'
       path: '/admin-login'
@@ -306,6 +339,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AboutRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/aavedan-form': {
+      id: '/aavedan-form'
+      path: '/aavedan-form'
+      fullPath: '/aavedan-form'
+      preLoaderRoute: typeof AavedanFormRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -318,9 +358,11 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AavedanFormRoute: AavedanFormRoute,
   AboutRoute: AboutRoute,
   ActivitiesRoute: ActivitiesRoute,
   AdminLoginRoute: AdminLoginRoute,
+  AdmitCardRoute: AdmitCardRoute,
   ArticlesRoute: ArticlesRoute,
   ContactRoute: ContactRoute,
   CsrPartnershipRoute: CsrPartnershipRoute,

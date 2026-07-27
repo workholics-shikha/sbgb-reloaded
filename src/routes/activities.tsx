@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { motion } from "framer-motion";
 import {
   ArrowRight,
   BookOpen,
@@ -13,7 +14,7 @@ import {
   Wallet,
 } from "lucide-react";
 import { SiteHeader } from "@/components/site/SiteHeader";
-import { PageHero, SiteFooter } from "@/components/site/SiteFooter";
+import { PageHero, SiteFooter, CTASection} from "@/components/site/SiteFooter";
 
 export const Route = createFileRoute("/activities")({
   head: () => ({
@@ -118,7 +119,22 @@ function Activities() {
             </p>
           </div>
 
-          <div className="mt-12 grid gap-4 sm:grid-cols-2 sm:gap-5 lg:grid-cols-3">
+          <motion.div
+            className="mt-12 grid gap-4 sm:grid-cols-2 sm:gap-5 lg:grid-cols-3"
+            initial={{
+              opacity: 0,
+              x: 60,
+              scale: 0.9,
+            }}
+            whileInView={{
+              opacity: 1,
+              x: 0,
+              scale: 1,
+            }}
+            viewport={{ once: true }}
+            transition={{
+              duration: 0.8,
+            }} >
             {activities.map((activity, index) => (
               <article
                 key={activity.title}
@@ -141,34 +157,13 @@ function Activities() {
                 </Link>
               </article>
             ))}
-          </div>
+          </motion.div>
         </div>
       </section>
 
-      <section className="bg-ink text-cream">
-        <div className="mx-auto grid max-w-7xl items-center gap-6 px-4 py-16 sm:px-6 sm:py-20 md:grid-cols-[1fr_auto]">
-          <div>
-            <div className="text-xs font-semibold uppercase tracking-widest text-accent">सहयोग करें</div>
-            <h2 className="mt-3 font-display text-3xl font-black sm:text-4xl">
-              किसी कार्यक्रम को समर्थन दें, विद्यार्थियों का मार्गदर्शन करें या गांव के विकास में भागीदार बनें।
-            </h2>
-          </div>
-          <div className="flex flex-wrap gap-3">
-            <Link
-              to="/donate"
-              className="inline-flex items-center gap-2 rounded-full bg-accent px-6 py-3 text-sm font-bold text-accent-foreground"
-            >
-              दान करें
-            </Link>
-            <Link
-              to="/spgbp"
-              className="inline-flex items-center gap-2 rounded-full border border-cream/40 px-6 py-3 text-sm font-semibold"
-            >
-              SPGBP 2025–26
-            </Link>
-          </div>
-        </div>
-      </section>
+      {/* CTA */}
+       <CTASection />
+      {/* === */} 
 
       <SiteFooter />
     </div>

@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { useMemo, useState } from "react";
 import { ChevronLeft, ChevronRight, Images, Sparkles } from "lucide-react";
 import { SiteHeader } from "@/components/site/SiteHeader";
-import { PageHero, SiteFooter } from "@/components/site/SiteFooter";
+import { PageHero, SiteFooter, CTASection} from "@/components/site/SiteFooter";
 import art1 from "@/assets/art1.jpg";
 import art2 from "@/assets/art2.jpg";
 import art3 from "@/assets/art3.jpg";
@@ -391,71 +391,8 @@ function Gallery() {
       </section>
 
       {/* CTA */}
-      <motion.section
-        {...sectionRevealProps}
-        id="donate"
-        className="relative overflow-hidden bg-[#fbf7ef] text-[#143c35]"
-      >
-        <div
-          className="absolute inset-0 bg-repeat opacity-[0.82]"
-          style={{ backgroundImage: `url(${blogBgPaper})`, backgroundSize: "cover" }}
-        />
-        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.38),rgba(255,255,255,0.12))]" />
-        <div className="absolute left-[4%] top-1/2 hidden -translate-y-1/2 xl:block">
-          <img
-            src={heroHeartSprade}
-            alt=""
-            aria-hidden="true"
-            className="hero-heartbeat h-48 w-48 object-contain opacity-30"
-            width={192}
-            height={192}
-          />
-        </div>
-        <div className="relative mx-auto max-w-6xl px-4 py-16 text-center sm:px-6 sm:py-20">
-          <span className="inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-primary">
-            <img
-              src={heroHeartSprade}
-              alt=""
-              aria-hidden="true"
-              className="hero-heartbeat h-5 w-5 object-contain opacity-70"
-              width={20}
-              height={20}
-            />
-            हमारे सहयोगी
-          </span>
-          <h2 className="mt-5 font-display text-2xl font-black text-balance text-[#143c35] sm:text-5xl lg:text-6xl">
-            सहयोग से मजबूत होती यात्रा
-          </h2>
-          <p className="mx-auto mt-5 max-w-2xl text-[#35544c]/82">
-            जिन साथियों और संस्थाओं ने शिक्षा, ग्राम विकास और जन-जागरूकता से जुड़े हमारे प्रयासों को मजबूती दी, उन्हें यहां सम्मानपूर्वक स्थान दिया गया है।
-          </p>
-          <div className="mt-8 flex flex-wrap justify-center gap-3">
-
-            <div className="rounded-[2rem] border border-border bg-card/90 p-6 shadow-sm">
-              <div className="grid gap-4 sm:grid-cols-2">
-                <div className="rounded-[1.5rem] border border-border bg-background/70 px-6 py-8 text-center shadow-sm" style={{ backgroundImage: `url(${blogBgPaper})`, backgroundSize: "cover" }} >
-                  <img
-                    src={ecoNeedsLogo}
-                    alt="Eco Needs Foundation"
-                    className="mx-auto h-20 w-auto object-contain sm:h-24"
-
-                  />
-                </div>
-                <div className="rounded-[1.5rem] border border-border bg-background/70 px-6 py-8 text-center shadow-sm" style={{ backgroundImage: `url(${blogBgPaper})`, backgroundSize: "cover" }}>
-                  <img
-                    src={workholicsLogo}
-                    alt="Workholics"
-                    className="mx-auto h-24 w-auto object-contain sm:h-28"
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-
-        </div>
-      </motion.section>
-
-      {/* ========= */}
+      <CTASection />
+      {/* === */}
 
       <SiteFooter />
     </div>

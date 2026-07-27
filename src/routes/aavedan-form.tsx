@@ -4,21 +4,17 @@ import { Clock, Mail, MapPin, Phone, Send } from "lucide-react";
 import { SiteHeader } from "@/components/site/SiteHeader";
 import { PageHero, SiteFooter, socialLinks, CTASection} from "@/components/site/SiteFooter";
 
-export const Route = createFileRoute("/contact")({
+export const Route = createFileRoute("/aavedan-form")({
   head: () => ({
     meta: [
-      { title: "संपर्क करें | SBGBT" },
+      { title: "सदस्यता फॉर्म | SBGBT" },
       {
         name: "description",
         content:
-          "SBGBT टीम से ईमेल, फोन या कार्यालय पते के माध्यम से जुड़ें। स्वयंसेवा, साझेदारी, मीडिया और कार्यक्रमों से जुड़े प्रश्न यहां भेजें।",
+          "सदस्यता फॉर्म",
       },
       { property: "og:title", content: "संपर्क करें | SBGBT" },
-      {
-        property: "og:description",
-        content:
-          "स्वयंसेवा, साझेदारी, मीडिया या छात्रवृत्ति कार्यक्रमों के लिए SBGBT टीम से सीधे संपर्क करें।",
-      },
+       
     ],
   }),
   component: Contact,
@@ -30,61 +26,11 @@ function Contact() {
   return (
     <div className="min-h-screen bg-background text-foreground">
       <SiteHeader />
-      <PageHero title="संपर्क करें" />
+      <PageHero title="सदस्यता फॉर्म" />
 
       <section className="border-border">
         <div className="mx-auto grid max-w-7xl gap-10 px-4 py-16 sm:px-6 sm:py-20 lg:grid-cols-[1fr_1.15fr]">
-          <div className="space-y-4">
-            {[
-              { icon: Mail, label: "ईमेल", value: "sbgbteam@gmail.com", href: "mailto:sbgbteam@gmail.com" },
-              { icon: Phone, label: "फोन", value: "+91 93144 08609", href: "tel:+919314408609" },
-              {
-                icon: MapPin,
-                label: "कार्यालय",
-                value: "उत्थान भवन, सरमथुरा, धौलपुर, राजस्थान – 328024",
-              },
-              {
-                icon: Clock,
-                label: "समय",
-                value: "सोमवार से शनिवार · सुबह 10:00 बजे से शाम 6:00 बजे तक",
-              },
-            ].map((item) => (
-              <a
-                key={item.label}
-                href={item.href ?? "#"}
-                className="flex items-start gap-4 rounded-[1.75rem] border border-border bg-card/90 p-5 shadow-sm transition hover:border-primary/35"
-              >
-                <div className="grid size-11 shrink-0 place-items-center rounded-xl bg-primary/10 text-primary">
-                  <item.icon className="size-5" />
-                </div>
-                <div className="min-w-0">
-                  <div className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">
-                    {item.label}
-                  </div>
-                  <div className="mt-1 break-words font-semibold text-foreground">{item.value}</div>
-                </div>
-              </a>
-            ))}
-
-            <div className="rounded-[1.75rem] border border-border bg-card/90 p-5 shadow-sm">
-              <div className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">सोशल मीडिया</div>
-              <div className="mt-3 flex gap-3">
-                {socialLinks.map(({ label, href, icon: Icon }) => (
-                  <a
-                    key={label}
-                    href={href}
-                    aria-label={label}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="grid size-10 place-items-center rounded-full bg-primary/10 text-primary transition hover:bg-primary hover:text-primary-foreground"
-                  >
-                    <Icon className="size-4" />
-                  </a>
-                ))}
-              </div>
-            </div>
-          </div>
-
+         
           <form
             onSubmit={(event) => {
               event.preventDefault();

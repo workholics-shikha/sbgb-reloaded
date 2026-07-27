@@ -47,6 +47,8 @@ import mediaSbgb01 from "@/assets/media-sbgb-01.jpg";
 import mediaSbgb02 from "@/assets/media-sbgb-02.jpg";
 import mediaSbgb03 from "@/assets/media-sbgb-03.jpg";
 import mediaSbgb04 from "@/assets/media-sbgb-04.jpg";
+import ecoNeedsLogo from "@/assets/econeeds-logo.png";
+import workholicsLogo from "@/assets/workholicslogo.png";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -756,7 +758,7 @@ function Home() {
               <span className="size-1.5 rounded-full bg-accent shadow-[0_0_18px_rgba(241,189,26,0.9)]" />
               सोच बदलो, गांव बदलो टीम
             </motion.span>
-            
+
             <motion.h1
               initial={{ opacity: 0, y: 24 }}
               animate={{
@@ -774,7 +776,7 @@ function Home() {
               शिक्षा, जनजागरूकता और
               <span className="block text-accent drop-shadow-[0_6px_18px_rgba(0,0,0,0.24)]">ग्राम उत्थान की सशक्त पहल।</span>
             </motion.h1>
-            
+
             <motion.p
               initial={{ opacity: 0, y: 18 }}
               animate={{
@@ -1015,29 +1017,26 @@ function Home() {
                     href={item.href}
                     target="_blank"
                     rel="noreferrer"
-                    className={`group rounded-[1.35rem] border px-4 py-3 shadow-sm transition duration-300 hover:-translate-y-1 ${
-                      meta.featured
-                        ? "border-accent/35 bg-accent text-accent-foreground shadow-[0_18px_34px_-24px_rgba(241,189,26,0.78)] hover:brightness-[0.98]"
-                        : "border-primary/15 bg-white/84 text-primary hover:border-primary/30 hover:bg-white"
-                    }`}
+                    className={`group rounded-[1.35rem] border px-4 py-3 shadow-sm transition duration-300 hover:-translate-y-1 ${meta.featured
+                      ? "border-accent/35 bg-accent text-accent-foreground shadow-[0_18px_34px_-24px_rgba(241,189,26,0.78)] hover:brightness-[0.98]"
+                      : "border-primary/15 bg-white/84 text-primary hover:border-primary/30 hover:bg-white"
+                      }`}
                   >
                     <div className="flex items-start gap-3">
                       <div
-                        className={`grid size-10 shrink-0 place-items-center rounded-full transition duration-300 ${
-                          meta.featured
-                            ? "bg-black/10 text-accent-foreground"
-                            : "bg-primary/8 text-primary group-hover:bg-primary group-hover:text-primary-foreground"
-                        }`}
+                        className={`grid size-10 shrink-0 place-items-center rounded-full transition duration-300 ${meta.featured
+                          ? "bg-black/10 text-accent-foreground"
+                          : "bg-primary/8 text-primary group-hover:bg-primary group-hover:text-primary-foreground"
+                          }`}
                       >
                         <Icon className="size-4.5" />
                       </div>
                       <div className="min-w-0">
                         <div
-                          className={`inline-flex rounded-full px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.22em] ${
-                            meta.featured
-                              ? "bg-black/10 text-accent-foreground/80"
-                              : "bg-primary/7 text-primary/70"
-                          }`}
+                          className={`inline-flex rounded-full px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.22em] ${meta.featured
+                            ? "bg-black/10 text-accent-foreground/80"
+                            : "bg-primary/7 text-primary/70"
+                            }`}
                         >
                           {meta.tag}
                         </div>
@@ -1046,9 +1045,8 @@ function Home() {
                         </div>
                       </div>
                       <ArrowRight
-                        className={`ml-auto mt-1 size-4 shrink-0 transition duration-300 group-hover:translate-x-1 ${
-                          meta.featured ? "text-accent-foreground" : "text-primary/70"
-                        }`}
+                        className={`ml-auto mt-1 size-4 shrink-0 transition duration-300 group-hover:translate-x-1 ${meta.featured ? "text-accent-foreground" : "text-primary/70"
+                          }`}
                       />
                     </div>
                   </a>
@@ -1073,13 +1071,13 @@ function Home() {
               transition={{ duration: 0.35, ease: "easeOut" }}
               className="relative mx-auto w-full max-w-[38rem] xl:mx-0"
             >
-                <div className="relative min-h-[32rem] sm:min-h-[38rem]">
+              <div className="relative min-h-[32rem] sm:min-h-[38rem]">
                 <div className="absolute -left-4 top-8 h-28 w-28 rounded-full border border-white/30 bg-white/16 blur-2xl" />
                 <div className="absolute right-8 top-4 h-24 w-24 rounded-full border border-accent/18 bg-accent/12 blur-2xl" />
                 <motion.div
                   whileHover={{ scale: 1.015, y: -4 }}
                   transition={{ duration: 0.35, ease: "easeOut" }}
-                    className="about-oval-reveal about-glass-shine absolute left-0 top-0 z-0 h-[26rem] w-[16.5rem] overflow-hidden rounded-[999px] bg-transparent p-0 shadow-[0_38px_74px_-34px_rgba(14,63,51,0.42)] sm:h-[36rem] sm:w-[21.5rem]"
+                  className="about-oval-reveal about-glass-shine absolute left-0 top-0 z-0 h-[26rem] w-[16.5rem] overflow-hidden rounded-[999px] bg-transparent p-0 shadow-[0_38px_74px_-34px_rgba(14,63,51,0.42)] sm:h-[36rem] sm:w-[21.5rem]"
                 >
                   <img
                     src={aboutHeroRealOne}
@@ -1089,24 +1087,24 @@ function Home() {
                     height={1200}
                   />
                 </motion.div>
-                  <motion.div
-                    whileHover={{ scale: 1.02, y: -6 }}
-                    transition={{ duration: 0.35, ease: "easeOut" }}
-                    className="about-oval-reveal about-glass-shine about-oval-reveal-delayed absolute bottom-0 right-0 z-20 h-[19rem] w-[14rem] overflow-hidden rounded-[999px] border border-[#f6f0e0] bg-[#f6f0e0] pb-0 pl-1 pr-0 pt-1 shadow-[0_38px_74px_-34px_rgba(14,63,51,0.45)] sm:h-[28rem] sm:w-[19rem] sm:pl-[6px] sm:pt-[6px]"
-                  >
-                    <img
-                     src={aboutHeroRealTwo}
-                      alt="SBGBT grassroots activity"
-                      className="h-full w-full rounded-[999px] object-cover"
-                      width={900}
-                      height={900}
-                    />
-                  </motion.div>
-                    <motion.div
-                      whileHover={{ y: -4, scale: 1.03 }}
-                      transition={{ duration: 0.3, ease: "easeOut" }}
-                      className="absolute left-[10rem] top-[15rem] z-30 rounded-[1.25rem] border border-white/60 bg-[linear-gradient(135deg,rgba(255,255,255,0.7),rgba(255,255,255,0.34))] px-5 py-4 text-center text-primary shadow-[0_28px_48px_-24px_rgba(14,63,51,0.34)] backdrop-blur-xl sm:left-[13.5rem] sm:top-[26rem]"
-                  >
+                <motion.div
+                  whileHover={{ scale: 1.02, y: -6 }}
+                  transition={{ duration: 0.35, ease: "easeOut" }}
+                  className="about-oval-reveal about-glass-shine about-oval-reveal-delayed absolute bottom-0 right-0 z-20 h-[19rem] w-[14rem] overflow-hidden rounded-[999px] border border-[#f6f0e0] bg-[#f6f0e0] pb-0 pl-1 pr-0 pt-1 shadow-[0_38px_74px_-34px_rgba(14,63,51,0.45)] sm:h-[28rem] sm:w-[19rem] sm:pl-[6px] sm:pt-[6px]"
+                >
+                  <img
+                    src={aboutHeroRealTwo}
+                    alt="SBGBT grassroots activity"
+                    className="h-full w-full rounded-[999px] object-cover"
+                    width={900}
+                    height={900}
+                  />
+                </motion.div>
+                <motion.div
+                  whileHover={{ y: -4, scale: 1.03 }}
+                  transition={{ duration: 0.3, ease: "easeOut" }}
+                  className="absolute left-[10rem] top-[15rem] z-30 rounded-[1.25rem] border border-white/60 bg-[linear-gradient(135deg,rgba(255,255,255,0.7),rgba(255,255,255,0.34))] px-5 py-4 text-center text-primary shadow-[0_28px_48px_-24px_rgba(14,63,51,0.34)] backdrop-blur-xl sm:left-[13.5rem] sm:top-[26rem]"
+                >
                   <div className="font-display text-4xl font-black leading-none">25+</div>
                   <div className="mt-2 text-sm font-semibold leading-snug">वर्षों का अनुभव</div>
                   <div className="mt-3 h-px bg-primary/12" />
@@ -1180,7 +1178,7 @@ function Home() {
                   हमारे बारे में
                   <ArrowRight className="size-4" />
                 </Link>
-                
+
               </div>
             </div>
           </div>
@@ -1203,7 +1201,7 @@ function Home() {
                 SBGBT की प्रमुख विकास पहलें।
               </h2>
               <p className="mt-4 max-w-2xl text-muted-foreground">
-                
+
               </p>
             </div>
 
@@ -1295,11 +1293,11 @@ function Home() {
                   const itemIndex = renderedIndex % initiatives.length;
                   const frameBackground =
                     initiativeFrameBackgrounds[
-                      (renderedIndex + initiativeFrameBackgrounds.length) % initiativeFrameBackgrounds.length
+                    (renderedIndex + initiativeFrameBackgrounds.length) % initiativeFrameBackgrounds.length
                     ];
                   const badgeTone =
                     initiativeBadgeTones[
-                      (renderedIndex + initiativeBadgeTones.length) % initiativeBadgeTones.length
+                    (renderedIndex + initiativeBadgeTones.length) % initiativeBadgeTones.length
                     ];
 
                   return (
@@ -1362,9 +1360,8 @@ function Home() {
                     type="button"
                     onClick={() => setInitiativeCarouselPosition(initiatives.length + index)}
                     aria-label={item.title}
-                    className={`rounded-full transition-all duration-300 ${
-                      index === activeInitiativeIndex ? "h-2.5 w-12 bg-primary" : "h-2.5 w-2.5 bg-primary/30"
-                    }`}
+                    className={`rounded-full transition-all duration-300 ${index === activeInitiativeIndex ? "h-2.5 w-12 bg-primary" : "h-2.5 w-2.5 bg-primary/30"
+                      }`}
                   />
                 ))}
               </div>
@@ -1388,16 +1385,13 @@ function Home() {
         </div>
 
         <div className="group/video relative mt-12 overflow-hidden rounded-[2.8rem] border border-primary/10 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.86),rgba(244,237,217,0.92)_44%,rgba(239,232,214,0.98)_100%)] px-4 py-10 shadow-[0_34px_80px_-46px_rgba(19,67,56,0.38)] sm:px-6 lg:px-16 lg:py-14">
-          <div className="absolute left-1/2 top-0 h-12 w-28 -translate-x-1/2 rounded-b-[2rem] bg-background/95" />
-          <div className="absolute bottom-0 left-1/2 h-10 w-24 -translate-x-1/2 rounded-t-[2rem] bg-background/95" />
 
           <button
             type="button"
             onClick={() => setVideoCarouselPosition((current) => current - 1)}
             className="absolute left-3 top-1/2 z-20 hidden size-14 -translate-y-1/2 place-items-center rounded-full bg-primary text-primary-foreground opacity-0 shadow-[0_18px_40px_-22px_rgba(17,63,52,0.7)] transition duration-300 hover:-translate-y-[52%] hover:brightness-110 group-hover/video:opacity-100 lg:grid"
             aria-label="पिछला वीडियो"
-          >
-            <ArrowRight className="size-5 rotate-180" />
+          > <ArrowRight className="size-5 rotate-180" />
           </button>
           <button
             type="button"
@@ -1481,18 +1475,16 @@ function Home() {
                       type="button"
                       onClick={() => setActiveVideoIndex(cardIndex)}
                       onFocus={() => setActiveVideoIndex(cardIndex)}
-                      className={`group relative min-h-[28rem] overflow-hidden rounded-[1.8rem] border text-left transition-all duration-500 ${
-                        isActive
-                          ? "border-primary/18 shadow-[0_28px_58px_-34px_rgba(17,63,52,0.42)]"
-                          : "border-primary/10 shadow-[0_18px_40px_-34px_rgba(17,63,52,0.24)]"
-                      }`}
+                      className={`group relative min-h-[28rem] overflow-hidden rounded-[1.8rem] border text-left transition-all duration-500 ${isActive
+                        ? "border-primary/18 shadow-[0_28px_58px_-34px_rgba(17,63,52,0.42)]"
+                        : "border-primary/10 shadow-[0_18px_40px_-34px_rgba(17,63,52,0.24)]"
+                        }`}
                     >
                       <img
                         src={video.image}
                         alt={video.title}
-                        className={`absolute inset-0 h-full w-full object-cover transition duration-500 group-hover:scale-[1.03] ${
-                          isActive ? "grayscale-0" : "grayscale-[0.12]"
-                        }`}
+                        className={`absolute inset-0 h-full w-full object-cover transition duration-500 group-hover:scale-[1.03] ${isActive ? "grayscale-0" : "grayscale-[0.12]"
+                          }`}
                         width={1200}
                         height={900}
                       />
@@ -1538,6 +1530,7 @@ function Home() {
               );
             })}
           </div>
+
           <div className="mt-8 flex items-center justify-center gap-2">
             {videos.map((video, index) => (
               <button
@@ -1545,12 +1538,12 @@ function Home() {
                 type="button"
                 onClick={() => setVideoCarouselPosition(videos.length + index)}
                 aria-label={video.title}
-                className={`rounded-full transition-all duration-500 ${
-                  index === activeVideoIndex ? "h-2.5 w-12 bg-primary" : "h-2.5 w-2.5 bg-primary/30"
-                }`}
+                className={`rounded-full transition-all duration-500 ${index === activeVideoIndex ? "h-2.5 w-12 bg-primary" : "h-2.5 w-2.5 bg-primary/30"
+                  }`}
               />
             ))}
           </div>
+
         </div>
       </motion.section>
       <motion.section
@@ -1566,7 +1559,7 @@ function Home() {
             <div className="max-w-3xl">
               <div className="text-xs font-semibold uppercase tracking-[0.2em] text-accent">मीडिया कवरेज</div>
               <h2 className="mt-3 font-display text-3xl font-black text-white sm:text-4xl">समाचारों और मीडिया उल्लेखों में SBGBT।</h2>
-            
+
             </div>
             <Link to="/media" className="inline-flex items-center gap-2 text-sm font-semibold text-accent transition hover:gap-3 hover:text-white">
               सभी देखें <ArrowRight className="size-4" />
@@ -1608,9 +1601,9 @@ function Home() {
                           width={1200}
                           height={900}
                         />
-                        <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(8,28,24,0.1),rgba(8,28,24,0.68))]" />
-                         
-                        </div>
+                        <div className="inset-0 bg-[linear-gradient(90deg,rgba(8,28,24,0.1),rgba(8,28,24,0.68))]" />
+
+                      </div>
                       <div className="relative flex min-h-full flex-col p-5 sm:p-6">
                         <div className="absolute right-4 top-4 h-14 w-14 rounded-full bg-accent/10 blur-2xl" />
                         <div className="relative flex items-start justify-between gap-3">
@@ -1632,13 +1625,13 @@ function Home() {
                             </div>
                           </div>
                         </div>
-                        <h3 className="relative mt-4 font-hi text-base font-semibold leading-relaxed text-white drop-shadow-[0_2px_10px_rgba(0,0,0,0.18)] sm:text-[1.08rem]">
+                        <h3 className="relative mt-4 text-base font-semibold leading-relaxed text-white drop-shadow-[0_2px_10px_rgba(0,0,0,0.18)] sm:text-[1.08rem]">
                           {item.title}
                         </h3>
                         <p className="relative mt-3 text-sm leading-6 text-cream/76 md:mt-4">
                           {latestMediaItemVisualsHindi[index % latestMediaItemVisualsHindi.length].summary}
                         </p>
-                      
+
                       </div>
                     </div>
                   </article>
@@ -1732,16 +1725,36 @@ function Home() {
             शिक्षा, पर्यावरण, महिला सशक्तिकरण, स्वास्थ्य और ग्रामीण जन-जागरूकता अभियानों को
             आपकी भागीदारी और सार्थक सहयोग की जरूरत है।
           </p>
+ 
           <div className="mt-8 flex flex-wrap justify-center gap-3">
-           
             <Link
-              to="/contact"
-              className="inline-flex items-center gap-2 rounded-full border border-[#143c35]/16 bg-white/72 px-6 py-3 text-sm font-semibold text-[#143c35] shadow-sm backdrop-blur transition hover:bg-white"
+              to="/contact" className="inline-flex items-center gap-2 rounded-full border border-[#143c35]/16 bg-[linear-gradient(135deg,#f8c62f_0%,#efb116_100%)] px-6 py-3 text-sm font-semibold text-[#143c35] shadow-sm backdrop-blur transition hover:bg-white"
             >
               सदस्य बनें
             </Link>
           </div>
-           
+
+          <div className="mt-8 flex flex-wrap justify-center gap-3">
+            <div className="rounded-[2rem] border border-border bg-card/90 p-6 shadow-sm">
+              <div className="grid gap-4 sm:grid-cols-2">
+                <div className="rounded-[1.5rem] border border-border bg-background/70 px-6 py-8 text-center shadow-sm" style={{ backgroundImage: `url(${blogBgPaper})`, backgroundSize: "cover" }} >
+                  <img
+                    src={ecoNeedsLogo}
+                    alt="Eco Needs Foundation"
+                    className="mx-auto h-20 w-auto object-contain sm:h-24"
+                  />
+                </div>
+                <div className="rounded-[1.5rem] border border-border bg-background/70 px-6 py-8 text-center shadow-sm" style={{ backgroundImage: `url(${blogBgPaper})`, backgroundSize: "cover" }}>
+                  <img
+                    src={workholicsLogo}
+                    alt="Workholics"
+                    className="mx-auto h-24 w-auto object-contain sm:h-28"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+ 
         </div>
       </motion.section>
 

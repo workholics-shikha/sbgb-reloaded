@@ -9,7 +9,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { SiteHeader } from "@/components/site/SiteHeader";
-import { PageHero, SiteFooter } from "@/components/site/SiteFooter";
+import { PageHero, SiteFooter, CTASection} from "@/components/site/SiteFooter";
 import galAwards from "@/assets/gallery-awards.jpg";
 import galEnv from "@/assets/gallery-environment.jpg";
 import galHealth from "@/assets/gallery-health.jpg";
@@ -223,6 +223,9 @@ function Media() {
         </div>
       </section>
 
+     {/* CTA */}
+      <CTASection />
+     {/* === */} 
       <SiteFooter />
     </div>
   );
