@@ -13,6 +13,7 @@ import { Route as UtthanManagerLoginRouteImport } from './routes/utthan-manager-
 import { Route as UtthanCoachingRegistrationRouteImport } from './routes/utthan-coaching-registration'
 import { Route as SpgbpRouteImport } from './routes/spgbp'
 import { Route as SbgbpManagerLoginRouteImport } from './routes/sbgbp-manager-login'
+import { Route as SammanSamarohRegistrationRouteImport } from './routes/samman-samaroh-registration'
 import { Route as PatrikaRouteImport } from './routes/patrika'
 import { Route as MemberLoginRouteImport } from './routes/member-login'
 import { Route as MediaRouteImport } from './routes/media'
@@ -21,7 +22,6 @@ import { Route as DonateRouteImport } from './routes/donate'
 import { Route as CsrPartnershipRouteImport } from './routes/csr-partnership'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as ArticlesRouteImport } from './routes/articles'
-import { Route as AdmitCardRouteImport } from './routes/admit-card'
 import { Route as AdminLoginRouteImport } from './routes/admin-login'
 import { Route as ActivitiesRouteImport } from './routes/activities'
 import { Route as AboutRouteImport } from './routes/about'
@@ -49,6 +49,12 @@ const SbgbpManagerLoginRoute = SbgbpManagerLoginRouteImport.update({
   path: '/sbgbp-manager-login',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SammanSamarohRegistrationRoute =
+  SammanSamarohRegistrationRouteImport.update({
+    id: '/samman-samaroh-registration',
+    path: '/samman-samaroh-registration',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const PatrikaRoute = PatrikaRouteImport.update({
   id: '/patrika',
   path: '/patrika',
@@ -89,11 +95,6 @@ const ArticlesRoute = ArticlesRouteImport.update({
   path: '/articles',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AdmitCardRoute = AdmitCardRouteImport.update({
-  id: '/admit-card',
-  path: '/admit-card',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const AdminLoginRoute = AdminLoginRouteImport.update({
   id: '/admin-login',
   path: '/admin-login',
@@ -126,7 +127,6 @@ export interface FileRoutesByFullPath {
   '/about': typeof AboutRoute
   '/activities': typeof ActivitiesRoute
   '/admin-login': typeof AdminLoginRoute
-  '/admit-card': typeof AdmitCardRoute
   '/articles': typeof ArticlesRoute
   '/contact': typeof ContactRoute
   '/csr-partnership': typeof CsrPartnershipRoute
@@ -135,6 +135,7 @@ export interface FileRoutesByFullPath {
   '/media': typeof MediaRoute
   '/member-login': typeof MemberLoginRoute
   '/patrika': typeof PatrikaRoute
+  '/samman-samaroh-registration': typeof SammanSamarohRegistrationRoute
   '/sbgbp-manager-login': typeof SbgbpManagerLoginRoute
   '/spgbp': typeof SpgbpRoute
   '/utthan-coaching-registration': typeof UtthanCoachingRegistrationRoute
@@ -146,7 +147,6 @@ export interface FileRoutesByTo {
   '/about': typeof AboutRoute
   '/activities': typeof ActivitiesRoute
   '/admin-login': typeof AdminLoginRoute
-  '/admit-card': typeof AdmitCardRoute
   '/articles': typeof ArticlesRoute
   '/contact': typeof ContactRoute
   '/csr-partnership': typeof CsrPartnershipRoute
@@ -155,6 +155,7 @@ export interface FileRoutesByTo {
   '/media': typeof MediaRoute
   '/member-login': typeof MemberLoginRoute
   '/patrika': typeof PatrikaRoute
+  '/samman-samaroh-registration': typeof SammanSamarohRegistrationRoute
   '/sbgbp-manager-login': typeof SbgbpManagerLoginRoute
   '/spgbp': typeof SpgbpRoute
   '/utthan-coaching-registration': typeof UtthanCoachingRegistrationRoute
@@ -167,7 +168,6 @@ export interface FileRoutesById {
   '/about': typeof AboutRoute
   '/activities': typeof ActivitiesRoute
   '/admin-login': typeof AdminLoginRoute
-  '/admit-card': typeof AdmitCardRoute
   '/articles': typeof ArticlesRoute
   '/contact': typeof ContactRoute
   '/csr-partnership': typeof CsrPartnershipRoute
@@ -176,6 +176,7 @@ export interface FileRoutesById {
   '/media': typeof MediaRoute
   '/member-login': typeof MemberLoginRoute
   '/patrika': typeof PatrikaRoute
+  '/samman-samaroh-registration': typeof SammanSamarohRegistrationRoute
   '/sbgbp-manager-login': typeof SbgbpManagerLoginRoute
   '/spgbp': typeof SpgbpRoute
   '/utthan-coaching-registration': typeof UtthanCoachingRegistrationRoute
@@ -189,7 +190,6 @@ export interface FileRouteTypes {
     | '/about'
     | '/activities'
     | '/admin-login'
-    | '/admit-card'
     | '/articles'
     | '/contact'
     | '/csr-partnership'
@@ -198,6 +198,7 @@ export interface FileRouteTypes {
     | '/media'
     | '/member-login'
     | '/patrika'
+    | '/samman-samaroh-registration'
     | '/sbgbp-manager-login'
     | '/spgbp'
     | '/utthan-coaching-registration'
@@ -209,7 +210,6 @@ export interface FileRouteTypes {
     | '/about'
     | '/activities'
     | '/admin-login'
-    | '/admit-card'
     | '/articles'
     | '/contact'
     | '/csr-partnership'
@@ -218,6 +218,7 @@ export interface FileRouteTypes {
     | '/media'
     | '/member-login'
     | '/patrika'
+    | '/samman-samaroh-registration'
     | '/sbgbp-manager-login'
     | '/spgbp'
     | '/utthan-coaching-registration'
@@ -229,7 +230,6 @@ export interface FileRouteTypes {
     | '/about'
     | '/activities'
     | '/admin-login'
-    | '/admit-card'
     | '/articles'
     | '/contact'
     | '/csr-partnership'
@@ -238,6 +238,7 @@ export interface FileRouteTypes {
     | '/media'
     | '/member-login'
     | '/patrika'
+    | '/samman-samaroh-registration'
     | '/sbgbp-manager-login'
     | '/spgbp'
     | '/utthan-coaching-registration'
@@ -250,7 +251,6 @@ export interface RootRouteChildren {
   AboutRoute: typeof AboutRoute
   ActivitiesRoute: typeof ActivitiesRoute
   AdminLoginRoute: typeof AdminLoginRoute
-  AdmitCardRoute: typeof AdmitCardRoute
   ArticlesRoute: typeof ArticlesRoute
   ContactRoute: typeof ContactRoute
   CsrPartnershipRoute: typeof CsrPartnershipRoute
@@ -259,6 +259,7 @@ export interface RootRouteChildren {
   MediaRoute: typeof MediaRoute
   MemberLoginRoute: typeof MemberLoginRoute
   PatrikaRoute: typeof PatrikaRoute
+  SammanSamarohRegistrationRoute: typeof SammanSamarohRegistrationRoute
   SbgbpManagerLoginRoute: typeof SbgbpManagerLoginRoute
   SpgbpRoute: typeof SpgbpRoute
   UtthanCoachingRegistrationRoute: typeof UtthanCoachingRegistrationRoute
@@ -293,6 +294,13 @@ declare module '@tanstack/react-router' {
       path: '/sbgbp-manager-login'
       fullPath: '/sbgbp-manager-login'
       preLoaderRoute: typeof SbgbpManagerLoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/samman-samaroh-registration': {
+      id: '/samman-samaroh-registration'
+      path: '/samman-samaroh-registration'
+      fullPath: '/samman-samaroh-registration'
+      preLoaderRoute: typeof SammanSamarohRegistrationRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/patrika': {
@@ -351,13 +359,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ArticlesRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/admit-card': {
-      id: '/admit-card'
-      path: '/admit-card'
-      fullPath: '/admit-card'
-      preLoaderRoute: typeof AdmitCardRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/admin-login': {
       id: '/admin-login'
       path: '/admin-login'
@@ -402,7 +403,6 @@ const rootRouteChildren: RootRouteChildren = {
   AboutRoute: AboutRoute,
   ActivitiesRoute: ActivitiesRoute,
   AdminLoginRoute: AdminLoginRoute,
-  AdmitCardRoute: AdmitCardRoute,
   ArticlesRoute: ArticlesRoute,
   ContactRoute: ContactRoute,
   CsrPartnershipRoute: CsrPartnershipRoute,
@@ -411,6 +411,7 @@ const rootRouteChildren: RootRouteChildren = {
   MediaRoute: MediaRoute,
   MemberLoginRoute: MemberLoginRoute,
   PatrikaRoute: PatrikaRoute,
+  SammanSamarohRegistrationRoute: SammanSamarohRegistrationRoute,
   SbgbpManagerLoginRoute: SbgbpManagerLoginRoute,
   SpgbpRoute: SpgbpRoute,
   UtthanCoachingRegistrationRoute: UtthanCoachingRegistrationRoute,
