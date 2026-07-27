@@ -7,7 +7,11 @@ import {
   Sparkles,
   Target,
   Users2,
+  Users,
   BadgeCheck,
+  MapPinned,
+  GraduationCap,
+  Sprout,
 } from "lucide-react";
 import { SiteHeader } from "@/components/site/SiteHeader";
 import { PageHero, SiteFooter, CTASection } from "@/components/site/SiteFooter";
@@ -17,6 +21,11 @@ import sbgbtTeam from "@/assets/hamr-bare-me-left.jpg";
 import aboutHeroRealOne from "@/assets/about-user-signs.jpg";
 import aboutHeroRealTwo from "@/assets/about-user-volunteers.jpg";
 import { motion } from "framer-motion";
+import villageImg from "@/assets/village.png";
+import youthImg from "@/assets/youth.png";
+import educationImg from "@/assets/education.png";
+import campaignImg from "@/assets/campaign.png";
+
 
 const sectionRevealProps = {
   initial: { opacity: 0, y: 34 },
@@ -115,10 +124,34 @@ const programs = [
 ];
 
 const highlights = [
-  { value: "100+", label: "गांवों तक पहुंच" },
-  { value: "युवा", label: "सक्रिय जनभागीदारी" },
-  { value: "शिक्षा", label: "जागरूकता से विकास" },
-  { value: "सतत", label: "रचनात्मक अभियान" },
+  {
+    value: "100+",
+    label: "गांवों तक पहुंच",
+    description: "राजस्थान के अनेक गांवों में सामाजिक सेवा।",
+    icon: MapPinned,
+    image: villageImg,
+  },
+  {
+    value: "युवा",
+    label: "सक्रिय जनभागीदारी",
+    description: "हजारों युवा समाज सेवा से जुड़े।",
+    icon: Users,
+    image: youthImg,
+  },
+  {
+    value: "शिक्षा",
+    label: "जागरूकता से विकास",
+    description: "शिक्षा एवं जागरूकता के माध्यम से परिवर्तन।",
+    icon: GraduationCap,
+    image: educationImg,
+  },
+  {
+    value: "सतत",
+    label: "रचनात्मक अभियान",
+    description: "समाज हित में निरंतर अभियान।",
+    icon: Sprout,
+    image: campaignImg,
+  },
 ];
 
 const journeyNotes = [
@@ -256,16 +289,6 @@ function About() {
                 </div>
               </motion.div>
 
-              <div className="mt-7 flex flex-wrap items-center gap-4 border-t border-primary/10 pt-7">
-                <Link
-                  to="/about"
-                  className="inline-flex items-center gap-2 rounded-xl bg-accent px-6 py-3 text-sm font-semibold text-accent-foreground shadow-[0_18px_30px_-18px_rgba(241,189,26,0.78)] transition duration-300 hover:-translate-y-0.5 hover:brightness-[0.98]"
-                >
-                  हमारे बारे में
-                  <ArrowRight className="size-4" />
-                </Link>
-
-              </div>
             </div>
           </div>
         </div>
@@ -273,21 +296,65 @@ function About() {
 
       {/* about end */}
 
-      <section id="about-highlights" className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6">
-        <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
-          {highlights.map((item) => (
-            <div
-              key={item.label}
-              className="rounded-[1.75rem] border border-border/70 bg-background/92 p-5 shadow-[0_18px_45px_-28px_rgba(0,0,0,0.28)] backdrop-blur"
-            >
-              <div className="text-sm font-semibold uppercase tracking-[0.16em] text-primary/70">
-                {item.value}
-              </div>
-              <div className="mt-2 font-display text-xl font-black">{item.label}</div>
+<section
+  id="about-highlights"
+  className="relative z-10 mx-auto max-w-7xl px-4 py-8 sm:px-6"
+>
+  <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-4">
+    {highlights.map((item) => {
+      const Icon = item.icon;
+
+      return (
+        <div
+          key={item.label}
+          className="group relative overflow-hidden rounded-[28px] border border-[#256053]/10 bg-white/95 backdrop-blur shadow-[0_15px_45px_-25px_rgba(37,96,83,.18)] transition-all duration-500 hover:-translate-y-2 hover:border-[#256053]/20 hover:shadow-[0_30px_60px_-20px_rgba(37,96,83,.28)]"
+        >
+          {/* Background Image */}
+         <img
+  src={item.image}
+  alt=""  className="absolute right-2 bottom-2 h-32 w-32 object-contain opacity-20 pointer-events-none select-none"
+/>
+
+          {/* White Gradient Overlay */}
+ 
+          <div className="absolute inset-0 " />
+
+          {/* Yellow Glow */}
+          <div className="absolute -right-8 -top-8 h-24 w-24 rounded-full bg-[#F1BD1A]/20 blur-3xl transition-all duration-500 group-hover:scale-125" />
+
+          {/* Left Accent */}
+          <div className="absolute left-0 top-0 h-full w-[6px] bg-gradient-to-b from-[#256053] via-[#256053] to-[#F1BD1A]" />
+
+          <div className="relative z-10 flex items-center gap-4 px-5 py-4">
+
+            {/* Icon */}
+            <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-[#256053]/10 transition-all duration-500 group-hover:rotate-6 group-hover:scale-110 group-hover:bg-[#256053]">
+              <Icon className="h-7 w-7 text-[#256053] transition-all duration-500 group-hover:text-[#F1BD1A]" />
             </div>
-          ))}
+
+            {/* Text */}
+            <div className="flex-1">
+              <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#256053]">
+                {item.value}
+              </p>
+
+              <h3 className="mt-1 text-lg font-black leading-tight text-[#2D241B]">
+                {item.label}
+              </h3>
+
+              <p className="mt-1 text-sm leading-5 text-gray-600">
+                {item.description}
+              </p>
+            </div>
+          </div>
+
+          {/* Bottom Hover Line */}
+          <div className="absolute bottom-0 left-0 h-[3px] w-0 bg-[#F1BD1A] transition-all duration-500 group-hover:w-full" />
         </div>
-      </section>
+      );
+    })}
+  </div>
+</section>
 
       <section className="mx-auto grid max-w-7xl gap-10 px-4 py-14 sm:px-6 sm:py-16 lg:grid-cols-2">
         <div className="rounded-3xl border border-border bg-card p-8 shadow-sm sm:p-10">
@@ -449,7 +516,10 @@ function About() {
         </div>
       </section>
 
-      <section className="bg-ink text-cream">
+      <section className="relative overflow-hidden bg-[linear-gradient(135deg,#083a32_0%,#0d4b3e_48%,#08352d_100%)] text-cream">
+          <div className="absolute inset-0 opacity-[0.22]">
+        <div className="h-full w-full bg-[length:42px_24px] bg-[linear-gradient(135deg,transparent_33%,rgba(255,255,255,0.065)_33%,rgba(255,255,255,0.065)_37%,transparent_37%),linear-gradient(225deg,transparent_33%,rgba(255,255,255,0.065)_33%,rgba(255,255,255,0.065)_37%,transparent_37%)]" />
+      </div>
         <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 sm:py-24">
           <div className="grid gap-12 lg:grid-cols-[0.95fr_1.05fr] lg:items-start">
             <div>
