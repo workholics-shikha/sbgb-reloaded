@@ -8,7 +8,7 @@ import { PageHero, SiteFooter } from "@/components/site/SiteFooter";
 export const Route = createFileRoute("/utthan-coaching-registration")({
   head: () => ({
     meta: [
-      { title: "SBGBT सदस्य लॉगिन करें | SBGBT" },
+      { title: "उत्थान कोचिंग रजिस्ट्रेशन | SBGBT" },
       {
         name: "description",
         content:
@@ -31,7 +31,8 @@ function Contact() {
   return (
     <div className="min-h-screen bg-background text-foreground">
       <SiteHeader />
-      <PageHero title="SBGBT सदस्य लॉगिन करें" />
+      <PageHero title="उत्थान कोचिंग
+                                    रजिस्ट्रेशन" />
 
       <section className=" border-border">
         <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-20">

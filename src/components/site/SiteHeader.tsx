@@ -53,7 +53,7 @@ const desktopNavLinks = [
     hasMenu: [
       {
         label: "प्रतिभा-सम्मान समागम रजिस्ट्रेशन",
-        to: "https://www.sbgbteam.com/sbgbp-registration",
+        to: "samman-samaroh-registration",
         external: true,
       },
       {
@@ -63,7 +63,7 @@ const desktopNavLinks = [
       },
       {
         label: "शिक्षा पाओ ज्ञान बढ़ाओ प्रतियोगिता (SPGBP) रजिस्ट्रेशन",
-        to: "https://www.sbgbteam.com/sbgbp-registration-admit-card",
+        to: "aavedan-form",
         external: true,
       },
     ],
@@ -114,10 +114,21 @@ export const navLinks = [
     label: "रजिस्ट्रेशन",
     external: true,
     hasMenu: [
-      { label: "SBGBT प्रबंधक लॉगिन", to: "/admin-login" },
-      { label: "उत्थान कोचिंग प्रबंधक लॉगिन", to: "/utthan-coaching-registration" },
-      { label: "SBGBT प्रबंधक सदस्य लॉगिन", to: "/user-login" },
-      { label: "SBGBT", to: "/spgbp" },
+      {
+        label: "प्रतिभा-सम्मान समागम रजिस्ट्रेशन",
+        to: "samman-samaroh-registration",
+        external: true,
+      },
+      {
+        label: "उत्थान कोचिंग रजिस्ट्रेशन",
+        to: "/utthan-coaching-registration",
+        external: true,
+      },
+      {
+        label: "शिक्षा पाओ ज्ञान बढ़ाओ प्रतियोगिता (SPGBP) रजिस्ट्रेशन",
+        to: "aavedan-form",
+        external: true,
+      },
     ],
   },
 
