@@ -33,7 +33,7 @@ function Contact() {
   return (
     <div className="min-h-screen bg-background text-foreground">
 
-   <section className="relative min-h-screen overflow-hidden bg-[#F8F4E8]">
+   <section className="relative min-h-screen overflow-hidden bg-[#F8F4E8] flex">
 
       {/* ================= BACKGROUND ================= */}
 
@@ -133,14 +133,14 @@ function Contact() {
       />
 
       {/* ================= CONTAINER ================= */}
-<div className="relative z-10 mx-auto flex h-screen max-w-[1500px] flex-col px-6 lg:px-10 py-4">
-  <div className="flex flex-wrap items-center justify-between gap-4">
+<div className="relative z-10 mx-auto flex min-h-screen w-full max-w-[1500px] flex-col px-6 lg:px-10 pt-4">
+   <div className="flex flex-wrap items-center justify-between gap-4">
   {/* Logo */}
   <div className="flex items-center gap-3">
     <img
       src={logo}
       alt="SBGBT Logo"
-      className="h-12 w-12 md:h-14 md:w-14 rounded-full border border-[#E8DFC9]"
+      className="h-14 w-14 md:h-14 md:w-14 rounded-full border border-[#E8DFC9]"
     />
 
     <div>
@@ -159,11 +159,11 @@ function Contact() {
     to="/"
     className="flex items-center gap-2 rounded-full bg-[#256053] px-5 py-3 text-sm font-semibold text-white shadow-lg transition-all duration-300 hover:-translate-y-1 hover:bg-[#1F4F45]"
   >
-    🏠 वेबसाइट पर जाएँ
+   <span className="text-lg pb-1"> 🏠 </span> वेबसाइट पर जाएँ
   </Link>
 </div>
 
-<div className="flex-1 grid items-center gap-8 py-6 lg:grid-cols-[1.15fr_0.85fr]">
+<div className="flex-1 grid items-center gap-8 pt-6 lg:grid-cols-[1.15fr_0.85fr]">
 
           {/* ================================================= */}
           {/* ================= LEFT SECTION ================== */}
@@ -231,7 +231,7 @@ function Contact() {
           </div>
 
         </div>
-        <footer className="mt-4 rounded-t-[30px] bg-[#256053] py-2 px-6 md:px-10">
+    <footer className="mt-auto w-full rounded-t-[30px] bg-[#256053] py-2">
   <p className="text-center text-xs md:text-sm font-medium text-white">
     © {new Date().getFullYear()}{" "}
     <span className="font-bold">SBGBT</span>. All Rights Reserved.
