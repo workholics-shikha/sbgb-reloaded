@@ -7,11 +7,21 @@ import {
   FaLock,
   FaEye,
   FaEyeSlash,
-  FaShieldAlt,
+ 
   FaSignInAlt,
 } from "react-icons/fa";
 
-export default function AdminLoginForm() {
+type AdminLoginFormProps = {
+  heading: string;
+  subtitle: string;
+  buttonText: string;
+};
+
+export default function AdminLoginForm({
+  heading,
+  subtitle,
+  buttonText,
+}: AdminLoginFormProps) {
   const [showPassword, setShowPassword] = useState(false);
   const [sent, setSent] = useState(false);
 
@@ -54,15 +64,15 @@ export default function AdminLoginForm() {
           delay: 0.2,
         }}
       >
-        <h2 className="text-center text-3xl font-black text-[#2D241B]">
-          अपने एडमिन खाते में  लॉगिन करें
-        </h2>
+  <h2 className="text-center text-3xl font-black text-[#2D241B]">
+  {heading}
+</h2>
 
        
 
-        <p className="mt-2 text-center text-gray-500">
-          केवल अधिकृत प्रशासकों के लिए सुरक्षित प्रवेश।
-        </p>
+    <p className="mt-2 text-center text-gray-500">
+  {subtitle}
+</p>
 
 
       </motion.div>
@@ -156,9 +166,7 @@ export default function AdminLoginForm() {
           className="mt-2 flex w-full items-center justify-center gap-3 rounded-2xl bg-gradient-to-r from-[#256053] to-[#2F7B68] py-3 font-semibold text-white shadow-lg transition-all duration-300 hover:shadow-[0_20px_40px_rgba(37,96,83,.35)]"
         >
           <FaSignInAlt className="text-lg" />
-
-          <span>लॉगिन करें</span>
-
+<span>{buttonText}</span>
         </motion.button>
         
 
