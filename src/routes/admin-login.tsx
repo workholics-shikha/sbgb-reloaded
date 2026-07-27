@@ -1,28 +1,12 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useState } from "react";
-
-import { SiteHeader } from "@/components/site/SiteHeader";
 import sideImage from "../assets/Login-green.png";
+import { Link } from "@tanstack/react-router";
 import AdminLoginForm from "../components/ui/AdminLoginForm";
 import leaf from "../assets/leaf.png";
-import { PageHero, SiteFooter  } from "@/components/site/SiteFooter";
 import { motion } from "framer-motion";
- import blogBgPaper from "@/assets/blog-bg-paper.png";
-import {
-  
-  FaEnvelope,
-  FaLock,
-  FaEye,
-  FaEyeSlash,
-  FaSignInAlt,
-  FaShieldAlt,
-} from "react-icons/fa";
-import {
-  HiShieldCheck,
-  HiLockClosed,
-  HiClock,
-} from "react-icons/hi2";
-import { BsDatabaseCheck } from "react-icons/bs";
+import blogBgPaper from "@/assets/blog-bg-paper.png";
+import logo from "../assets/sbgb-logo.png";
+
 
 export const Route = createFileRoute("/admin-login")({
   head: () => ({
@@ -45,26 +29,15 @@ export const Route = createFileRoute("/admin-login")({
 });
 
 function Contact() {
-  const [sent, setSent] = useState(false);
-  const [showPassword, setShowPassword] = useState(false);
-
+  
   return (
     <div className="min-h-screen bg-background text-foreground">
-      {/*<SiteHeader />*/}
-      {/*<PageHero title="SBGBT सदस्य लॉगिन करें" />*/}
-{/*<div className="w-full bg-[#F1BD1A]">
-  <div className="mx-auto max-w-7xl py-2 text-center">
-    <span className="font-semibold text-[#1F4F45] tracking-wide">
-      ग्रामीण विकास • शिक्षा • महिला सशक्तिकरण • स्वास्थ्य • पर्यावरण
-    </span>
-  </div>
-</div>*/}
 
-    <section className="relative min-h-screen overflow-hidden bg-[#F8F4E8]">
+   <section className="relative min-h-screen overflow-hidden bg-[#F8F4E8]">
 
       {/* ================= BACKGROUND ================= */}
 
-      <div className="absolute inset-0 overflow-hidden"     style={{ backgroundImage: `url(${blogBgPaper})`, backgroundSize: "cover" }}>
+      <div className="absolute inset-0 overflow-hidden bg-cover bg-center"     style={{ backgroundImage: `url(${blogBgPaper})` }}>
 
         {/* Glow 1 */}
 
@@ -160,14 +133,42 @@ function Contact() {
       />
 
       {/* ================= CONTAINER ================= */}
-<div className="relative z-10 mx-auto flex min-h-screen max-w-[1500px] items-center px-8">
+<div className="relative z-10 mx-auto flex h-screen max-w-[1500px] flex-col px-6 lg:px-10 py-4">
+  <div className="flex flex-wrap items-center justify-between gap-4">
+  {/* Logo */}
+  <div className="flex items-center gap-3">
+    <img
+      src={logo}
+      alt="SBGBT Logo"
+      className="h-12 w-12 md:h-14 md:w-14 rounded-full border border-[#E8DFC9]"
+    />
 
-      <div className="grid w-full items-center gap-8 lg:grid-cols-[1.3fr_1.2fr]">
+    <div>
+      <h2 className="text-3xl font-extrabold leading-none text-[#2D241B]">
+        SBGBT
+      </h2>
+
+      <p className="mt-1 text-sm text-[#8A6A4A]">
+        Soch Badlo · Gaon Badlo
+      </p>
+    </div>
+  </div>
+
+  {/* Button */}
+  <Link
+    to="/"
+    className="flex items-center gap-2 rounded-full bg-[#256053] px-5 py-3 text-sm font-semibold text-white shadow-lg transition-all duration-300 hover:-translate-y-1 hover:bg-[#1F4F45]"
+  >
+    🏠 वेबसाइट पर जाएँ
+  </Link>
+</div>
+
+<div className="flex-1 grid items-center gap-8 py-6 lg:grid-cols-[1.15fr_0.85fr]">
 
           {/* ================================================= */}
           {/* ================= LEFT SECTION ================== */}
           {/* ================================================= */}
-
+          
           <motion.div
             initial={{
               opacity: 0,
@@ -180,7 +181,7 @@ function Contact() {
             transition={{
               duration: 0.8,
             }}
-            className="relative flex justify-center"
+         className="relative hidden lg:flex items-center justify-center"
           >
             {/* Floating Circle */}
 
@@ -201,7 +202,7 @@ function Contact() {
               src={sideImage}
               alt="SBGBT"
 
-             className="relative z-10 w-full max-w-[760px] xl:max-w-[900px] object-contain"
+             className="relative z-10 w-full max-w-[600px] xl:max-w-[690px] object-contain"
 
               animate={{
                 y: [0, -12, 0],
@@ -223,16 +224,24 @@ function Contact() {
           {/* =========== RIGHT LOGIN FORM (NEXT PART) ========= */}
           {/* ================================================= */}
 
-          <div className="hidden lg:block">
+
+        <div className="flex justify-center">
+
  <AdminLoginForm />
           </div>
 
         </div>
+        <footer className="mt-4 rounded-t-[30px] bg-[#256053] py-2 px-6 md:px-10">
+  <p className="text-center text-xs md:text-sm font-medium text-white">
+    © {new Date().getFullYear()}{" "}
+    <span className="font-bold">SBGBT</span>. All Rights Reserved.
+  </p>
+</footer>
       </div>
+ 
     </section>
-  
 
-      {/* <SiteFooter /> */}
+
     </div>
   );
 }

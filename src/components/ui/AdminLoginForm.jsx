@@ -32,23 +32,13 @@ export default function AdminLoginForm() {
         e.preventDefault();
         setSent(true);
       }}
-        className="relative w-full max-w-md overflow-hidden rounded-[30px] border border-[#E8DFC9] bg-white/90 backdrop-blur-xl p-8 shadow-[0_20px_50px_rgba(37,96,83,.15)]"
+      className="relative mx-auto w-full max-w-[480px] overflow-hidden rounded-[30px] border border-[#E8DFC9] bg-white/90 backdrop-blur-xl p-10 shadow-[0_20px_50px_rgba(37,96,83,.15)]"
         >
       {/* Glow */}
 
       <div className="absolute -top-24 -right-24 h-56 w-56 rounded-full bg-[#256053]/5 blur-[90px]" />
 
       <div className="absolute -bottom-24 -left-24 h-56 w-56 rounded-full bg-[#F1BD1A]/10 blur-[100px]" />
-
- <div className="mb-4 flex justify-start">
-  <Link
-    to="/"
-    className="inline-flex items-center gap-2 rounded-full bg-[#256053] px-5 py-2.5 text-sm font-semibold text-white shadow-lg transition-all duration-300 hover:bg-[#1F4F45] hover:shadow-xl hover:scale-105"
-  >
-    ← वेबसाइट पर वापस जाएँ
-  </Link>
-</div>
-
       {/* Heading */}
 
       <motion.div
@@ -170,6 +160,7 @@ export default function AdminLoginForm() {
           <span>लॉगिन करें</span>
 
         </motion.button>
+        
 
         {/* Success Message */}
 
@@ -199,48 +190,6 @@ export default function AdminLoginForm() {
         )}
 
       </div>
-
-
-      {/* Security Card */}
-
-      <motion.div
-        initial={{
-          opacity: 0,
-          y: 20,
-        }}
-        animate={{
-          opacity: 1,
-          y: 0,
-        }}
-        transition={{
-          delay: .6,
-        }}
-        className="mt-6 rounded-2xl border border-[#E8DFC9] bg-[#F8F4E8] p-4"
-      >
-
-        <div className="flex items-start gap-4">
-
-          <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-[#256053]/10">
-
-            <FaShieldAlt className="text-xl text-[#256053]" />
-
-          </div>
-
-          <div>
-
-            <h4 className="font-bold text-[#256053]">
-              सुरक्षित प्रशासनिक पोर्टल
-            </h4>
-
-            <p className="mt-2 text-sm leading-6 text-gray-600">
-              तकनीक के माध्यम से ग्रामीण विकास का प्रभावी प्रबंधन।
-            </p>
-
-          </div>
-
-        </div>
-
-      </motion.div>
 
     </motion.form>
   );
