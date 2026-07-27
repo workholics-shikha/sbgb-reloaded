@@ -9,10 +9,12 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as UtthanManagerLoginRouteImport } from './routes/utthan-manager-login'
 import { Route as UtthanCoachingRegistrationRouteImport } from './routes/utthan-coaching-registration'
-import { Route as UserLoginRouteImport } from './routes/user-login'
 import { Route as SpgbpRouteImport } from './routes/spgbp'
+import { Route as SbgbpManagerLoginRouteImport } from './routes/sbgbp-manager-login'
 import { Route as PatrikaRouteImport } from './routes/patrika'
+import { Route as MemberLoginRouteImport } from './routes/member-login'
 import { Route as MediaRouteImport } from './routes/media'
 import { Route as GalleryRouteImport } from './routes/gallery'
 import { Route as DonateRouteImport } from './routes/donate'
@@ -24,25 +26,35 @@ import { Route as ActivitiesRouteImport } from './routes/activities'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 
+const UtthanManagerLoginRoute = UtthanManagerLoginRouteImport.update({
+  id: '/utthan-manager-login',
+  path: '/utthan-manager-login',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const UtthanCoachingRegistrationRoute =
   UtthanCoachingRegistrationRouteImport.update({
     id: '/utthan-coaching-registration',
     path: '/utthan-coaching-registration',
     getParentRoute: () => rootRouteImport,
   } as any)
-const UserLoginRoute = UserLoginRouteImport.update({
-  id: '/user-login',
-  path: '/user-login',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const SpgbpRoute = SpgbpRouteImport.update({
   id: '/spgbp',
   path: '/spgbp',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SbgbpManagerLoginRoute = SbgbpManagerLoginRouteImport.update({
+  id: '/sbgbp-manager-login',
+  path: '/sbgbp-manager-login',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PatrikaRoute = PatrikaRouteImport.update({
   id: '/patrika',
   path: '/patrika',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MemberLoginRoute = MemberLoginRouteImport.update({
+  id: '/member-login',
+  path: '/member-login',
   getParentRoute: () => rootRouteImport,
 } as any)
 const MediaRoute = MediaRouteImport.update({
@@ -107,10 +119,12 @@ export interface FileRoutesByFullPath {
   '/donate': typeof DonateRoute
   '/gallery': typeof GalleryRoute
   '/media': typeof MediaRoute
+  '/member-login': typeof MemberLoginRoute
   '/patrika': typeof PatrikaRoute
+  '/sbgbp-manager-login': typeof SbgbpManagerLoginRoute
   '/spgbp': typeof SpgbpRoute
-  '/user-login': typeof UserLoginRoute
   '/utthan-coaching-registration': typeof UtthanCoachingRegistrationRoute
+  '/utthan-manager-login': typeof UtthanManagerLoginRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -123,10 +137,12 @@ export interface FileRoutesByTo {
   '/donate': typeof DonateRoute
   '/gallery': typeof GalleryRoute
   '/media': typeof MediaRoute
+  '/member-login': typeof MemberLoginRoute
   '/patrika': typeof PatrikaRoute
+  '/sbgbp-manager-login': typeof SbgbpManagerLoginRoute
   '/spgbp': typeof SpgbpRoute
-  '/user-login': typeof UserLoginRoute
   '/utthan-coaching-registration': typeof UtthanCoachingRegistrationRoute
+  '/utthan-manager-login': typeof UtthanManagerLoginRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -140,10 +156,12 @@ export interface FileRoutesById {
   '/donate': typeof DonateRoute
   '/gallery': typeof GalleryRoute
   '/media': typeof MediaRoute
+  '/member-login': typeof MemberLoginRoute
   '/patrika': typeof PatrikaRoute
+  '/sbgbp-manager-login': typeof SbgbpManagerLoginRoute
   '/spgbp': typeof SpgbpRoute
-  '/user-login': typeof UserLoginRoute
   '/utthan-coaching-registration': typeof UtthanCoachingRegistrationRoute
+  '/utthan-manager-login': typeof UtthanManagerLoginRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -158,10 +176,12 @@ export interface FileRouteTypes {
     | '/donate'
     | '/gallery'
     | '/media'
+    | '/member-login'
     | '/patrika'
+    | '/sbgbp-manager-login'
     | '/spgbp'
-    | '/user-login'
     | '/utthan-coaching-registration'
+    | '/utthan-manager-login'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -174,10 +194,12 @@ export interface FileRouteTypes {
     | '/donate'
     | '/gallery'
     | '/media'
+    | '/member-login'
     | '/patrika'
+    | '/sbgbp-manager-login'
     | '/spgbp'
-    | '/user-login'
     | '/utthan-coaching-registration'
+    | '/utthan-manager-login'
   id:
     | '__root__'
     | '/'
@@ -190,10 +212,12 @@ export interface FileRouteTypes {
     | '/donate'
     | '/gallery'
     | '/media'
+    | '/member-login'
     | '/patrika'
+    | '/sbgbp-manager-login'
     | '/spgbp'
-    | '/user-login'
     | '/utthan-coaching-registration'
+    | '/utthan-manager-login'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -207,26 +231,28 @@ export interface RootRouteChildren {
   DonateRoute: typeof DonateRoute
   GalleryRoute: typeof GalleryRoute
   MediaRoute: typeof MediaRoute
+  MemberLoginRoute: typeof MemberLoginRoute
   PatrikaRoute: typeof PatrikaRoute
+  SbgbpManagerLoginRoute: typeof SbgbpManagerLoginRoute
   SpgbpRoute: typeof SpgbpRoute
-  UserLoginRoute: typeof UserLoginRoute
   UtthanCoachingRegistrationRoute: typeof UtthanCoachingRegistrationRoute
+  UtthanManagerLoginRoute: typeof UtthanManagerLoginRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/utthan-manager-login': {
+      id: '/utthan-manager-login'
+      path: '/utthan-manager-login'
+      fullPath: '/utthan-manager-login'
+      preLoaderRoute: typeof UtthanManagerLoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/utthan-coaching-registration': {
       id: '/utthan-coaching-registration'
       path: '/utthan-coaching-registration'
       fullPath: '/utthan-coaching-registration'
       preLoaderRoute: typeof UtthanCoachingRegistrationRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/user-login': {
-      id: '/user-login'
-      path: '/user-login'
-      fullPath: '/user-login'
-      preLoaderRoute: typeof UserLoginRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/spgbp': {
@@ -236,11 +262,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SpgbpRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/sbgbp-manager-login': {
+      id: '/sbgbp-manager-login'
+      path: '/sbgbp-manager-login'
+      fullPath: '/sbgbp-manager-login'
+      preLoaderRoute: typeof SbgbpManagerLoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/patrika': {
       id: '/patrika'
       path: '/patrika'
       fullPath: '/patrika'
       preLoaderRoute: typeof PatrikaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/member-login': {
+      id: '/member-login'
+      path: '/member-login'
+      fullPath: '/member-login'
+      preLoaderRoute: typeof MemberLoginRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/media': {
@@ -327,10 +367,12 @@ const rootRouteChildren: RootRouteChildren = {
   DonateRoute: DonateRoute,
   GalleryRoute: GalleryRoute,
   MediaRoute: MediaRoute,
+  MemberLoginRoute: MemberLoginRoute,
   PatrikaRoute: PatrikaRoute,
+  SbgbpManagerLoginRoute: SbgbpManagerLoginRoute,
   SpgbpRoute: SpgbpRoute,
-  UserLoginRoute: UserLoginRoute,
   UtthanCoachingRegistrationRoute: UtthanCoachingRegistrationRoute,
+  UtthanManagerLoginRoute: UtthanManagerLoginRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

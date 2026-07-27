@@ -47,7 +47,7 @@ const desktopNavLinks = [
   },
 
   {
-    to: "/",
+    to: "#",
     label: "रजिस्ट्रेशन",
     external: true,
     hasMenu: [
@@ -75,9 +75,9 @@ const desktopNavLinks = [
     external: true,
     hasMenu: [
       { label: "SBGBT प्रबंधक लॉगिन", to: "/admin-login" },
-      { label: "उत्थान कोचिंग प्रबंधक लॉगिन", to: "/user-login" },
-      { label: "SBGBT प्रबंधक सदस्य लॉगिन", to: "/user-login" },
-      { label: "SBGBT", to: "/spgbp" },
+      { label: "उत्थान कोचिंग प्रबंधक लॉगिन", to: "/utthan-manager-login" },
+      { label: "SBGBP प्रबंधक लॉगिन", to: "/sbgbp-manager-login" },
+      { label: "SBGBT सदस्य लॉगिन", to: "/member-login" },
     ],
   },
 ] as const;
@@ -110,7 +110,7 @@ export const navLinks = [
   },
 
   {
-    to: "https://www.sbgbteam.com/sbgbp-registration",
+    to: "#",
     label: "रजिस्ट्रेशन",
     external: true,
     hasMenu: [
@@ -121,13 +121,15 @@ export const navLinks = [
     ],
   },
 
-  {
+ {
     to: "#",
     label: "लॉगिन करें",
     external: true,
     hasMenu: [
-      { label: "Admin Login", to: "/admin-login" },
-      { label: "User Login", to: "/user-login" },
+      { label: "SBGBT प्रबंधक लॉगिन", to: "/admin-login" },
+      { label: "उत्थान कोचिंग प्रबंधक लॉगिन", to: "/utthan-manager-login" },
+      { label: "SBGBP प्रबंधक लॉगिन", to: "/sbgbp-manager-login" },
+      { label: "SBGBT सदस्य लॉगिन", to: "/member-login" },
     ],
   },
 ] as const;
