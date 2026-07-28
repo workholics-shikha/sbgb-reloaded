@@ -651,7 +651,7 @@ function About() {
   />
 
   {/* Glass Shine */}
-  <div className="glass-shine absolute inset-0 pointer-events-none" />
+  <div className="glass-overlay"></div>
 
 </div>
       {/* Quote Card */}
@@ -686,85 +686,162 @@ function About() {
   </div>
 
 </section>
-      <section className="mx-auto max-w-7xl px-4 py-20 sm:px-6 sm:py-24">
-        <div className="max-w-2xl">
-          <div className="text-xs font-semibold uppercase tracking-widest text-primary">हमारी सोच</div>
-          <h2 className="mt-3 font-display text-3xl font-black sm:text-4xl">
-            हर निर्णय के पीछे यही आधार है।
-          </h2>
+ <section className="mx-auto max-w-7xl px-4 py-6 sm:px-6 sm:py-8">
+  {/* Heading */}
+  <div className="max-w-2xl">
+    <span className="inline-flex items-center rounded-full bg-[#256053]/10 px-4 py-2 text-sm font-semibold tracking-wide text-[#256053]">
+      हमारी सोच
+    </span>
+
+    <h2 className="mt-5 text-4xl font-bold leading-tight text-[#256053] sm:text-5xl">
+      हर निर्णय के पीछे
+      <span className="block text-[#F1BD1A]">
+        यही आधार है।
+      </span>
+    </h2>
+
+    <div className="mt-5 h-[3px] w-20 rounded-full bg-[#F1BD1A]" />
+  </div>
+
+  {/* Cards */}
+  <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+    {values.map((value) => (
+      <div
+        key={value.title}
+        className="group relative overflow-hidden rounded-2xl border border-[#256053]/10 bg-white p-6 shadow-[0_8px_25px_rgba(37,96,83,0.06)] transition-all duration-500 hover:-translate-y-2 hover:border-[#F1BD1A] hover:shadow-[0_20px_45px_rgba(37,96,83,0.15)]"
+      >
+        {/* Top Border Animation */}
+        <div className="absolute left-0 top-0 h-1 w-0 bg-[#F1BD1A] transition-all duration-500 group-hover:w-full" />
+
+        {/* Background Sweep */}
+        <div className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-[#F1BD1A]/10 to-transparent transition-transform duration-700 group-hover:translate-x-full" />
+
+        {/* Glow */}
+        <div className="absolute -right-10 -top-10 h-28 w-28 rounded-full bg-[#F1BD1A]/10 blur-3xl transition-transform duration-700 group-hover:scale-150" />
+
+        {/* Icon */}
+        <div className="relative z-10 flex h-14 w-14 items-center justify-center rounded-xl bg-[#256053] text-white transition-all duration-500 group-hover:scale-110 group-hover:rotate-6">
+          <value.icon className="h-7 w-7 animate-float" />
         </div>
-        <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {values.map((value) => (
-            <div
-              key={value.title}
-              className="rounded-2xl border border-border bg-card p-6 transition hover:border-primary/40 hover:shadow-lg"
-            >
-              <div className="grid size-11 place-items-center rounded-xl bg-primary/10 text-primary">
-                <value.icon className="size-5" />
-              </div>
-              <h3 className="mt-4 font-display text-lg font-black">{value.title}</h3>
-              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{value.desc}</p>
+
+        {/* Title */}
+        <h3 className="relative z-10 mt-6 text-xl font-bold text-[#256053] transition-colors duration-300 group-hover:text-[#F1BD1A]">
+          {value.title}
+        </h3>
+
+        {/* Description */}
+        <p className="relative z-10 mt-3 text-[15px] leading-7 text-gray-600">
+          {value.desc}
+        </p>
+
+        {/* Bottom Line */}
+        <div className="absolute bottom-0 left-1/2 h-[3px] w-0 -translate-x-1/2 rounded-full bg-[#F1BD1A] transition-all duration-500 group-hover:w-[85%]" />
+      </div>
+    ))}
+  </div>
+</section>
+
+    <section className="border-y border-[#256053]/10 bg-[#F5F0DF]/40">
+  <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 sm:py-24">
+    <div className="grid items-start gap-16 lg:grid-cols-[0.95fr_1.05fr]">
+
+      {/* Left Content */}
+      <div className="max-w-xl">
+
+        <span className="inline-flex items-center rounded-full bg-[#256053]/10 px-4 py-2 text-sm font-semibold tracking-wide text-[#256053]">
+          उद्देश्य
+        </span>
+
+        <h2 className="mt-5 text-4xl font-bold leading-tight text-[#256053] sm:text-5xl">
+          अभियान किन लक्ष्यों के साथ
+          <span className="mt-2 block text-[#F1BD1A]">
+            कार्य करता है।
+          </span>
+        </h2>
+
+        <div className="mt-5 h-[3px] w-20 rounded-full bg-[#F1BD1A]" />
+
+     
+
+        {/* Information Cards */}
+   <div className="mt-10 space-y-3">
+
+  {/* Card 1 */}
+  <div className="rounded-2xl border border-[#256053]/10 bg-white p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-[#F1BD1A] hover:shadow-lg">
+    <div className="text-sm font-semibold uppercase tracking-wider text-[#256053]">
+      मुख्य आधार
+    </div>
+
+    <h3 className="mt-2 text-2xl font-bold text-[#256053]">
+      जनजागरूकता
+    </h3>
+
+    <p className="mt-3 leading-7 text-gray-600">
+      सोच, सहभागिता और स्थानीय जिम्मेदारी को साथ लेकर गांवों के
+      समग्र विकास की दिशा में कार्य करना।
+    </p>
+  </div>
+
+  {/* Card 2 */}
+  <div className="rounded-2xl border border-[#256053]/10 bg-white p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-[#F1BD1A] hover:shadow-lg">
+    <div className="text-sm font-semibold uppercase tracking-wider text-[#256053]">
+      कार्य शैली
+    </div>
+
+    <h3 className="mt-2 text-2xl font-bold text-[#256053]">
+      स्थानीय भागीदारी
+    </h3>
+
+    <p className="mt-3 leading-7 text-gray-600">
+      गांव, युवा, महिलाएं और पंचायत की सहभागिता से स्थायी एवं
+      प्रभावी सामाजिक परिवर्तन सुनिश्चित करना।
+    </p>
+  </div>
+
+  {/* Card 3 */}
+  <div className="rounded-2xl border border-[#256053]/10 bg-white p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-[#F1BD1A] hover:shadow-lg">
+    <div className="text-sm font-semibold uppercase tracking-wider text-[#256053]">
+      प्राथमिक क्षेत्र
+    </div>
+
+    <h3 className="mt-2 text-2xl font-bold text-[#256053]">
+      फोकस क्षेत्र
+    </h3>
+
+    <p className="mt-3 leading-7 text-gray-600">
+      शिक्षा, नेतृत्व विकास, सामाजिक सुधार, सरकारी योजनाओं की
+      जानकारी, पर्यावरण संरक्षण तथा प्रतिभाशाली विद्यार्थियों का
+      प्रोत्साहन।
+    </p>
+  </div>
+
+</div>
+
+       
+
+      </div>
+
+      {/* Right Side */}
+      <div className="grid gap-5 py-12">
+        {objectives.map((item, index) => (
+          <div
+            key={item}
+            className="group flex items-start gap-5 rounded-2xl border border-[#256053]/10 bg-white p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-[#F1BD1A] hover:shadow-lg"
+          >
+            <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[#256053] text-lg font-bold text-white transition-all duration-300 group-hover:bg-[#F1BD1A] group-hover:text-[#256053]">
+              {String(index + 1).padStart(2, "0")}
             </div>
-          ))}
-        </div>
-      </section>
 
-      <section className="border-y border-border bg-card/50">
-        <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 sm:py-24">
-          <div className="grid gap-10 lg:grid-cols-[0.92fr_1.08fr] lg:items-start">
-            <div className="relative overflow-hidden rounded-[2rem] border border-border bg-gradient-to-br from-background via-card to-secondary/60 p-8 shadow-sm sm:p-10">
-              <div className="absolute right-0 top-0 size-40 rounded-full bg-primary/8 blur-3xl" />
-              <div className="absolute bottom-0 left-0 size-32 rounded-full bg-accent/10 blur-3xl" />
-              <div className="relative">
-                <div className="text-xs font-semibold uppercase tracking-widest text-primary">उद्देश्य</div>
-                <h2 className="mt-3 font-display text-3xl font-black sm:text-4xl">
-                  अभियान किन लक्ष्यों के साथ काम करता है।
-                </h2>
-                <p className="mt-4 text-muted-foreground leading-relaxed">
-                  
-                </p>
-
-                <div className="mt-8 grid gap-4 sm:grid-cols-2">
-                  <div className="rounded-2xl border border-primary/10 bg-background/85 p-5 shadow-sm">
-                    <div className="text-xs uppercase tracking-[0.18em] text-primary/80">मुख्य आधार</div>
-                    <div className="mt-2 font-display text-2xl font-black">जनजागरूकता</div>
-                    <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                      सोच, सहभागिता और स्थानीय जिम्मेदारी को साथ लेकर गांव विकास की दिशा बनाना।
-                    </p>
-                  </div>
-                  <div className="rounded-2xl border border-primary/10 bg-background/85 p-5 shadow-sm">
-                    <div className="text-xs uppercase tracking-[0.18em] text-primary/80">कार्य शैली</div>
-                    <div className="mt-2 font-display text-2xl font-black">स्थानीय भागीदारी</div>
-                    <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                      गांव, युवा, महिलाएं और पंचायत साथ आएं तो बदलाव टिकाऊ बनता है।
-                    </p>
-                  </div>
-                </div>
-
-                <div className="mt-6 rounded-2xl border border-dashed border-primary/20 bg-primary/5 p-5">
-                  <div className="text-sm font-semibold text-foreground">फोकस क्षेत्र</div>
-                  <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                    शिक्षा, नेतृत्व, सामाजिक सुधार, सरकारी योजनाओं की जानकारी, पर्यावरण संरक्षण और
-                    प्रतिभाशाली विद्यार्थियों का समर्थन।
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            <div className="grid gap-4">
-              {objectives.map((item, index) => (
-                <div
-                  key={item}
-                  className="rounded-2xl border border-border bg-background p-5 shadow-sm transition hover:border-primary/20 hover:shadow-md"
-                >
-                  <div className="text-sm font-black text-primary">{String(index + 1).padStart(2, "0")}</div>
-                  <p className="mt-2 leading-relaxed text-foreground/90">{item}</p>
-                </div>
-              ))}
-            </div>
+            <p className="pt-2 leading-7 text-gray-700">
+              {item}
+            </p>
           </div>
-        </div>
-      </section>
+        ))}
+      </div>
+
+    </div>
+  </div>
+</section>
 
       <section className="relative overflow-hidden bg-[linear-gradient(135deg,#083a32_0%,#0d4b3e_48%,#08352d_100%)] text-cream">
           <div className="absolute inset-0 opacity-[0.22]">
@@ -829,34 +906,57 @@ function About() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-7xl px-4 py-20 sm:px-6 sm:py-24">
-        <div className="grid gap-10 lg:grid-cols-[1fr_0.95fr] lg:items-center">
-         <div className="relative overflow-hidden rounded-[2rem] border border-border">
-       <img
-  src={galVillage}
-  alt="SBGBT village development activities"
-  className="aspect-[5/4] w-full object-cover"
-/>
-</div>
+   <section className="mx-auto max-w-7xl px-4 py-20 sm:px-6 sm:py-24">
+  <div className="grid items-center gap-12 lg:grid-cols-[1.05fr_0.95fr] xl:gap-20">
 
-          <div>
-            <div className="text-xs font-semibold uppercase tracking-widest text-primary">मुख्य कार्यक्रम</div>
-            <h2 className="mt-3 font-display text-3xl font-black sm:text-4xl">
-              संस्था इन पहलों के माध्यम से कार्य करती है।
-            </h2>
-            <div className="mt-6 grid gap-3">
-              {programs.map((program) => (
-                <div
-                  key={program}
-                  className="rounded-full border border-border bg-card px-5 py-3 text-sm font-semibold shadow-sm"
-                >
-                  {program}
-                </div>
-              ))}
-            </div>
+    {/* Left Image */}
+    <div className="relative reveal-image shine-card overflow-hidden rounded-[32px] border border-[#256053]/10 shadow-[0_20px_50px_rgba(0,0,0,.12)]">
+      <img
+        src={galVillage}
+        alt="SBGBT village development activities"
+        className="h-full w-full aspect-[4/5] object-cover transition-transform duration-700 hover:scale-105"
+      />
+
+      <div className="glass-overlay" />
+    </div>
+
+    {/* Right Content */}
+    <div className="max-w-xl">
+
+      <span className="inline-flex items-center rounded-full bg-[#256053]/10 px-4 py-2 text-sm font-semibold tracking-wide text-[#256053]">
+        मुख्य कार्यक्रम
+      </span>
+
+      <h2 className="mt-5 text-4xl font-bold leading-tight text-[#256053] sm:text-5xl">
+        संस्था इन पहलों के माध्यम से
+        <span className="mt-2 block text-[#F1BD1A]">
+          समाज में सकारात्मक परिवर्तन ला रही है।
+        </span>
+      </h2>
+
+      <div className="mt-5 h-[3px] w-20 rounded-full bg-[#F1BD1A]" />
+
+      <p className="mt-6 text-[17px] leading-8 text-gray-600">
+        शिक्षा, स्वास्थ्य, महिला सशक्तिकरण, पर्यावरण संरक्षण एवं
+        ग्रामीण विकास जैसे अनेक क्षेत्रों में संस्था निरंतर कार्य कर
+        समाज के समग्र विकास की दिशा में योगदान दे रही है।
+      </p>
+
+      <div className="mt-8 grid gap-3">
+        {programs.map((program) => (
+          <div
+            key={program}
+            className="rounded-full border border-[#256053]/10 bg-white px-5 py-3 text-sm font-medium text-[#256053] shadow-sm transition-all duration-300 hover:border-[#F1BD1A] hover:bg-[#F1BD1A]/10 hover:translate-x-2"
+          >
+            {program}
           </div>
-        </div>
-      </section>
+        ))}
+      </div>
+
+    </div>
+
+  </div>
+</section>
 
       {/* CTA */}
       <CTASection />
