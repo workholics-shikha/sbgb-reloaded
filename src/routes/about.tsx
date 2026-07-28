@@ -222,28 +222,54 @@ function About() {
                     height={900}
                   />
                 </motion.div>
-                <motion.div
-                  whileHover={{ y: -4, scale: 1.03 }}
-                  transition={{ duration: 0.3, ease: "easeOut" }}
-                  className="absolute left-[10rem] top-[15rem] z-30 rounded-[1.25rem] border border-white/60 bg-[linear-gradient(135deg,rgba(255,255,255,0.7),rgba(255,255,255,0.34))] px-5 py-4 text-center text-primary shadow-[0_28px_48px_-24px_rgba(14,63,51,0.34)] backdrop-blur-xl sm:left-[13.5rem] sm:top-[26rem]"
-                >
-                  <div className="font-display text-4xl font-black leading-none">25+</div>
-                  <div className="mt-2 text-sm font-semibold leading-snug">वर्षों का अनुभव</div>
-                  <div className="mt-3 h-px bg-primary/12" />
-                  <div className="mt-3 text-[11px] font-medium uppercase tracking-[0.18em] text-primary/68">Community Trust</div>
-                </motion.div>
+<motion.div
+  whileHover={{ y: -4, scale: 1.03 }}
+  transition={{ duration: 0.3, ease: "easeOut" }}
+  className="
+    absolute
+    left-1/2
+    bottom-10
+    z-30
+    w-[260px]
+    -translate-x-1/2
+    rounded-[28px]
+    border border-white/60
+    bg-white/70
+    px-8
+    py-7
+    text-center
+    shadow-[0_30px_60px_-20px_rgba(0,0,0,.18)]
+    backdrop-blur-xl
+  "
+>
+ 
+
+  <p className="text-lg font-semibold italic leading-8 text-[#256053]">
+    शिक्षा से जागरूकता,
+    <br />
+    जागरूकता से बदलाव।
+  </p>
+
+  <div className="mx-auto my-4 h-[3px] w-16 rounded-full bg-[#F1BD1A]" />
+
+
+</motion.div>
               </div>
             </motion.div>
 
             <div className="relative">
-              <div className="inline-flex items-center gap-2 rounded-full border border-white/60 bg-white/65 px-4 py-2 text-sm font-semibold text-primary shadow-[0_16px_30px_-20px_rgba(14,63,51,0.32)] backdrop-blur-xl">
-                <span className="size-2 rounded-full bg-accent" />
-                हमारे बारे में
-              </div>
-              <h2 className="mt-5 max-w-3xl font-display text-[2.4rem] font-black leading-[1.14] text-primary text-balance sm:text-[3.2rem] lg:text-[2rem]">
-                सेवा, सहभागिता और ग्राम उत्थान से
-                <span className="block text-earth">आशा का मजबूत अभियान।</span>
-              </h2>
+            <span className="inline-flex items-center rounded-full bg-[#256053]/10 px-4 py-2 text-sm font-semibold tracking-wide text-[#256053]">
+  हमारे बारे में
+</span>
+
+<h2 className="mt-5 text-4xl font-bold leading-tight text-[#256053] sm:text-5xl">
+  सेवा, सहभागिता और
+  <span className="mt-2 block text-[#F1BD1A]">
+    ग्राम उत्थान का संकल्प।
+  </span>
+</h2>
+
+<div className="mt-5 h-[3px] w-20 rounded-full bg-[#F1BD1A]" />
               <p className="mt-5 max-w-2xl text-base leading-relaxed text-muted-foreground sm:text-lg">
                 सोच बदलो गांव बदलो टीम ग्रामीण क्षेत्रों में शिक्षा, जन-जागरूकता, महिला सशक्तिकरण,
                 पर्यावरण संरक्षण और सामुदायिक सहयोग के माध्यम से सकारात्मक बदलाव की निरंतर दिशा
@@ -357,7 +383,7 @@ function About() {
 </section>
 
    <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6">
-  <div className="grid gap-8 lg:grid-cols-3">
+  <div className="grid gap-6 lg:grid-cols-3">
 
     {/* संस्था का परिचय */}
     <div className="group relative overflow-hidden rounded-[32px] border border-[#256053]/10 bg-white p-10 shadow-[0_20px_60px_rgba(37,96,83,.08)] transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_30px_70px_rgba(37,96,83,.15)]">
@@ -365,7 +391,7 @@ function About() {
       {/* Decoration */}
       <div className="absolute -right-8 -top-8 h-40 w-40 rounded-full bg-[#256053]/5 blur-3xl" />
       <motion.div
-  className="absolute right-4 top-4 opacity-20"
+  className="absolute right-4 top-0 opacity-20"
   animate={{
     rotate: 360,
   }}
@@ -408,7 +434,7 @@ function About() {
 
       <div className="mt-4 h-1 w-16 rounded-full bg-[#F1BD1A]" />
 
-      <div className="mt-6 space-y-5 leading-8 text-gray-600">
+      <div className="mt-6 space-y-6 leading-8 text-gray-600">
 
         <p>
           सोच बदलो-गांव बदलो टीम का गठन इस उद्देश्य से किया गया कि ग्रामीण संस्कृति
@@ -438,7 +464,7 @@ function About() {
       <div className="absolute -right-8 -top-8 h-40 w-40 rounded-full bg-[#256053]/5 blur-3xl" />
 
    <motion.div
-  className="absolute right-4 top-4 opacity-20"
+  className="absolute right-4 top-0 opacity-20"
   animate={{
     rotate: -360,
   }}
@@ -475,19 +501,19 @@ function About() {
 
       <div className="mt-4 h-1 w-16 rounded-full bg-[#F1BD1A]" />
 
-      <div className="mt-6 space-y-5 leading-8 text-gray-600">
+      <div className="mt-6 space-y-2 leading-8 text-gray-600">
 
-        <p>
-          संस्था जमीनी स्तर पर जागरूकता, शिक्षा, महिला सशक्तिकरण, पर्यावरण संरक्षण,
-          स्वास्थ्य, वित्तीय साक्षरता, खेती, पंचायत सहयोग और सामाजिक सुधार से जुड़े
-          रचनात्मक कार्य करती है।
-        </p>
+   <p>
+  संस्था जमीनी स्तर पर जागरूकता, शिक्षा, महिला सशक्तिकरण, पर्यावरण संरक्षण,
+  स्वास्थ्य, वित्तीय साक्षरता, आधुनिक खेती तथा सामाजिक सुधार के माध्यम से
+  ग्रामीण समाज को आत्मनिर्भर, जागरूक और सशक्त बनाने का निरंतर प्रयास करती है।
+</p>
 
-        <p>
-          इसका उद्देश्य केवल योजनाएं बताना नहीं, बल्कि गांवों को अपने विकास में
-          सक्रिय भागीदार बनाना है।
-        </p>
-
+<p>
+  इसका उद्देश्य केवल योजनाओं की जानकारी देना नहीं, बल्कि गांव के प्रत्येक
+  नागरिक को विकास की मुख्यधारा से जोड़कर शिक्षा, सहयोग और जनभागीदारी के माध्यम
+  से एक जागरूक, सशक्त और आत्मनिर्भर समाज का निर्माण करना है।
+</p>
       </div>
 
       <div className="my-8 h-px bg-[#256053]/10" />
@@ -509,7 +535,7 @@ function About() {
   <div className="absolute -right-8 -top-8 h-40 w-40 rounded-full bg-[#256053]/5 blur-3xl" />
 
   <motion.div
-    className="absolute right-4 top-4 opacity-20"
+    className="absolute right-4 top-0 opacity-20"
     animate={{
       rotate: 360,
     }}
@@ -537,7 +563,7 @@ function About() {
 
   <div className="mt-4 h-1 w-16 rounded-full bg-[#F1BD1A]" />
 
-  <div className="mt-6 space-y-5 leading-8 text-gray-600">
+  <div className="mt-6 space-y-6 leading-8 text-gray-600">
 
     <p>
       हमारी संस्था सेवा, समर्पण, पारदर्शिता और सामाजिक उत्तरदायित्व के
@@ -706,37 +732,37 @@ function About() {
   {/* Cards */}
   <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
     {values.map((value) => (
-      <div
-        key={value.title}
-        className="group relative overflow-hidden rounded-2xl border border-[#256053]/10 bg-white p-6 shadow-[0_8px_25px_rgba(37,96,83,0.06)] transition-all duration-500 hover:-translate-y-2 hover:border-[#F1BD1A] hover:shadow-[0_20px_45px_rgba(37,96,83,0.15)]"
-      >
-        {/* Top Border Animation */}
-        <div className="absolute left-0 top-0 h-1 w-0 bg-[#F1BD1A] transition-all duration-500 group-hover:w-full" />
+     <div
+  key={value.title}
+  className="group relative overflow-hidden rounded-2xl border border-[#256053]/10 bg-white p-6 shadow-[0_8px_25px_rgba(37,96,83,0.06)] transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_20px_45px_rgba(37,96,83,0.15)]"
+>
+  {/* Top Line (Left → Right) */}
+  <div className="absolute left-0 top-0 h-[3px] w-0 bg-[#F1BD1A] transition-all duration-500 group-hover:w-full" />
 
-        {/* Background Sweep */}
-        <div className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-[#F1BD1A]/10 to-transparent transition-transform duration-700 group-hover:translate-x-full" />
+  {/* Background Sweep */}
+  <div className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-[#F1BD1A]/10 to-transparent transition-transform duration-700 group-hover:translate-x-full" />
 
-        {/* Glow */}
-        <div className="absolute -right-10 -top-10 h-28 w-28 rounded-full bg-[#F1BD1A]/10 blur-3xl transition-transform duration-700 group-hover:scale-150" />
+  {/* Glow */}
+  <div className="absolute -right-10 -top-10 h-28 w-28 rounded-full bg-[#F1BD1A]/10 blur-3xl transition-transform duration-700 group-hover:scale-150" />
 
-        {/* Icon */}
-        <div className="relative z-10 flex h-14 w-14 items-center justify-center rounded-xl bg-[#256053] text-white transition-all duration-500 group-hover:scale-110 group-hover:rotate-6">
-          <value.icon className="h-7 w-7 animate-float" />
-        </div>
+  {/* Icon */}
+  <div className="relative z-10 flex h-14 w-14 items-center justify-center rounded-xl bg-[#256053] text-white transition-all duration-500 group-hover:scale-110 group-hover:rotate-6">
+    <value.icon className="h-7 w-7 animate-float" />
+  </div>
 
-        {/* Title */}
-        <h3 className="relative z-10 mt-6 text-xl font-bold text-[#256053] transition-colors duration-300 group-hover:text-[#F1BD1A]">
-          {value.title}
-        </h3>
+  {/* Title */}
+  <h3 className="relative z-10 mt-6 text-xl font-bold text-[#256053] transition-colors duration-300 group-hover:text-[#F1BD1A]">
+    {value.title}
+  </h3>
 
-        {/* Description */}
-        <p className="relative z-10 mt-3 text-[15px] leading-7 text-gray-600">
-          {value.desc}
-        </p>
+  {/* Description */}
+  <p className="relative z-10 mt-3 text-[15px] leading-7 text-gray-600">
+    {value.desc}
+  </p>
 
-        {/* Bottom Line */}
-        <div className="absolute bottom-0 left-1/2 h-[3px] w-0 -translate-x-1/2 rounded-full bg-[#F1BD1A] transition-all duration-500 group-hover:w-[85%]" />
-      </div>
+  {/* Bottom Line (Right → Left) */}
+  <div className="absolute bottom-0 right-0 h-[3px] w-0 bg-[#F1BD1A] transition-all duration-500 group-hover:w-full" />
+</div>
     ))}
   </div>
 </section>
