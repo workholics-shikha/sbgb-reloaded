@@ -9,44 +9,88 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as UtthanManagerLoginRouteImport } from './routes/utthan-manager-login'
-import { Route as UtthanCoachingRegistrationRouteImport } from './routes/utthan-coaching-registration'
-import { Route as SpgbpRouteImport } from './routes/spgbp'
-import { Route as SbgbpManagerLoginRouteImport } from './routes/sbgbp-manager-login'
-import { Route as SammanSamarohRegistrationRouteImport } from './routes/samman-samaroh-registration'
-import { Route as PatrikaRouteImport } from './routes/patrika'
-import { Route as MemberLoginRouteImport } from './routes/member-login'
-import { Route as MediaRouteImport } from './routes/media'
-import { Route as GalleryRouteImport } from './routes/gallery'
-import { Route as DonateRouteImport } from './routes/donate'
-import { Route as CsrPartnershipRouteImport } from './routes/csr-partnership'
-import { Route as ContactRouteImport } from './routes/contact'
-import { Route as ArticlesRouteImport } from './routes/articles'
-import { Route as AdminLoginRouteImport } from './routes/admin-login'
-import { Route as ActivitiesRouteImport } from './routes/activities'
-import { Route as AboutRouteImport } from './routes/about'
-import { Route as AavedanFormRouteImport } from './routes/aavedan-form'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AavedanFormRouteImport } from './routes/aavedan-form'
+import { Route as AboutRouteImport } from './routes/about'
+import { Route as ActivitiesRouteImport } from './routes/activities'
+import { Route as AdminLoginRouteImport } from './routes/admin-login'
+import { Route as ArticlesRouteImport } from './routes/articles'
+import { Route as ContactRouteImport } from './routes/contact'
+import { Route as CsrPartnershipRouteImport } from './routes/csr-partnership'
+import { Route as DonateRouteImport } from './routes/donate'
+import { Route as GalleryRouteImport } from './routes/gallery'
+import { Route as MediaRouteImport } from './routes/media'
+import { Route as MemberLoginRouteImport } from './routes/member-login'
+import { Route as PatrikaRouteImport } from './routes/patrika'
+import { Route as SammanSamarohRegistrationRouteImport } from './routes/samman-samaroh-registration'
+import { Route as SbgbpManagerLoginRouteImport } from './routes/sbgbp-manager-login'
+import { Route as SpgbpRouteImport } from './routes/spgbp'
+import { Route as UtthanCoachingRegistrationRouteImport } from './routes/utthan-coaching-registration'
+import { Route as UtthanManagerLoginRouteImport } from './routes/utthan-manager-login'
 
-const UtthanManagerLoginRoute = UtthanManagerLoginRouteImport.update({
-  id: '/utthan-manager-login',
-  path: '/utthan-manager-login',
+const IndexRoute = IndexRouteImport.update({
+  id: '/',
+  path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const UtthanCoachingRegistrationRoute =
-  UtthanCoachingRegistrationRouteImport.update({
-    id: '/utthan-coaching-registration',
-    path: '/utthan-coaching-registration',
-    getParentRoute: () => rootRouteImport,
-  } as any)
-const SpgbpRoute = SpgbpRouteImport.update({
-  id: '/spgbp',
-  path: '/spgbp',
+const AavedanFormRoute = AavedanFormRouteImport.update({
+  id: '/aavedan-form',
+  path: '/aavedan-form',
   getParentRoute: () => rootRouteImport,
 } as any)
-const SbgbpManagerLoginRoute = SbgbpManagerLoginRouteImport.update({
-  id: '/sbgbp-manager-login',
-  path: '/sbgbp-manager-login',
+const AboutRoute = AboutRouteImport.update({
+  id: '/about',
+  path: '/about',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ActivitiesRoute = ActivitiesRouteImport.update({
+  id: '/activities',
+  path: '/activities',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminLoginRoute = AdminLoginRouteImport.update({
+  id: '/admin-login',
+  path: '/admin-login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ArticlesRoute = ArticlesRouteImport.update({
+  id: '/articles',
+  path: '/articles',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ContactRoute = ContactRouteImport.update({
+  id: '/contact',
+  path: '/contact',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CsrPartnershipRoute = CsrPartnershipRouteImport.update({
+  id: '/csr-partnership',
+  path: '/csr-partnership',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DonateRoute = DonateRouteImport.update({
+  id: '/donate',
+  path: '/donate',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GalleryRoute = GalleryRouteImport.update({
+  id: '/gallery',
+  path: '/gallery',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MediaRoute = MediaRouteImport.update({
+  id: '/media',
+  path: '/media',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MemberLoginRoute = MemberLoginRouteImport.update({
+  id: '/member-login',
+  path: '/member-login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PatrikaRoute = PatrikaRouteImport.update({
+  id: '/patrika',
+  path: '/patrika',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SammanSamarohRegistrationRoute =
@@ -55,69 +99,25 @@ const SammanSamarohRegistrationRoute =
     path: '/samman-samaroh-registration',
     getParentRoute: () => rootRouteImport,
   } as any)
-const PatrikaRoute = PatrikaRouteImport.update({
-  id: '/patrika',
-  path: '/patrika',
+const SbgbpManagerLoginRoute = SbgbpManagerLoginRouteImport.update({
+  id: '/sbgbp-manager-login',
+  path: '/sbgbp-manager-login',
   getParentRoute: () => rootRouteImport,
 } as any)
-const MemberLoginRoute = MemberLoginRouteImport.update({
-  id: '/member-login',
-  path: '/member-login',
+const SpgbpRoute = SpgbpRouteImport.update({
+  id: '/spgbp',
+  path: '/spgbp',
   getParentRoute: () => rootRouteImport,
 } as any)
-const MediaRoute = MediaRouteImport.update({
-  id: '/media',
-  path: '/media',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const GalleryRoute = GalleryRouteImport.update({
-  id: '/gallery',
-  path: '/gallery',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const DonateRoute = DonateRouteImport.update({
-  id: '/donate',
-  path: '/donate',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const CsrPartnershipRoute = CsrPartnershipRouteImport.update({
-  id: '/csr-partnership',
-  path: '/csr-partnership',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ContactRoute = ContactRouteImport.update({
-  id: '/contact',
-  path: '/contact',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ArticlesRoute = ArticlesRouteImport.update({
-  id: '/articles',
-  path: '/articles',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AdminLoginRoute = AdminLoginRouteImport.update({
-  id: '/admin-login',
-  path: '/admin-login',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ActivitiesRoute = ActivitiesRouteImport.update({
-  id: '/activities',
-  path: '/activities',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AboutRoute = AboutRouteImport.update({
-  id: '/about',
-  path: '/about',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AavedanFormRoute = AavedanFormRouteImport.update({
-  id: '/aavedan-form',
-  path: '/aavedan-form',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
+const UtthanCoachingRegistrationRoute =
+  UtthanCoachingRegistrationRouteImport.update({
+    id: '/utthan-coaching-registration',
+    path: '/utthan-coaching-registration',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const UtthanManagerLoginRoute = UtthanManagerLoginRouteImport.update({
+  id: '/utthan-manager-login',
+  path: '/utthan-manager-login',
   getParentRoute: () => rootRouteImport,
 } as any)
 
@@ -268,116 +268,11 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/utthan-manager-login': {
-      id: '/utthan-manager-login'
-      path: '/utthan-manager-login'
-      fullPath: '/utthan-manager-login'
-      preLoaderRoute: typeof UtthanManagerLoginRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/utthan-coaching-registration': {
-      id: '/utthan-coaching-registration'
-      path: '/utthan-coaching-registration'
-      fullPath: '/utthan-coaching-registration'
-      preLoaderRoute: typeof UtthanCoachingRegistrationRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/spgbp': {
-      id: '/spgbp'
-      path: '/spgbp'
-      fullPath: '/spgbp'
-      preLoaderRoute: typeof SpgbpRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/sbgbp-manager-login': {
-      id: '/sbgbp-manager-login'
-      path: '/sbgbp-manager-login'
-      fullPath: '/sbgbp-manager-login'
-      preLoaderRoute: typeof SbgbpManagerLoginRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/samman-samaroh-registration': {
-      id: '/samman-samaroh-registration'
-      path: '/samman-samaroh-registration'
-      fullPath: '/samman-samaroh-registration'
-      preLoaderRoute: typeof SammanSamarohRegistrationRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/patrika': {
-      id: '/patrika'
-      path: '/patrika'
-      fullPath: '/patrika'
-      preLoaderRoute: typeof PatrikaRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/member-login': {
-      id: '/member-login'
-      path: '/member-login'
-      fullPath: '/member-login'
-      preLoaderRoute: typeof MemberLoginRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/media': {
-      id: '/media'
-      path: '/media'
-      fullPath: '/media'
-      preLoaderRoute: typeof MediaRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/gallery': {
-      id: '/gallery'
-      path: '/gallery'
-      fullPath: '/gallery'
-      preLoaderRoute: typeof GalleryRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/donate': {
-      id: '/donate'
-      path: '/donate'
-      fullPath: '/donate'
-      preLoaderRoute: typeof DonateRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/csr-partnership': {
-      id: '/csr-partnership'
-      path: '/csr-partnership'
-      fullPath: '/csr-partnership'
-      preLoaderRoute: typeof CsrPartnershipRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/contact': {
-      id: '/contact'
-      path: '/contact'
-      fullPath: '/contact'
-      preLoaderRoute: typeof ContactRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/articles': {
-      id: '/articles'
-      path: '/articles'
-      fullPath: '/articles'
-      preLoaderRoute: typeof ArticlesRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/admin-login': {
-      id: '/admin-login'
-      path: '/admin-login'
-      fullPath: '/admin-login'
-      preLoaderRoute: typeof AdminLoginRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/activities': {
-      id: '/activities'
-      path: '/activities'
-      fullPath: '/activities'
-      preLoaderRoute: typeof ActivitiesRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/about': {
-      id: '/about'
-      path: '/about'
-      fullPath: '/about'
-      preLoaderRoute: typeof AboutRouteImport
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/aavedan-form': {
@@ -387,11 +282,116 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AavedanFormRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
+    '/about': {
+      id: '/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof AboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/activities': {
+      id: '/activities'
+      path: '/activities'
+      fullPath: '/activities'
+      preLoaderRoute: typeof ActivitiesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin-login': {
+      id: '/admin-login'
+      path: '/admin-login'
+      fullPath: '/admin-login'
+      preLoaderRoute: typeof AdminLoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/articles': {
+      id: '/articles'
+      path: '/articles'
+      fullPath: '/articles'
+      preLoaderRoute: typeof ArticlesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/contact': {
+      id: '/contact'
+      path: '/contact'
+      fullPath: '/contact'
+      preLoaderRoute: typeof ContactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/csr-partnership': {
+      id: '/csr-partnership'
+      path: '/csr-partnership'
+      fullPath: '/csr-partnership'
+      preLoaderRoute: typeof CsrPartnershipRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/donate': {
+      id: '/donate'
+      path: '/donate'
+      fullPath: '/donate'
+      preLoaderRoute: typeof DonateRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/gallery': {
+      id: '/gallery'
+      path: '/gallery'
+      fullPath: '/gallery'
+      preLoaderRoute: typeof GalleryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/media': {
+      id: '/media'
+      path: '/media'
+      fullPath: '/media'
+      preLoaderRoute: typeof MediaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/member-login': {
+      id: '/member-login'
+      path: '/member-login'
+      fullPath: '/member-login'
+      preLoaderRoute: typeof MemberLoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/patrika': {
+      id: '/patrika'
+      path: '/patrika'
+      fullPath: '/patrika'
+      preLoaderRoute: typeof PatrikaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/samman-samaroh-registration': {
+      id: '/samman-samaroh-registration'
+      path: '/samman-samaroh-registration'
+      fullPath: '/samman-samaroh-registration'
+      preLoaderRoute: typeof SammanSamarohRegistrationRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sbgbp-manager-login': {
+      id: '/sbgbp-manager-login'
+      path: '/sbgbp-manager-login'
+      fullPath: '/sbgbp-manager-login'
+      preLoaderRoute: typeof SbgbpManagerLoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/spgbp': {
+      id: '/spgbp'
+      path: '/spgbp'
+      fullPath: '/spgbp'
+      preLoaderRoute: typeof SpgbpRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/utthan-coaching-registration': {
+      id: '/utthan-coaching-registration'
+      path: '/utthan-coaching-registration'
+      fullPath: '/utthan-coaching-registration'
+      preLoaderRoute: typeof UtthanCoachingRegistrationRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/utthan-manager-login': {
+      id: '/utthan-manager-login'
+      path: '/utthan-manager-login'
+      fullPath: '/utthan-manager-login'
+      preLoaderRoute: typeof UtthanManagerLoginRouteImport
       parentRoute: typeof rootRouteImport
     }
   }

@@ -21,6 +21,8 @@ import sbgbtTeam from "@/assets/hamr-bare-me-left.jpg";
 import aboutHeroRealOne from "@/assets/about-user-signs.jpg";
 import aboutHeroRealTwo from "@/assets/about-user-volunteers.jpg";
 import { motion } from "framer-motion";
+
+
 import villageImg from "@/assets/village.png";
 import youthImg from "@/assets/youth.png";
 import educationImg from "@/assets/education.png";
@@ -170,6 +172,7 @@ const journeyNotes = [
 ];
 
 function About() {
+
   return (
     <div className="min-h-screen bg-background text-foreground">
       <SiteHeader />
@@ -302,103 +305,264 @@ function About() {
 >
   <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-4">
     {highlights.map((item) => {
-      const Icon = item.icon;
+  
 
       return (
-        <div
-          key={item.label}
-          className="group relative overflow-hidden rounded-[28px] border border-[#256053]/10 bg-white/95 backdrop-blur shadow-[0_15px_45px_-25px_rgba(37,96,83,.18)] transition-all duration-500 hover:-translate-y-2 hover:border-[#256053]/20 hover:shadow-[0_30px_60px_-20px_rgba(37,96,83,.28)]"
-        >
-          {/* Background Image */}
-         <img
-  src={item.image}
-  alt=""  className="absolute right-2 bottom-2 h-32 w-32 object-contain opacity-20 pointer-events-none select-none"
-/>
+<div
+  key={item.label}
+  className="group relative overflow-hidden rounded-[24px] border border-[#256053]/10 bg-white shadow-[0_18px_40px_-25px_rgba(37,96,83,.18)] transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_28px_60px_-25px_rgba(37,96,83,.28)]"
+>
+  {/* Background Image */}
+  <img
+    src={item.image}
+    alt={item.label}
+    className="absolute inset-0 h-full w-full object-cover opacity-[0.8] transition-all duration-500 group-hover:scale-105 group-hover:opacity-[0.24]"
+  />
 
-          {/* White Gradient Overlay */}
- 
-          <div className="absolute inset-0 " />
+  {/* Green Gradient Overlay */}
+  <div
+    className="absolute inset-0"
+    style={{
+      background:
+        "linear-gradient(135deg, rgba(255,255,255,.92) 10%, rgba(255,255,255,.82) 45%, rgba(37,96,83,.18) 100%)",
+    }}
+  />
 
-          {/* Yellow Glow */}
-          <div className="absolute -right-8 -top-8 h-24 w-24 rounded-full bg-[#F1BD1A]/20 blur-3xl transition-all duration-500 group-hover:scale-125" />
+  {/* Left Accent */}
+  <div className="absolute left-0 top-0 h-full w-[6px] bg-gradient-to-b from-[#256053] to-[#F1BD1A]" />
 
-          {/* Left Accent */}
-          <div className="absolute left-0 top-0 h-full w-[6px] bg-gradient-to-b from-[#256053] via-[#256053] to-[#F1BD1A]" />
+  {/* Bottom Green Glow */}
+  <div className="absolute inset-x-0 bottom-0 h-14 bg-gradient-to-t from-[#256053]/10 to-transparent" />
 
-          <div className="relative z-10 flex items-center gap-4 px-5 py-4">
+  {/* Content */}
+  <div className="relative z-10 px-6 py-5">
+    <p className="text-sm font-extrabold tracking-wider text-[#256053]">
+      {item.value}
+    </p>
 
-            {/* Icon */}
-            <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-[#256053]/10 transition-all duration-500 group-hover:rotate-6 group-hover:scale-110 group-hover:bg-[#256053]">
-              <Icon className="h-7 w-7 text-[#256053] transition-all duration-500 group-hover:text-[#F1BD1A]" />
-            </div>
+    <div className="mt-1 h-[3px] w-10 rounded-full bg-[#F1BD1A]" />
 
-            {/* Text */}
-            <div className="flex-1">
-              <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#256053]">
-                {item.value}
-              </p>
+    <h3 className="mt-3 text-[1.65rem] font-black leading-tight text-[#1B1B1B]">
+      {item.label}
+    </h3>
 
-              <h3 className="mt-1 text-lg font-black leading-tight text-[#2D241B]">
-                {item.label}
-              </h3>
-
-              <p className="mt-1 text-sm leading-5 text-gray-600">
-                {item.description}
-              </p>
-            </div>
-          </div>
-
-          {/* Bottom Hover Line */}
-          <div className="absolute bottom-0 left-0 h-[3px] w-0 bg-[#F1BD1A] transition-all duration-500 group-hover:w-full" />
-        </div>
+    <p className="mt-2 text-[15px] leading-6 text-gray-700">
+      {item.description}
+    </p>
+  </div>
+</div>
       );
     })}
   </div>
 </section>
 
-      <section className="mx-auto grid max-w-7xl gap-10 px-4 py-14 sm:px-6 sm:py-16 lg:grid-cols-2">
-        <div className="rounded-3xl border border-border bg-card p-8 shadow-sm sm:p-10">
-          <div className="grid size-12 place-items-center rounded-2xl bg-primary/10 text-primary">
-            <Compass className="size-6" />
-          </div>
-          <h2 className="mt-5 font-display text-2xl font-black sm:text-3xl">संस्था का परिचय</h2>
-          <div className="mt-4 space-y-4 text-muted-foreground leading-relaxed">
-            <p>
-              सोच बदलो-गांव बदलो टीम का गठन इस उद्देश्य से किया गया कि ग्रामीण संस्कृति और परिवेश
-              को बनाए रखते हुए गांवों को विकास और आधुनिकता से जोड़ा जा सके।
-            </p>
-            <p>
-              टीम का मूल ध्येय है कि जनजागरूकता और सक्रिय जनसहभागिता के माध्यम से गांव विकास के
-              लक्ष्य को प्राप्त किया जाए, ताकि शिक्षा, स्वास्थ्य, रोजगार, सरकारी योजनाओं और सामाजिक
-              न्याय तक लोगों की पहुंच मजबूत हो।
-            </p>
-          </div>
-          <p className="mt-5 font-hi text-earth">मानवता की सेवा ही ईश्वर की सेवा है।</p>
-        </div>
+   <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6">
+  <div className="grid gap-8 lg:grid-cols-3">
 
-        <div className="rounded-3xl border border-border bg-card p-8 shadow-sm sm:p-10">
-          <div className="grid size-12 place-items-center rounded-2xl bg-accent/20 text-earth">
-            <Target className="size-6" />
-          </div>
-          <h2 className="mt-5 font-display text-2xl font-black sm:text-3xl">कार्य की दिशा</h2>
-          <div className="mt-4 space-y-4 text-muted-foreground leading-relaxed">
-            <p>
-              संस्था जमीनी स्तर पर जागरूकता, शिक्षा, महिला सशक्तिकरण, पर्यावरण संरक्षण, स्वास्थ्य,
-              वित्तीय साक्षरता, खेती, पंचायत सहयोग और सामाजिक सुधार से जुड़े रचनात्मक कार्य करती है।
-            </p>
-            <p>
-              इसका उद्देश्य केवल योजनाएं बताना नहीं, बल्कि गांवों को अपने विकास में सक्रिय भागीदार
-              बनाना है।
-            </p>
-          </div>
-          <Link
-            to="/activities"
-            className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-primary transition-all hover:gap-3"
-          >
-            हमारे कार्य देखें <ArrowRight className="size-4" />
-          </Link>
-        </div>
-      </section>
+    {/* संस्था का परिचय */}
+    <div className="group relative overflow-hidden rounded-[32px] border border-[#256053]/10 bg-white p-10 shadow-[0_20px_60px_rgba(37,96,83,.08)] transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_30px_70px_rgba(37,96,83,.15)]">
+
+      {/* Decoration */}
+      <div className="absolute -right-8 -top-8 h-40 w-40 rounded-full bg-[#256053]/5 blur-3xl" />
+      <motion.div
+  className="absolute right-4 top-4 opacity-20"
+  animate={{
+    rotate: 360,
+  }}
+  transition={{
+    duration: 25,
+    repeat: Infinity,
+    ease: "linear",
+  }}
+>
+   <img
+    src="https://demo.awaikenthemes.com/aasha/wp-content/uploads/2026/03/our-approach-item-bg-shape-1.svg"
+    alt=""
+    className="w-28 h-28"
+  />
+    <path
+      d="M100 10
+         L115 70
+         L180 70
+         L128 110
+         L145 180
+         L100 140
+         L55 180
+         L72 110
+         L20 70
+         L85 70Z"
+      fill="#256053"
+      fillOpacity="0.15"
+    />
+ 
+</motion.div>
+
+      {/* Icon */}
+      <div className="flex h-14 w-14 items-center justify-center rounded-full bg-[#F1BD1A]">
+        <Compass className="h-7 w-7 text-[#256053]" />
+      </div>
+
+      <h2 className="mt-8 text-4xl font-black text-[#143B34]">
+        संस्था का परिचय
+      </h2>
+
+      <div className="mt-4 h-1 w-16 rounded-full bg-[#F1BD1A]" />
+
+      <div className="mt-6 space-y-5 leading-8 text-gray-600">
+
+        <p>
+          सोच बदलो-गांव बदलो टीम का गठन इस उद्देश्य से किया गया कि ग्रामीण संस्कृति
+          और परिवेश को बनाए रखते हुए गांवों को विकास और आधुनिकता से जोड़ा जा सके।
+        </p>
+
+        <p>
+          टीम का मूल ध्येय है कि जनजागरूकता और सक्रिय जनसहभागिता के माध्यम से गांव
+          विकास के लक्ष्य को प्राप्त किया जाए, ताकि शिक्षा, स्वास्थ्य, रोजगार,
+          सरकारी योजनाओं और सामाजिक न्याय तक लोगों की पहुंच मजबूत हो।
+        </p>
+
+      </div>
+
+      <div className="my-8 h-px bg-[#256053]/10" />
+
+      <p className="italic font-semibold text-[#256053]">
+        "मानवता की सेवा ही ईश्वर की सेवा है।"
+      </p>
+
+    </div>
+
+    {/* कार्य की दिशा */}
+
+    <div className="group relative overflow-hidden rounded-[32px] border border-[#256053]/10 bg-white p-10 shadow-[0_20px_60px_rgba(37,96,83,.08)] transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_30px_70px_rgba(37,96,83,.15)]">
+
+      <div className="absolute -right-8 -top-8 h-40 w-40 rounded-full bg-[#256053]/5 blur-3xl" />
+
+   <motion.div
+  className="absolute right-4 top-4 opacity-20"
+  animate={{
+    rotate: -360,
+  }}
+  transition={{
+    duration: 30,
+    repeat: Infinity,
+    ease: "linear",
+  }}
+>
+ <img
+    src="https://demo.awaikenthemes.com/aasha/wp-content/uploads/2026/03/our-approach-item-bg-shape-2.svg"
+    alt=""
+    className="w-28 h-28"
+  />
+    <circle
+      cx="100"
+      cy="100"
+      r="70"
+      stroke="#256053"
+      strokeWidth="8"
+      strokeDasharray="12 12"
+      opacity="0.4"
+    />
+  
+</motion.div>
+
+      <div className="flex h-14 w-14 items-center justify-center rounded-full bg-[#F1BD1A]">
+        <Target className="h-7 w-7 text-[#256053]" />
+      </div>
+
+      <h2 className="mt-8 text-4xl font-black text-[#143B34]">
+        कार्य की दिशा
+      </h2>
+
+      <div className="mt-4 h-1 w-16 rounded-full bg-[#F1BD1A]" />
+
+      <div className="mt-6 space-y-5 leading-8 text-gray-600">
+
+        <p>
+          संस्था जमीनी स्तर पर जागरूकता, शिक्षा, महिला सशक्तिकरण, पर्यावरण संरक्षण,
+          स्वास्थ्य, वित्तीय साक्षरता, खेती, पंचायत सहयोग और सामाजिक सुधार से जुड़े
+          रचनात्मक कार्य करती है।
+        </p>
+
+        <p>
+          इसका उद्देश्य केवल योजनाएं बताना नहीं, बल्कि गांवों को अपने विकास में
+          सक्रिय भागीदार बनाना है।
+        </p>
+
+      </div>
+
+      <div className="my-8 h-px bg-[#256053]/10" />
+
+      <Link
+        to="/activities"
+        className="inline-flex items-center gap-2 font-semibold text-[#256053] transition-all duration-300 hover:gap-4"
+      >
+        हमारे कार्य देखें
+        <ArrowRight className="h-5 w-5" />
+      </Link>
+
+    </div>
+{/* हमारे मूल्य */}
+
+<div className="group relative overflow-hidden rounded-[32px] border border-[#256053]/10 bg-white p-10 shadow-[0_20px_60px_rgba(37,96,83,.08)] transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_30px_70px_rgba(37,96,83,.15)]">
+
+  {/* Decoration */}
+  <div className="absolute -right-8 -top-8 h-40 w-40 rounded-full bg-[#256053]/5 blur-3xl" />
+
+  <motion.div
+    className="absolute right-4 top-4 opacity-20"
+    animate={{
+      rotate: 360,
+    }}
+    transition={{
+      duration: 25,
+      repeat: Infinity,
+      ease: "linear",
+    }}
+  >
+    <img
+      src="https://demo.awaikenthemes.com/aasha/wp-content/uploads/2026/03/our-approach-item-bg-shape-3.svg "
+      alt="Mandala"
+      className="h-28 w-28"
+    />
+  </motion.div>
+
+  {/* Icon */}
+  <div className="flex h-14 w-14 items-center justify-center rounded-full bg-[#F1BD1A]">
+    <HeartHandshake className="h-7 w-7 text-[#256053]" />
+  </div>
+
+  <h2 className="mt-8 text-4xl font-black text-[#143B34]">
+    हमारे मूल्य
+  </h2>
+
+  <div className="mt-4 h-1 w-16 rounded-full bg-[#F1BD1A]" />
+
+  <div className="mt-6 space-y-5 leading-8 text-gray-600">
+
+    <p>
+      हमारी संस्था सेवा, समर्पण, पारदर्शिता और सामाजिक उत्तरदायित्व के
+      मूल्यों पर कार्य करती है। हमारा विश्वास है कि समाज में स्थायी परिवर्तन
+      तभी संभव है जब प्रत्येक व्यक्ति समानता, सहयोग और मानवता की भावना के
+      साथ आगे बढ़े।
+    </p>
+
+    <p>
+      हम प्रत्येक कार्य में ईमानदारी, जनसहभागिता और सतत विकास को प्राथमिकता
+      देते हैं, ताकि आने वाली पीढ़ियों के लिए एक सशक्त, शिक्षित और आत्मनिर्भर
+      समाज का निर्माण किया जा सके।
+    </p>
+
+  </div>
+
+  <div className="my-8 h-px bg-[#256053]/10" />
+
+  <p className="italic font-semibold text-[#256053]">
+    "सेवा • समर्पण • पारदर्शिता"
+  </p>
+
+</div>
+  </div>
+</section>
 
       <section className="bg-secondary/60">
         <div className="mx-auto grid max-w-7xl items-center gap-12 px-4 py-20 sm:px-6 sm:py-24 lg:grid-cols-[1.1fr_1fr]">
@@ -581,17 +745,13 @@ function About() {
 
       <section className="mx-auto max-w-7xl px-4 py-20 sm:px-6 sm:py-24">
         <div className="grid gap-10 lg:grid-cols-[1fr_0.95fr] lg:items-center">
-          <div className="relative overflow-hidden rounded-[2rem] border border-border">
-            <img
-              src={galVillage}
-              alt="SBGBT village development activities"
-              className="aspect-[5/4] w-full object-cover"
-            />
-            <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-ink/80 via-ink/20 to-transparent p-6 text-cream">
-              <div className="text-xs uppercase tracking-[0.2em] text-accent/85">SBGBT</div>
-              <div className="mt-2 font-display text-2xl font-black">गांव, युवा और जनसहभागिता</div>
-            </div>
-          </div>
+         <div className="relative overflow-hidden rounded-[2rem] border border-border">
+       <img
+  src={galVillage}
+  alt="SBGBT village development activities"
+  className="aspect-[5/4] w-full object-cover"
+/>
+</div>
 
           <div>
             <div className="text-xs font-semibold uppercase tracking-widest text-primary">मुख्य कार्यक्रम</div>
