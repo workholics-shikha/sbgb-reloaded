@@ -563,43 +563,129 @@ function About() {
 </div>
   </div>
 </section>
+<section className="relative overflow-hidden bg-[#F5F0DF] py-24">
 
-      <section className="bg-secondary/60">
-        <div className="mx-auto grid max-w-7xl items-center gap-12 px-4 py-20 sm:px-6 sm:py-24 lg:grid-cols-[1.1fr_1fr]">
-          <div>
-            <div className="text-xs font-semibold uppercase tracking-widest text-primary">
-              संस्था की कहानी
-            </div>
-            <h2 className="mt-3 font-display text-3xl font-black text-balance sm:text-4xl lg:text-5xl">
-              गांव की सोच से जनअभियान तक।
-            </h2>
-            <div className="mt-5 space-y-4 text-muted-foreground leading-relaxed">
-              <p>
-                यह अभियान इस विचार पर आधारित है कि गांवों का विकास तभी संभव है जब आमजन अपने
-                अधिकारों, दायित्वों और संभावनाओं के प्रति सजग हों।
-              </p>
-              <p>
-                टीम ने ग्रामीण युवाओं, गांव के बुद्धिजीवियों, महिलाओं और सामाजिक कार्यकर्ताओं को साथ
-                लेकर ऐसा वातावरण तैयार किया जहां स्थानीय समस्याओं पर स्थानीय समाधान खोजे जा सकें।
-              </p>
-              <p>
-                शिक्षा, जनचेतना, संगठन निर्माण और सकारात्मक नेतृत्व को SBGBT ने अपने अभियान का मुख्य
-                आधार बनाया।
-              </p>
-            </div>
-          </div>
+  {/* Background Glow */}
+  <div className="absolute left-0 top-0 h-80 w-80 rounded-full bg-[#F1BD1A]/10 blur-3xl" />
+  <div className="absolute bottom-0 right-0 h-96 w-96 rounded-full bg-[#256053]/10 blur-3xl" />
 
-          <div className="relative">
-            <div className="absolute -inset-4 rounded-[2rem] bg-gradient-to-br from-accent/30 via-transparent to-primary/20 blur-2xl" />
-            <img
-              src={heroEducation}
-              alt="SBGBT students and rural education"
-            // className="relative aspect-[4/5] w-full rounded-[2rem] border border-border object-cover shadow-2xl"
-            />
-          </div>
+  <div className="relative mx-auto grid max-w-7xl items-center gap-16 px-6 lg:grid-cols-[1fr_0.9fr]">
+
+    {/* ================= LEFT ================= */}
+
+    <div>
+
+      {/* Badge */}
+      <div className="inline-flex items-center gap-2 rounded-full bg-[#256053]/10 px-5 py-2 text-sm font-semibold text-[#256053]">
+        🌿 हमारी यात्रा
+      </div>
+
+      {/* Heading */}
+      <h2 className="mt-6 text-5xl font-black leading-[1.05] text-[#256053] lg:text-6xl">
+        गांव की सोच से
+        <br />
+        <span className="text-[#F1BD1A]">जनअभियान</span> तक।
+      </h2>
+
+      {/* Underline */}
+      <div className="mt-5 flex items-center gap-3">
+        <div className="h-[3px] w-34 rounded-full bg-[#F1BD1A]" />
+        <div className="h-2 w-2 rounded-full bg-[#F1BD1A]" />
+      </div>
+
+      {/* Content */}
+      <div className="mt-10 flex gap-8">
+
+        {/* Timeline */}
+        <div className="relative flex w-6 justify-center self-stretch">
+
+  {/* Dot */}
+  <div className="absolute top-0 h-2 w-2 rounded-full bg-[#256053]" />
+
+  {/* Thin Line */}
+  <div className="mt-5 h-[320px] w-[3px] bg-[#F1BD1A]" />
+
+</div>
+
+        {/* Paragraphs */}
+        <div className="space-y-8 text-[18px] leading-9 text-neutral-700">
+
+          <p>
+            हमारा विश्वास है कि गांवों का वास्तविक विकास तभी संभव है
+            जब प्रत्येक व्यक्ति अपने अधिकारों, जिम्मेदारियों और
+            संभावनाओं के प्रति जागरूक हो।
+          </p>
+
+          <p>
+            ग्रामीण युवाओं, महिलाओं, बुद्धिजीवियों और सामाजिक
+            कार्यकर्ताओं को साथ जोड़कर हमने ऐसा वातावरण बनाया
+            जहाँ समस्याओं का समाधान स्थानीय लोगों की भागीदारी
+            से खोजा जा सके।
+          </p>
+
+          <p>
+            शिक्षा, जनचेतना, संगठन निर्माण और सकारात्मक नेतृत्व
+            हमारी यात्रा के चार प्रमुख स्तंभ हैं।
+          </p>
+
         </div>
-      </section>
 
+      </div>
+
+    </div>
+
+    {/* ================= RIGHT ================= */}
+
+    <div className="relative flex justify-center">
+
+      {/* Glow */}
+      <div className="absolute -inset-10 rounded-full bg-[#F1BD1A]/20 blur-3xl" />
+
+      {/* Image */}
+  <div className="relative group w-full max-w-[430px] overflow-hidden rounded-[34px] shadow-[0_35px_80px_rgba(0,0,0,.18)] reveal-image">
+
+  <img
+    src={heroEducation}
+    alt="SBGBT Rural Education"
+    className="aspect-[4/5] w-full object-cover transition-transform duration-700 group-hover:scale-105"
+  />
+
+  {/* Glass Shine */}
+  <div className="glass-shine absolute inset-0 pointer-events-none" />
+
+</div>
+      {/* Quote Card */}
+      <div className="absolute bottom-[-24px] left-4 z-20 w-[290px] rounded-3xl bg-[#256053] px-5 py-4 text-white shadow-[0_20px_50px_rgba(0,0,0,.25)]">
+
+        <div className="flex items-start gap-3">
+
+          <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-[#F1BD1A] text-2xl font-bold text-[#256053]">
+            ❝
+          </div>
+
+          <div>
+
+            <p className="text-lg font-medium leading-8">
+              हमारा विश्वास है —
+              <br />
+              जब गांव जागेंगे,
+              <br />
+              तभी देश आगे बढ़ेगा।
+            </p>
+
+            <div className="mt-4 h-[3px] w-16 rounded-full bg-[#F1BD1A]" />
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
       <section className="mx-auto max-w-7xl px-4 py-20 sm:px-6 sm:py-24">
         <div className="max-w-2xl">
           <div className="text-xs font-semibold uppercase tracking-widest text-primary">हमारी सोच</div>
