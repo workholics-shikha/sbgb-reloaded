@@ -27,13 +27,12 @@ export const Route = createFileRoute("/aavedan-form")({
 
 function Contact() {
   const [sent, setSent] = useState(false);
-
   return (
     <div className="min-h-screen bg-background text-foreground">
       <SiteHeader />
       <PageHero title="हमसे जुड़ने के लिए फॉर्म भरें" />
 
-      <section className="py-10">
+      <section className="pt-6 pb-8">
         <div className="mx-auto max-w-7xl px-4 sm:px-6">
 
           <div className="overflow-hidden rounded-[36px] bg-gradient-to-r from-sky-50 via-cyan-50 to-sky-100 shadow-md">
@@ -119,7 +118,7 @@ function Contact() {
             </h2>
 
             <p className="mt-2 text-muted-foreground">
-              Join hands with SBGBT to create a positive social impact.
+              कृपया नीचे दिए गए सभी आवश्यक विवरण भरकर सदस्यता हेतु आवेदन करें।
             </p>
 
             <div className="grid mt-8 gap-5 md:grid-cols-2 xl:grid-cols-4">
@@ -353,343 +352,185 @@ function Contact() {
             </div>
             {/* form fields */}
 
-            {/* ============== */}
-
             {/* ================= Membership ================= */}
+            <div className="mt-10 rounded-[2rem] border border-border bg-card p-8 shadow-sm">
 
-            <div className="rounded-[2rem]   bg-card p-8 shadow-sm">
+              <section className="mt-6">
 
-              <section className="mt-16">
-
-                <h2 className="text-3xl font-black text-foreground">
-                  सदस्यता का स्वरूप और सदस्यता राशि का विवरण
-                </h2>
-
+                <h2 className="text-3xl font-black text-foreground"> सदस्यता का स्वरूप और सदस्यता राशि का विवरण </h2>
                 <p className="mt-2 text-lg font-semibold text-red-600">
                   सदस्यता की श्रेणी (जो भी लागू हो टिक करें) <span className="text-red-500">*</span>
                 </p>
 
-                <div className="mt-6 grid gap-6 lg:grid-cols-4">
+                <div className="mt-6 grid gap-6 md:grid-cols-2 max-w-3xl">
 
-                  {/* Lifetime */}
-
-                  <label className="cursor-pointer">
+                  {/* Lifetime Membership */}
+                  <label className="flex cursor-pointer items-center gap-4 rounded-2xl border-2 border-border p-6 hover:border-primary hover:shadow-md">
                     <input
                       type="radio"
                       name="membership"
-                      className="peer hidden"
+                      value="lifetime"
+                      defaultChecked
+                      className="h-5 w-5 accent-primary"
                     />
 
-                    <div className="rounded-2xl border border-border bg-card p-5 transition-all peer-checked:border-primary peer-checked:bg-primary/10">
+                    <div>
+                      <p className="text-sm text-muted-foreground">
+                        आजीवन सदस्य
+                      </p>
 
-                      <div className="flex items-center gap-3">
-
-                        <input type="radio" checked readOnly />
-
-                        <div>
-
-                          <p className="text-sm text-muted-foreground">
-                            आजीवन सदस्य
-                          </p>
-
-                          <h3 className="text-4xl font-black text-primary">
-                            ₹51000
-                          </h3>
-
-                        </div>
-
-                      </div>
-
+                      <h3 className="text-3xl font-bold text-primary">
+                        ₹51,000
+                      </h3>
                     </div>
                   </label>
 
-                  {/* Annual */}
-
-                  <label className="cursor-pointer">
-
+                  {/* Annual Membership */}
+                  <label className="flex cursor-pointer items-center gap-4 rounded-2xl border-2 border-border p-6 hover:border-primary hover:shadow-md">
                     <input
                       type="radio"
                       name="membership"
-                      className="peer hidden"
+                      value="annual"
+                      className="h-5 w-5 accent-primary"
                     />
 
-                    <div className="rounded-2xl border border-border bg-card p-5 transition-all peer-checked:border-primary peer-checked:bg-primary/10">
+                    <div>
+                      <p className="text-sm text-muted-foreground">
+                        वार्षिक सदस्य
+                      </p>
 
-                      <div className="flex items-center gap-3">
-
-                        <input type="radio" />
-
-                        <div>
-
-                          <p className="text-sm text-muted-foreground">
-                            वार्षिक सदस्य
-                          </p>
-
-                          <h3 className="text-4xl font-black text-primary">
-                            ₹11000
-                          </h3>
-
-                        </div>
-
-                      </div>
-
+                      <h3 className="text-3xl font-bold text-primary">
+                        ₹11,000
+                      </h3>
                     </div>
-
                   </label>
 
                 </div>
 
               </section>
 
-            </div>
+              {/* ================= Payment ================= */}
 
-            {/* ================= Payment ================= */}
+              <div className="bg-card">
+                <div className="mt-8 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
+                  <label>
+                    <span className="mb-2 block text-sm">
+                      भुगतान की दिनांक
+                    </span>
+                    <input
+                      type="date"
+                      className="w-full rounded-xl border border-border px-4 py-3"
+                    />
+                  </label>
+                  <label>
+                    <span className="mb-2 block text-sm"> भुगतान का माध्यम </span>
 
-            <div className="rounded-[2rem] border border-border bg-card p-8 shadow-sm">
+                    <select className="w-full rounded-xl border border-border px-4 py-3">
+                      <option>चुनें</option>
+                      <option>Cash</option>
+                      <option>UPI</option>
+                      <option>Cheque</option>
+                      <option>RTGS</option>
+                      <option>NEFT</option>
+                      <option>Online</option>
+                    </select>
+                  </label>
+                  <label>
 
-              <div className="mt-8 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
+                    <span className="mb-2 block text-sm"> बैंक का नाम </span>
+                    <input
+                      placeholder="Bank Name"
+                      className="w-full rounded-xl border border-border px-4 py-3"
+                    />
+                  </label>
 
-                <label>
+                  <label>
+                    <span className="mb-2 block text-sm"> Transaction ID </span>
+                    <input
+                      placeholder="Transaction ID"
+                      className="w-full rounded-xl border border-border px-4 py-3"
+                    />
 
-                  <span className="mb-2 block text-sm">
-                    भुगतान की दिनांक
-                  </span>
-
-                  <input
-                    type="date"
-                    className="w-full rounded-xl border border-border px-4 py-3"
-                  />
-
-                </label>
-
-                <label>
-
-                  <span className="mb-2 block text-sm">
-                    भुगतान का माध्यम
-                  </span>
-
-                  <select className="w-full rounded-xl border border-border px-4 py-3">
-
-                    <option>चुनें</option>
-
-                    <option>Cash</option>
-
-                    <option>UPI</option>
-
-                    <option>Cheque</option>
-
-                    <option>RTGS</option>
-
-                    <option>NEFT</option>
-
-                    <option>Online</option>
-
-                  </select>
-
-                </label>
-
-                <label>
-
-                  <span className="mb-2 block text-sm">
-                    बैंक का नाम
-                  </span>
-
-                  <input
-                    placeholder="Bank Name"
-                    className="w-full rounded-xl border border-border px-4 py-3"
-                  />
-
-                </label>
-
-                <label>
-
-                  <span className="mb-2 block text-sm">
-                    Transaction ID
-                  </span>
-
-                  <input
-                    placeholder="Transaction ID"
-                    className="w-full rounded-xl border border-border px-4 py-3"
-                  />
-
-                </label>
-
+                  </label>
+                </div>
               </div>
 
-            </div>
+              <div className="bg-card">
+                <div className="mt-6 grid gap-5 md:grid-cols-2">
+                  <label>
+                    <span className="mb-2 block text-sm"> चेक / RTGS / NEFT / UPI Transaction Number </span>
+                    <input
+                      placeholder="Reference Number"
+                      className="w-full rounded-xl border border-border px-4 py-3"
+                    />
+                  </label>
 
-            <section className="mt-16">
+                  <label>
+                    <span className="mb-2 block text-sm"> भुगतान रसीद अपलोड करें </span>
+                    <input
+                      type="file"
+                      accept=".jpg,.jpeg,.png,.pdf"
+                      className="block w-full rounded-xl border border-border file:mr-4 file:border-0 file:bg-primary file:px-5 file:py-2 file:text-white"
+                    />
+                  </label>
+                </div>
+              </div>
 
-              <div className="rounded-[2rem] border border-border bg-card p-8 shadow-sm">
-
-                <div className="mt-8 rounded-2xl bg-primary/5 p-6 leading-8">
-
-                  <p>
-
-                    योगदान करने हेतु उपयुक्त सदस्यता श्रेणी का चयन करें।
-                    भुगतान करने के बाद उसकी रसीद अथवा स्क्रीनशॉट
-                    आवेदन फॉर्म के साथ अपलोड करें।
-
-                  </p>
-
+              {/* ================= Declaration ================= */}
+              <section className="mt-2">
+                <div className="bg-card">
+                  <div className="mt-8 rounded-2xl bg-primary/5 p-6 leading-8">
+                    <p>
+                      योगदान कैसे करें: उपरोक्त श्रेणियों में से किसी एक श्रेणी में सदस्य बनने के इच्छुक व्यक्ति उपर्युक्त फॉर्म को भरें I एक नवीनतम फोटोग्राफ (पासपोर्ट आकार का) फॉर्म के साथ संलग्न (अपलोड) करें और वांछित श्रेणी के लिए निर्धारित सदस्यता राशि का चेक/डी डी या ऑनलाइन माध्यम भुगतान करें और आवेदन फॉर्म के साथ उसका विवरण संलग्न (अपलोड) करें। चेक/डी डी से भुगतान करने हेतु चेक/डी डी "सोच बदलो गाँव बदलो संस्था, बाड़ी; कार्यालय - गली नं॰ 5, हौद बाड़ी, जिला – धौलपुर, राजस्थान – 328021" के पक्ष में तैयार करें ।
+                    </p>
+                  </div>
                 </div>
 
-              </div>
+                <h2 className="text-3xl font-black mt-6"> घोषणा </h2>
+                <div className="mt-2 rounded-3xl border border-border bg-card p-8 leading-8">
+                  <p> मैं घोषणा करता / करती हूँ कि इस आवेदन पत्र में मेरे द्वारा दी गई समस्त जानकारी मेरे ज्ञान एवं विश्वास के अनुसार सत्य एवं सही है। </p>
+                  <p className="mt-2"> यदि मेरे द्वारा दी गई कोई भी जानकारी असत्य अथवा भ्रामक पाई जाती है, तो संस्था द्वारा मेरी सदस्यता निरस्त की जा सकती है। </p>
+                  <p className="mt-2"> मैं संस्था के संविधान, नियमों एवं शर्तों का पालन करने हेतु सहमत हूँ। </p>
+                </div>
 
-              <h2 className="text-3xl font-black">
-                घोषणा
-              </h2>
+                <div className="mt-6">
+                  <label className="flex items-start gap-4">
+                    <input
+                      type="checkbox"
+                      required
+                      className="mt-1 h-5 w-5 accent-primary" />
+                    <span className="leading-7">
+                      मैं घोषणा करता / करती हूँ कि ऊपर दी गई समस्त जानकारी मेरे ज्ञान एवं विश्वास के अनुसार सत्य है।
+                    </span>
+                  </label>
+                </div>
+              </section>
 
-              <div className="mt-6 rounded-3xl border border-border bg-card p-8 leading-8">
+              {/* ================= Terms ================= */}
 
-                <p>
-                  मैं घोषणा करता / करती हूँ कि इस आवेदन पत्र में मेरे द्वारा दी गई
-                  समस्त जानकारी मेरे ज्ञान एवं विश्वास के अनुसार सत्य एवं सही है।
-                </p>
+              <section className="mt-16">
 
-                <p className="mt-5">
-                  यदि मेरे द्वारा दी गई कोई भी जानकारी असत्य अथवा भ्रामक पाई जाती है,
-                  तो संस्था द्वारा मेरी सदस्यता निरस्त की जा सकती है।
-                </p>
+                <h2 className="text-3xl font-black"> संस्था की सदस्यता हेतु आवश्यक नियम एवं शर्तें </h2>
+                <ol className="mt-8 list-decimal space-y-4 pl-6 leading-8 text-muted-foreground">
+                  <li> संस्था के सभी सदस्य संस्था के संविधान, नियम एवं उपनियमों का पालन करेंगे। </li>
+                  <li> सदस्यता शुल्क वापस नहीं किया जाएगा। </li>
+                  <li> सदस्य संस्था की प्रतिष्ठा बनाए रखने हेतु उत्तरदायी होगा। </li>
+                  <li> संस्था द्वारा लिए गए निर्णय सभी सदस्यों के लिए मान्य होंगे। </li>
+                  <li> संस्था समाज सेवा एवं ग्रामीण विकास के उद्देश्य से कार्य करेगी। </li>
+                  <li> सदस्य संस्था की किसी भी अवैधानिक गतिविधि में सम्मिलित नहीं होगा। </li>
+                  <li> संस्था को सदस्यता निरस्त करने का अधिकार सुरक्षित रहेगा। </li>
+                  <li> सदस्य संस्था की गोपनीय जानकारी का दुरुपयोग नहीं करेगा। </li>
+                  <li> सभी विवाद संस्था के नियमों के अनुसार निपटाए जाएंगे। </li>
+                  <li> आवेदन जमा करने का अर्थ है कि आवेदक सभी नियमों एवं शर्तों से सहमत है। </li>
+                </ol>
+              </section>
 
-                <p className="mt-5">
-                  मैं संस्था के संविधान, नियमों एवं शर्तों का पालन करने हेतु सहमत हूँ।
-                </p>
-
-              </div>
-
-              <div className="mt-6">
-
-                <label className="flex items-start gap-4">
-
-                  <input
-                    type="checkbox"
-                    required
-                    className="mt-1 h-5 w-5 accent-primary"
-                  />
-
-                  <span className="leading-7">
-
-                    मैं घोषणा करता / करती हूँ कि ऊपर दी गई समस्त जानकारी मेरे ज्ञान एवं विश्वास के अनुसार सत्य है।
-
-                  </span>
-
-                </label>
-
-              </div>
-
-            </section>
-
-            {/* ================= Declaration ================= */}
-
-            <div className="rounded-[2rem] border border-border bg-card p-8 shadow-sm">
-
-              <div className="mt-6 grid gap-5 md:grid-cols-2">
-
-                <label>
-
-                  <span className="mb-2 block text-sm">
-                    चेक / RTGS / NEFT / UPI Transaction Number
-                  </span>
-
-                  <input
-                    placeholder="Reference Number"
-                    className="w-full rounded-xl border border-border px-4 py-3"
-                  />
-
-                </label>
-
-                <label>
-
-                  <span className="mb-2 block text-sm">
-                    भुगतान रसीद अपलोड करें
-                  </span>
-
-                  <input
-                    type="file"
-                    accept=".jpg,.jpeg,.png,.pdf"
-                    className="block w-full rounded-xl border border-border
-      file:mr-4
-      file:border-0
-      file:bg-primary
-      file:px-5
-      file:py-2
-      file:text-white"
-                  />
-
-                </label>
-
-              </div>
-
+              {/* ================= Submit ================= */}
             </div>
 
-            {/* ================= Terms ================= */}
-
-            <section className="mt-16">
-
-              <h2 className="text-3xl font-black">
-
-                संस्था की सदस्यता हेतु आवश्यक नियम एवं शर्तें
-
-              </h2>
-
-              <ol className="mt-8 list-decimal space-y-4 pl-6 leading-8 text-muted-foreground">
-
-                <li>
-                  संस्था के सभी सदस्य संस्था के संविधान, नियम एवं उपनियमों का पालन करेंगे।
-                </li>
-
-                <li>
-                  सदस्यता शुल्क वापस नहीं किया जाएगा।
-                </li>
-
-                <li>
-                  सदस्य संस्था की प्रतिष्ठा बनाए रखने हेतु उत्तरदायी होगा।
-                </li>
-
-                <li>
-                  संस्था द्वारा लिए गए निर्णय सभी सदस्यों के लिए मान्य होंगे।
-                </li>
-
-                <li>
-                  संस्था समाज सेवा एवं ग्रामीण विकास के उद्देश्य से कार्य करेगी।
-                </li>
-
-                <li>
-                  सदस्य संस्था की किसी भी अवैधानिक गतिविधि में सम्मिलित नहीं होगा।
-                </li>
-
-                <li>
-                  संस्था को सदस्यता निरस्त करने का अधिकार सुरक्षित रहेगा।
-                </li>
-
-                <li>
-                  सदस्य संस्था की गोपनीय जानकारी का दुरुपयोग नहीं करेगा।
-                </li>
-
-                <li>
-                  सभी विवाद संस्था के नियमों के अनुसार निपटाए जाएंगे।
-                </li>
-
-                <li>
-                  आवेदन जमा करने का अर्थ है कि आवेदक सभी नियमों एवं शर्तों से सहमत है।
-                </li>
-
-              </ol>
-
-            </section>
-
-            {/* ================= Submit ================= */}
-
-            {/* ============== */}
-
-            <button
-              type="submit"
+            <button type="submit"
               className="mt-8 flex w-full items-center justify-center gap-2 rounded-full bg-primary px-6 py-4 text-white font-semibold shadow-lg transition hover:scale-[1.02]"
-            >
-              <Send className="h-5 w-5" />
-              Submit Request
-            </button>
+            > <Send className="h-5 w-5" /> Submit Request </button>
 
             {sent && (
               <p className="mt-4 text-center text-green-600 font-medium">
