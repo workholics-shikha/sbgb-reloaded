@@ -16,8 +16,85 @@ import {
   Mail,
   Menu,
   Phone,
+  X,
 } from "lucide-react";
 import sbgbLogo from "@/assets/sbgb-logo.png";
+
+const languageOptions = [
+  { value: "hi", label: "भाषा बदले" },
+  { value: "bn", label: "Bengali" },
+  { value: "en", label: "English" },
+  { value: "gu", label: "Gujarati" },
+  { value: "ml", label: "Malayalam" },
+  { value: "mr", label: "Marathi" },
+  { value: "pa", label: "Punjabi (Gurmukhi)" },
+  { value: "sd", label: "Sindhi" },
+  { value: "ta", label: "Tamil" },
+  { value: "te", label: "Telugu" },
+  { value: "ur", label: "Urdu" },
+] as const;
+
+const GOOGLE_TRANSLATE_STORAGE_KEY = "sbgb-selected-language";
+const GOOGLE_TRANSLATE_COOKIE_KEY = "googtrans";
+const GOOGLE_TRANSLATE_SOURCE_LANG = "auto";
+const GOOGLE_TRANSLATE_BASE_LANG = "hi";
+
+declare global {
+  interface Window {
+    google?: {
+      translate?: {
+        TranslateElement: new (
+          options: Record<string, unknown>,
+          elementId: string,
+        ) => unknown;
+      };
+    };
+    googleTranslateElementInit?: () => void;
+  }
+}
+
+function readGoogleTranslateCookie() {
+  if (typeof document === "undefined") {
+    return null;
+  }
+
+  const cookieEntry = document.cookie
+    .split("; ")
+    .find((entry) => entry.startsWith(`${GOOGLE_TRANSLATE_COOKIE_KEY}=`));
+
+  if (!cookieEntry) {
+    return null;
+  }
+
+  const [, value = ""] = cookieEntry.split("=");
+  const language = value.split("/").at(-1);
+  return language || null;
+}
+
+function setGoogleTranslateCookie(language: string) {
+  const cookieValue = `/${GOOGLE_TRANSLATE_SOURCE_LANG}/${language}`;
+  document.cookie = `${GOOGLE_TRANSLATE_COOKIE_KEY}=${cookieValue};path=/;max-age=31536000`;
+}
+
+function clearGoogleTranslateCookie() {
+  document.cookie = `${GOOGLE_TRANSLATE_COOKIE_KEY}=;path=/;expires=Thu, 01 Jan 1970 00:00:00 GMT`;
+}
+
+function ensureGoogleTranslateScript() {
+  if (typeof document === "undefined") {
+    return;
+  }
+
+  if (document.getElementById("google-translate-script")) {
+    return;
+  }
+
+  const script = document.createElement("script");
+  script.id = "google-translate-script";
+  script.src = "//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit";
+  script.async = true;
+  document.body.appendChild(script);
+}
 
 const desktopNavLinks = [
   { to: "/", label: "होम", hasMenu: false },
@@ -132,7 +209,7 @@ export const navLinks = [
     ],
   },
 
- {
+  {
     to: "#",
     label: "लॉगिन करें",
     external: true,
@@ -148,6 +225,7 @@ export const navLinks = [
 export function SiteHeader() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [selectedLanguage, setSelectedLanguage] = useState(GOOGLE_TRANSLATE_BASE_LANG);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
@@ -156,8 +234,57 @@ export function SiteHeader() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  useEffect(() => {
+    const savedLanguage =
+      window.localStorage.getItem(GOOGLE_TRANSLATE_STORAGE_KEY) ||
+      readGoogleTranslateCookie() ||
+      GOOGLE_TRANSLATE_BASE_LANG;
+
+    setSelectedLanguage(savedLanguage);
+
+    window.googleTranslateElementInit = () => {
+      if (!window.google?.translate?.TranslateElement) {
+        return;
+      }
+
+      new window.google.translate.TranslateElement(
+        {
+          pageLanguage: GOOGLE_TRANSLATE_BASE_LANG,
+          autoDisplay: false,
+          includedLanguages: languageOptions
+            .map((option) => option.value)
+            .filter((value) => value !== GOOGLE_TRANSLATE_BASE_LANG)
+            .join(","),
+          layout: 0,
+        },
+        "google_translate_element",
+      );
+    };
+
+    ensureGoogleTranslateScript();
+
+    return () => {
+      delete window.googleTranslateElementInit;
+    };
+  }, []);
+
+  const handleLanguageChange = (language: string) => {
+    const normalizedLanguage = language || GOOGLE_TRANSLATE_BASE_LANG;
+    setSelectedLanguage(normalizedLanguage);
+    window.localStorage.setItem(GOOGLE_TRANSLATE_STORAGE_KEY, normalizedLanguage);
+
+    if (normalizedLanguage === GOOGLE_TRANSLATE_BASE_LANG) {
+      clearGoogleTranslateCookie();
+    } else {
+      setGoogleTranslateCookie(normalizedLanguage);
+    }
+
+    window.location.reload();
+  };
+
   return (
     <>
+      <div id="google_translate_element" className="hidden" />
       <motion.div
         initial={{ y: -16, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
@@ -196,14 +323,28 @@ export function SiteHeader() {
             className="hidden items-center gap-2 text-[15px] font-semibold xl:flex"
           >
             <HandHeart className="size-4 text-[#f1bd1a]" />
-            <span>शिक्षा, जागरूकता और ग्राम उत्थान के लिए SBGBT के साथ जुड़ें</span>
+             <Link to="/aavedan-form"><span>शिक्षा, जागरूकता और ग्राम उत्थान के लिए SBGBT के साथ जुड़ें</span> </Link>
           </motion.div>
 
           <div className="flex items-center gap-4">
             <div className="hidden items-center gap-5 text-sm font-medium xl:flex">
-              <button className="flex items-center gap-1.5 transition-opacity duration-300 hover:opacity-80">
-                English <ChevronDown className="size-3.5" />
-              </button>
+              <label className="sr-only" htmlFor="desktop-language-select">
+                Select language
+              </label>
+              <div className="relative">
+                <select
+                  id="desktop-language-select"
+                  value={selectedLanguage}
+                  onChange={(event) => handleLanguageChange(event.target.value)}
+                  className="h-9 rounded-full border border-white/20 bg-white/10 px-4 pr-9 text-sm font-semibold text-white outline-none transition hover:bg-white/15"
+                >
+                  {languageOptions.map((option) => (
+                    <option key={option.value} value={option.value} className="text-[#143c35]">
+                      {option.label}
+                    </option>
+                  ))}
+                </select>
+              </div>
             </div>
 
             <div className="flex items-center gap-1">
@@ -439,6 +580,30 @@ export function SiteHeader() {
                         <div className="text-xs font-medium">Call Us Now</div>
                         <div className="text-sm font-extrabold">(+91)-93144-08609</div>
                       </div>
+                    </div>
+                  </div>
+
+                  <div className="mb-3 rounded-[22px] bg-white/35 p-4 text-[#111111]">
+                    <label
+                      htmlFor="mobile-language-select"
+                      className="mb-2 block text-xs font-semibold uppercase tracking-[0.16em]"
+                    >
+                      Select Language
+                    </label>
+                    <div className="relative">
+                      <select
+                        id="mobile-language-select"
+                        value={selectedLanguage}
+                        onChange={(event) => handleLanguageChange(event.target.value)}
+                        className="w-full rounded-2xl border border-[#143c35]/12 bg-white/80 px-4 py-3 pr-10 text-sm font-semibold text-[#143c35] outline-none"
+                      >
+                        {languageOptions.map((option) => (
+                          <option key={option.value} value={option.value}>
+                            {option.label}
+                          </option>
+                        ))}
+                      </select>
+                      <ChevronDown className="pointer-events-none absolute right-3 top-1/2 size-4 -translate-y-1/2 text-[#143c35]" />
                     </div>
                   </div>
 

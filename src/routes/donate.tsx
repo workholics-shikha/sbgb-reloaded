@@ -1,8 +1,9 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 import {
-  BadgeCheck,
+  HandCoins,
   Building2,
+  CalendarDays,
   GraduationCap,
   HandHeart,
   HeartPulse,
@@ -10,8 +11,10 @@ import {
   Sprout,
   Users2,
 } from "lucide-react";
+
+import qrCode from "@/assets/qr-code.png";
 import { SiteHeader } from "@/components/site/SiteHeader";
-import { PageHero, SiteFooter, CTASection} from "@/components/site/SiteFooter";
+import { CTASection, PageHero, SiteFooter } from "@/components/site/SiteFooter";
 
 export const Route = createFileRoute("/donate")({
   head: () => ({
@@ -20,7 +23,7 @@ export const Route = createFileRoute("/donate")({
       {
         name: "description",
         content:
-          "SBGBT के शिक्षा, पर्यावरण, महिला सशक्तिकरण और जन स्वास्थ्य अभियानों को सहयोग दें। आपका योगदान गांवों में वास्तविक बदलाव ला सकता है।",
+          "SBGBT की शिक्षा, पर्यावरण, महिला सशक्तिकरण और जन स्वास्थ्य पहलों को सहयोग दें। आपका योगदान गांवों में वास्तविक बदलाव ला सकता है।",
       },
       { property: "og:title", content: "दान करें | SBGBT" },
       {
@@ -33,191 +36,243 @@ export const Route = createFileRoute("/donate")({
   component: Donate,
 });
 
-const amounts = [500, 1500, 5000, 15000];
-
-const causes = [
-  { icon: GraduationCap, k: "education", label: "SPGBP छात्रवृत्ति" },
-  { icon: Sprout, k: "environment", label: "ग्रीन विलेज अभियान" },
-  { icon: HeartPulse, k: "health", label: "स्वास्थ्य शिविर" },
-  { icon: Users2, k: "women", label: "महिला समूह सशक्तिकरण" },
-  { icon: Landmark, k: "smart", label: "स्मार्ट विलेज पहल" },
-  { icon: Building2, k: "utthan", label: "उत्थान भवन" },
-] as const;
 
 function Donate() {
-  const [amount, setAmount] = useState<number>(1500);
-  const [custom, setCustom] = useState("");
-  const [cause, setCause] = useState<string>("education");
-  const [freq, setFreq] = useState<"once" | "monthly">("once");
-
-  const final = custom ? Number(custom) : amount;
+  const [sent, setSent] = useState(false);
 
   return (
-    <div className="min-h-screen bg-background text-foreground">
+    <div className="min-h-screen bg-[#f6f0de] text-[#1f1a14]">
       <SiteHeader />
       <PageHero title="दान करें" />
 
-      <section className="border-border">
-        <div className="mx-auto grid max-w-7xl gap-10 px-4 py-16 sm:px-6 sm:py-20 lg:grid-cols-[1.08fr_1fr]">
-          <div className="rounded-[2rem] border border-border bg-card/95 p-6 shadow-sm sm:p-8">
-            <h2 className="font-display text-2xl font-black sm:text-3xl">अपना सहयोग चुनें</h2>
+      <section className="pb-16 pt-8 sm:pb-20">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6">
 
-            <div className="mt-6">
-              <div className="mb-3 text-xs font-semibold uppercase tracking-widest text-muted-foreground">आवृत्ति</div>
-              <div className="inline-flex rounded-full border border-border bg-background p-1">
-                {(["once", "monthly"] as const).map((item) => (
-                  <button
-                    key={item}
-                    onClick={() => setFreq(item)}
-                    className={`rounded-full px-4 py-2 text-sm font-semibold transition ${
-                      freq === item ? "bg-primary text-primary-foreground" : "text-foreground/70"
-                    }`}
-                  >
-                    {item === "once" ? "एक बार" : "मासिक"}
-                  </button>
-                ))}
-              </div>
-            </div>
+          <div className="overflow-hidden rounded-[36px] bg-gradient-to-r from-sky-50 via-cyan-50 to-sky-100 shadow-md">
 
-            <div className="mt-6">
-              <div className="mb-3 text-xs font-semibold uppercase tracking-widest text-muted-foreground">
-                राशि (INR)
-              </div>
-              <div className="grid grid-cols-4 gap-2">
-                {amounts.map((item) => (
-                  <button
-                    key={item}
-                    onClick={() => {
-                      setAmount(item);
-                      setCustom("");
-                    }}
-                    className={`rounded-xl border px-3 py-3 font-display text-lg font-black transition ${
-                      !custom && amount === item
-                        ? "border-primary bg-primary text-primary-foreground"
-                        : "border-border bg-background hover:border-primary/40"
-                    }`}
-                  >
-                    ₹{item.toLocaleString("en-IN")}
-                  </button>
-                ))}
-              </div>
-              <input
-                value={custom}
-                onChange={(event) => setCustom(event.target.value.replace(/[^0-9]/g, ""))}
-                placeholder="या अपनी राशि दर्ज करें"
-                className="mt-3 w-full rounded-xl border border-border bg-background px-4 py-3 text-sm outline-none focus:border-primary"
-                inputMode="numeric"
-              />
-            </div>
+            <div className="grid items-center gap-8 p-8 lg:grid-cols-[140px_1fr_300px]">
 
-            <div className="mt-6">
-              <div className="mb-3 text-xs font-semibold uppercase tracking-widest text-muted-foreground">
-                यह सहयोग किस पहल के लिए है
-              </div>
-              <div className="grid gap-2 sm:grid-cols-3">
-                {causes.map((item) => (
-                  <button
-                    key={item.k}
-                    onClick={() => setCause(item.k)}
-                    className={`flex items-center gap-2 rounded-xl border px-3 py-3 text-left text-sm font-semibold transition ${
-                      cause === item.k
-                        ? "border-accent bg-accent/20 text-earth"
-                        : "border-border bg-background hover:border-primary/40"
-                    }`}
-                  >
-                    <item.icon className="size-4" /> {item.label}
-                  </button>
-                ))}
-              </div>
-            </div>
+              {/* Left Icon */}
 
-            <div className="mt-8 flex items-center justify-between gap-4 rounded-2xl border border-border bg-secondary/60 p-4">
-              <div>
-                <div className="text-xs text-muted-foreground">आपका चयनित योगदान</div>
-                <div className="font-display text-2xl font-black">
-                  ₹{(final || 0).toLocaleString("en-IN")}{" "}
-                  <span className="text-sm font-sans text-muted-foreground">
-                    {freq === "monthly" ? "/ माह" : "एक बार"}
-                  </span>
+              <div className="flex justify-center">
+                <div className="flex h-36 w-36 items-center justify-center rounded-full bg-white shadow-md">
+                  <HandCoins
+                    className="h-20 w-20 text-primary"
+                  />
                 </div>
               </div>
-              <button className="inline-flex items-center gap-2 rounded-full bg-primary px-5 py-3 text-sm font-bold text-primary-foreground shadow-lg transition hover:brightness-110">
-                <HandHeart className="size-4" /> अभी दान करें
-              </button>
-            </div>
 
-            <p className="mt-4 text-xs text-muted-foreground">
-              भुगतान सुरक्षित माध्यम से किया जाएगा। आपके पंजीकृत ईमेल पर रसीद भेजी जाएगी।
-            </p>
-          </div>
+              {/* Center */}
+              <div>
+                <p className="text-xl font-semibold leading-relaxed text-foreground">
+                  इस QR कोड को स्कैन करके आप SBGBT सदस्यता शुल्क जमा कर सकते हैं।
+                  इसकी प्रति (स्क्रीनशॉट) रजिस्ट्रेशन करते समय अपलोड करें।
+                </p>
 
-          <div className="space-y-4">
-            <div className="relative overflow-hidden rounded-[2rem] bg-gradient-to-br from-primary to-leaf p-6 text-primary-foreground shadow-sm sm:p-8">
-              <div className="absolute inset-0 opacity-30 grain-bg" />
-              <div className="relative">
-                <div className="text-xs uppercase tracking-widest opacity-80">आपके सहयोग का असर</div>
-                <ul className="mt-4 space-y-3 text-sm">
-                  <li className="flex gap-3">
-                    <BadgeCheck className="mt-0.5 size-5 shrink-0 text-accent" />
-                    <span>
-                      <b>₹500</b> – उत्थान लाइब्रेरी में एक विद्यार्थी की अध्ययन सामग्री।
-                    </span>
-                  </li>
-                  <li className="flex gap-3">
-                    <BadgeCheck className="mt-0.5 size-5 shrink-0 text-accent" />
-                    <span>
-                      <b>₹1,500</b> – ग्रीन विलेज अभियान के अंतर्गत 30 पौधों का रोपण और देखभाल।
-                    </span>
-                  </li>
-                  <li className="flex gap-3">
-                    <BadgeCheck className="mt-0.5 size-5 shrink-0 text-accent" />
-                    <span>
-                      <b>₹5,000</b> – एक ग्रामीण विद्यार्थी के लिए पूर्ण SPGBP छात्रवृत्ति सहयोग।
-                    </span>
-                  </li>
-                  <li className="flex gap-3">
-                    <BadgeCheck className="mt-0.5 size-5 shrink-0 text-accent" />
-                    <span>
-                      <b>₹15,000</b> – 200+ लाभार्थियों के लिए एक सामुदायिक स्वास्थ्य शिविर।
-                    </span>
-                  </li>
-                </ul>
+                <div className="mt-6 space-y-3">
+                  <p className="text-3xl font-bold text-primary"> Bank Name - ICICI Bank </p>
+                  <p className="text-3xl font-bold text-primary"> Bank Account - 720801001079 </p>
+                  <p className="text-3xl font-bold text-primary"> IFSC Code - ICIC0007208 </p>
+                </div>
+              </div>
+
+              {/* QR */}
+              <div className="flex justify-center lg:justify-end">
+                <div className="rounded-3xl bg-white p-3 shadow-xl">
+                  <img
+                    src={qrCode}
+                    alt="QR Code"
+                    className="h-72 w-72 rounded-2xl object-cover"
+                  />
+                  <p className="mt-3 text-center text-lg font-bold">
+                    UPI ID : 9314408609@icici
+                  </p>
+                </div>
               </div>
             </div>
+          </div>
 
-            <div className="rounded-[2rem] border border-border bg-card/95 p-6 shadow-sm sm:p-8">
-              <div className="text-xs font-semibold uppercase tracking-widest text-primary">सदस्य बनें</div>
-              <h3 className="mt-2 font-display text-2xl font-black">SBGBT परिवार से जुड़ें</h3>
-              <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-                सदस्यों को समय-समय पर फील्ड रिपोर्ट, वार्षिक कार्यक्रमों के आमंत्रण और सामान्य सभा में भागीदारी का अवसर मिलता है।
-              </p>
-              <Link
-                to="/contact"
-                className="mt-5 inline-flex items-center gap-2 rounded-full border border-primary px-5 py-2.5 text-sm font-semibold text-primary transition hover:bg-primary hover:text-primary-foreground"
-              >
-                सदस्यता की जानकारी लें
-              </Link>
-            </div>
+          <div className="mx-auto grid max-w-7xl gap-10 px-4 py-16 sm:px-6 sm:py-20 lg:grid-cols-[1.6fr]">
+            <form
+              onSubmit={(event) => {
+                event.preventDefault();
+                setSent(true);
+              }}
+              className="rounded-[2rem] border border-border bg-card/95 p-6 shadow-lg sm:p-8"
+            >
+              <h2 className="font-display text-3xl font-bold text-primary">दान करें</h2>
 
-            <div className="rounded-[2rem] border border-border bg-card/95 p-6 shadow-sm sm:p-8">
-              <div className="text-xs font-semibold uppercase tracking-widest text-primary">बैंक ट्रांसफर</div>
-              <ul className="mt-3 space-y-1.5 font-mono text-sm text-muted-foreground">
-                <li>खाता नाम: Soch Badlo Gaon Badlo Team</li>
-                <li>खाता संख्या: XXXX XXXX XXXX</li>
-                <li>IFSC: XXXX0000000</li>
-                <li>UPI: sbgbteam@upi</li>
-              </ul>
-              <p className="mt-3 text-xs text-muted-foreground">
-                बैंक ट्रांसफर से पहले अद्यतन बैंक विवरण की पुष्टि के लिए हमारी टीम से संपर्क करें।
-              </p>
-            </div>
+              <div className="mt-8 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+                <label className="block">
+                  <span className="mb-3 block text-[1.05rem] font-medium text-[#1a202c]">
+                    दानदाता का पूरा नाम (Name of Donor)<span className="text-red-500">*</span>
+                  </span>
+                  <input
+                    required
+                    placeholder="दानदाता का पूरा नाम"
+                    className="w-full rounded-xl border border-border px-4 py-3 outline-none focus:border-primary"
+                  />
+                </label>
+
+                <label className="block">
+                  <span className="mb-3 block text-[1.05rem] font-medium text-[#1a202c]">
+                    मोबाइल नंबर (Mobile number)<span className="text-red-500">*</span>
+                  </span>
+                  <input
+                    required
+                    inputMode="numeric"
+                    placeholder="मोबाइल नंबर"
+                    className="w-full rounded-xl border border-border px-4 py-3 outline-none focus:border-primary"
+                  />
+                </label>
+
+                <label className="block">
+                  <span className="mb-3 block text-[1.05rem] font-medium text-[#1a202c]">
+                    मेल ID<span className="text-red-500">*</span>
+                  </span>
+                  <input
+                    required
+                    type="email"
+                    placeholder="Mail ID"
+                    className="w-full rounded-xl border border-border px-4 py-3 outline-none focus:border-primary"
+                  />
+                </label>
+
+                <label className="block">
+                  <span className="mb-3 block text-[1.05rem] font-medium text-[#1a202c]">
+                    गाँव या शहर (Village/City)<span className="text-red-500">*</span>
+                  </span>
+                  <input
+                    required
+                    placeholder="गाँव या शहर (Village/City)"
+                    className="w-full rounded-xl border border-border px-4 py-3 outline-none focus:border-primary"
+                  />
+                </label>
+
+                <label className="block">
+                  <span className="mb-3 block text-[1.05rem] font-medium text-[#1a202c]">
+                    तहसील (Tehsil)<span className="text-red-500">*</span>
+                  </span>
+                  <input
+                    required
+                    placeholder="तहसील (Tehsil)"
+                    className="w-full rounded-xl border border-border px-4 py-3 outline-none focus:border-primary"
+                  />
+                </label>
+
+                <label className="block">
+                  <span className="mb-3 block text-[1.05rem] font-medium text-[#1a202c]">
+                    जिला (District)<span className="text-red-500">*</span>
+                  </span>
+                  <input
+                    required
+                    placeholder="जिला (District)"
+                    className="w-full rounded-xl border border-border px-4 py-3 outline-none focus:border-primary"
+                  />
+                </label>
+
+                <label className="block">
+                  <span className="mb-3 block text-[1.05rem] font-medium text-[#1a202c]">
+                    राज्य (State)<span className="text-red-500">*</span>
+                  </span>
+                  <input
+                    required
+                    placeholder="राज्य (State)"
+                    className="w-full rounded-xl border border-border px-4 py-3 outline-none focus:border-primary"
+                  />
+                </label>
+
+                <label className="block">
+                  <span className="mb-3 block text-[1.05rem] font-medium text-[#1a202c]">
+                    Mode of Payment (भुगतान का माध्यम)
+                  </span>
+                  <select className="w-full rounded-xl border border-border px-4 py-3 outline-none focus:border-primary">
+                    <option>Select Mode of Payment</option>
+                    <option>UPI</option>
+                    <option>Bank Transfer</option>
+                    <option>Cash</option>
+                    <option>Cheque</option>
+                    <option>NEFT / RTGS</option>
+                  </select>
+                </label>
+
+                <label className="block">
+                  <span className="mb-3 block text-[1.05rem] font-medium text-[#1a202c]">
+                    दान की राशि (Amount of Donation)<span className="text-red-500">*</span>
+                  </span>
+                  <input
+                    required
+                    inputMode="numeric"
+                    placeholder="दान की राशि (Amount of Donation)"
+                    className="w-full rounded-xl border border-border px-4 py-3 outline-none focus:border-primary"
+                  />
+                </label>
+
+                <label className="block">
+                  <span className="mb-3 block text-[1.05rem] font-medium text-[#1a202c]">
+                    दान की दिनांक (Date of Donation)<span className="text-red-500">*</span>
+                  </span>
+                  <div className="relative">
+                    <input
+                      required
+                      type="date"
+                      className="w-full rounded-xl border border-border px-4 py-3 outline-none focus:border-primary"
+                    />
+                    <CalendarDays className="pointer-events-none absolute right-5 top-1/2 size-5 -translate-y-1/2 text-[#343434]" />
+                  </div>
+                </label>
+
+                <label className="block md:col-span-2">
+                  <span className="mb-3 block text-[1.05rem] font-medium text-[#1a202c]">
+                    दान का उद्देश्य (Purpose of donation)<span className="text-red-500">*</span>
+                  </span>
+                  <input
+                    required
+                    placeholder="दान का उद्देश्य (Purpose of donation)"
+                    className="w-full rounded-xl border border-border px-4 py-3 outline-none focus:border-primary"
+                  />
+                </label>
+
+                <label className="block">
+                  <span className="mb-3 block text-[1.05rem] font-medium text-[#1a202c]">
+                    पहचान पत्र - (Donor Aadhar or PAN Id)<span className="text-red-500">*</span>
+                  </span>
+                  <input
+                    required
+                    placeholder="पहचान पत्र - (Donor Aadhar or PAN Id)"
+                    className="w-full rounded-xl border border-border px-4 py-3 outline-none focus:border-primary"
+                  />
+                </label>
+
+                <label className="block md:col-span-2">
+                  <span className="mb-3 block text-[1.05rem] font-medium text-[#1a202c]">
+                    भुगतान रसीद (Payment Receipt)<span className="text-red-500">*</span>
+                  </span>
+                  <input
+                    required
+                    type="file"
+                    className="w-full rounded-xl border border-border px-4 py-3 outline-none focus:border-primary"
+                  />
+                </label>
+              </div>
+
+              <div className="mt-8 flex flex-wrap items-center gap-4">
+                <button
+                  type="submit"
+                  className="inline-flex items-center gap-2 rounded-full bg-[#0a6b43] px-7 py-3 text-base font-bold text-white transition hover:brightness-105"
+                >
+                  <HandHeart className="size-4" />
+                  फॉर्म सबमिट करें
+                </button>
+                {sent ? <span className="text-sm font-medium text-[#0a6b43]">फॉर्म सफलतापूर्वक जमा हो गया।</span> : null}
+              </div>
+            </form>
           </div>
         </div>
-      </section>
-      {/* CTA */}
+      </section >
+
       <CTASection />
-      {/* === */}
       <SiteFooter />
-    </div>
+    </div >
   );
 }

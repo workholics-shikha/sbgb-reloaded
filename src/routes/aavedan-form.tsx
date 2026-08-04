@@ -50,60 +50,36 @@ function Contact() {
               </div>
 
               {/* Center */}
-
               <div>
-
                 <p className="text-xl font-semibold leading-relaxed text-foreground">
                   इस QR कोड को स्कैन करके आप SBGBT सदस्यता शुल्क जमा कर सकते हैं।
                   इसकी प्रति (स्क्रीनशॉट) रजिस्ट्रेशन करते समय अपलोड करें।
                 </p>
 
                 <div className="mt-6 space-y-3">
-
-                  <p className="text-3xl font-bold text-primary">
-                    Bank Name - ICICI Bank
-                  </p>
-
-                  <p className="text-3xl font-bold text-primary">
-                    Bank Account - 720801001079
-                  </p>
-
-                  <p className="text-3xl font-bold text-primary">
-                    IFSC Code - ICIC0007208
-                  </p>
-
+                  <p className="text-3xl font-bold text-primary"> Bank Name - ICICI Bank </p>
+                  <p className="text-3xl font-bold text-primary"> Bank Account - 720801001079 </p>
+                  <p className="text-3xl font-bold text-primary"> IFSC Code - ICIC0007208 </p>
                 </div>
-
               </div>
 
               {/* QR */}
-
               <div className="flex justify-center lg:justify-end">
-
                 <div className="rounded-3xl bg-white p-3 shadow-xl">
-
                   <img
                     src={qrCode}
                     alt="QR Code"
                     className="h-72 w-72 rounded-2xl object-cover"
                   />
-
                   <p className="mt-3 text-center text-lg font-bold">
                     UPI ID : 9314408609@icici
                   </p>
-
                 </div>
-
               </div>
-
             </div>
-
           </div>
-
         </div>
-      </section>
-
-      <section className=" border-border">
+       
         <div className="mx-auto grid max-w-7xl gap-10 px-4 py-16 sm:px-6 sm:py-20 lg:grid-cols-[1.6fr]">
 
           <form
