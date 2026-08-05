@@ -1,6 +1,10 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import {
   motion,
+  useMotionTemplate,
+  useReducedMotion,
+  useScroll,
+  useTransform,
 } from "framer-motion";
 import { type ReactNode, useEffect, useRef, useState } from "react";
 import {
@@ -17,6 +21,7 @@ import {
   BookOpen,
   FileText,
   GraduationCap,
+  HandHeart,
   HeartPulse,
   Images,
   Landmark,
@@ -34,36 +39,11 @@ import {
 import { SiteHeader } from "@/components/site/SiteHeader";
 import { SiteFooter } from "@/components/site/SiteFooter";
 import blogBgPaper from "@/assets/blog-bg-paper.png";
+import heroEducation from "@/assets/hero-education.jpg";
 import heroDividerRough from "@/assets/hero-divider-rough.png";
 import heroHeartSprade from "@/assets/hero-heart-sprade.png";
-
-// galWomen, heroEducation, galEnv - hero slider
-
-// import heroEducation from "@/assets/hero-education.jpg";
-// import galWomen from "@/assets/gallery-women.jpg";
-// import galEnv from "@/assets/gallery-environment.jpg";
-
-import heroEducation from "@/assets/hero-education.jpg";
-import galWomen from "@/assets/gallery-women.jpg";
 import galEnv from "@/assets/gallery-environment.jpg";
-
-// hero sliders
-import heroSlide2 from "@/assets/1-smart-village.png";
-import heroSlide6 from "@/assets/2-panchayati-raj.png";
-import heroSlide3 from "@/assets/3-atmanirbhar-gaon.png";
-import heroSlide4 from "@/assets/4-paryavaran-sanrakshan.png";
-import heroSlide5 from "@/assets/5-jan-swasthya.png";
-import heroSlide1 from "@/assets/6-samaj-rashtra-nirman.png";
-
-// gallery
-import greenVillage from "@/assets/plants.jpg";
-import womenEmpowermentGallery from "@/assets/mahila-sakhaktikaran.jpg";
-import humanServiceGallery from "@/assets/manavta-seva.jpg";
-import educationDriveGallery from "@/assets/siksha-pao.jpg";
-import socialRevolutionGallery from "@/assets/samajik-kranti.jpg";
-import thoughtChangeGallery from "@/assets/soch-badlo.jpg";
-import awarenessGallery from "@/assets/soch2.jpg";
-
+import galWomen from "@/assets/gallery-women.jpg";
 import galLib from "@/assets/gallery-library.jpg";
 import galHealth from "@/assets/gallery-health.jpg";
 import galAwards from "@/assets/gallery-awards.jpg";
@@ -77,11 +57,19 @@ import mediaSbgb03 from "@/assets/media-sbgb-03.jpg";
 import mediaSbgb04 from "@/assets/media-sbgb-04.jpg";
 import ecoNeedsLogo from "@/assets/econeeds-logo.png";
 import workholicsLogo from "@/assets/workholicslogo.png";
-import socialPostHulaspura from "@/assets/news1.jpg";
-import socialPostTataPower from "@/assets/activities-hero-real.jpg";
-import socialPostTuZindaHai from "@/assets/news2.jpg";
 
-export const Route = createFileRoute("/")({
+import blueCardImg from "@/assets/blueCardImg.png";
+import blueCardImg2 from "@/assets/blueCardImg2.png";
+import blueCardImg3 from "@/assets/blueCardImg3.png";
+import darkGreenCardImg from "@/assets/darkGreenCardImg.png";
+import greenCardImg from "@/assets/greenCardImg.png";
+import greyCardImg from "@/assets/greyCardImg.png";
+import orangeCardImg from "@/assets/orangeCardImg.png";
+import pinkCardImg from "@/assets/news1.jpg";
+import purpleCardImg from "@/assets/purpleCardImg.png";
+import redCardImg from "@/assets/redCardImg.png";
+
+export const Route = createFileRoute("/index-backup")({
   head: () => ({
     meta: [
       { title: "SBGBT | सोच बदलो, गांव बदलो टीम" },
@@ -145,59 +133,55 @@ const sectionRevealProps = {
   transition: { duration: 0.72, ease: [0.22, 1, 0.36, 1] as const },
 };
 
-function getYouTubeThumbnail(embedUrl: string) {
-  const match = embedUrl.match(/embed\/([a-zA-Z0-9_-]+)/);
-  const videoId = match?.[1];
-  return videoId ? `https://img.youtube.com/vi/${videoId}/hqdefault.jpg` : "";
+type StackCardProps = {
+  children: ReactNode;
+  index: number;
+  isDesktop: boolean;
+};
+
+function StackCard({ children, index, isDesktop }: StackCardProps) {
+  return (
+    <div
+      className="stack-card"
+      style={
+        isDesktop
+          ? {
+            position: "sticky",
+            top: `${90 + index * 50}px`, // header strip height ke barabar rakho
+            zIndex: index + 1,
+          }
+          : { marginBottom: "20px" }
+      }
+    >
+      {children}
+    </div>
+  );
 }
 
 const heroSlides = [
   {
-    title: "",
+    title: "महिला सशक्तिकरण",
     note: "शिक्षा, आत्मविश्वास और नेतृत्व से जुड़ी पहलें",
     accent: "नई दिशा",
     stat: "150+ गाँव",
     statNote: "प्रभावित",
-    image: heroSlide1,
+    image: galWomen,
   },
   {
-    title: "",
+    title: "ग्रामीण शिक्षा",
     note: "प्रतिभा खोज, मार्गदर्शन और सतत सार्थक सहयोग",
     accent: "सतत अभियान",
     stat: "25+ पहल",
     statNote: "शैक्षिक केंद्र",
-    image: heroSlide2,
+    image: heroEducation,
   },
   {
-    title: "",
+    title: "ग्रीन विलेज - क्लीन विलेज",
     note: "स्वच्छता, पर्यावरण और सामुदायिक भागीदारी",
     accent: "हरित संकल्प",
     stat: "1000+ पौधे",
     statNote: "संरक्षण अभियान",
-    image: heroSlide3,
-  }, {
-    title: "",
-    note: "शिक्षा, आत्मविश्वास और नेतृत्व से जुड़ी पहलें",
-    accent: "नई दिशा",
-    stat: "150+ गाँव",
-    statNote: "प्रभावित",
-    image: heroSlide4,
-  },
-  {
-    title: "",
-    note: "प्रतिभा खोज, मार्गदर्शन और सतत सार्थक सहयोग",
-    accent: "सतत अभियान",
-    stat: "25+ पहल",
-    statNote: "शैक्षिक केंद्र",
-    image: heroSlide5,
-  },
-  {
-    title: "",
-    note: "स्वच्छता, पर्यावरण और सामुदायिक भागीदारी",
-    accent: "हरित संकल्प",
-    stat: "1000+ पौधे",
-    statNote: "संरक्षण अभियान",
-    image: heroSlide6,
+    image: galEnv,
   },
 ] as const;
 
@@ -478,15 +462,8 @@ const mediaCoverageLabels = [
   "जनजागृति अभियान",
 ] as const;
 
-const platformStyle = {
-  facebook: { icon: Facebook, label: "Facebook", bg: "#1877F2" },
-  x: { icon: Twitter, label: "X", bg: "#0f1419" },
-  instagram: { icon: Instagram, label: "Instagram", bg: "#d62976" },
-  youtube: { icon: Youtube, label: "YouTube", bg: "#FF0000" },
-};
-
 const galleryItems = [
-  { src: galVillage, title: "# ग्रीन विलेज # क्लीन विलेज" },
+  { src: galVillage, title: "On event gallery" },
   { src: galLib, title: "आओ पढे-आगे बढे" },
   { src: galAwards, title: "Journey 4" },
   { src: galWomen, title: "Journey 2" },
@@ -494,128 +471,41 @@ const galleryItems = [
   { src: galHealth, title: "ब्लड की कमी से किसी की जान नहीं जा सकेगी" },
 ];
 
-void galleryItems;
-
-const featuredGalleryItems = [
-  { src: greenVillage, title: "# à¤—à¥à¤°à¥€à¤¨ à¤µà¤¿à¤²à¥‡à¤œ # à¤•à¥à¤²à¥€à¤¨ à¤µà¤¿à¤²à¥‡à¤œ" },
-  { src: educationDriveGallery, title: "à¤†à¤“ à¤ªà¤¢à¥‡à¤‚, à¤†à¤—à¥‡ à¤¬à¤¢à¤¼à¥‡à¤‚" },
-  { src: womenEmpowermentGallery, title: "à¤®à¤¹à¤¿à¤²à¤¾ à¤¸à¤¶à¤•à¥à¤¤à¤¿à¤•à¤°à¤£" },
-  { src: humanServiceGallery, title: "à¤®à¤¾à¤¨à¤µà¤¤à¤¾ à¤¸à¥‡à¤µà¤¾" },
-  { src: thoughtChangeGallery, title: "à¤¸à¥‹à¤š à¤¬à¤¦à¤²à¥‹ à¤…à¤­à¤¿à¤¯à¤¾à¤¨" },
-  { src: awarenessGallery, title: "à¤œà¤¨à¤œà¤¾à¤—à¤°à¥‚à¤•à¤¤à¤¾ à¤•à¥‡ à¤¦à¥ƒà¤¶à¥à¤¯" },
-] as const;
-
-const readableFeaturedGalleryItems = [
-  {
-    src: educationDriveGallery,
-    title: "\u0936\u093f\u0915\u094d\u0937\u093e \u092a\u093e\u0913-\u091c\u094d\u091e\u093e\u0928 \u092c\u0922\u093c\u093e\u0913",
-    category: "\u0936\u093f\u0915\u094d\u0937\u093e \u092a\u093e\u0913-\u091c\u094d\u091e\u093e\u0928 \u092c\u0922\u093c\u093e\u0913",
-    year: "2024",
-    date: "30-01-2021",
-  },
-  {
-    src: greenVillage,
-    title: "\u0023 \u0917\u094d\u0930\u0940\u0928 \u0935\u093f\u0932\u0947\u091c \u0023 \u0915\u094d\u0932\u0940\u0928 \u0935\u093f\u0932\u0947\u091c",
-    category: "\u0915\u094d\u0932\u0940\u0928 \u0935\u093f\u0932\u0947\u091c-\u0917\u094d\u0930\u0940\u0928 \u0935\u093f\u0932\u0947\u091c",
-    year: "2024",
-    date: "30-01-2021",
-  },
-  {
-    src: womenEmpowermentGallery,
-    title: "\u092c\u093e\u0932\u093f\u0915\u093e \u0936\u093f\u0915\u094d\u0937\u093e \u0939\u0940 \u092e\u0939\u093f\u0932\u093e \u0938\u0936\u0915\u094d\u0924\u093f\u0915\u0930\u0923 \u0915\u093e \u0906\u0927\u093e\u0930 \u0939\u0948",
-    category: "\u092e\u0939\u093f\u0932\u093e \u0938\u0936\u0915\u094d\u0924\u093f\u0915\u0930\u0923",
-    year: "2024",
-    date: "30-01-2021",
-  },
-  {
-    src: humanServiceGallery,
-    title: "\u092c\u094d\u0932\u0921 \u0915\u0940 \u0915\u092e\u0940 \u0938\u0947 \u0915\u093f\u0938\u0940 \u0915\u0940 \u091c\u093e\u0928 \u0928\u0939\u0940\u0902 \u091c\u093e \u0938\u0915\u0947\u0917\u0940",
-    category: "\u0930\u0915\u094d\u0924\u0926\u093e\u0928 \u092e\u0939\u093e\u0926\u093e\u0928",
-    year: "2024",
-    date: "30-01-2021",
-  },
-  {
-    src: thoughtChangeGallery,
-    title: "\u0938\u093e\u092e\u093e\u091c\u093f\u0915 \u0915\u094d\u0930\u093e\u0902\u0924\u093f, \u0938\u094d\u092e\u093e\u0930\u094d\u091f \u0917\u093e\u0901\u0935 \u0938\u094d\u092e\u093e\u0930\u094d\u091f \u0938\u094b\u091a",
-    category: "\u0936\u093f\u0915\u094d\u0937\u093e \u092a\u093e\u0913-\u091c\u094d\u091e\u093e\u0928 \u092c\u0922\u093c\u093e\u0913",
-    year: "2024",
-    date: "30-01-2021",
-  },
-  {
-    src: awarenessGallery,
-    title: "\u0909\u0924\u094d\u0925\u093e\u0928 \u0915\u094b\u091a\u093f\u0902\u0917 \u0938\u0902\u0938\u094d\u0925\u093e\u0928",
-    category: "\u0909\u0924\u094d\u0925\u093e\u0928 \u0915\u094b\u091a\u093f\u0902\u0917 \u0938\u0902\u0938\u094d\u0925\u093e\u0928",
-    year: "2024",
-    date: "30-01-2021",
-  },
-] as const;
-
-const socialRevolutionFeaturedItem = {
-  src: socialRevolutionGallery,
-  title: "\u0938\u093e\u092e\u093e\u091c\u093f\u0915 \u0915\u094d\u0930\u093e\u0902\u0924\u093f",
-  category: "\u0938\u093e\u092e\u093e\u091c\u093f\u0915 \u0915\u094d\u0930\u093e\u0902\u0924\u093f",
-  year: "2024",
-  date: "30-01-2021",
-} as const;
-
-const featuredGalleryLayout = [
-  "sm:col-span-2 lg:col-span-7 lg:row-span-2",
-  "lg:col-span-5",
-  "lg:col-span-5",
-  "lg:col-span-4",
-  "lg:col-span-4",
-  "lg:col-span-4",
-] as const;
+const platformStyle = {
+  facebook: { icon: Facebook, label: "Facebook", bg: "#1877F2" },
+  x: { icon: Twitter, label: "X", bg: "#0f1419" },
+  instagram: { icon: Instagram, label: "Instagram", bg: "#d62976" },
+  youtube: { icon: Youtube, label: "YouTube", bg: "#FF0000" },
+};
 
 const socialUpdates = [
   {
     platform: "facebook",
-    date: "26 जुलाई 2026",
-    title: "हुलासपुरा गाँव की बदलती तस्वीर",
-    caption:
-      "बरौली क्षेत्र के हुलासपुरा गाँव में कीचड़ और जलभराव से भरे रास्ते अब पक्की सड़क में बदल चुके हैं — विकसित गाँव के संकल्प की एक सशक्त मिसाल।",
-    image: socialPostHulaspura,
-    link: "https://facebook.com/photo.php?fbid=1497575359073707&set=a.623344943163424&type=3",
-  },
-  {
-    platform: "facebook",
-    date: "25 जुलाई 2026",
-    title: "'तू ज़िन्दा है तो ज़िन्दगी की जीत में यकीन कर'",
-    caption:
-      "उम्मीद, संघर्ष और नए सवेरे के जज़्बे को समर्पित एक प्रेरणादायक रचना — हर मुश्किल के बाद बहार ज़रूर आती है।",
-    image: socialPostTuZindaHai,
-    link: "https://facebook.com/photo?fbid=1496311602533416&set=a.623344943163424",
+    date: "12 जुलाई 2026",
+    title: "गांव की तस्वीर — पहले और अब",
+    caption: "धनौरा गांव की एक गली — पहले कीचड़ और मलबे से भरी, आज साफ-सुथरी और पक्की।",
+    image: galVillage,
   },
   {
     platform: "x",
-    date: "01 मई 2024",
-    title: "धरती माँ के संरक्षण का संदेश — टाटा पावर के साथ",
-    caption:
-      "\"धरती मां के संरक्षण और संवर्धन का संदेश देता टाटा पावर का दमदार और प्रभावशाली वीडियो।\" हमारे दिन प्रतिदिन का व्यवहार ही प्रकृति मां को आने वाली पीढ़ियों के लिए संरक्षित कर सकता है।",
-    image: socialPostTataPower,
-    link: "https://x.com/DrSatyapal_IRS/status/1785551206443593737",
-    isVideo: true,
-    duration: "02:39",
+    date: "08 जुलाई 2026",
+    title: "टाटा पावर के साथ मिलकर धरती माँ का श्रृंगार",
+    caption: "SBGBT का ग्रीन विलेज - क्लीन विलेज अभियान अब बड़े संस्थानों के सहयोग से आगे बढ़ रहा है।",
+    image: galEnv,
   },
   {
-    platform: "facebook",
-    date: "25 जुलाई 2026",
-    title: "'तू ज़िन्दा है तो ज़िन्दगी की जीत में यकीन कर'",
-    caption:
-      "उम्मीद, संघर्ष और नए सवेरे के जज़्बे को समर्पित एक प्रेरणादायक रचना — हर मुश्किल के बाद बहार ज़रूर आती है।",
-    image: socialPostTuZindaHai,
-    link: "https://facebook.com/photo?fbid=1496311602533416&set=a.623344943163424",
+    platform: "instagram",
+    date: "02 जुलाई 2026",
+    title: "उत्थान लाइब्रेरी में पढ़ाई का माहौल",
+    caption: "गांव के बच्चों के लिए एक शांत, सुसज्जित जगह जहाँ वे बिना किसी बाधा के पढ़ाई कर सकें।",
+    image: galLib,
   },
   {
-    platform: "x",
-    date: "01 मई 2024",
-    title: "धरती माँ के संरक्षण का संदेश — टाटा पावर के साथ",
-    caption:
-      "\"धरती मां के संरक्षण और संवर्धन का संदेश देता टाटा पावर का दमदार और प्रभावशाली वीडियो।\" हमारे दिन प्रतिदिन का व्यवहार ही प्रकृति मां को आने वाली पीढ़ियों के लिए संरक्षित कर सकता है।",
-    image: socialPostTataPower,
-    link: "https://x.com/DrSatyapal_IRS/status/1785551206443593737",
-    isVideo: true,
-    duration: "02:39",
+    platform: "youtube",
+    date: "28 जून 2026",
+    title: "स्थापना दिवस — एक झलक",
+    caption: "SBGBT की यात्रा को आगे बढ़ाने वाले हर एक व्यक्ति के लिए धन्यवाद।",
+    image: galAwards,
   },
 ];
 
@@ -624,10 +514,7 @@ function SocialUpdateCard({ item }: { item: (typeof socialUpdates)[number] }) {
   const Icon = meta.icon;
 
   return (
-    <motion.a
-      href={item.link}
-      target="_blank"
-      rel="noreferrer"
+    <motion.article
       whileHover={{ y: -8 }}
       transition={{ duration: 0.35, ease: "easeOut" }}
       className="group relative w-[86%] shrink-0 snap-center overflow-hidden rounded-[1.9rem] border border-[#255247]/12 bg-[#fbf7ef] shadow-[0_22px_44px_-30px_rgba(17,63,52,0.4)] sm:w-[62%] lg:w-[30%]"
@@ -639,8 +526,6 @@ function SocialUpdateCard({ item }: { item: (typeof socialUpdates)[number] }) {
           className="h-full w-full object-cover transition duration-700 group-hover:scale-105"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-ink/70 via-transparent to-transparent" />
-
-        {/* Platform badge */}
         <div
           className="absolute left-4 top-4 flex items-center gap-2 rounded-full py-1.5 pl-1.5 pr-3 text-xs font-semibold text-white shadow-lg backdrop-blur"
           style={{ backgroundColor: meta.bg }}
@@ -650,25 +535,9 @@ function SocialUpdateCard({ item }: { item: (typeof socialUpdates)[number] }) {
           </span>
           {meta.label}
         </div>
-
-        {/* Date chip */}
         <div className="absolute right-4 top-4 rounded-full bg-white/90 px-3 py-1 text-[11px] font-semibold text-[#143c35] shadow">
           {item.date}
         </div>
-
-        {/* Video overlay: play icon + duration */}
-        {item.isVideo && (
-          <>
-            <div className="absolute inset-0 flex items-center justify-center">
-              <div className="grid size-14 place-items-center rounded-full bg-white/90 shadow-lg transition duration-300 group-hover:scale-110">
-                <ArrowRight className="size-6 -rotate-45 text-[#143c35]" strokeWidth={2.4} />
-              </div>
-            </div>
-            <div className="absolute bottom-3 left-3 rounded bg-black/75 px-2 py-0.5 text-[11px] font-semibold text-white">
-              {item.duration}
-            </div>
-          </>
-        )}
       </div>
 
       <div className="p-5">
@@ -678,11 +547,14 @@ function SocialUpdateCard({ item }: { item: (typeof socialUpdates)[number] }) {
         <p className="mt-2 line-clamp-3 text-sm leading-relaxed text-[#5e6c67]">
           {item.caption}
         </p>
-        <span className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-primary transition group-hover:gap-2.5">
+        <a
+          href="#"
+          className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-primary transition group-hover:gap-2.5"
+        >
           पूरी पोस्ट देखें <ArrowRight className="size-3.5" />
-        </span>
+        </a>
       </div>
-    </motion.a>
+    </motion.article>
   );
 }
 
@@ -703,24 +575,9 @@ function Home() {
   const initiativeResetTimerRef = useRef<number | null>(null);
   const [isDesktopStack, setIsDesktopStack] = useState(false);
 
-  const socialScrollRef = useRef<HTMLDivElement | null>(null);
-  const socialAutoScrollPausedRef = useRef(false);
-  const autoSlideRef = useRef<number | null>(null);
-
-  useEffect(() => {
-    autoSlideRef.current = window.setInterval(() => {
-      setVideoCarouselPosition((prev) => prev + 1);
-    }, 3000);
-
-    return () => {
-      if (autoSlideRef.current) {
-        clearInterval(autoSlideRef.current);
-      }
-    };
-  }, []);
-
   useEffect(() => {
     const mediaQuery = window.matchMedia("(min-width: 1024px)");
+
     const syncDesktop = () => setIsDesktopStack(mediaQuery.matches);
 
     syncDesktop();
@@ -728,6 +585,7 @@ function Home() {
 
     return () => mediaQuery.removeEventListener("change", syncDesktop);
   }, []);
+
 
   useEffect(() => {
     const interval = window.setInterval(() => {
@@ -818,8 +676,6 @@ function Home() {
     progressCircumference - (progressCircumference * scrollProgress) / 100;
   const loopedVideos = [...videos, ...videos, ...videos];
   const loopedInitiatives = [...initiatives, ...initiatives, ...initiatives];
-
-  // SBGBT के प्रेरक वीडियो।
 
   useEffect(() => {
     const container = videoCarouselRef.current;
@@ -922,30 +778,6 @@ function Home() {
       }
     };
   }, [initiativeCarouselPosition]);
-
-  useEffect(() => {
-    const container = socialScrollRef.current;
-    if (!container) {
-      return;
-    }
-
-    const interval = window.setInterval(() => {
-      if (socialAutoScrollPausedRef.current) {
-        return;
-      }
-
-      const maxScroll = container.scrollWidth - container.clientWidth;
-
-      if (container.scrollLeft >= maxScroll - 4) {
-        container.scrollTo({ left: 0, behavior: "smooth" });
-      } else {
-        const cardWidth = container.querySelector<HTMLElement>("[data-social-card]")?.offsetWidth ?? 320;
-        container.scrollBy({ left: cardWidth + 20, behavior: "smooth" });
-      }
-    }, 3500);
-
-    return () => window.clearInterval(interval);
-  }, []);
 
   return (
     <div className="min-h-screen bg-[linear-gradient(180deg,#f5f0df_0%,#f1ecd7_28%,#f7f3e7_100%)] text-foreground">
@@ -1119,12 +951,11 @@ function Home() {
             }}
           >
             <div className="relative z-10 rounded-[2rem] shadow-[0_38px_80px_-32px_rgba(0,0,0,0.95)]">
-              <div className="relative overflow-hidden rounded-[2rem] aspect-[4/5]">
+              <div className="relative overflow-hidden rounded-[2rem]">
                 <img
                   src={currentHeroSlide.image}
                   alt={currentHeroSlide.title}
-                  className="absolute inset-0 h-full w-full object-cover object-center transition duration-700"
-                  // className="aspect-[4/5] w-full scale-[1.02] object-center transition duration-700 sm:aspect-[5/6]"
+                  className="aspect-[4/5] w-full scale-[1.02] object-cover object-center transition duration-700 sm:aspect-[5/6]"
                   width={1600}
                   height={1200}
                 />
@@ -1134,7 +965,7 @@ function Home() {
                     {currentHeroSlide.title}
                   </div>
                   <p className="mt-2 max-w-md text-sm leading-relaxed text-cream/92">
-                    {/* {currentHeroSlide.note} */}
+                    {currentHeroSlide.note}
                   </p>
                 </div>
               </div>
@@ -1275,7 +1106,6 @@ function Home() {
             </div>
           </div>
         </div>
-
       </motion.section>
 
       {/* new section */}
@@ -1296,7 +1126,7 @@ function Home() {
                 सोशल मीडिया पर SBGBT
               </div>
               <h2 className="mt-3 font-display text-3xl font-black text-white sm:text-4xl">
-                हमारी ताज़ा गतिविधियाँ।
+                हमारी ताज़ा गतिविधियाँ, सीधे मैदान से।
               </h2>
             </div>
             <a
@@ -1308,11 +1138,6 @@ function Home() {
           </div>
 
           <div
-            ref={socialScrollRef}
-            onMouseEnter={() => { socialAutoScrollPausedRef.current = true; }}
-            onMouseLeave={() => { socialAutoScrollPausedRef.current = false; }}
-            onTouchStart={() => { socialAutoScrollPausedRef.current = true; }}
-            onTouchEnd={() => { socialAutoScrollPausedRef.current = false; }}
             className="mt-10 flex snap-x snap-mandatory gap-5 overflow-x-auto scroll-smooth pb-4 [&::-webkit-scrollbar]:hidden"
             style={{ scrollbarWidth: "none" }}
           >
@@ -1324,6 +1149,362 @@ function Home() {
       </motion.section>
 
       {/* new section */}
+
+      <section className="relative bg-[linear-gradient(180deg,#fbf7ee_0%,#f6f0e0_100%)]">
+        <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/15 to-transparent" />
+        <div className="absolute left-[-4rem] top-12 size-44 rounded-full bg-accent/12 blur-3xl" />
+        <div className="absolute right-[-5rem] bottom-10 size-56 rounded-full bg-primary/10 blur-3xl" />
+        <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-20">
+          <div>
+
+            {/* <!-- home section-2 start --> */}
+            <div className="container-fluid section2 mb-5">
+              <div className="container">
+                <div className="text-center mb-5">
+                  <div className="text-xs font-semibold uppercase tracking-[0.2em] text-primary">
+                    ताज़ा जानकारी
+                  </div>
+                  <h2 className="mt-3 font-display text-3xl font-black text-balance sm:text-4xl lg:text-5xl">
+                    नवीनतम अपडेट
+                  </h2>
+                  <p className="mx-auto mt-4 max-w-2xl text-sm leading-relaxed text-muted-foreground sm:text-base">
+                    SBGBT की प्रमुख पहलों और कार्यक्रमों से जुड़ी ताज़ा जानकारी यहाँ देखें।
+                  </p>
+                </div>
+
+                <div
+                  ref={stackSectionRef}
+                  className="mb-4 sec2-card"
+                  style={{ position: "relative" }}
+                >
+
+                  {/* Card 1 - ग्रामीण शिक्षा सबलीकरण */}
+                  <StackCard index={1} isDesktop={isDesktopStack}>
+                    <div className="card border-0 rounded-5 blue-card mb-4 p-2">
+                      <div className="stack-card-header px-4 pt-4">
+                        <h3 className="text-093F68 card-heading fw-bold mb-0">ग्रामीण शिक्षा सबलीकरण</h3>
+                      </div>
+                      <div className="card-body p-4 pt-2">
+                        <div className="row">
+                          <div className="col-12 col-lg-7 stack-card-content">
+                            <div className="mb-1">
+                              <a href="gramin-shiksha.html" className="btn btn-card rounded-pill me-2 mb-3">शिक्षा पाओ-ज्ञान बढ़ाओ प्रतियोगिता</a>
+                              <a href="gramin-shiksha.html" className="btn btn-card rounded-pill me-2 mb-3">प्रतिभा सम्मान समागम</a>
+                              <a href="gramin-shiksha.html" className="btn btn-card rounded-pill mb-3">आओ पढ़ें-आगे बढ़ें कार्यक्रम</a>
+                            </div>
+                            <p className="mb-4 fw-medium">
+                              सोच बदलो गांव बदलो संस्था द्वारा ग्रामीण प्रतिभाओं को निखारने, उनको प्रोत्साहित
+                              करने उनका मार्गदर्शन करने और गरीब और जरूरतमंद विद्यार्थियों को आर्थिक सहयोग
+                              प्रदान करने के उद्देश्य से इस प्रतियोगिता का आयोजन किया जाता है। ग्रामीण बच्चों
+                              में स्वस्थ प्रतिस्पर्धा और...
+                            </p>
+                            <a href="gramin-shiksha.html" className="btn btn-readMore rounded-3 me-2">
+                              <span className="me-1">अधिक देखे</span>
+                              <svg xmlns="http://www.w3.org/2000/svg" width="27" height="16" viewBox="0 0 27 16" fill="none">
+                                <path d="M26.7071 8.7071C27.0976 8.31658 27.0976 7.68342 26.7071 7.29289L20.3431 0.92893C19.9526 0.538406 19.3195 0.538406 18.9289 0.928931C18.5384 1.31945 18.5384 1.95262 18.9289 2.34314L24.5858 8L18.9289 13.6569C18.5384 14.0474 18.5384 14.6805 18.9289 15.0711C19.3195 15.4616 19.9526 15.4616 20.3431 15.0711L26.7071 8.7071ZM0 8L8.74228e-08 9L26 9L26 8L26 7L-8.74228e-08 7L0 8Z" fill="white" />
+                              </svg>
+                            </a>
+                          </div>
+                          <div className="col-12 col-lg-5 text-center stack-card-media">
+                            <div className="cardRightImg">
+                              <img src={blueCardImg} alt="" className="" />
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </StackCard>
+
+                  {/* Card 2 - SBGBT उत्थान संकल्पना */}
+                  <StackCard index={2} isDesktop={isDesktopStack}>
+                    <div className="card border-0 rounded-5 green-card mb-4 p-2">
+                      <div className="stack-card-header px-4 pt-4">
+                        <h3 className="text-6CAF16 card-heading fw-bold mb-0">SBGBT उत्थान संकल्पना</h3>
+                      </div>
+                      <div className="card-body p-4 pt-2">
+                        <div className="row">
+                          <div className="col-12 col-lg-7 stack-card-content">
+                            <div className="mb-1">
+                              <button className="btn btn-card rounded-pill me-2 mb-3">उत्थान पुस्तकालय</button>
+                              <button className="btn btn-card rounded-pill me-2 mb-3">उत्थान कंप्यूटर क्लासेज</button>
+                              <button className="btn btn-card rounded-pill me-2 mb-3">उत्थान बाल संस्कार केंद्र</button>
+                              <button className="btn btn-card rounded-pill mb-3">उत्थान पत्रिका</button>
+                            </div>
+                            <p className="mb-4 fw-medium">
+                              सोच बदलो गाँव बदलो टीम (SBGBT) "उत्थान-भवन" "उत्थान-लाइब्रेरी", और "उत्थान
+                              कोचिंग संस्थान" के माध्यम से युवाओं को राष्ट्र के "समृद्ध मानव संसाधन" के रूप
+                              में तैयार करने के लिए निरंतर प्रयासरत है। विद्यार्थियों को पढ़ाई का उचित वातावरण
+                              प्रदान करने के लिए...
+                            </p>
+                            <button className="btn btn-readMore rounded-3 me-2">
+                              <span className="me-1">अधिक देखे</span>
+                              <svg xmlns="http://www.w3.org/2000/svg" width="27" height="16" viewBox="0 0 27 16" fill="none">
+                                <path d="M26.7071 8.7071C27.0976 8.31658 27.0976 7.68342 26.7071 7.29289L20.3431 0.92893C19.9526 0.538406 19.3195 0.538406 18.9289 0.928931C18.5384 1.31945 18.5384 1.95262 18.9289 2.34314L24.5858 8L18.9289 13.6569C18.5384 14.0474 18.5384 14.6805 18.9289 15.0711C19.3195 15.4616 19.9526 15.4616 20.3431 15.0711L26.7071 8.7071ZM0 8L8.74228e-08 9L26 9L26 8L26 7L-8.74228e-08 7L0 8Z" fill="white" />
+                              </svg>
+                            </button>
+                          </div>
+                          <div className="col-12 col-lg-5 text-center stack-card-media">
+                            <div className="cardRightImg">
+                              <img src={greenCardImg} alt="" className="" />
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </StackCard>
+
+                  {/* Card 3 - महिला सशक्तिकरण */}
+                  <StackCard index={3} isDesktop={isDesktopStack}>
+                    <div className="card border-0 rounded-5 purple-card mb-4 p-2">
+                      <div className="stack-card-header px-4 pt-4">
+                        <h3 className="text-A302B2 card-heading fw-bold mb-0">महिला सशक्तिकरण</h3>
+                      </div>
+                      <div className="card-body p-4 pt-2">
+                        <div className="row">
+                          <div className="col-12 col-lg-7 stack-card-content">
+                            <div className="mb-1">
+                              <button className="btn btn-card rounded-pill me-2 mb-3">बालिका शिक्षा प्रोत्साहन</button>
+                              <button className="btn btn-card rounded-pill mb-3">महिला आर्थिक सबलीकरण</button>
+                            </div>
+                            <p className="mb-4 fw-medium">
+                              महिला सशक्तिकरण विशेष रूप से ग्रामीण क्षेत्र की प्रतिभाशाली बच्चियों शिक्षा के
+                              क्षेत्र में आगे बढ़ाने, उनका मार्गदर्शन करने, बच्चियों में स्वावलंबन और
+                              आत्मविश्वास पैदा करने, ग्रामीण महिलाओं के लिए स्वरोजगार के अवसर उपलब्ध कराने,
+                              स्वच्छता और स्वास्थ्य के विषय में...
+                            </p>
+                            <button className="btn btn-readMore rounded-3 me-2">
+                              <span className="me-1">अधिक देखे</span>
+                              <svg xmlns="http://www.w3.org/2000/svg" width="27" height="16" viewBox="0 0 27 16" fill="none">
+                                <path d="M26.7071 8.7071C27.0976 8.31658 27.0976 7.68342 26.7071 7.29289L20.3431 0.92893C19.9526 0.538406 19.3195 0.538406 18.9289 0.928931C18.5384 1.31945 18.5384 1.95262 18.9289 2.34314L24.5858 8L18.9289 13.6569C18.5384 14.0474 18.5384 14.6805 18.9289 15.0711C19.3195 15.4616 19.9526 15.4616 20.3431 15.0711L26.7071 8.7071ZM0 8L8.74228e-08 9L26 9L26 8L26 7L-8.74228e-08 7L0 8Z" fill="white" />
+                              </svg>
+                            </button>
+                          </div>
+                          <div className="col-12 col-lg-5 text-center stack-card-media">
+                            <div className="cardRightImg">
+                              <img src={purpleCardImg} alt="" className="" />
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </StackCard>
+
+                  {/* Card 4 - स्मार्ट विलेज योजना */}
+                  <StackCard index={4} isDesktop={isDesktopStack}>
+                    <div className="card border-0 rounded-5 orange-card mb-4 p-2">
+                      <div className="stack-card-header px-4 pt-4">
+                        <h3 className="text-FF543E card-heading fw-bold mb-0">स्मार्ट विलेज योजना</h3>
+                      </div>
+                      <div className="card-body p-4 pt-2">
+                        <div className="row">
+                          <div className="col-12 col-lg-7 stack-card-content">
+                            <div className="mb-1">
+                              <button className="btn btn-card rounded-pill me-2 mb-3">स्मार्ट विलेज योजना संकल्पना और क्रियान्वयन</button>
+                              <button className="btn btn-card rounded-pill mb-3">ग्राम विकास समिति गठन</button>
+                            </div>
+                            <p className="mb-4 fw-medium">
+                              गाँवों में सकारात्मक सोच और रचनात्मक कार्यों द्वारा जन जागरूकता पैदा करना और
+                              विकास के लिए जनचेतना पैदा करना ताकि हम अपने अधिकारों और स्लावों के प्रति
+                              संवेदनशील बनें और विकास प्रक्रिया का हिस्सा बनें |
+                            </p>
+                            <button className="btn btn-readMore rounded-3 me-2">
+                              <span className="me-1">अधिक देखे</span>
+                              <svg xmlns="http://www.w3.org/2000/svg" width="27" height="16" viewBox="0 0 27 16" fill="none">
+                                <path d="M26.7071 8.7071C27.0976 8.31658 27.0976 7.68342 26.7071 7.29289L20.3431 0.92893C19.9526 0.538406 19.3195 0.538406 18.9289 0.928931C18.5384 1.31945 18.5384 1.95262 18.9289 2.34314L24.5858 8L18.9289 13.6569C18.5384 14.0474 18.5384 14.6805 18.9289 15.0711C19.3195 15.4616 19.9526 15.4616 20.3431 15.0711L26.7071 8.7071ZM0 8L8.74228e-08 9L26 9L26 8L26 7L-8.74228e-08 7L0 8Z" fill="white" />
+                              </svg>
+                            </button>
+                          </div>
+                          <div className="col-12 col-lg-5 text-center stack-card-media">
+                            <div className="cardRightImg">
+                              <img src={orangeCardImg} alt="" className="" />
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </StackCard>
+
+                  {/* Card 5 - पंचायती राज सुदृढ़ीकरण प्रयास */}
+                  <StackCard index={5} isDesktop={isDesktopStack}>
+                    <div className="card border-0 rounded-5 blue-card mb-4 p-2">
+                      <div className="stack-card-header px-4 pt-4">
+                        <h3 className="text-093F68 card-heading fw-bold mb-0">पंचायती राज सुदृढ़ीकरण प्रयास</h3>
+                      </div>
+                      <div className="card-body p-4 pt-2">
+                        <div className="row">
+                          <div className="col-12 col-lg-7 stack-card-content">
+                            <div className="mb-1">
+                              <button className="btn btn-card rounded-pill me-2 mb-3">जन-प्रतिनिधि प्रशिक्षण कार्यक्रम</button>
+                              <button className="btn btn-card rounded-pill mb-3">पंचायती राज योजनाओं का संकलन एवं क्रियान्वयन</button>
+                            </div>
+                            <p className="mb-4 fw-medium">
+                              ग्रामीणों को सरकारी योजनाओं और विकास कार्यक्रमों की जानकारी देना। सरकारी योजनाओं
+                              (केंद्र / राज्य / नाबार्ड) की जानकारी और उनके लाभ लाभार्थियों तक पहुँचाने में
+                              सरकारी एजेंसीज का सहयोग करना। इस अभियान का मूल मंत्र है
+                            </p>
+                            <button className="btn btn-readMore rounded-3 me-2">
+                              <span className="me-1">अधिक देखे</span>
+                              <svg xmlns="http://www.w3.org/2000/svg" width="27" height="16" viewBox="0 0 27 16" fill="none">
+                                <path d="M26.7071 8.7071C27.0976 8.31658 27.0976 7.68342 26.7071 7.29289L20.3431 0.92893C19.9526 0.538406 19.3195 0.538406 18.9289 0.928931C18.5384 1.31945 18.5384 1.95262 18.9289 2.34314L24.5858 8L18.9289 13.6569C18.5384 14.0474 18.5384 14.6805 18.9289 15.0711C19.3195 15.4616 19.9526 15.4616 20.3431 15.0711L26.7071 8.7071ZM0 8L8.74228e-08 9L26 9L26 8L26 7L-8.74228e-08 7L0 8Z" fill="white" />
+                              </svg>
+                            </button>
+                          </div>
+                          <div className="col-12 col-lg-5 text-center stack-card-media">
+                            <div className="cardRightImg">
+                              <img src={blueCardImg2} alt="" className="" />
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </StackCard>
+
+                  {/* Card 6 - आत्मनिर्भर व समृद्ध गांव संकल्पना */}
+                  <StackCard index={6} isDesktop={isDesktopStack}>
+                    <div className="card border-0 rounded-5 grey-card mb-4 p-2">
+                      <div className="stack-card-header px-4 pt-4">
+                        <h3 className="text-242413 card-heading fw-bold mb-0">आत्मनिर्भर व समृद्ध गांव संकल्पना</h3>
+                      </div>
+                      <div className="card-body p-4 pt-2">
+                        <div className="row">
+                          <div className="col-12 col-lg-8 stack-card-content">
+                            <div className="mb-1">
+                              <button className="btn btn-card rounded-pill me-2 mb-3">आधुनिक खेती हमारा प्रयास कार्यक्रम</button>
+                              <button className="btn btn-card rounded-pill me-2 mb-3">सहकारी समितियों द्वारा रोजगार सृजन</button>
+                              <button className="btn btn-card rounded-pill mb-3">वित्तीय समावेशन प्रयास</button>
+                            </div>
+                            <p className="mb-4 fw-medium">
+                              "वित्तीय समावेशन" सुनिश्चित करने के लिए वित्तीय साक्षरता कार्यक्रम आयोजित करना।
+                              वित्तीय समावेशन के महत्व के प्रति ग्रामीणों को जागरूक करना और क्रेडिट (KCC / GCC
+                              / ACC) के विषय में मनोविज्ञान लाना।
+                            </p>
+                            <button className="btn btn-readMore rounded-3 me-2">
+                              <span className="me-1">अधिक देखे</span>
+                              <svg xmlns="http://www.w3.org/2000/svg" width="27" height="16" viewBox="0 0 27 16" fill="none">
+                                <path d="M26.7071 8.7071C27.0976 8.31658 27.0976 7.68342 26.7071 7.29289L20.3431 0.92893C19.9526 0.538406 19.3195 0.538406 18.9289 0.928931C18.5384 1.31945 18.5384 1.95262 18.9289 2.34314L24.5858 8L18.9289 13.6569C18.5384 14.0474 18.5384 14.6805 18.9289 15.0711C19.3195 15.4616 19.9526 15.4616 20.3431 15.0711L26.7071 8.7071ZM0 8L8.74228e-08 9L26 9L26 8L26 7L-8.74228e-08 7L0 8Z" fill="white" />
+                              </svg>
+                            </button>
+                          </div>
+                          <div className="col-12 col-lg-4 d-flex justify-content-center align-items-center stack-card-media">
+                            <div className="cardRightImg">
+                              <img src={greyCardImg} alt="" className="" />
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </StackCard>
+
+                  {/* Card 7 - पर्यावरण संरक्षण व संवर्धन कार्यक्रम */}
+                  <StackCard index={7} isDesktop={isDesktopStack}>
+                    <div className="card border-0 rounded-5 darkGreen-card mb-4 p-2">
+                      <div className="stack-card-header px-4 pt-4">
+                        <h3 className="text-235100 card-heading fw-bold mb-0">पर्यावरण संरक्षण व संवर्धन कार्यक्रम</h3>
+                      </div>
+                      <div className="card-body p-4 pt-2">
+                        <div className="row">
+                          <div className="col-12 col-lg-7 stack-card-content">
+                            <div className="mb-1">
+                              <button className="btn btn-card rounded-pill me-2 mb-3">ग्रीन विलेज व क्लीन विलेज अवार्ड</button>
+                              <button className="btn btn-card rounded-pill mb-3">ग्रीन विलेज-क्लीन विलेज कार्यक्रम (वृक्षारोपण)</button>
+                            </div>
+                            <p className="mb-4 fw-medium">
+                              सोच बदलो गांव बदलो संस्था स्वच्छता और पर्यावरण संरक्षण के प्रति जन जागरूकता पैदा
+                              करने हेतु "ग्रीन विलेज - क्लीन विलेज" अभियान का संचालन कर रही है। इस अभियान के
+                              सफल संचालन के लिए गांव-गांव में कॉर्डिनेटर्स की नियुक्ति की गई है। इस अभियान के
+                              प्रमुख उद्देश्य- ग्रामीणों...
+                            </p>
+                            <button className="btn btn-readMore rounded-3 me-2">
+                              <span className="me-1">अधिक देखे</span>
+                              <svg xmlns="http://www.w3.org/2000/svg" width="27" height="16" viewBox="0 0 27 16" fill="none">
+                                <path d="M26.7071 8.7071C27.0976 8.31658 27.0976 7.68342 26.7071 7.29289L20.3431 0.92893C19.9526 0.538406 19.3195 0.538406 18.9289 0.928931C18.5384 1.31945 18.5384 1.95262 18.9289 2.34314L24.5858 8L18.9289 13.6569C18.5384 14.0474 18.5384 14.6805 18.9289 15.0711C19.3195 15.4616 19.9526 15.4616 20.3431 15.0711L26.7071 8.7071ZM0 8L8.74228e-08 9L26 9L26 8L26 7L-8.74228e-08 7L0 8Z" fill="white" />
+                              </svg>
+                            </button>
+                          </div>
+                          <div className="col-12 col-lg-5 d-flex justify-content-center align-items-center stack-card-media">
+                            <div className="cardRightImg">
+                              <img src={darkGreenCardImg} alt="" className="" />
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </StackCard>
+
+                  {/* Card 8 - जन स्वस्थ - राष्ट्र स्वस्थ */}
+                  <StackCard index={8} isDesktop={isDesktopStack}>
+                    <div className="card border-0 rounded-5 red-card mb-4 p-2">
+                      <div className="stack-card-header px-4 pt-4">
+                        <h3 className="text-ED5564 card-heading fw-bold mb-0">जन स्वस्थ - राष्ट्र स्वस्थ</h3>
+                      </div>
+                      <div className="card-body p-4 pt-2">
+                        <div className="row">
+                          <div className="col-12 col-lg-7 stack-card-content">
+                            <div className="mb-1">
+                              <button className="btn btn-card rounded-pill me-2 mb-3">ध्यान केंद्र स्थापना और ध्यान शिविर आयोजन</button>
+                              <button className="btn btn-card rounded-pill mb-3">रक्तदान महादान कार्यक्रम</button>
+                            </div>
+                            <p className="mb-4 fw-medium">
+                              "वित्तीय समावेशन" सुनिश्चित करने के लिए वित्तीय साक्षरता कार्यक्रम आयोजित करना।
+                              वित्तीय समावेशन के महत्व के प्रति ग्रामीणों को जागरूक करना और क्रेडिट (KCC / GCC
+                              / ACC) के विषय में मनोविज्ञान लाना।
+                            </p>
+                            <button className="btn btn-readMore rounded-3 me-2">
+                              <span className="me-1">अधिक देखे</span>
+                              <svg xmlns="http://www.w3.org/2000/svg" width="27" height="16" viewBox="0 0 27 16" fill="none">
+                                <path d="M26.7071 8.7071C27.0976 8.31658 27.0976 7.68342 26.7071 7.29289L20.3431 0.92893C19.9526 0.538406 19.3195 0.538406 18.9289 0.928931C18.5384 1.31945 18.5384 1.95262 18.9289 2.34314L24.5858 8L18.9289 13.6569C18.5384 14.0474 18.5384 14.6805 18.9289 15.0711C19.3195 15.4616 19.9526 15.4616 20.3431 15.0711L26.7071 8.7071ZM0 8L8.74228e-08 9L26 9L26 8L26 7L-8.74228e-08 7L0 8Z" fill="white" />
+                              </svg>
+                            </button>
+                          </div>
+                          <div className="col-12 col-lg-5 d-flex justify-content-center align-items-center stack-card-media">
+                            <div className="cardRightImg">
+                              <img src={redCardImg} alt="" className="" />
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </StackCard>
+
+                  {/* Card 9 - समाज व राष्ट्र निर्माण प्रयास */}
+                  <StackCard index={9} isDesktop={isDesktopStack}>
+                    <div className="card border-0 rounded-5 blue-card mb-4 p-2">
+                      <div className="stack-card-header px-4 pt-4">
+                        <h3 className="text-093F68 card-heading fw-bold mb-0">समाज व राष्ट्र निर्माण प्रयास</h3>
+                      </div>
+                      <div className="card-body p-4 pt-2">
+                        <div className="row">
+                          <div className="col-12 col-lg-7 stack-card-content">
+                            <div className="mb-1">
+                              <button className="btn btn-card rounded-pill mb-3">रात्रि चौपाल, विचार संगोष्ठी, खेल गतिविधियाँ, सांस्कृतिक कार्यक्रम आयोजन</button>
+                            </div>
+                            <p className="mb-4 fw-medium">
+                              गाँवों की स्थानीय समस्याओं पर विचार करना और उनका स्थानीय स्तर पर समाधान खोजने का
+                              प्रयास करना। गाँवों के विकास को गति देने के लिए "गाँव विकास समितियों" का गठन
+                              करना।
+                            </p>
+                            <button className="btn btn-readMore rounded-3 me-2">
+                              <span className="me-1">अधिक देखे</span>
+                              <svg xmlns="http://www.w3.org/2000/svg" width="27" height="16" viewBox="0 0 27 16" fill="none">
+                                <path d="M26.7071 8.7071C27.0976 8.31658 27.0976 7.68342 26.7071 7.29289L20.3431 0.92893C19.9526 0.538406 19.3195 0.538406 18.9289 0.928931C18.5384 1.31945 18.5384 1.95262 18.9289 2.34314L24.5858 8L18.9289 13.6569C18.5384 14.0474 18.5384 14.6805 18.9289 15.0711C19.3195 15.4616 19.9526 15.4616 20.3431 15.0711L26.7071 8.7071ZM0 8L8.74228e-08 9L26 9L26 8L26 7L-8.74228e-08 7L0 8Z" fill="white" />
+                              </svg>
+                            </button>
+                          </div>
+                          <div className="col-12 col-lg-5 text-center stack-card-media">
+                            <div className="cardRightImg">
+                              <img src={blueCardImg3} alt="" className="" />
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </StackCard>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section> 
 
       <motion.section
         {...sectionRevealProps}
@@ -1550,7 +1731,7 @@ function Home() {
                       className="group relative min-h-[336px] w-[100%] shrink-0 snap-center overflow-hidden rounded-[2.4rem] border border-primary/10 text-left shadow-[0_22px_50px_-34px_rgba(17,63,52,0.34)] sm:w-[calc((100%-1rem)/2)] lg:w-[calc((100%-2.5rem)/3)]"
                     >
                       <img
-                        src={getYouTubeThumbnail(video.embedUrl)}
+                        src={video.image}
                         alt={video.title}
                         className="absolute inset-0 h-full w-full object-cover transition duration-700 ease-out group-hover:scale-[1.02]"
                         width={1200}
@@ -1675,7 +1856,6 @@ function Home() {
 
         </div>
       </motion.section>
-
       <motion.section
         {...sectionRevealProps}
         className="relative overflow-hidden bg-[linear-gradient(135deg,#083a32_0%,#0d4b3e_48%,#08352d_100%)] text-cream"
@@ -1776,154 +1956,44 @@ function Home() {
         {...sectionRevealProps}
         className="mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-20"
       >
-        <div className="flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
-          <div className="max-w-2xl">
+        <div className="grid gap-8 lg:grid-cols-[1.05fr_0.95fr] lg:items-end">
+          <div>
             <div className="text-xs font-semibold uppercase tracking-[0.2em] text-primary">फोटो गेलरी</div>
             <h2 className="mt-3 font-display text-3xl font-black sm:text-4xl">मैदान से जुड़े प्रेरक दृश्य।</h2>
           </div>
-          <div className="max-w-xl rounded-[1.75rem] bg-[linear-gradient(145deg,#0f473d,#174f43)] px-6 py-5 text-cream shadow-[0_30px_55px_-36px_rgba(0,0,0,0.9)]">
-            <Quote className="size-4 text-accent" />
-            <p className="mt-2 font-hi text-sm leading-6 text-cream/90 sm:text-[15px]">
+          <div className="rounded-[2rem] bg-[linear-gradient(145deg,#103d34,#184a3d)] p-6 text-cream shadow-[0_30px_55px_-36px_rgba(0,0,0,0.9)]">
+            <Quote className="size-5 text-accent" />
+            <p className="mt-3 font-hi text-base leading-relaxed text-cream/92">
               “ग्रीन विलेज - क्लीन विलेज”, शिक्षा, स्वास्थ्य और सामुदायिक भागीदारी के
               दृश्य ही SBGBT की असली कहानी बताते हैं।
             </p>
           </div>
         </div>
 
-        <div className="mt-8">
-  {(() => {
-    const heroItem = readableFeaturedGalleryItems[0];
-
-    const rightItems = readableFeaturedGalleryItems.slice(1, 3);
-
-    const bottomItems = [
-      socialRevolutionFeaturedItem,
-      ...readableFeaturedGalleryItems.slice(3, 6),
-    ];
-
-    return (
-      <div className="grid gap-4 lg:grid-cols-12 lg:auto-rows-[210px]">
-
-        {/* HERO */}
-        <figure className="group relative overflow-hidden rounded-[1.9rem] border border-[#e7dbc0] bg-[#103d34] shadow-[0_28px_70px_-38px_rgba(16,61,52,0.52)] lg:col-span-8 lg:row-span-3">
-          <img
-            src={heroItem.src}
-            alt={heroItem.title}
-            className="absolute inset-0 h-full w-full object-cover transition duration-700 group-hover:scale-[1.03]"
-          />
-
-          <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(0,0,0,.05),rgba(0,0,0,.75))]" />
-
-          <figcaption className="absolute bottom-0 left-0 right-0 p-5 text-white">
-            <span className="inline-flex items-center gap-2 rounded-full bg-white/15 px-3 py-1 text-xs backdrop-blur">
-              <Images className="size-3" />
-              Gallery
-            </span>
-
-            <div className="mt-3 text-xs uppercase tracking-wider text-white/80">
-              {heroItem.year} • {heroItem.category}
-            </div>
-
-            <h3 className="mt-2 font-hi text-xl font-semibold">
-              {heroItem.title}
-            </h3>
-          </figcaption>
-        </figure>
-
-        {/* RIGHT */}
-        {rightItems.map((item) => (
-          <figure
-            key={item.title}
-            className="group relative overflow-hidden rounded-[1.9rem] border border-[#e7dbc0] bg-[#103d34] lg:col-span-4"
-          >
-            <img
-              src={item.src}
-              alt={item.title}
-              className="absolute inset-0 h-full w-full object-cover transition duration-700 group-hover:scale-105"
-            />
-
-            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
-
-            <figcaption className="absolute bottom-0 left-0 right-0 p-4 text-white">
-              <div className="text-xs text-white/80">
-                {item.year} • {item.category}
-              </div>
-
-              <h3 className="mt-2 font-hi text-base font-semibold">
-                {item.title}
-              </h3>
-            </figcaption>
-          </figure>
-        ))}
-
-        {/* BOTTOM */}
-        {bottomItems.map((item) => (
-          <figure
-            key={item.title}
-            className="group relative overflow-hidden rounded-[1.7rem] border border-[#e7dbc0] bg-[#103d34] lg:col-span-3"
-          >
-            <img
-              src={item.src}
-              alt={item.title}
-              className="absolute inset-0 h-full w-full object-cover transition duration-700 group-hover:scale-105"
-            />
-
-            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
-
-            <figcaption className="absolute bottom-0 left-0 right-0 p-4 text-white">
-              <div className="text-xs text-white/80">
-                {item.year} • {item.category}
-              </div>
-
-              <h3 className="mt-2 font-hi text-sm font-semibold leading-6">
-                {item.title}
-              </h3>
-            </figcaption>
-          </figure>
-        ))}
-      </div>
-    );
-  })()}
-</div>
-
-        {false && (
-          <div className="mt-8 rounded-[2.25rem] border border-[#d9cfb5] bg-[linear-gradient(180deg,rgba(255,252,244,0.96),rgba(249,243,227,0.92))] p-3 shadow-[0_30px_80px_-45px_rgba(20,60,53,0.38)] sm:p-4">
-            <div className="grid auto-rows-[230px] grid-flow-dense grid-cols-1 gap-4 sm:grid-cols-2 sm:auto-rows-[240px] lg:grid-cols-12 lg:auto-rows-[190px]">
-              {readableFeaturedGalleryItems.map((item, index) => (
-                <figure
-                  key={item.title}
-                  className={`${featuredGalleryLayout[index % featuredGalleryLayout.length]} group relative overflow-hidden rounded-[1.9rem] border border-white/50 bg-[#103d34] shadow-[0_20px_45px_-28px_rgba(12,41,35,0.75)] ring-1 ring-[#ede3c8] transition duration-500 hover:-translate-y-1 hover:shadow-[0_28px_65px_-30px_rgba(12,41,35,0.82)]`}
-                >
-                  <img
-                    src={item.src}
-                    alt={item.title}
-                    width={1200}
-                    height={900}
-                    className="h-full min-h-[230px] w-full object-cover transition duration-700 group-hover:scale-[1.045]"
-                  />
-                  <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(8,28,24,0.04),rgba(8,28,24,0.18)_42%,rgba(8,28,24,0.88)_100%)]" />
-                  <div className="absolute inset-x-0 bottom-0 h-28 bg-[radial-gradient(circle_at_bottom,rgba(17,71,59,0.58),transparent_72%)]" />
-                  <figcaption className="absolute inset-x-0 bottom-0 p-4 text-cream sm:p-5">
-                    <span className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-[#fff7ec]/18 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-white/92 backdrop-blur-md">
-                      <Images className="size-3.5" />
-                      गैलरी
-                    </span>
-                    <div className="mt-3 rounded-[1.5rem] border border-white/10 bg-[linear-gradient(135deg,rgba(13,53,45,0.92),rgba(17,67,57,0.78))] p-3.5 shadow-[0_18px_32px_-24px_rgba(0,0,0,0.75)] backdrop-blur-md sm:p-4">
-                      <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-[10px] font-semibold uppercase tracking-[0.16em] text-[#efe5cf]/78 sm:text-[11px]">
-                        <span>{item.year}</span>
-                        <span>{item.category}</span>
-                        <span>{item.date}</span>
-                      </div>
-                      <div className="mt-2 font-hi text-sm leading-6 text-[#fff8ee] sm:text-[1rem]">
-                        {item.title}
-                      </div>
-                    </div>
-                  </figcaption>
-                </figure>
-              ))}
-            </div>
-          </div>
-        )}
+        <div className="mt-8 grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-3">
+          {galleryItems.map((item, index) => (
+            <figure
+              key={item.title}
+              className={`${index === 0 ? "col-span-2 md:row-span-2" : ""} group relative overflow-hidden rounded-[1.75rem]`}
+            >
+              <img
+                src={item.src}
+                alt={item.title}
+                width={1200}
+                height={900}
+                className="h-full min-h-[220px] w-full object-cover transition duration-700 group-hover:scale-105"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-ink/80 via-ink/10 to-transparent" />
+              <figcaption className="absolute inset-x-0 bottom-0 p-4 text-cream">
+                <span className="inline-flex items-center gap-2 rounded-full bg-cream/15 px-2.5 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] backdrop-blur">
+                  <Images className="size-3.5" />
+                  गैलरी
+                </span>
+                <div className="mt-2 font-hi text-sm sm:text-base">{item.title}</div>
+              </figcaption>
+            </figure>
+          ))}
+        </div>
       </motion.section>
 
       <motion.section
