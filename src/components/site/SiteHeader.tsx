@@ -100,6 +100,7 @@ const desktopNavLinks = [
   { to: "/", label: "होम", hasMenu: false },
   { to: "/about", label: "हमारे बारे में", hasMenu: false },
   { to: "/activities", label: "हमारे कार्य", hasMenu: false },
+  { to: "/success-stories", label: "सफलता की कहानी", hasMenu: false },
   { to: "/patrika", label: "उत्थान पत्रिका", hasMenu: false },
   { to: "/gallery", label: "गैलरी", hasMenu: false },
 
@@ -130,13 +131,12 @@ const desktopNavLinks = [
     hasMenu: [
       {
         label: "प्रतिभा-सम्मान समागम रजिस्ट्रेशन",
-        to: "samman-samaroh-registration",
+        to: "/talent-felicitation-ceremony",
         external: true,
       },
       {
         label: "उत्थान कोचिंग रजिस्ट्रेशन",
-        to: "/utthan-coaching-registration",
-        external: true,
+        to: "/utthan-coaching-organizations",
       },
       {
         label: "शिक्षा पाओ ज्ञान बढ़ाओ प्रतियोगिता (SPGBP) रजिस्ट्रेशन",
@@ -163,6 +163,7 @@ export const navLinks = [
   { to: "/", label: "होम", hasMenu: false },
   { to: "/about", label: "हमारे बारे में", hasMenu: false },
   { to: "/activities", label: "हमारे कार्य", hasMenu: false },
+  { to: "/success-stories", label: "सफलता की कहानी", hasMenu: false },
   { to: "/gallery", label: "गैलरी", hasMenu: false },
   { to: "/patrika", label: "उत्थान पत्रिका", hasMenu: false },
 
@@ -193,13 +194,12 @@ export const navLinks = [
     hasMenu: [
       {
         label: "प्रतिभा-सम्मान समागम रजिस्ट्रेशन",
-        to: "samman-samaroh-registration",
+        to: "/talent-felicitation-ceremony",
         external: true,
       },
       {
         label: "उत्थान कोचिंग रजिस्ट्रेशन",
-        to: "/utthan-coaching-registration",
-        external: true,
+        to: "/utthan-coaching-organizations",
       },
       {
         label: "शिक्षा पाओ ज्ञान बढ़ाओ प्रतियोगिता (SPGBP) रजिस्ट्रेशन",

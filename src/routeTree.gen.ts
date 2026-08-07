@@ -10,8 +10,12 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as UtthanManagerLoginRouteImport } from './routes/utthan-manager-login'
+import { Route as UtthanCoachingOrganizationsRouteImport } from './routes/utthan-coaching-organizations'
 import { Route as UtthanCoachingRegistrationRouteImport } from './routes/utthan-coaching-registration'
+import { Route as TalentFelicitationCeremonyRouteImport } from './routes/talent-felicitation-ceremony'
 import { Route as SpgbpRouteImport } from './routes/spgbp'
+import { Route as SuccessStoriesStorySlugRouteImport } from './routes/success-stories.$storySlug'
+import { Route as SuccessStoriesRouteImport } from './routes/success-stories'
 import { Route as SbgbpManagerLoginRouteImport } from './routes/sbgbp-manager-login'
 import { Route as SammanSamarohRegistrationRouteImport } from './routes/samman-samaroh-registration'
 import { Route as PatrikaRouteImport } from './routes/patrika'
@@ -22,6 +26,7 @@ import { Route as GalleryRouteImport } from './routes/gallery'
 import { Route as DonateRouteImport } from './routes/donate'
 import { Route as CsrPartnershipRouteImport } from './routes/csr-partnership'
 import { Route as ContactRouteImport } from './routes/contact'
+import { Route as ArticlesArticleSlugRouteImport } from './routes/articles.$articleSlug'
 import { Route as ArticlesRouteImport } from './routes/articles'
 import { Route as AdminLoginRouteImport } from './routes/admin-login'
 import { Route as ActivitiesRouteImport } from './routes/activities'
@@ -34,15 +39,38 @@ const UtthanManagerLoginRoute = UtthanManagerLoginRouteImport.update({
   path: '/utthan-manager-login',
   getParentRoute: () => rootRouteImport,
 } as any)
+const UtthanCoachingOrganizationsRoute =
+  UtthanCoachingOrganizationsRouteImport.update({
+    id: '/utthan-coaching-organizations',
+    path: '/utthan-coaching-organizations',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const UtthanCoachingRegistrationRoute =
   UtthanCoachingRegistrationRouteImport.update({
     id: '/utthan-coaching-registration',
     path: '/utthan-coaching-registration',
     getParentRoute: () => rootRouteImport,
   } as any)
+const TalentFelicitationCeremonyRoute =
+  TalentFelicitationCeremonyRouteImport.update({
+    id: '/talent-felicitation-ceremony',
+    path: '/talent-felicitation-ceremony',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const SpgbpRoute = SpgbpRouteImport.update({
   id: '/spgbp',
   path: '/spgbp',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SuccessStoriesStorySlugRoute =
+  SuccessStoriesStorySlugRouteImport.update({
+    id: '/success-stories/$storySlug',
+    path: '/success-stories/$storySlug',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const SuccessStoriesRoute = SuccessStoriesRouteImport.update({
+  id: '/success-stories',
+  path: '/success-stories',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SbgbpManagerLoginRoute = SbgbpManagerLoginRouteImport.update({
@@ -96,6 +124,11 @@ const ContactRoute = ContactRouteImport.update({
   path: '/contact',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ArticlesArticleSlugRoute = ArticlesArticleSlugRouteImport.update({
+  id: '/articles/$articleSlug',
+  path: '/articles/$articleSlug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ArticlesRoute = ArticlesRouteImport.update({
   id: '/articles',
   path: '/articles',
@@ -133,6 +166,7 @@ export interface FileRoutesByFullPath {
   '/about': typeof AboutRoute
   '/activities': typeof ActivitiesRoute
   '/admin-login': typeof AdminLoginRoute
+  '/articles/$articleSlug': typeof ArticlesArticleSlugRoute
   '/articles': typeof ArticlesRoute
   '/contact': typeof ContactRoute
   '/csr-partnership': typeof CsrPartnershipRoute
@@ -144,7 +178,11 @@ export interface FileRoutesByFullPath {
   '/patrika': typeof PatrikaRoute
   '/samman-samaroh-registration': typeof SammanSamarohRegistrationRoute
   '/sbgbp-manager-login': typeof SbgbpManagerLoginRoute
+  '/success-stories/$storySlug': typeof SuccessStoriesStorySlugRoute
+  '/success-stories': typeof SuccessStoriesRoute
   '/spgbp': typeof SpgbpRoute
+  '/talent-felicitation-ceremony': typeof TalentFelicitationCeremonyRoute
+  '/utthan-coaching-organizations': typeof UtthanCoachingOrganizationsRoute
   '/utthan-coaching-registration': typeof UtthanCoachingRegistrationRoute
   '/utthan-manager-login': typeof UtthanManagerLoginRoute
 }
@@ -154,6 +192,7 @@ export interface FileRoutesByTo {
   '/about': typeof AboutRoute
   '/activities': typeof ActivitiesRoute
   '/admin-login': typeof AdminLoginRoute
+  '/articles/$articleSlug': typeof ArticlesArticleSlugRoute
   '/articles': typeof ArticlesRoute
   '/contact': typeof ContactRoute
   '/csr-partnership': typeof CsrPartnershipRoute
@@ -165,7 +204,11 @@ export interface FileRoutesByTo {
   '/patrika': typeof PatrikaRoute
   '/samman-samaroh-registration': typeof SammanSamarohRegistrationRoute
   '/sbgbp-manager-login': typeof SbgbpManagerLoginRoute
+  '/success-stories/$storySlug': typeof SuccessStoriesStorySlugRoute
+  '/success-stories': typeof SuccessStoriesRoute
   '/spgbp': typeof SpgbpRoute
+  '/talent-felicitation-ceremony': typeof TalentFelicitationCeremonyRoute
+  '/utthan-coaching-organizations': typeof UtthanCoachingOrganizationsRoute
   '/utthan-coaching-registration': typeof UtthanCoachingRegistrationRoute
   '/utthan-manager-login': typeof UtthanManagerLoginRoute
 }
@@ -176,6 +219,7 @@ export interface FileRoutesById {
   '/about': typeof AboutRoute
   '/activities': typeof ActivitiesRoute
   '/admin-login': typeof AdminLoginRoute
+  '/articles/$articleSlug': typeof ArticlesArticleSlugRoute
   '/articles': typeof ArticlesRoute
   '/contact': typeof ContactRoute
   '/csr-partnership': typeof CsrPartnershipRoute
@@ -187,7 +231,11 @@ export interface FileRoutesById {
   '/patrika': typeof PatrikaRoute
   '/samman-samaroh-registration': typeof SammanSamarohRegistrationRoute
   '/sbgbp-manager-login': typeof SbgbpManagerLoginRoute
+  '/success-stories/$storySlug': typeof SuccessStoriesStorySlugRoute
+  '/success-stories': typeof SuccessStoriesRoute
   '/spgbp': typeof SpgbpRoute
+  '/talent-felicitation-ceremony': typeof TalentFelicitationCeremonyRoute
+  '/utthan-coaching-organizations': typeof UtthanCoachingOrganizationsRoute
   '/utthan-coaching-registration': typeof UtthanCoachingRegistrationRoute
   '/utthan-manager-login': typeof UtthanManagerLoginRoute
 }
@@ -199,6 +247,7 @@ export interface FileRouteTypes {
     | '/about'
     | '/activities'
     | '/admin-login'
+    | '/articles/$articleSlug'
     | '/articles'
     | '/contact'
     | '/csr-partnership'
@@ -210,7 +259,11 @@ export interface FileRouteTypes {
     | '/patrika'
     | '/samman-samaroh-registration'
     | '/sbgbp-manager-login'
+    | '/success-stories/$storySlug'
+    | '/success-stories'
     | '/spgbp'
+    | '/talent-felicitation-ceremony'
+    | '/utthan-coaching-organizations'
     | '/utthan-coaching-registration'
     | '/utthan-manager-login'
   fileRoutesByTo: FileRoutesByTo
@@ -220,6 +273,7 @@ export interface FileRouteTypes {
     | '/about'
     | '/activities'
     | '/admin-login'
+    | '/articles/$articleSlug'
     | '/articles'
     | '/contact'
     | '/csr-partnership'
@@ -231,7 +285,11 @@ export interface FileRouteTypes {
     | '/patrika'
     | '/samman-samaroh-registration'
     | '/sbgbp-manager-login'
+    | '/success-stories/$storySlug'
+    | '/success-stories'
     | '/spgbp'
+    | '/talent-felicitation-ceremony'
+    | '/utthan-coaching-organizations'
     | '/utthan-coaching-registration'
     | '/utthan-manager-login'
   id:
@@ -241,6 +299,7 @@ export interface FileRouteTypes {
     | '/about'
     | '/activities'
     | '/admin-login'
+    | '/articles/$articleSlug'
     | '/articles'
     | '/contact'
     | '/csr-partnership'
@@ -252,7 +311,11 @@ export interface FileRouteTypes {
     | '/patrika'
     | '/samman-samaroh-registration'
     | '/sbgbp-manager-login'
+    | '/success-stories/$storySlug'
+    | '/success-stories'
     | '/spgbp'
+    | '/talent-felicitation-ceremony'
+    | '/utthan-coaching-organizations'
     | '/utthan-coaching-registration'
     | '/utthan-manager-login'
   fileRoutesById: FileRoutesById
@@ -263,6 +326,7 @@ export interface RootRouteChildren {
   AboutRoute: typeof AboutRoute
   ActivitiesRoute: typeof ActivitiesRoute
   AdminLoginRoute: typeof AdminLoginRoute
+  ArticlesArticleSlugRoute: typeof ArticlesArticleSlugRoute
   ArticlesRoute: typeof ArticlesRoute
   ContactRoute: typeof ContactRoute
   CsrPartnershipRoute: typeof CsrPartnershipRoute
@@ -274,7 +338,11 @@ export interface RootRouteChildren {
   PatrikaRoute: typeof PatrikaRoute
   SammanSamarohRegistrationRoute: typeof SammanSamarohRegistrationRoute
   SbgbpManagerLoginRoute: typeof SbgbpManagerLoginRoute
+  SuccessStoriesStorySlugRoute: typeof SuccessStoriesStorySlugRoute
+  SuccessStoriesRoute: typeof SuccessStoriesRoute
   SpgbpRoute: typeof SpgbpRoute
+  TalentFelicitationCeremonyRoute: typeof TalentFelicitationCeremonyRoute
+  UtthanCoachingOrganizationsRoute: typeof UtthanCoachingOrganizationsRoute
   UtthanCoachingRegistrationRoute: typeof UtthanCoachingRegistrationRoute
   UtthanManagerLoginRoute: typeof UtthanManagerLoginRoute
 }
@@ -288,11 +356,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof UtthanManagerLoginRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/utthan-coaching-organizations': {
+      id: '/utthan-coaching-organizations'
+      path: '/utthan-coaching-organizations'
+      fullPath: '/utthan-coaching-organizations'
+      preLoaderRoute: typeof UtthanCoachingOrganizationsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/utthan-coaching-registration': {
       id: '/utthan-coaching-registration'
       path: '/utthan-coaching-registration'
       fullPath: '/utthan-coaching-registration'
       preLoaderRoute: typeof UtthanCoachingRegistrationRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/talent-felicitation-ceremony': {
+      id: '/talent-felicitation-ceremony'
+      path: '/talent-felicitation-ceremony'
+      fullPath: '/talent-felicitation-ceremony'
+      preLoaderRoute: typeof TalentFelicitationCeremonyRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/spgbp': {
@@ -307,6 +389,20 @@ declare module '@tanstack/react-router' {
       path: '/sbgbp-manager-login'
       fullPath: '/sbgbp-manager-login'
       preLoaderRoute: typeof SbgbpManagerLoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/success-stories/$storySlug': {
+      id: '/success-stories/$storySlug'
+      path: '/success-stories/$storySlug'
+      fullPath: '/success-stories/$storySlug'
+      preLoaderRoute: typeof SuccessStoriesStorySlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/success-stories': {
+      id: '/success-stories'
+      path: '/success-stories'
+      fullPath: '/success-stories'
+      preLoaderRoute: typeof SuccessStoriesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/samman-samaroh-registration': {
@@ -372,6 +468,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ContactRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/articles/$articleSlug': {
+      id: '/articles/$articleSlug'
+      path: '/articles/$articleSlug'
+      fullPath: '/articles/$articleSlug'
+      preLoaderRoute: typeof ArticlesArticleSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/articles': {
       id: '/articles'
       path: '/articles'
@@ -423,6 +526,7 @@ const rootRouteChildren: RootRouteChildren = {
   AboutRoute: AboutRoute,
   ActivitiesRoute: ActivitiesRoute,
   AdminLoginRoute: AdminLoginRoute,
+  ArticlesArticleSlugRoute: ArticlesArticleSlugRoute,
   ArticlesRoute: ArticlesRoute,
   ContactRoute: ContactRoute,
   CsrPartnershipRoute: CsrPartnershipRoute,
@@ -434,7 +538,11 @@ const rootRouteChildren: RootRouteChildren = {
   PatrikaRoute: PatrikaRoute,
   SammanSamarohRegistrationRoute: SammanSamarohRegistrationRoute,
   SbgbpManagerLoginRoute: SbgbpManagerLoginRoute,
+  SuccessStoriesStorySlugRoute: SuccessStoriesStorySlugRoute,
+  SuccessStoriesRoute: SuccessStoriesRoute,
   SpgbpRoute: SpgbpRoute,
+  TalentFelicitationCeremonyRoute: TalentFelicitationCeremonyRoute,
+  UtthanCoachingOrganizationsRoute: UtthanCoachingOrganizationsRoute,
   UtthanCoachingRegistrationRoute: UtthanCoachingRegistrationRoute,
   UtthanManagerLoginRoute: UtthanManagerLoginRoute,
 }

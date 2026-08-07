@@ -1,43 +1,54 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
-import { LogIn, Send } from "lucide-react";
+import { z } from "zod";
+
 import { SiteHeader } from "@/components/site/SiteHeader";
-import sideImage from "@/assets/Login-green.png";
 import { PageHero, SiteFooter } from "@/components/site/SiteFooter";
 
+const coachingOrganizations = [
+  "उत्थान कोचिंग संस्थान - सरमथुरा",
+  "उत्थान कोचिंग संस्थान - बाड़ी",
+  "उत्थान कोचिंग संस्थान - नादौती",
+  "उत्थान कोचिंग संस्थान - करौली",
+] as const;
+
 export const Route = createFileRoute("/utthan-coaching-registration")({
+  validateSearch: z.object({
+    organization: z.enum(coachingOrganizations).optional(),
+  }),
   head: () => ({
     meta: [
       { title: "उत्थान कोचिंग रजिस्ट्रेशन | SBGBT" },
       {
         name: "description",
         content:
-          "SBGBT टीम से ईमेल, फोन या कार्यालय पते के माध्यम से जुड़ें। स्वयंसेवा, साझेदारी, मीडिया और कार्यक्रमों से जुड़े प्रश्न यहां भेजें।",
+          "उत्थान कोचिंग संस्थान में विद्यार्थी पंजीकरण के लिए आवेदन फॉर्म।",
       },
-      { property: "og:title", content: "संपर्क करें | SBGBT" },
+      { property: "og:title", content: "उत्थान कोचिंग रजिस्ट्रेशन | SBGBT" },
       {
         property: "og:description",
         content:
-          "स्वयंसेवा, साझेदारी, मीडिया या छात्रवृत्ति कार्यक्रमों के लिए SBGBT टीम से सीधे संपर्क करें।",
+          "उत्थान कोचिंग संस्थान के लिए विद्यार्थी आवेदन, संस्था चयन और पंजीकरण विवरण।",
       },
     ],
   }),
-  component: Contact,
+  component: UtthanCoachingRegistrationPage,
 });
 
-function Contact() {
+function UtthanCoachingRegistrationPage() {
   const [sent, setSent] = useState(false);
+  const search = Route.useSearch();
+  const [selectedOrganization, setSelectedOrganization] = useState(
+    search.organization ?? "",
+  );
 
   return (
     <div className="min-h-screen bg-background text-foreground">
       <SiteHeader />
-      <PageHero title="उत्थान कोचिंग
-                                    रजिस्ट्रेशन" />
+      <PageHero title="उत्थान कोचिंग रजिस्ट्रेशन" />
 
-      <section className=" border-border">
+      <section className="border-border">
         <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-20">
-          {/* Form start from here */}
-
           <form
             onSubmit={(e) => {
               e.preventDefault();
@@ -45,13 +56,9 @@ function Contact() {
             }}
             className="space-y-6 rounded-3xl bg-card p-8 shadow-xl"
           >
-            <h2 className="text-3xl font-bold text-primary">
-              फॉर्म भरें
-            </h2>
+            <h2 className="text-3xl font-bold text-primary">फॉर्म भरें</h2>
 
             <div className="grid gap-6 lg:grid-cols-3">
-
-              {/* Coaching Institute */}
               <div>
                 <label className="mb-2 block font-medium">
                   कोचिंग संस्था का नाम <span className="text-red-500">*</span>
@@ -59,16 +66,19 @@ function Contact() {
 
                 <select
                   required
+                  value={selectedOrganization}
+                  onChange={(event) => setSelectedOrganization(event.target.value)}
                   className="w-full rounded-full border px-5 py-3 outline-none focus:border-primary"
                 >
-                  <option>संस्था चुनें</option>
-                  <option>उत्थान कोचिंग संस्था - बाड़ी</option>
-                  <option>उत्थान कोचिंग संस्था - इन्दौर</option>
-                  <option>उत्थान कोचिंग संस्था - भोपाल</option>
+                  <option value="">संस्था चुनें</option>
+                  {coachingOrganizations.map((organization) => (
+                    <option key={organization} value={organization}>
+                      {organization}
+                    </option>
+                  ))}
                 </select>
               </div>
 
-              {/* Student Name */}
               <div>
                 <label className="mb-2 block font-medium">
                   विद्यार्थी का नाम <span className="text-red-500">*</span>
@@ -81,7 +91,6 @@ function Contact() {
                 />
               </div>
 
-              {/* Gender */}
               <div>
                 <label className="mb-2 block font-medium">
                   लिंग <span className="text-red-500">*</span>
@@ -100,7 +109,6 @@ function Contact() {
                 </div>
               </div>
 
-              {/* DOB */}
               <div>
                 <label className="mb-2 block font-medium">
                   जन्म दिनांक <span className="text-red-500">*</span>
@@ -112,7 +120,6 @@ function Contact() {
                 />
               </div>
 
-              {/* Qualification */}
               <div>
                 <label className="mb-2 block font-medium">
                   योग्यता <span className="text-red-500">*</span>
@@ -125,7 +132,6 @@ function Contact() {
                 />
               </div>
 
-              {/* Mobile */}
               <div>
                 <label className="mb-2 block font-medium">
                   मोबाइल <span className="text-red-500">*</span>
@@ -138,7 +144,6 @@ function Contact() {
                 />
               </div>
 
-              {/* Email */}
               <div>
                 <label className="mb-2 block font-medium">
                   ई-मेल आईडी <span className="text-red-500">*</span>
@@ -151,11 +156,9 @@ function Contact() {
                 />
               </div>
 
-              {/* Student ID */}
               <div>
                 <label className="mb-2 block font-medium">
-                  विद्यार्थी का पहचान पत्र नं.
-                  <span className="text-red-500">*</span>
+                  विद्यार्थी का पहचान पत्र नं. <span className="text-red-500">*</span>
                 </label>
 
                 <input
@@ -165,11 +168,8 @@ function Contact() {
                 />
               </div>
 
-              {/* Student ID Photo */}
               <div>
-                <label className="mb-2 block font-medium">
-                  पहचान पत्र का फोटो
-                </label>
+                <label className="mb-2 block font-medium">पहचान पत्र का फोटो</label>
 
                 <input
                   type="file"
@@ -177,7 +177,6 @@ function Contact() {
                 />
               </div>
 
-              {/* Father's Name */}
               <div>
                 <label className="mb-2 block font-medium">
                   पिता का नाम <span className="text-red-500">*</span>
@@ -190,11 +189,8 @@ function Contact() {
                 />
               </div>
 
-              {/* Father's ID */}
               <div>
-                <label className="mb-2 block font-medium">
-                  पिता का पहचान पत्र नं.
-                </label>
+                <label className="mb-2 block font-medium">पिता का पहचान पत्र नं.</label>
 
                 <input
                   type="text"
@@ -203,7 +199,6 @@ function Contact() {
                 />
               </div>
 
-              {/* Father's ID Photo */}
               <div>
                 <label className="mb-2 block font-medium">
                   पिता के पहचान पत्र का फोटो
@@ -214,9 +209,8 @@ function Contact() {
                   className="block w-full rounded-full border bg-white px-4 py-2"
                 />
               </div>
-
             </div>
-            {/* Category */}
+
             <div>
               <label className="mb-2 block font-medium">
                 वर्ग (Category) <span className="text-red-500">*</span>
@@ -235,7 +229,6 @@ function Contact() {
               </select>
             </div>
 
-            {/* Current Address */}
             <div>
               <label className="mb-2 block font-medium">
                 वर्तमान पता <span className="text-red-500">*</span>
@@ -248,7 +241,6 @@ function Contact() {
               />
             </div>
 
-            {/* Permanent Address */}
             <div>
               <label className="mb-2 block font-medium">
                 स्थायी पता <span className="text-red-500">*</span>
@@ -261,7 +253,6 @@ function Contact() {
               />
             </div>
 
-            {/* State */}
             <div>
               <label className="mb-2 block font-medium">
                 राज्य <span className="text-red-500">*</span>
@@ -272,14 +263,13 @@ function Contact() {
                 className="w-full rounded-full border px-5 py-3 outline-none focus:border-primary"
               >
                 <option>राज्य चुनें</option>
+                <option>Rajasthan</option>
                 <option>Madhya Pradesh</option>
                 <option>Maharashtra</option>
-                <option>Rajasthan</option>
                 <option>Gujarat</option>
               </select>
             </div>
 
-            {/* City */}
             <div>
               <label className="mb-2 block font-medium">
                 शहर <span className="text-red-500">*</span>
@@ -290,14 +280,13 @@ function Contact() {
                 className="w-full rounded-full border px-5 py-3 outline-none focus:border-primary"
               >
                 <option>शहर चुनें</option>
-                <option>Indore</option>
-                <option>Bhopal</option>
-                <option>Ujjain</option>
-                <option>Dewas</option>
+                <option>करौली</option>
+                <option>धौलपुर</option>
+                <option>नादौती</option>
+                <option>बाड़ी</option>
               </select>
             </div>
 
-            {/* Course Name */}
             <div>
               <label className="mb-2 block font-medium">
                 कोर्स का नाम <span className="text-red-500">*</span>
@@ -310,7 +299,6 @@ function Contact() {
               />
             </div>
 
-            {/* Admission Date */}
             <div>
               <label className="mb-2 block font-medium">
                 कोर्स प्रवेश तिथि <span className="text-red-500">*</span>
@@ -322,7 +310,6 @@ function Contact() {
               />
             </div>
 
-            {/* Admission Year */}
             <div>
               <label className="mb-2 block font-medium">
                 कोर्स प्रवेश का वर्ष <span className="text-red-500">*</span>
@@ -335,7 +322,6 @@ function Contact() {
               />
             </div>
 
-            {/* Course Duration */}
             <div>
               <label className="mb-2 block font-medium">
                 कोर्स अवधि <span className="text-red-500">*</span>
@@ -353,7 +339,6 @@ function Contact() {
               </select>
             </div>
 
-            {/* Student Photo */}
             <div>
               <label className="mb-2 block font-medium">
                 विद्यार्थी का फोटो <span className="text-red-500">*</span>
@@ -365,11 +350,8 @@ function Contact() {
               />
             </div>
 
-            {/* Blood Group */}
             <div>
-              <label className="mb-2 block font-medium">
-                ब्लड ग्रुप
-              </label>
+              <label className="mb-2 block font-medium">ब्लड ग्रुप</label>
 
               <select className="w-full rounded-full border px-5 py-3 outline-none focus:border-primary">
                 <option>ब्लड ग्रुप चुनें</option>
@@ -384,11 +366,8 @@ function Contact() {
               </select>
             </div>
 
-            {/* Aadhaar Number */}
             <div>
-              <label className="mb-2 block font-medium">
-                आधार नंबर
-              </label>
+              <label className="mb-2 block font-medium">आधार नंबर</label>
 
               <input
                 type="text"
@@ -398,41 +377,26 @@ function Contact() {
               />
             </div>
 
-
-            {/* Rules & Conditions */}
             <div className="mt-10 rounded-2xl border border-green-200 bg-green-50 p-6">
-              <h3 className="mb-4 text-xl font-bold text-primary">
-                नियम एवं शर्तें
-              </h3>
+              <h3 className="mb-4 text-xl font-bold text-primary">नियम एवं शर्तें</h3>
 
               <ul className="list-disc space-y-3 pl-6 text-sm leading-7 text-gray-700">
+                <li>विद्यार्थी द्वारा दी गई सभी जानकारी सत्य एवं सही होना अनिवार्य है।</li>
                 <li>
-                  विद्यार्थी द्वारा दी गई सभी जानकारी सत्य एवं सही होना अनिवार्य है।
+                  प्रवेश के समय आवश्यक दस्तावेजों की स्वप्रमाणित प्रतियां जमा करना अनिवार्य
+                  होगा।
                 </li>
-
-                <li>
-                  प्रवेश के समय आवश्यक दस्तावेजों की स्वप्रमाणित प्रतियाँ जमा करना अनिवार्य होगा।
-                </li>
-
                 <li>
                   संस्था द्वारा मांगे जाने पर मूल दस्तावेज प्रस्तुत करना आवश्यक होगा।
                 </li>
-
-                <li>
-                  गलत जानकारी पाए जाने पर प्रवेश निरस्त किया जा सकता है।
-                </li>
-
+                <li>गलत जानकारी पाए जाने पर प्रवेश निरस्त किया जा सकता है।</li>
                 <li>
                   संस्था के सभी नियमों एवं अनुशासन का पालन करना अनिवार्य होगा।
                 </li>
-
                 <li>
                   संस्था द्वारा निर्धारित समय पर कक्षाओं में उपस्थित रहना आवश्यक होगा।
                 </li>
-
-                <li>
-                  संस्था का निर्णय अंतिम एवं सर्वमान्य होगा।
-                </li>
+                <li>संस्था का निर्णय अंतिम एवं सर्वमान्य होगा।</li>
               </ul>
 
               <label className="mt-6 flex items-start gap-3">
@@ -443,14 +407,13 @@ function Contact() {
                 />
 
                 <span className="text-sm leading-6">
-                  मैं घोषणा करता/करती हूँ कि मेरे द्वारा दी गई सभी जानकारी सत्य एवं सही है।
-                  मैंने संस्था के सभी नियम एवं शर्तें पढ़ ली हैं तथा मैं उनका पालन करने के
-                  लिए सहमत हूँ।
+                  मैं घोषणा करता/करती हूं कि मेरे द्वारा दी गई सभी जानकारी सत्य एवं सही है।
+                  मैंने संस्था के सभी नियम एवं शर्तें पढ़ ली हैं तथा मैं उनका पालन करने के लिए
+                  सहमत हूं।
                 </span>
               </label>
             </div>
 
-            {/* Submit Button */}
             <div className="mt-8 flex justify-center">
               <button
                 type="submit"
@@ -460,11 +423,10 @@ function Contact() {
               </button>
             </div>
 
-            {/* Success Message */}
             {sent && (
               <div className="mt-6 rounded-xl border border-green-200 bg-green-50 p-4 text-center">
                 <p className="font-semibold text-green-700">
-                  ✅ आपका आवेदन सफलतापूर्वक जमा हो गया है।
+                  आपका आवेदन सफलतापूर्वक जमा हो गया है।
                 </p>
 
                 <p className="mt-1 text-sm text-green-600">
@@ -473,12 +435,10 @@ function Contact() {
               </div>
             )}
           </form>
-          {/* Form ends here */}
-
         </div>
-      </section >
+      </section>
 
       <SiteFooter />
-    </div >
+    </div>
   );
 }
