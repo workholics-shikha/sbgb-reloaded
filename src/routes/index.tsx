@@ -1791,100 +1791,98 @@ function Home() {
         </div>
 
         <div className="mt-8">
-  {(() => {
-    const heroItem = readableFeaturedGalleryItems[0];
+          {(() => {
+            const heroItem = readableFeaturedGalleryItems[0];
+            const rightItems = readableFeaturedGalleryItems.slice(1, 3);
 
-    const rightItems = readableFeaturedGalleryItems.slice(1, 3);
+            const bottomItems = [
+              socialRevolutionFeaturedItem,
+              ...readableFeaturedGalleryItems.slice(3, 6),
+            ];
 
-    const bottomItems = [
-      socialRevolutionFeaturedItem,
-      ...readableFeaturedGalleryItems.slice(3, 6),
-    ];
+            return (
+              <div className="grid gap-4 lg:grid-cols-12 lg:auto-rows-[210px]">
 
-    return (
-      <div className="grid gap-4 lg:grid-cols-12 lg:auto-rows-[210px]">
+                {/* HERO */}
+                <figure className="group relative overflow-hidden rounded-[1.9rem] border border-[#e7dbc0] bg-[#103d34] shadow-[0_28px_70px_-38px_rgba(16,61,52,0.52)] lg:col-span-8 lg:row-span-3">
+                  <img
+                    src={heroItem.src} alt={heroItem.title}
+                    className="absolute inset-0 h-full w-full object-cover transition duration-700 group-hover:scale-[1.03]"
+                  />
 
-        {/* HERO */}
-        <figure className="group relative overflow-hidden rounded-[1.9rem] border border-[#e7dbc0] bg-[#103d34] shadow-[0_28px_70px_-38px_rgba(16,61,52,0.52)] lg:col-span-8 lg:row-span-3">
-          <img
-            src={heroItem.src}
-            alt={heroItem.title}
-            className="absolute inset-0 h-full w-full object-cover transition duration-700 group-hover:scale-[1.03]"
-          />
+                  <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(0,0,0,.05),rgba(0,0,0,.75))]" />
 
-          <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(0,0,0,.05),rgba(0,0,0,.75))]" />
+                  <figcaption className="absolute bottom-0 left-0 right-0 p-5 text-white">
+                    <span className="inline-flex items-center gap-2 rounded-full bg-white/15 px-3 py-1 text-xs backdrop-blur">
+                      <Images className="size-3" />
+                      Gallery
+                    </span>
 
-          <figcaption className="absolute bottom-0 left-0 right-0 p-5 text-white">
-            <span className="inline-flex items-center gap-2 rounded-full bg-white/15 px-3 py-1 text-xs backdrop-blur">
-              <Images className="size-3" />
-              Gallery
-            </span>
+                    <div className="mt-3 text-xs uppercase tracking-wider text-white/80">
+                      {heroItem.year} • {heroItem.category}
+                    </div>
 
-            <div className="mt-3 text-xs uppercase tracking-wider text-white/80">
-              {heroItem.year} • {heroItem.category}
-            </div>
+                    <h3 className="mt-2 font-hi text-xl font-semibold">
+                      {heroItem.title}
+                    </h3>
+                  </figcaption>
+                </figure>
 
-            <h3 className="mt-2 font-hi text-xl font-semibold">
-              {heroItem.title}
-            </h3>
-          </figcaption>
-        </figure>
+                {/* RIGHT */}
+                {rightItems.map((item) => (
+                  <figure
+                    key={item.title}
+                    className="group relative overflow-hidden rounded-[1.9rem] border border-[#e7dbc0] bg-[#103d34] lg:col-span-4"
+                  >
+                    <img
+                      src={item.src}
+                      alt={item.title}
+                      className="absolute inset-0 h-full w-full object-cover transition duration-700 group-hover:scale-105"
+                    />
 
-        {/* RIGHT */}
-        {rightItems.map((item) => (
-          <figure
-            key={item.title}
-            className="group relative overflow-hidden rounded-[1.9rem] border border-[#e7dbc0] bg-[#103d34] lg:col-span-4"
-          >
-            <img
-              src={item.src}
-              alt={item.title}
-              className="absolute inset-0 h-full w-full object-cover transition duration-700 group-hover:scale-105"
-            />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
 
-            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+                    <figcaption className="absolute bottom-0 left-0 right-0 p-4 text-white">
+                      <div className="text-xs text-white/80">
+                        {item.year} • {item.category}
+                      </div>
 
-            <figcaption className="absolute bottom-0 left-0 right-0 p-4 text-white">
-              <div className="text-xs text-white/80">
-                {item.year} • {item.category}
+                      <h3 className="mt-2 font-hi text-base font-semibold">
+                        {item.title}
+                      </h3>
+                    </figcaption>
+                  </figure>
+                ))}
+
+                {/* BOTTOM */}
+                {bottomItems.map((item) => (
+                  <figure
+                    key={item.title}
+                    className="group relative overflow-hidden rounded-[1.7rem] border border-[#e7dbc0] bg-[#103d34] lg:col-span-3"
+                  >
+                    <img
+                      src={item.src}
+                      alt={item.title}
+                      className="absolute inset-0 h-full w-full object-cover transition duration-700 group-hover:scale-105"
+                    />
+
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+
+                    <figcaption className="absolute bottom-0 left-0 right-0 p-4 text-white">
+                      <div className="text-xs text-white/80">
+                        {item.year} • {item.category}
+                      </div>
+
+                      <h3 className="mt-2 font-hi text-sm font-semibold leading-6">
+                        {item.title}
+                      </h3>
+                    </figcaption>
+                  </figure>
+                ))}
               </div>
-
-              <h3 className="mt-2 font-hi text-base font-semibold">
-                {item.title}
-              </h3>
-            </figcaption>
-          </figure>
-        ))}
-
-        {/* BOTTOM */}
-        {bottomItems.map((item) => (
-          <figure
-            key={item.title}
-            className="group relative overflow-hidden rounded-[1.7rem] border border-[#e7dbc0] bg-[#103d34] lg:col-span-3"
-          >
-            <img
-              src={item.src}
-              alt={item.title}
-              className="absolute inset-0 h-full w-full object-cover transition duration-700 group-hover:scale-105"
-            />
-
-            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
-
-            <figcaption className="absolute bottom-0 left-0 right-0 p-4 text-white">
-              <div className="text-xs text-white/80">
-                {item.year} • {item.category}
-              </div>
-
-              <h3 className="mt-2 font-hi text-sm font-semibold leading-6">
-                {item.title}
-              </h3>
-            </figcaption>
-          </figure>
-        ))}
-      </div>
-    );
-  })()}
-</div>
+            );
+          })()}
+        </div>
 
         {false && (
           <div className="mt-8 rounded-[2.25rem] border border-[#d9cfb5] bg-[linear-gradient(180deg,rgba(255,252,244,0.96),rgba(249,243,227,0.92))] p-3 shadow-[0_30px_80px_-45px_rgba(20,60,53,0.38)] sm:p-4">
