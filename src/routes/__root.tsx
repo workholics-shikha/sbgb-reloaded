@@ -1,9 +1,7 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import {
-  HeadContent,
   Link,
   Outlet,
-  Scripts,
   createRootRouteWithContext,
   useRouter,
   useRouterState,
@@ -13,7 +11,6 @@ import { useEffect, type ReactNode } from "react";
 import sbgbLogo from "../assets/sbgb-logo.png";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { SITE_URL, organizationSchema, websiteSchema } from "../lib/seo";
-import appCss from "../styles.css?url";
 
 function NotFoundComponent() {
   return (
@@ -103,50 +100,43 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
           "ग्रामीण शिक्षा, सशक्तिकरण और सतत विकास के लिए समर्पित SBGBT का जनअभियान।",
       },
     ],
-    links: [
-      { rel: "preconnect", href: "https://fonts.googleapis.com" },
-      { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
-      {
-        rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700;9..144,900&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Tiro+Devanagari+Hindi&display=swap",
-      },
-      { rel: "stylesheet", href: appCss },
-      { rel: "icon", href: sbgbLogo, type: "image/png" },
-    ],
   }),
-  shellComponent: RootShell,
   component: RootComponent,
   notFoundComponent: NotFoundComponent,
   errorComponent: ErrorComponent,
 });
 
-function RootShell({ children }: { children: ReactNode }) {
+function RootDocumentEffects({ children }: { children: ReactNode }) {
   const pathname = useRouterState({
     select: (state) => state.location.pathname,
   });
 
+  useEffect(() => {
+    document.documentElement.lang = "hi";
+
+    let canonicalLink = document.querySelector<HTMLLinkElement>('link[rel="canonical"]');
+    if (!canonicalLink) {
+      canonicalLink = document.createElement("link");
+      canonicalLink.rel = "canonical";
+      document.head.appendChild(canonicalLink);
+    }
+    canonicalLink.href = pathname === "/" ? SITE_URL : `${SITE_URL}${pathname}`;
+
+    let iconLink = document.querySelector<HTMLLinkElement>('link[rel="icon"]');
+    if (!iconLink) {
+      iconLink = document.createElement("link");
+      iconLink.rel = "icon";
+      document.head.appendChild(iconLink);
+    }
+    iconLink.type = "image/png";
+    iconLink.href = sbgbLogo;
+
+    syncJsonLd("sbgbt-organization-schema", organizationSchema);
+    syncJsonLd("sbgbt-website-schema", websiteSchema);
+  }, [pathname]);
+
   return (
-    <html lang="hi">
-      <head>
-        <HeadContent />
-        <link
-          rel="canonical"
-          href={pathname === "/" ? SITE_URL : `${SITE_URL}${pathname}`}
-        />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
-        />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
-        />
-      </head>
-      <body>
-        {children}
-        <Scripts />
-      </body>
-    </html>
+    <>{children}</>
   );
 }
 
@@ -154,8 +144,22 @@ function RootComponent() {
   const { queryClient } = Route.useRouteContext();
 
   return (
-    <QueryClientProvider client={queryClient}>
-      <Outlet />
-    </QueryClientProvider>
+    <RootDocumentEffects>
+      <QueryClientProvider client={queryClient}>
+        <Outlet />
+      </QueryClientProvider>
+    </RootDocumentEffects>
   );
+}
+
+function syncJsonLd(id: string, value: unknown) {
+  let script = document.getElementById(id) as HTMLScriptElement | null;
+  if (!script) {
+    script = document.createElement("script");
+    script.id = id;
+    script.type = "application/ld+json";
+    document.head.appendChild(script);
+  }
+
+  script.textContent = JSON.stringify(value);
 }
