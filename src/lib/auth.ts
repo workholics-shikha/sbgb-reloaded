@@ -43,6 +43,10 @@ export function writeAuthSession(session: AuthSession) {
   window.localStorage.setItem(AUTH_STORAGE_KEY, JSON.stringify(session));
 }
 
+export function getAuthSession() {
+  return readAuthSession();
+}
+
 export async function loginWithCredentials(input: {
   email: string;
   password: string;
@@ -64,7 +68,7 @@ export async function loginWithCredentials(input: {
   }
 
   writeAuthSession({ token: result.token, user: result.user });
-  return result.user;
+  return { token: result.token, user: result.user };
 }
 
 export async function logoutUser() {
@@ -82,4 +86,48 @@ export async function logoutUser() {
       window.localStorage.removeItem(AUTH_STORAGE_KEY);
     }
   }
+}
+
+function toBase64(value: string) {
+  const bytes = new TextEncoder().encode(value);
+  let binary = "";
+  bytes.forEach((byte) => {
+    binary += String.fromCharCode(byte);
+  });
+  return window.btoa(binary);
+}
+
+function getDefaultAdminAppOrigin() {
+  if (!isBrowser()) {
+    return "http://localhost:5174";
+  }
+
+  const envUrl = import.meta.env.VITE_ADMIN_APP_URL as string | undefined;
+  if (envUrl) {
+    return envUrl.replace(/\/+$/, "");
+  }
+
+  const { protocol, hostname, port } = window.location;
+  const numericPort = Number(port || "80");
+
+  if (!Number.isNaN(numericPort) && numericPort > 0) {
+    return `${protocol}//${hostname}:${numericPort + 1}`;
+  }
+
+  return `${protocol}//${hostname}`;
+}
+
+export function getDashboardPath(loginType: LoginType) {
+  if (loginType === "utthan_manager") return "/registered-students";
+  if (loginType === "sbgbp_manager") return "/registered-spgbp";
+  return "/";
+}
+
+export function redirectToAdminDashboard(session: AuthSession) {
+  if (!isBrowser()) return;
+
+  const encodedSession = toBase64(JSON.stringify(session));
+  const target = new URL(getDashboardPath(session.user.loginType), `${getDefaultAdminAppOrigin()}/`);
+  target.searchParams.set("authSession", encodedSession);
+  window.location.href = target.toString();
 }

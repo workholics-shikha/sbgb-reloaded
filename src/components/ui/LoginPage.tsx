@@ -1,13 +1,13 @@
 import { Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
-import { LogOut, ShieldCheck } from "lucide-react";
+import { ShieldCheck } from "lucide-react";
 
 import sideImage from "../../assets/Login-green.png";
 import leaf from "../../assets/leaf.png";
 import logo from "../../assets/sbgb-logo.png";
 import blogBgPaper from "@/assets/blog-bg-paper.png";
 import AdminLoginForm from "@/components/ui/AdminLoginForm";
-import { logoutUser, type AuthUser, type LoginType } from "@/lib/auth";
+import { type AuthUser, type LoginType } from "@/lib/auth";
 
 type LoginPageProps = {
   heading: string;
@@ -18,7 +18,6 @@ type LoginPageProps = {
   loggedInUser?: AuthUser | null;
   dashboardLabel?: string;
   onSuccess?: (user: AuthUser) => void;
-  onLogout?: () => void;
 };
 
 export default function LoginPage({
@@ -30,7 +29,6 @@ export default function LoginPage({
   loggedInUser,
   dashboardLabel,
   onSuccess,
-  onLogout,
 }: LoginPageProps) {
   return (
     <div className="min-h-screen bg-background text-foreground">
@@ -100,18 +98,6 @@ export default function LoginPage({
                     <p className="mt-1 text-sm text-[#8A6A4A]">{loggedInUser.email}</p>
                     <p className="mt-4 text-sm text-[#4E5A52]">Login type: {loggedInUser.loginType}</p>
                   </div>
-
-                  <button
-                    type="button"
-                    onClick={async () => {
-                      await logoutUser();
-                      onLogout?.();
-                    }}
-                    className="mt-6 flex w-full items-center justify-center gap-3 rounded-2xl bg-gradient-to-r from-[#b6473d] to-[#cc6256] py-3 font-semibold text-white shadow-lg transition-all duration-300 hover:shadow-[0_20px_40px_rgba(182,71,61,.35)]"
-                  >
-                    <LogOut className="h-4 w-4" />
-                    <span>Logout</span>
-                  </button>
                 </div>
               ) : (
                 <AdminLoginForm

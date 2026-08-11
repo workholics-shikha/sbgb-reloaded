@@ -39,13 +39,13 @@ export default function AdminLoginForm({
         setIsSubmitting(true);
 
         try {
-          const user = await loginWithCredentials({
+          const session = await loginWithCredentials({
             email: email.trim(),
             password,
             loginType,
           });
           setSent(true);
-          onSuccess?.(user);
+          onSuccess?.(session.user);
         } catch (loginError) {
           setSent(false);
           setError(loginError instanceof Error ? loginError.message : "Login failed");

@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 
 import LoginPage from "@/components/ui/LoginPage";
-import { readAuthSession, type AuthUser } from "@/lib/auth";
+import { readAuthSession, redirectToAdminDashboard, type AuthUser } from "@/lib/auth";
 
 export const Route = createFileRoute("/sbgbp-manager-login")({
   component: SbgbpManagerLogin,
@@ -24,8 +24,13 @@ function SbgbpManagerLogin() {
       emailPlaceholder="spgbpmanager@gmail.com"
       loggedInUser={user?.loginType === "sbgbp_manager" ? user : null}
       dashboardLabel="SBGBP Manager"
-      onSuccess={setUser}
-      onLogout={() => setUser(null)}
+      onSuccess={(nextUser) => {
+        setUser(nextUser);
+        const session = readAuthSession();
+        if (session) {
+          redirectToAdminDashboard(session);
+        }
+      }}
     />
   );
 }

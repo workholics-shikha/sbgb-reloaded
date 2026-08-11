@@ -33,14 +33,39 @@ import RegistrationsPage from '@/pages/RegistrationsPage';
 import PlaceholderPage from '@/pages/PlaceholderPage';
 import RegisteredStudentsPage from '@/pages/RegisteredStudentsPage';
 import RegisteredSpgbpPage from '@/pages/RegisteredSpgbpPage';
+import { clearAdminAuthSession, consumeAuthSessionFromUrl, getPublicLoginUrl, readAdminAuthSession, type AdminAuthSession } from '@/lib/auth';
+import { useEffect, useState } from 'react';
 
 function App() {
+  const [authSession, setAuthSession] = useState<AdminAuthSession | null>(null);
+
+  useEffect(() => {
+    const sessionFromUrl = consumeAuthSessionFromUrl();
+    const currentSession = sessionFromUrl || readAdminAuthSession();
+    setAuthSession(currentSession);
+
+    if (!currentSession) {
+      window.location.href = getPublicLoginUrl();
+    }
+  }, []);
+
+  if (!authSession) {
+    return null;
+  }
+
   return (
     <BrowserRouter>
       <div className="flex h-screen overflow-hidden" style={{ backgroundColor: '#f5fbf7' }}>
         <Sidebar />
         <div className="flex-1 flex min-w-0 flex-col min-h-0">
-          <Header />
+          <Header
+            userName={authSession.user.name}
+            onLogout={() => {
+              const loginType = authSession.user.loginType;
+              clearAdminAuthSession();
+              window.location.href = getPublicLoginUrl(loginType);
+            }}
+          />
           <main className="flex-1 overflow-y-auto">
             <Routes>
               <Route path="/" element={<Dashboard />} />

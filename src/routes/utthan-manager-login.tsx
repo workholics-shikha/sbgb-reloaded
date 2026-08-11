@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 
 import LoginPage from "@/components/ui/LoginPage";
-import { readAuthSession, type AuthUser } from "@/lib/auth";
+import { readAuthSession, redirectToAdminDashboard, type AuthUser } from "@/lib/auth";
 
 export const Route = createFileRoute("/utthan-manager-login")({
   component: UtthanManagerLogin,
@@ -24,8 +24,13 @@ function UtthanManagerLogin() {
       emailPlaceholder="manager@example.com"
       loggedInUser={user?.loginType === "utthan_manager" ? user : null}
       dashboardLabel="Utthan Coaching Manager"
-      onSuccess={setUser}
-      onLogout={() => setUser(null)}
+      onSuccess={(nextUser) => {
+        setUser(nextUser);
+        const session = readAuthSession();
+        if (session) {
+          redirectToAdminDashboard(session);
+        }
+      }}
     />
   );
 }

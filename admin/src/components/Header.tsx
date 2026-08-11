@@ -2,9 +2,11 @@ import { Menu, Bell, LogOut } from 'lucide-react';
 
 interface HeaderProps {
   onMenuToggle?: () => void;
+  userName?: string;
+  onLogout?: () => void;
 }
 
-export default function Header({ onMenuToggle }: HeaderProps) {
+export default function Header({ onMenuToggle, userName, onLogout }: HeaderProps) {
   return (
     <header
       className="px-6 py-0 flex items-center justify-between sticky top-0 z-20 bg-[length:40px_22px]
@@ -66,12 +68,13 @@ export default function Header({ onMenuToggle }: HeaderProps) {
             className="w-7 h-7 rounded-full flex items-center justify-center text-white text-xs font-bold flex-shrink-0"
             style={{ backgroundColor: '#e8a317' }}
           >
-            A
+            {(userName || 'A').trim().charAt(0).toUpperCase()}
           </div>
-          <span className="hidden md:block text-white/80 text-xs font-medium">Admin</span>
+          <span className="hidden md:block text-white/80 text-xs font-medium">{userName || 'Admin'}</span>
         </div>
 
         <button
+          onClick={onLogout}
           className="w-8 h-8 rounded flex items-center justify-center transition-colors ml-1"
           style={{ color: 'rgba(255,255,255,0.5)' }}
           title="Logout"
