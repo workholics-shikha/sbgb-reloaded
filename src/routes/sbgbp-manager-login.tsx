@@ -1,16 +1,31 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useEffect, useState } from "react";
+
 import LoginPage from "@/components/ui/LoginPage";
+import { readAuthSession, type AuthUser } from "@/lib/auth";
 
 export const Route = createFileRoute("/sbgbp-manager-login")({
-  component: SBGBTManagerLogin,
+  component: SbgbpManagerLogin,
 });
 
-function SBGBTManagerLogin() {
+function SbgbpManagerLogin() {
+  const [user, setUser] = useState<AuthUser | null>(null);
+
+  useEffect(() => {
+    setUser(readAuthSession()?.user ?? null);
+  }, []);
+
   return (
     <LoginPage
       heading="SBGBP प्रबंधक लॉगिन"
-      subtitle="संस्था के प्रबंधन, सदस्यों और कार्यक्रमों के संचालन हेतु सुरक्षित प्रवेश।"
+      subtitle="SBGBP registration और management access के लिए सुरक्षित प्रवेश।"
       buttonText="प्रबंधक लॉगिन"
+      loginType="sbgbp_manager"
+      emailPlaceholder="spgbpmanager@gmail.com"
+      loggedInUser={user?.loginType === "sbgbp_manager" ? user : null}
+      dashboardLabel="SBGBP Manager"
+      onSuccess={setUser}
+      onLogout={() => setUser(null)}
     />
   );
 }

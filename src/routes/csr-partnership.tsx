@@ -1,8 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useState } from "react";
-import { Send } from "lucide-react";
+import { FormEvent, useMemo, useState } from "react";
+import { Building2, Handshake, MapPin, Send } from "lucide-react";
+
 import { SiteHeader } from "@/components/site/SiteHeader";
-import { PageHero, SiteFooter, CTASection} from "@/components/site/SiteFooter";
+import { CTASection, PageHero, SiteFooter } from "@/components/site/SiteFooter";
 
 export const Route = createFileRoute("/csr-partnership")({
   head: () => ({
@@ -10,187 +11,278 @@ export const Route = createFileRoute("/csr-partnership")({
       { title: "CSR Partnership | SBGBT" },
       {
         name: "description",
-        content:
-          "SBGBT टीम से ईमेल, फोन या कार्यालय पते के माध्यम से जुड़ें। स्वयंसेवा, साझेदारी, मीडिया और कार्यक्रमों से जुड़े प्रश्न यहां भेजें।",
-      },
-      { property: "og:title", content: "संपर्क करें | SBGBT" },
-      {
-        property: "og:description",
-        content:
-          "स्वयंसेवा, साझेदारी, मीडिया या छात्रवृत्ति कार्यक्रमों के लिए SBGBT टीम से सीधे संपर्क करें।",
+        content: "SBGBT के साथ CSR partnership के लिए अपनी संस्था की जानकारी और सहयोग प्रस्ताव साझा करें।",
       },
     ],
   }),
-  component: Contact,
+  component: CsrPartnershipPage,
 });
 
-function Contact() {
+type CsrFormData = {
+  companyName: string;
+  concernPerson: string;
+  mobileNumber: string;
+  email: string;
+  city: string;
+  tehsilBlock: string;
+  district: string;
+  state: string;
+};
+
+type CsrFieldConfig = {
+  name: keyof CsrFormData;
+  label: string;
+  placeholder: string;
+  type: "text" | "tel" | "email";
+  required?: boolean;
+  apiKey: string;
+};
+
+const csrFieldSections: Array<{
+  title: string;
+  description: string;
+  fields: CsrFieldConfig[];
+}> = [
+  {
+    title: "Organization Details",
+    description: "Company aur primary contact details",
+    fields: [
+      {
+        name: "companyName",
+        label: "Company Name",
+        placeholder: "Enter Company Name",
+        type: "text",
+        required: true,
+        apiKey: "name_of_company",
+      },
+      {
+        name: "concernPerson",
+        label: "Concern Person",
+        placeholder: "Enter Contact Person",
+        type: "text",
+        required: true,
+        apiKey: "name_of_concern_person",
+      },
+      {
+        name: "mobileNumber",
+        label: "Mobile Number",
+        placeholder: "Enter Mobile Number",
+        type: "tel",
+        required: true,
+        apiKey: "mobile",
+      },
+      {
+        name: "email",
+        label: "E-Mail ID",
+        placeholder: "Enter Email ID",
+        type: "email",
+        required: true,
+        apiKey: "email",
+      },
+    ],
+  },
+  {
+    title: "Location Details",
+    description: "Project area aur operational geography",
+    fields: [
+      {
+        name: "city",
+        label: "City",
+        placeholder: "Enter City",
+        type: "text",
+        required: true,
+        apiKey: "city",
+      },
+      {
+        name: "tehsilBlock",
+        label: "Tehsil / Block",
+        placeholder: "Enter Tehsil / Block",
+        type: "text",
+        required: true,
+        apiKey: "tehsil_block",
+      },
+      {
+        name: "district",
+        label: "District",
+        placeholder: "Enter District",
+        type: "text",
+        required: true,
+        apiKey: "district",
+      },
+      {
+        name: "state",
+        label: "State",
+        placeholder: "Enter State",
+        type: "text",
+        required: true,
+        apiKey: "state",
+      },
+    ],
+  },
+];
+
+const initialFormData: CsrFormData = {
+  companyName: "",
+  concernPerson: "",
+  mobileNumber: "",
+  email: "",
+  city: "",
+  tehsilBlock: "",
+  district: "",
+  state: "",
+};
+
+function CsrPartnershipPage() {
+  const [formData, setFormData] = useState<CsrFormData>(initialFormData);
   const [sent, setSent] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+
+  const flatFields = useMemo(
+    () => csrFieldSections.flatMap((section) => section.fields),
+    [],
+  );
+
+  const payload = useMemo(
+    () =>
+      flatFields.reduce<Record<string, string>>((current, field) => {
+        current[field.apiKey] = formData[field.name].trim();
+        return current;
+      }, {}),
+    [flatFields, formData],
+  );
+
+  const handleFieldChange = (name: keyof CsrFormData, value: string) => {
+    setFormData((current) => ({
+      ...current,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setIsSubmitting(true);
+    setErrorMessage("");
+    setSent(false);
+
+    try {
+      const response = await fetch("/api/csr-forms", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
+
+      if (!response.ok) {
+        const result = (await response.json().catch(() => null)) as { message?: string } | null;
+        throw new Error(result?.message || "CSR form submit नहीं हो पाया।");
+      }
+
+      setSent(true);
+      setFormData(initialFormData);
+    } catch (error) {
+      setErrorMessage(
+        error instanceof Error ? error.message : "CSR form submit नहीं हो पाया।",
+      );
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   return (
     <div className="min-h-screen bg-background text-foreground">
       <SiteHeader />
       <PageHero title="CSR Partnership" />
 
-      <section className=" border-border">
-        <div className="mx-auto grid max-w-7xl gap-10 px-4 py-16 sm:px-6 sm:py-20 lg:grid-cols-[1.6fr]">
-         
+      <section className="border-border">
+        <div className="mx-auto grid max-w-7xl gap-10 px-4 py-16 sm:px-6 sm:py-20 lg:grid-cols-[0.8fr_1.6fr]">
+          <div className="space-y-4">
+            <div className="rounded-[2rem] border border-primary/15 bg-primary/[0.06] p-6">
+              <div className="flex items-center gap-3 text-primary">
+                <Building2 className="h-5 w-5" />
+                <p className="text-sm font-semibold uppercase tracking-[0.24em]">Partner With SBGBT</p>
+              </div>
+              <h2 className="mt-4 text-2xl font-bold text-primary">अपनी CSR initiative को grassroots impact से जोड़ें</h2>
+              <p className="mt-3 text-sm leading-7 text-muted-foreground">
+                यह form अब frontend config से render होता है, इसलिए fields, labels और API mapping एक ही जगह से manage हो रही है।
+              </p>
+            </div>
+
+            <div className="rounded-[2rem] border border-border bg-card/90 p-6 shadow-sm">
+              <div className="space-y-3 text-sm text-muted-foreground">
+                <div className="flex items-start gap-3">
+                  <Handshake className="mt-0.5 h-4 w-4 text-primary" />
+                  <p>Education, rural development, health, environment और women empowerment initiatives पर सहयोग।</p>
+                </div>
+                <div className="flex items-start gap-3">
+                  <MapPin className="mt-0.5 h-4 w-4 text-primary" />
+                  <p>Location details से team को project geography समझने में मदद मिलेगी।</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
           <form
-            onSubmit={(e) => {
-              e.preventDefault();
-              setSent(true);
-            }}
+            onSubmit={handleSubmit}
             className="rounded-[2rem] border border-border bg-card/95 p-6 shadow-lg sm:p-8"
           >
-            <h2 className="font-display text-3xl font-bold text-primary">
-              CSR Partnership
-            </h2>
+            <h2 className="font-display text-3xl font-bold text-primary">CSR Partnership</h2>
+            <p className="mt-2 text-muted-foreground">Join hands with SBGBT to create a positive social impact.</p>
 
-            <p className="mt-2 text-muted-foreground">
-              Join hands with SBGBT to create a positive social impact.
-            </p>
+            <div className="mt-8 space-y-6">
+              {csrFieldSections.map((section) => (
+                <section key={section.title} className="rounded-[1.5rem] border border-border bg-background/40 p-5">
+                  <div className="mb-4">
+                    <h3 className="text-lg font-bold text-foreground">{section.title}</h3>
+                    <p className="text-sm text-muted-foreground">{section.description}</p>
+                  </div>
 
-            <div className="mt-8 grid gap-5 md:grid-cols-3">
-
-              <label>
-                <span className="mb-2 block text-sm font-medium">
-                  Company Name <span className="text-red-500">*</span>
-                </span>
-                <input
-                  type="text"
-                  required
-                  placeholder="Enter Company Name"
-                  className="w-full rounded-full border border-border px-5 py-3 outline-none focus:border-primary"
-                />
-              </label>
-
-              <label>
-                <span className="mb-2 block text-sm font-medium">
-                  Concern Person <span className="text-red-500">*</span>
-                </span>
-                <input
-                  type="text"
-                  required
-                  placeholder="Enter Contact Person"
-                  className="w-full rounded-full border border-border px-5 py-3 outline-none focus:border-primary"
-                />
-              </label>
-
-              <label>
-                <span className="mb-2 block text-sm font-medium">
-                  Mobile Number <span className="text-red-500">*</span>
-                </span>
-                <input
-                  type="tel"
-                  required
-                  placeholder="Enter Mobile Number"
-                  className="w-full rounded-full border border-border px-5 py-3 outline-none focus:border-primary"
-                />
-              </label>
-
-              <label>
-                <span className="mb-2 block text-sm font-medium">
-                  E-Mail ID <span className="text-red-500">*</span>
-                </span>
-                <input
-                  type="email"
-                  required
-                  placeholder="Enter Email ID"
-                  className="w-full rounded-full border border-border px-5 py-3 outline-none focus:border-primary"
-                />
-              </label>
-
-              <label>
-                <span className="mb-2 block text-sm font-medium">
-                  City <span className="text-red-500">*</span>
-                </span>
-                <input
-                  type="text"
-                  required
-                  placeholder="Enter City"
-                  className="w-full rounded-full border border-border px-5 py-3 outline-none focus:border-primary"
-                />
-              </label>
-
-              <label>
-                <span className="mb-2 block text-sm font-medium">
-                  Tehsil / Block <span className="text-red-500">*</span>
-                </span>
-                <input
-                  type="text"
-                  required
-                  placeholder="Enter Tehsil / Block"
-                  className="w-full rounded-full border border-border px-5 py-3 outline-none focus:border-primary"
-                />
-              </label>
-
-              <label>
-                <span className="mb-2 block text-sm font-medium">
-                  District <span className="text-red-500">*</span>
-                </span>
-                <input
-                  type="text"
-                  required
-                  placeholder="Enter District"
-                  className="w-full rounded-full border border-border px-5 py-3 outline-none focus:border-primary"
-                />
-              </label>
-
-              <label>
-                <span className="mb-2 block text-sm font-medium">
-                  State <span className="text-red-500">*</span>
-                </span>
-                <input
-                  type="text"
-                  required
-                  placeholder="Enter State"
-                  className="w-full rounded-full border border-border px-5 py-3 outline-none focus:border-primary"
-                />
-              </label>
-
-              <label className="md:col-span-2">
-                <span className="mb-2 block text-sm font-medium">
-                  Address
-                </span>
-                <textarea
-                  rows={4}
-                  placeholder="Enter Office Address"
-                  className="w-full rounded-3xl border border-border px-5 py-3 outline-none focus:border-primary resize-none"
-                />
-              </label>
-
-              <label className="md:col-span-2">
-                <span className="mb-2 block text-sm font-medium">
-                  About Partnership
-                </span>
-                <textarea
-                  rows={5}
-                  placeholder="Tell us how you would like to collaborate with SBGBT..."
-                  className="w-full rounded-3xl border border-border px-5 py-3 outline-none focus:border-primary resize-none"
-                />
-              </label>
-
+                  <div className="grid gap-5 md:grid-cols-2">
+                    {section.fields.map((field) => (
+                      <label key={field.name}>
+                        <span className="mb-2 block text-sm font-medium">
+                          {field.label}
+                          {field.required && <span className="text-red-500"> *</span>}
+                        </span>
+                        <input
+                          required={field.required}
+                          type={field.type}
+                          value={formData[field.name]}
+                          onChange={(event) => handleFieldChange(field.name, event.target.value)}
+                          placeholder={field.placeholder}
+                          className="w-full rounded-full border border-border px-5 py-3 outline-none focus:border-primary"
+                        />
+                      </label>
+                    ))}
+                  </div>
+                </section>
+              ))}
             </div>
 
             <button
               type="submit"
-              className="mt-8 flex w-full items-center justify-center gap-2 rounded-full bg-primary px-6 py-4 text-white font-semibold shadow-lg transition hover:scale-[1.02]"
+              disabled={isSubmitting}
+              className="mt-8 flex w-full items-center justify-center gap-2 rounded-full bg-primary px-6 py-4 font-semibold text-white shadow-lg transition hover:scale-[1.02] disabled:cursor-not-allowed disabled:opacity-70"
             >
               <Send className="h-5 w-5" />
-              Submit Partnership Request
+              {isSubmitting ? "Submitting..." : "Submit Partnership Request"}
             </button>
 
             {sent && (
-              <p className="mt-4 text-center text-green-600 font-medium">
+              <p className="mt-4 text-center font-medium text-green-600">
                 ✅ Thank you! Your CSR partnership request has been submitted successfully.
               </p>
+            )}
+
+            {errorMessage && (
+              <p className="mt-4 text-center font-medium text-red-600">{errorMessage}</p>
             )}
           </form>
         </div>
       </section>
-      {/* CTA */}
-       <CTASection />
-      {/* === */} 
+
+      <CTASection />
       <SiteFooter />
     </div>
   );

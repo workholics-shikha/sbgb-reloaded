@@ -21,7 +21,6 @@ import { Route as SammanSamarohRegistrationRouteImport } from './routes/samman-s
 import { Route as PatrikaRouteImport } from './routes/patrika'
 import { Route as MemberLoginRouteImport } from './routes/member-login'
 import { Route as MediaRouteImport } from './routes/media'
-import { Route as IndexBackupRouteImport } from './routes/index-backup'
 import { Route as GalleryRouteImport } from './routes/gallery'
 import { Route as DonateRouteImport } from './routes/donate'
 import { Route as CsrPartnershipRouteImport } from './routes/csr-partnership'
@@ -99,11 +98,6 @@ const MediaRoute = MediaRouteImport.update({
   path: '/media',
   getParentRoute: () => rootRouteImport,
 } as any)
-const IndexBackupRoute = IndexBackupRouteImport.update({
-  id: '/index-backup',
-  path: '/index-backup',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const GalleryRoute = GalleryRouteImport.update({
   id: '/gallery',
   path: '/gallery',
@@ -172,7 +166,6 @@ export interface FileRoutesByFullPath {
   '/csr-partnership': typeof CsrPartnershipRoute
   '/donate': typeof DonateRoute
   '/gallery': typeof GalleryRoute
-  '/index-backup': typeof IndexBackupRoute
   '/media': typeof MediaRoute
   '/member-login': typeof MemberLoginRoute
   '/patrika': typeof PatrikaRoute
@@ -198,7 +191,6 @@ export interface FileRoutesByTo {
   '/csr-partnership': typeof CsrPartnershipRoute
   '/donate': typeof DonateRoute
   '/gallery': typeof GalleryRoute
-  '/index-backup': typeof IndexBackupRoute
   '/media': typeof MediaRoute
   '/member-login': typeof MemberLoginRoute
   '/patrika': typeof PatrikaRoute
@@ -225,7 +217,6 @@ export interface FileRoutesById {
   '/csr-partnership': typeof CsrPartnershipRoute
   '/donate': typeof DonateRoute
   '/gallery': typeof GalleryRoute
-  '/index-backup': typeof IndexBackupRoute
   '/media': typeof MediaRoute
   '/member-login': typeof MemberLoginRoute
   '/patrika': typeof PatrikaRoute
@@ -253,7 +244,6 @@ export interface FileRouteTypes {
     | '/csr-partnership'
     | '/donate'
     | '/gallery'
-    | '/index-backup'
     | '/media'
     | '/member-login'
     | '/patrika'
@@ -279,7 +269,6 @@ export interface FileRouteTypes {
     | '/csr-partnership'
     | '/donate'
     | '/gallery'
-    | '/index-backup'
     | '/media'
     | '/member-login'
     | '/patrika'
@@ -305,7 +294,6 @@ export interface FileRouteTypes {
     | '/csr-partnership'
     | '/donate'
     | '/gallery'
-    | '/index-backup'
     | '/media'
     | '/member-login'
     | '/patrika'
@@ -332,7 +320,6 @@ export interface RootRouteChildren {
   CsrPartnershipRoute: typeof CsrPartnershipRoute
   DonateRoute: typeof DonateRoute
   GalleryRoute: typeof GalleryRoute
-  IndexBackupRoute: typeof IndexBackupRoute
   MediaRoute: typeof MediaRoute
   MemberLoginRoute: typeof MemberLoginRoute
   PatrikaRoute: typeof PatrikaRoute
@@ -433,13 +420,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof MediaRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/index-backup': {
-      id: '/index-backup'
-      path: '/index-backup'
-      fullPath: '/index-backup'
-      preLoaderRoute: typeof IndexBackupRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/gallery': {
       id: '/gallery'
       path: '/gallery'
@@ -532,7 +512,6 @@ const rootRouteChildren: RootRouteChildren = {
   CsrPartnershipRoute: CsrPartnershipRoute,
   DonateRoute: DonateRoute,
   GalleryRoute: GalleryRoute,
-  IndexBackupRoute: IndexBackupRoute,
   MediaRoute: MediaRoute,
   MemberLoginRoute: MemberLoginRoute,
   PatrikaRoute: PatrikaRoute,
