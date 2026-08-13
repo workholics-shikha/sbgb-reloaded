@@ -132,7 +132,7 @@ export function SiteFooter() {
           </div>
         </div>
 
-        <div className="grid gap-8 border-b border-white/8 py-12 lg:grid-cols-[1.1fr_1fr] lg:items-center">
+        <div className="grid gap-8 border-b border-white/8 py-8 lg:grid-cols-[1.1fr_1fr] lg:items-center">
           <div className="flex flex-col gap-3 sm:flex-row">
             <input
               type="email"

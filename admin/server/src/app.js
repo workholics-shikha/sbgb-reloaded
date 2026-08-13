@@ -25,6 +25,7 @@ const { createTestimonialRouter } = require("./routes/testimonialRoutes");
 const { createCoachingOrganizationRouter } = require("./routes/coachingOrganizationRoutes");
 const { createContactRouter } = require("./routes/contactRoutes");
 const { createCsrFormRouter } = require("./routes/csrFormRoutes");
+const { createDonationRouter } = require("./routes/donationRoutes");
 const { createSbgbpRegistrationRouter } = require("./routes/sbgbpRegistrationRoutes");
 const { createUtthanCoachingRegistrationRouter } = require("./routes/utthanCoachingRegistrationRoutes");
 const { createSammanSamarohRegistrationRouter } = require("./routes/sammanSamarohRegistrationRoutes");
@@ -63,6 +64,7 @@ function createApp({ jwtSecret, jwtExpiresIn }) {
   app.use("/api/coaching-organizations", createCoachingOrganizationRouter());
   app.use("/api/contacts", createContactRouter());
   app.use("/api/csr-forms", createCsrFormRouter());
+  app.use("/api/donations", createDonationRouter());
   app.use("/api/sbgbp-registrations", createSbgbpRegistrationRouter());
   app.use("/api/utthan-coaching-registrations", createUtthanCoachingRegistrationRouter());
   app.use("/api/samman-samaroh-registrations", createSammanSamarohRegistrationRouter());

@@ -15,7 +15,20 @@ export type AdminAuthSession = {
 };
 
 const ADMIN_AUTH_STORAGE_KEY = 'sbgbt-admin-auth-session';
-const PUBLIC_APP_URL = import.meta.env.VITE_PUBLIC_APP_URL || 'http://localhost:5173';
+const PUBLIC_AUTH_STORAGE_KEY = 'sbgbt-auth-session';
+
+export function getPublicAppUrl() {
+  const envUrl = import.meta.env.VITE_PUBLIC_APP_URL as string | undefined;
+  if (envUrl) {
+    return envUrl.replace(/\/+$/, '');
+  }
+
+  if (typeof window === 'undefined') {
+    return 'http://localhost:5174';
+  }
+
+  return window.location.origin.replace(/\/admin\/?$/, '');
+}
 
 function decodeBase64(value: string) {
   const binary = window.atob(value);
@@ -42,6 +55,10 @@ export function writeAdminAuthSession(session: AdminAuthSession) {
 
 export function clearAdminAuthSession() {
   window.localStorage.removeItem(ADMIN_AUTH_STORAGE_KEY);
+}
+
+export function clearPublicAuthSession() {
+  window.localStorage.removeItem(PUBLIC_AUTH_STORAGE_KEY);
 }
 
 export function consumeAuthSessionFromUrl() {
@@ -74,5 +91,5 @@ export function getPublicLoginUrl(loginType?: string) {
       ? '/member-login'
       : '/admin-login';
 
-  return `${PUBLIC_APP_URL.replace(/\/+$/, '')}${loginPath}`;
+  return `${getPublicAppUrl()}${loginPath}`;
 }

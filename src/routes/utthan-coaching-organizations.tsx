@@ -71,7 +71,7 @@ function UtthanCoachingOrganizationsPage() {
             {organizations.map((organization) => (
               <article
                 key={organization.id}
-                className="flex min-h-[305px] flex-col items-center rounded-[1.9rem] bg-white px-8 py-10 text-center shadow-[0_20px_45px_-35px_rgba(17,56,61,0.45)]"
+                className="flex min-h-[420px] flex-col items-center rounded-[1.9rem] bg-white px-8 py-10 text-center shadow-[0_20px_45px_-35px_rgba(17,56,61,0.45)]"
               >
                 <div className="space-y-1 text-[1.05rem] leading-10 text-[#1f2d34] sm:text-[1.2rem]">
                   <p className="font-medium">{organization.title}</p>
@@ -80,11 +80,11 @@ function UtthanCoachingOrganizationsPage() {
                   ))}
                 </div>
 
-                <div className="mt-8">
+                <div className="mt-auto pt-8">
                   <Link
                     to="/utthan-coaching-registration"
                     search={{ organization: organization.id }}
-                    className="inline-flex items-center justify-center rounded-full bg-primary px-8 py-3 text-base font-semibold text-white shadow-[0_14px_24px_-14px_rgba(0,0,0,0.65)] transition hover:-translate-y-0.5 hover:brightness-105"
+                    className="inline-flex items-center justify-center rounded-full bg-primary px-6 py-2.5 text-sm font-semibold text-white shadow-[0_14px_24px_-14px_rgba(0,0,0,0.65)] transition hover:-translate-y-0.5 hover:brightness-105"
                   >
                     विद्यार्थी रजिस्टर करें
                   </Link>

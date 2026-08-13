@@ -166,7 +166,7 @@ function TalentFelicitationCeremonyPage() {
               </div>
             </div>
 
-            <p className="text-l font-bold text-[#16323b] sm:text-xl">
+            <p className="text-l font-bold text-[#16323b] sm:text-l">
               नोट: आवेदन फॉर्म में विवरण केवल अंग्रेजी (English) में भरें।
             </p>
           </div>

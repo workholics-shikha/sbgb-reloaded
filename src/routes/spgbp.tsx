@@ -145,10 +145,8 @@ function SPGBP() {
                 </a>
               ))}
 
-              <a
-                href="https://www.sbgbteam.com/sbgbp-registration-admit-card"
-                target="_blank"
-                rel="noreferrer"
+              <Link
+                to="/sbgbp-registration-admit-card"
                 className="flex items-center gap-4 rounded-2xl border border-border bg-card p-4 transition hover:border-primary/40 hover:shadow-md"
               >
                 <div className="grid size-11 shrink-0 place-items-center rounded-xl bg-accent/20 text-earth">
@@ -156,7 +154,7 @@ function SPGBP() {
                 </div>
                 <div className="font-semibold text-sm sm:text-base">एडमिट कार्ड डाउनलोड करें</div>
                 <ArrowRight className="ml-auto size-4 text-primary" />
-              </a>
+              </Link>
             </div>
           </div>
 

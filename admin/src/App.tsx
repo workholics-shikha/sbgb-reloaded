@@ -5,6 +5,7 @@ import Dashboard from '@/pages/Dashboard';
 import SlidersPage from '@/pages/SlidersPage';
 import CategoriesPage from '@/pages/CategoriesPage';
 import ActivitiesPage from '@/pages/ActivitiesPage';
+import ActivityEditorPage from '@/pages/ActivityEditorPage';
 import InnerActivitiesPage from '@/pages/InnerActivitiesPage';
 import ArticlesPage from '@/pages/ArticlesPage';
 import ArticleViewPage from '@/pages/ArticleViewPage';
@@ -33,8 +34,20 @@ import RegistrationsPage from '@/pages/RegistrationsPage';
 import PlaceholderPage from '@/pages/PlaceholderPage';
 import RegisteredStudentsPage from '@/pages/RegisteredStudentsPage';
 import RegisteredSpgbpPage from '@/pages/RegisteredSpgbpPage';
-import { clearAdminAuthSession, consumeAuthSessionFromUrl, getPublicLoginUrl, readAdminAuthSession, type AdminAuthSession } from '@/lib/auth';
+import {
+  clearAdminAuthSession,
+  clearPublicAuthSession,
+  consumeAuthSessionFromUrl,
+  getPublicLoginUrl,
+  readAdminAuthSession,
+  type AdminAuthSession,
+} from '@/lib/auth';
 import { useEffect, useState } from 'react';
+
+function getRouterBasename() {
+  const baseUrl = import.meta.env.BASE_URL || '/';
+  return baseUrl === '/' ? undefined : baseUrl.replace(/\/+$/, '');
+}
 
 function App() {
   const [authSession, setAuthSession] = useState<AdminAuthSession | null>(null);
@@ -54,7 +67,7 @@ function App() {
   }
 
   return (
-    <BrowserRouter>
+    <BrowserRouter basename={getRouterBasename()}>
       <div className="flex h-screen overflow-hidden" style={{ backgroundColor: '#f5fbf7' }}>
         <Sidebar />
         <div className="flex-1 flex min-w-0 flex-col min-h-0">
@@ -63,6 +76,7 @@ function App() {
             onLogout={() => {
               const loginType = authSession.user.loginType;
               clearAdminAuthSession();
+              clearPublicAuthSession();
               window.location.href = getPublicLoginUrl(loginType);
             }}
           />
@@ -72,6 +86,8 @@ function App() {
               <Route path="/sliders" element={<SlidersPage />} />
               <Route path="/categories" element={<CategoriesPage />} />
               <Route path="/activities" element={<ActivitiesPage />} />
+              <Route path="/activities/new" element={<ActivityEditorPage />} />
+              <Route path="/activities/:id/edit" element={<ActivityEditorPage />} />
               <Route path="/inner-activities" element={<InnerActivitiesPage />} />
               <Route path="/articles" element={<ArticlesPage />} />
               <Route path="/articles/:id" element={<ArticleViewPage />} />

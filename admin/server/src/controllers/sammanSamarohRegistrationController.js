@@ -99,8 +99,8 @@ function mapRegistration(row) {
 
 function buildAcademicSessions() {
   const currentYear = new Date().getFullYear();
-  return Array.from({ length: 4 }, (_, index) => {
-    const startYear = currentYear - 1 + index;
+  return Array.from({ length: 7 }, (_, index) => {
+    const startYear = currentYear - index;
     const endYear = String(startYear + 1).slice(-2);
     const label = `${startYear}-${endYear}`;
     return { id: label, label, value: label };

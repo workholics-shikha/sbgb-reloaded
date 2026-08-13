@@ -196,33 +196,8 @@ function CsrPartnershipPage() {
       <PageHero title="CSR Partnership" />
 
       <section className="border-border">
-        <div className="mx-auto grid max-w-7xl gap-10 px-4 py-16 sm:px-6 sm:py-20 lg:grid-cols-[0.8fr_1.6fr]">
-          <div className="space-y-4">
-            <div className="rounded-[2rem] border border-primary/15 bg-primary/[0.06] p-6">
-              <div className="flex items-center gap-3 text-primary">
-                <Building2 className="h-5 w-5" />
-                <p className="text-sm font-semibold uppercase tracking-[0.24em]">Partner With SBGBT</p>
-              </div>
-              <h2 className="mt-4 text-2xl font-bold text-primary">अपनी CSR initiative को grassroots impact से जोड़ें</h2>
-              <p className="mt-3 text-sm leading-7 text-muted-foreground">
-                यह form अब frontend config से render होता है, इसलिए fields, labels और API mapping एक ही जगह से manage हो रही है।
-              </p>
-            </div>
-
-            <div className="rounded-[2rem] border border-border bg-card/90 p-6 shadow-sm">
-              <div className="space-y-3 text-sm text-muted-foreground">
-                <div className="flex items-start gap-3">
-                  <Handshake className="mt-0.5 h-4 w-4 text-primary" />
-                  <p>Education, rural development, health, environment और women empowerment initiatives पर सहयोग।</p>
-                </div>
-                <div className="flex items-start gap-3">
-                  <MapPin className="mt-0.5 h-4 w-4 text-primary" />
-                  <p>Location details से team को project geography समझने में मदद मिलेगी।</p>
-                </div>
-              </div>
-            </div>
-          </div>
-
+        <div className="mx-auto grid max-w-7xl gap-10 px-4 py-16 sm:px-6 sm:py-20">
+           
           <form
             onSubmit={handleSubmit}
             className="rounded-[2rem] border border-border bg-card/95 p-6 shadow-lg sm:p-8"

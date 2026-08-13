@@ -25,6 +25,7 @@ import { Route as GalleryRouteImport } from './routes/gallery'
 import { Route as DonateRouteImport } from './routes/donate'
 import { Route as CsrPartnershipRouteImport } from './routes/csr-partnership'
 import { Route as ContactRouteImport } from './routes/contact'
+import { Route as ActivitiesActivityIdRouteImport } from './routes/activities.$activityId'
 import { Route as ArticlesArticleSlugRouteImport } from './routes/articles.$articleSlug'
 import { Route as ArticlesRouteImport } from './routes/articles'
 import { Route as AdminLoginRouteImport } from './routes/admin-login'
@@ -32,6 +33,7 @@ import { Route as ActivitiesRouteImport } from './routes/activities'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as AavedanFormRouteImport } from './routes/aavedan-form'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as SBGPBRegistrationAdmitCardRouteImport } from './routes/sbgbp-registration-admit-card'
 
 const UtthanManagerLoginRoute = UtthanManagerLoginRouteImport.update({
   id: '/utthan-manager-login',
@@ -118,6 +120,11 @@ const ContactRoute = ContactRouteImport.update({
   path: '/contact',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ActivitiesActivityIdRoute = ActivitiesActivityIdRouteImport.update({
+  id: '/activities/$activityId',
+  path: '/activities/$activityId',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ArticlesArticleSlugRoute = ArticlesArticleSlugRouteImport.update({
   id: '/articles/$articleSlug',
   path: '/articles/$articleSlug',
@@ -143,6 +150,11 @@ const AboutRoute = AboutRouteImport.update({
   path: '/about',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SBGPBRegistrationAdmitCardRoute = SBGPBRegistrationAdmitCardRouteImport.update({
+  id: '/sbgbp-registration-admit-card',
+  path: '/sbgbp-registration-admit-card',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AavedanFormRoute = AavedanFormRouteImport.update({
   id: '/aavedan-form',
   path: '/aavedan-form',
@@ -159,6 +171,7 @@ export interface FileRoutesByFullPath {
   '/aavedan-form': typeof AavedanFormRoute
   '/about': typeof AboutRoute
   '/activities': typeof ActivitiesRoute
+  '/activities/$activityId': typeof ActivitiesActivityIdRoute
   '/admin-login': typeof AdminLoginRoute
   '/articles/$articleSlug': typeof ArticlesArticleSlugRoute
   '/articles': typeof ArticlesRoute
@@ -178,12 +191,14 @@ export interface FileRoutesByFullPath {
   '/utthan-coaching-organizations': typeof UtthanCoachingOrganizationsRoute
   '/utthan-coaching-registration': typeof UtthanCoachingRegistrationRoute
   '/utthan-manager-login': typeof UtthanManagerLoginRoute
+  '/sbgbp-registration-admit-card': typeof SBGPBRegistrationAdmitCardRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/aavedan-form': typeof AavedanFormRoute
   '/about': typeof AboutRoute
   '/activities': typeof ActivitiesRoute
+  '/activities/$activityId': typeof ActivitiesActivityIdRoute
   '/admin-login': typeof AdminLoginRoute
   '/articles/$articleSlug': typeof ArticlesArticleSlugRoute
   '/articles': typeof ArticlesRoute
@@ -203,6 +218,7 @@ export interface FileRoutesByTo {
   '/utthan-coaching-organizations': typeof UtthanCoachingOrganizationsRoute
   '/utthan-coaching-registration': typeof UtthanCoachingRegistrationRoute
   '/utthan-manager-login': typeof UtthanManagerLoginRoute
+  '/sbgbp-registration-admit-card': typeof SBGPBRegistrationAdmitCardRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -210,6 +226,7 @@ export interface FileRoutesById {
   '/aavedan-form': typeof AavedanFormRoute
   '/about': typeof AboutRoute
   '/activities': typeof ActivitiesRoute
+  '/activities/$activityId': typeof ActivitiesActivityIdRoute
   '/admin-login': typeof AdminLoginRoute
   '/articles/$articleSlug': typeof ArticlesArticleSlugRoute
   '/articles': typeof ArticlesRoute
@@ -229,6 +246,7 @@ export interface FileRoutesById {
   '/utthan-coaching-organizations': typeof UtthanCoachingOrganizationsRoute
   '/utthan-coaching-registration': typeof UtthanCoachingRegistrationRoute
   '/utthan-manager-login': typeof UtthanManagerLoginRoute
+  '/sbgbp-registration-admit-card': typeof SBGPBRegistrationAdmitCardRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -237,6 +255,7 @@ export interface FileRouteTypes {
     | '/aavedan-form'
     | '/about'
     | '/activities'
+    | '/activities/$activityId'
     | '/admin-login'
     | '/articles/$articleSlug'
     | '/articles'
@@ -256,12 +275,14 @@ export interface FileRouteTypes {
     | '/utthan-coaching-organizations'
     | '/utthan-coaching-registration'
     | '/utthan-manager-login'
+    | '/sbgbp-registration-admit-card'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/aavedan-form'
     | '/about'
     | '/activities'
+    | '/activities/$activityId'
     | '/admin-login'
     | '/articles/$articleSlug'
     | '/articles'
@@ -281,12 +302,14 @@ export interface FileRouteTypes {
     | '/utthan-coaching-organizations'
     | '/utthan-coaching-registration'
     | '/utthan-manager-login'
+    | '/sbgbp-registration-admit-card'
   id:
     | '__root__'
     | '/'
     | '/aavedan-form'
     | '/about'
     | '/activities'
+    | '/activities/$activityId'
     | '/admin-login'
     | '/articles/$articleSlug'
     | '/articles'
@@ -306,6 +329,7 @@ export interface FileRouteTypes {
     | '/utthan-coaching-organizations'
     | '/utthan-coaching-registration'
     | '/utthan-manager-login'
+    | '/sbgbp-registration-admit-card'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -313,6 +337,7 @@ export interface RootRouteChildren {
   AavedanFormRoute: typeof AavedanFormRoute
   AboutRoute: typeof AboutRoute
   ActivitiesRoute: typeof ActivitiesRoute
+  ActivitiesActivityIdRoute: typeof ActivitiesActivityIdRoute
   AdminLoginRoute: typeof AdminLoginRoute
   ArticlesArticleSlugRoute: typeof ArticlesArticleSlugRoute
   ArticlesRoute: typeof ArticlesRoute
@@ -332,6 +357,7 @@ export interface RootRouteChildren {
   UtthanCoachingOrganizationsRoute: typeof UtthanCoachingOrganizationsRoute
   UtthanCoachingRegistrationRoute: typeof UtthanCoachingRegistrationRoute
   UtthanManagerLoginRoute: typeof UtthanManagerLoginRoute
+  SBGPBRegistrationAdmitCardRoute: typeof SBGPBRegistrationAdmitCardRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -448,6 +474,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ContactRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/activities/$activityId': {
+      id: '/activities/$activityId'
+      path: '/activities/$activityId'
+      fullPath: '/activities/$activityId'
+      preLoaderRoute: typeof ActivitiesActivityIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/articles/$articleSlug': {
       id: '/articles/$articleSlug'
       path: '/articles/$articleSlug'
@@ -490,6 +523,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AavedanFormRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/sbgbp-registration-admit-card': {
+        id: '/sbgbp-registration-admit-card'
+        path: '/sbgbp-registration-admit-card'
+        fullPath: '/sbgbp-registration-admit-card'
+        preLoaderRoute: typeof SBGPBRegistrationAdmitCardRoute
+        parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -505,6 +545,7 @@ const rootRouteChildren: RootRouteChildren = {
   AavedanFormRoute: AavedanFormRoute,
   AboutRoute: AboutRoute,
   ActivitiesRoute: ActivitiesRoute,
+  ActivitiesActivityIdRoute: ActivitiesActivityIdRoute,
   AdminLoginRoute: AdminLoginRoute,
   ArticlesArticleSlugRoute: ArticlesArticleSlugRoute,
   ArticlesRoute: ArticlesRoute,

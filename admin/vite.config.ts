@@ -4,6 +4,17 @@ import { fileURLToPath, URL } from 'node:url';
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  base: '/admin/',
+  server: {
+    host: '127.0.0.1',
+    port: 5175,
+    strictPort: true,
+  },
+  preview: {
+    host: '127.0.0.1',
+    port: 5175,
+    strictPort: true,
+  },
   plugins: [react()],
   resolve: {
     alias: {

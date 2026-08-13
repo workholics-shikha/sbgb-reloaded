@@ -31,6 +31,10 @@ import {
   Youtube,
 } from "lucide-react";
 
+import {
+  fetchPublicActivities,
+  getPlainActivityText,
+} from "@/lib/public-activities";
 import { SiteHeader } from "@/components/site/SiteHeader";
 import { SiteFooter } from "@/components/site/SiteFooter";
 import blogBgPaper from "@/assets/blog-bg-paper.png";
@@ -114,7 +118,7 @@ const noticeLinks = [
   },
   {
     label: "Download Admit Card",
-    href: "https://www.sbgbteam.com/sbgbp-registration-admit-card",
+    href: "/sbgbp-registration-admit-card",
   },
 ];
 
@@ -263,6 +267,27 @@ const initiatives = [
     accent: "from-earth/15 to-transparent",
   },
 ];
+
+type InitiativeCard = {
+  id?: string;
+  title: string;
+  desc: string;
+  icon: typeof Sparkles;
+  accent: string;
+};
+
+function getInitiativePreviewText(value: string, maxLength = 120) {
+  const normalized = value.replace(/\s+/g, " ").trim();
+
+  if (normalized.length <= maxLength) {
+    return normalized;
+  }
+
+  const shortened = normalized.slice(0, maxLength);
+  const safeCut = shortened.lastIndexOf(" ");
+
+  return `${(safeCut > 60 ? shortened.slice(0, safeCut) : shortened).trim()}...`;
+}
 
 const initiativeFrameBackgrounds = [
   initiativeBgOne,
@@ -687,6 +712,7 @@ function SocialUpdateCard({ item }: { item: (typeof socialUpdates)[number] }) {
 }
 
 function Home() {
+  const [dynamicInitiatives, setDynamicInitiatives] = useState<InitiativeCard[]>(initiatives);
   const [activeHeroSlide, setActiveHeroSlide] = useState(0);
   const [activeVideoIndex, setActiveVideoIndex] = useState(2);
   const [videoCarouselPosition, setVideoCarouselPosition] = useState(videos.length + 2);
@@ -706,6 +732,45 @@ function Home() {
   const socialScrollRef = useRef<HTMLDivElement | null>(null);
   const socialAutoScrollPausedRef = useRef(false);
   const autoSlideRef = useRef<number | null>(null);
+  const initiativeCount = dynamicInitiatives.length || 1;
+
+  useEffect(() => {
+    let isMounted = true;
+
+    fetchPublicActivities()
+      .then((rows) => {
+        if (!isMounted) {
+          return;
+        }
+
+        const activeRows = rows.filter((row) => row.is_active && row.status === 1);
+
+        if (activeRows.length === 0) {
+          return;
+        }
+
+        const mapped = activeRows.map((row, index) => ({
+          id: row.id,
+          title: row.name,
+          desc: getInitiativePreviewText(
+            getPlainActivityText(row.description) || initiatives[index % initiatives.length]?.desc || "",
+          ),
+          icon: initiatives[index % initiatives.length]?.icon || Sparkles,
+          accent: initiatives[index % initiatives.length]?.accent || "from-primary/15 to-transparent",
+        }));
+
+        setDynamicInitiatives(mapped);
+        setActiveInitiativeIndex(0);
+        setInitiativeCarouselPosition(mapped.length + 1);
+      })
+      .catch(() => {
+        // Keep fallback homepage content when live activities are unavailable.
+      });
+
+    return () => {
+      isMounted = false;
+    };
+  }, []);
 
   useEffect(() => {
     autoSlideRef.current = window.setInterval(() => {
@@ -817,7 +882,7 @@ function Home() {
   const progressOffset =
     progressCircumference - (progressCircumference * scrollProgress) / 100;
   const loopedVideos = [...videos, ...videos, ...videos];
-  const loopedInitiatives = [...initiatives, ...initiatives, ...initiatives];
+  const loopedInitiatives = [...dynamicInitiatives, ...dynamicInitiatives, ...dynamicInitiatives];
 
   // SBGBT के प्रेरक वीडियो।
 
@@ -887,7 +952,7 @@ function Home() {
     });
 
     setActiveInitiativeIndex(
-      ((initiativeCarouselPosition % initiatives.length) + initiatives.length) % initiatives.length,
+      ((initiativeCarouselPosition % initiativeCount) + initiativeCount) % initiativeCount,
     );
 
     if (initiativeResetTimerRef.current) {
@@ -895,13 +960,13 @@ function Home() {
     }
 
     if (
-      initiativeCarouselPosition >= initiatives.length * 2 ||
-      initiativeCarouselPosition < initiatives.length
+      initiativeCarouselPosition >= initiativeCount * 2 ||
+      initiativeCarouselPosition < initiativeCount
     ) {
       initiativeResetTimerRef.current = window.setTimeout(() => {
         const normalizedIndex =
-          ((initiativeCarouselPosition % initiatives.length) + initiatives.length) % initiatives.length;
-        const resetPosition = initiatives.length + normalizedIndex;
+          ((initiativeCarouselPosition % initiativeCount) + initiativeCount) % initiativeCount;
+        const resetPosition = initiativeCount + normalizedIndex;
         const resetCard = cards[resetPosition];
 
         if (!resetCard || !initiativeCarouselRef.current) {
@@ -921,7 +986,7 @@ function Home() {
         window.clearTimeout(initiativeResetTimerRef.current);
       }
     };
-  }, [initiativeCarouselPosition]);
+  }, [initiativeCarouselPosition, initiativeCount]);
 
   useEffect(() => {
     const container = socialScrollRef.current;
@@ -1231,44 +1296,54 @@ function Home() {
                 const meta = getNoticeMeta(item.label);
                 const Icon = meta.icon;
 
-                return (
+                const content = (
+                  <div className="flex items-start gap-3">
+                    <div
+                      className={`grid size-10 shrink-0 place-items-center rounded-full transition duration-300 ${meta.featured
+                        ? "bg-black/10 text-accent-foreground"
+                        : "bg-primary/8 text-primary group-hover:bg-primary group-hover:text-primary-foreground"
+                        }`}
+                    >
+                      <Icon className="size-4.5" />
+                    </div>
+                    <div className="min-w-0">
+                      <div
+                        className={`inline-flex rounded-full px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.22em] ${meta.featured
+                          ? "bg-black/10 text-accent-foreground/80"
+                          : "bg-primary/7 text-primary/70"
+                          }`}
+                      >
+                        {meta.tag}
+                      </div>
+                      <div className="mt-2 text-sm font-semibold leading-snug">
+                        {item.label}
+                      </div>
+                    </div>
+                    <ArrowRight
+                      className={`ml-auto mt-1 size-4 shrink-0 transition duration-300 group-hover:translate-x-1 ${meta.featured ? "text-accent-foreground" : "text-primary/70"
+                        }`}
+                    />
+                  </div>
+                );
+
+                const className = `group rounded-[1.35rem] border px-4 py-3 shadow-sm transition duration-300 hover:-translate-y-1 ${meta.featured
+                  ? "border-accent/35 bg-accent text-accent-foreground shadow-[0_18px_34px_-24px_rgba(241,189,26,0.78)] hover:brightness-[0.98]"
+                  : "border-primary/15 bg-white/84 text-primary hover:border-primary/30 hover:bg-white"
+                  }`;
+
+                return item.href.startsWith("/") ? (
+                  <Link key={item.label} to={item.href} className={className}>
+                    {content}
+                  </Link>
+                ) : (
                   <a
                     key={item.label}
                     href={item.href}
                     target="_blank"
                     rel="noreferrer"
-                    className={`group rounded-[1.35rem] border px-4 py-3 shadow-sm transition duration-300 hover:-translate-y-1 ${meta.featured
-                      ? "border-accent/35 bg-accent text-accent-foreground shadow-[0_18px_34px_-24px_rgba(241,189,26,0.78)] hover:brightness-[0.98]"
-                      : "border-primary/15 bg-white/84 text-primary hover:border-primary/30 hover:bg-white"
-                      }`}
+                    className={className}
                   >
-                    <div className="flex items-start gap-3">
-                      <div
-                        className={`grid size-10 shrink-0 place-items-center rounded-full transition duration-300 ${meta.featured
-                          ? "bg-black/10 text-accent-foreground"
-                          : "bg-primary/8 text-primary group-hover:bg-primary group-hover:text-primary-foreground"
-                          }`}
-                      >
-                        <Icon className="size-4.5" />
-                      </div>
-                      <div className="min-w-0">
-                        <div
-                          className={`inline-flex rounded-full px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.22em] ${meta.featured
-                            ? "bg-black/10 text-accent-foreground/80"
-                            : "bg-primary/7 text-primary/70"
-                            }`}
-                        >
-                          {meta.tag}
-                        </div>
-                        <div className="mt-2 text-sm font-semibold leading-snug">
-                          {item.label}
-                        </div>
-                      </div>
-                      <ArrowRight
-                        className={`ml-auto mt-1 size-4 shrink-0 transition duration-300 group-hover:translate-x-1 ${meta.featured ? "text-accent-foreground" : "text-primary/70"
-                          }`}
-                      />
-                    </div>
+                    {content}
                   </a>
                 );
               })}
@@ -1419,7 +1494,7 @@ function Home() {
                 style={{ scrollbarWidth: "none" }}
               >
                 {loopedInitiatives.map((item, renderedIndex) => {
-                  const itemIndex = renderedIndex % initiatives.length;
+                  const itemIndex = renderedIndex % initiativeCount;
                   const frameBackground =
                     initiativeFrameBackgrounds[
                     (renderedIndex + initiativeFrameBackgrounds.length) % initiativeFrameBackgrounds.length
@@ -1450,7 +1525,7 @@ function Home() {
                           transform: "scale(0.985)",
                         }}
                       />
-                      <div className="relative mx-auto mt-5 flex min-h-[382px] w-[84%] max-w-[350px] flex-col items-center px-5 pb-9 pt-7 text-center">
+                      <div className="relative mx-auto mt-5 flex min-h-[382px] w-[84%] max-w-[350px] flex-col items-center px-5 pb-14 pt-7 text-center">
                         <div className="pointer-events-none absolute inset-x-4 top-5 h-6 rounded-full bg-white/45 blur-md" />
 
                         <div className="relative flex h-full w-full flex-col items-center text-center">
@@ -1469,13 +1544,22 @@ function Home() {
                             </div>
                           </motion.div>
 
-                          <h3 className="mt-7 max-w-[14rem] text-balance font-display text-[1.55rem] font-black leading-[1.18] text-[#173f37]">
+                          <h3 className="mt-7 min-h-[3.5rem] max-w-[14rem] text-balance font-display text-[1.38rem] font-black leading-[1.15] text-[#173f37]">
                             {item.title}
                           </h3>
-                          <p className="mt-4 max-w-[14.5rem] text-[0.92rem] leading-7 text-[#5e6c67]">
+                          <p className="mt-4 min-h-[8.3rem] max-w-[14.5rem] overflow-hidden text-[0.84rem] leading-6 text-[#5e6c67] [display:-webkit-box] [-webkit-box-orient:vertical] [-webkit-line-clamp:3]">
                             {item.desc}
                           </p>
                         </div>
+                        {item.id ? (
+                          <Link
+                            to="/activities/$activityId"
+                            params={{ activityId: String(item.id) }}
+                            className="absolute bottom-16 left-1/2 inline-flex -translate-x-1/2 items-center gap-1.5 border-b border-[#143c35]/25 pb-0.5 text-[0.88rem] font-semibold text-[#143c35] transition hover:gap-2.5 hover:border-[#143c35] hover:text-[#0f302a]"
+                          >
+                            विस्तार से देखें <ArrowRight className="size-4" />
+                          </Link>
+                        ) : null}
                       </div>
                     </motion.button>
                   );
@@ -1483,11 +1567,11 @@ function Home() {
               </div>
 
               <div className="mt-7 flex justify-center gap-2.5">
-                {initiatives.map((item, index) => (
+                {dynamicInitiatives.map((item, index) => (
                   <button
                     key={item.title}
                     type="button"
-                    onClick={() => setInitiativeCarouselPosition(initiatives.length + index)}
+                    onClick={() => setInitiativeCarouselPosition(initiativeCount + index)}
                     aria-label={item.title}
                     className={`rounded-full transition-all duration-300 ${index === activeInitiativeIndex ? "h-2.5 w-12 bg-primary" : "h-2.5 w-2.5 bg-primary/30"
                       }`}

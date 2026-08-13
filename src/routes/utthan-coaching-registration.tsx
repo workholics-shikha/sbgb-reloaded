@@ -1,6 +1,6 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { createFileRoute } from "@tanstack/react-router";
-import { CheckCircle2, FileText, GraduationCap, MapPin, ShieldCheck } from "lucide-react";
+import { CheckCircle2, FileText, GraduationCap, MapPin } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -158,6 +158,16 @@ const initialConfig: RegistrationConfig = {
   genderOptions: [],
 };
 
+function normalizeOrganizationName(value: string) {
+  return value
+    .normalize("NFKC")
+    .replace(/["'`]/g, "")
+    .replace(/\s+/g, " ")
+    .replace(/\s*-\s*/g, "-")
+    .trim()
+    .toLowerCase();
+}
+
 export const Route = createFileRoute("/utthan-coaching-registration")({
   validateSearch: z.object({
     organization: z.string().optional(),
@@ -241,7 +251,14 @@ function UtthanCoachingRegistrationPage() {
         setConfig(result);
 
         if (search.organization) {
-          setValue("organization", search.organization, { shouldValidate: true });
+          const requestedOrganization = normalizeOrganizationName(search.organization);
+          const matchedOrganization = result.organizations.find((organization) =>
+            [organization.id, organization.label, organization.value].some(
+              (candidate) => normalizeOrganizationName(candidate) === requestedOrganization,
+            ),
+          );
+
+          setValue("organization", matchedOrganization?.value || search.organization, { shouldValidate: true });
         } else if (result.organizations[0]) {
           setValue("organization", result.organizations[0].value);
         }
@@ -355,21 +372,8 @@ function UtthanCoachingRegistrationPage() {
 
       <section className="border-border">
         <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-20">
-          <div className="mb-8 grid gap-4 lg:grid-cols-[1.1fr_2fr]">
-            <div className="rounded-[2rem] border border-primary/15 bg-primary/[0.06] p-6">
-              <p className="text-sm font-semibold uppercase tracking-[0.24em] text-primary/70">Dynamic Setup</p>
-              <h2 className="mt-3 text-2xl font-bold text-primary">Frontend + Backend powered registration</h2>
-              <p className="mt-3 text-sm leading-7 text-muted-foreground">
-                Form options backend से आ रही हैं और submit होने पर entry सीधे server/database में save हो रही है।
-              </p>
-
-              <div className="mt-6 space-y-3">
-                <InfoChip icon={GraduationCap} text={selectedOrganization || "संस्थान चुनें"} />
-                <InfoChip icon={FileText} text="JPG, PNG या PDF अपलोड करें" />
-                <InfoChip icon={ShieldCheck} text="Dynamic config + validation + database save" />
-              </div>
-            </div>
-
+          <div className="mb-8 grid gap-4">
+            
             <form
               onSubmit={handleSubmit(async (values) => {
                 try {

@@ -252,20 +252,8 @@ function SammanSamarohRegistrationPage() {
 
       <section className="border-border">
         <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-20">
-          <div className="mb-8 grid gap-4 lg:grid-cols-[1.05fr_2fr]">
-            <div className="rounded-[2rem] border border-primary/15 bg-primary/[0.06] p-6">
-              <p className="text-sm font-semibold uppercase tracking-[0.24em] text-primary/70">Dynamic Setup</p>
-              <h2 className="mt-3 text-2xl font-bold text-primary">Frontend + Backend powered form</h2>
-              <p className="mt-3 text-sm leading-7 text-muted-foreground">
-                Form options backend से load हो रहे हैं, frontend पर validation है, और submit होने पर entry admin में Brilliant Students list में दिखेगी।
-              </p>
-              <div className="mt-6 space-y-3">
-                <InfoChip icon={GraduationCap} text="Dynamic sessions, class/course, state and city" />
-                <InfoChip icon={FileText} text="JPG, PNG या PDF upload करें" />
-                <InfoChip icon={MapPin} text="Validated submission with admin-ready entries" />
-              </div>
-            </div>
-
+          <div className="mb-8 grid gap-4">
+             
             <form
               onSubmit={handleSubmit(async (values) => {
                 try {
@@ -540,7 +528,7 @@ const FileField = ({ label, error, helper, required, className = "", ...props }:
       type="file"
       accept=".pdf,.jpg,.jpeg,.png"
       {...props}
-      className={`w-full rounded-3xl border border-border bg-white px-4 py-3 file:mr-4 file:rounded-full file:border-0 file:bg-primary file:px-4 file:py-2 file:text-white ${className}`}
+      className={`w-full rounded-3xl border border-border bg-white px-4 py-1 file:mr-4 file:rounded-full file:border-0 file:bg-primary file:px-4 file:py-2 file:text-white ${className}`}
     />
     {helper ? <p className="mt-2 text-xs text-muted-foreground">{helper}</p> : null}
     {error ? <p className="mt-2 text-xs font-medium text-red-500">{error}</p> : null}

@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
 import {
   ArrowRight,
   BookOpen,
@@ -13,6 +14,10 @@ import {
   Users2,
   Wallet,
 } from "lucide-react";
+import {
+  fetchPublicActivities,
+  getPlainActivityText,
+} from "@/lib/public-activities";
 import { SiteHeader } from "@/components/site/SiteHeader";
 import { PageHero, SiteFooter, CTASection} from "@/components/site/SiteFooter";
 
@@ -99,7 +104,45 @@ const activities = [
   },
 ];
 
+type ActivityCard = {
+  id?: string;
+  icon: typeof Megaphone;
+  title: string;
+  subtitle: string;
+  desc: string;
+};
+
 function Activities() {
+  const [activityCards, setActivityCards] = useState<ActivityCard[]>(activities);
+
+  useEffect(() => {
+    let isMounted = true;
+
+    fetchPublicActivities()
+      .then((rows) => {
+        if (!isMounted || rows.length === 0) {
+          return;
+        }
+
+        setActivityCards(
+          rows.map((row, index) => ({
+            id: row.id,
+            icon: activities[index % activities.length]?.icon || Megaphone,
+            title: row.name,
+            subtitle: row.type || activities[index % activities.length]?.subtitle || "SBGBT पहल",
+            desc: getPlainActivityText(row.description) || activities[index % activities.length]?.desc || "",
+          })),
+        );
+      })
+      .catch(() => {
+        // Keep fallback cards if the live API is unavailable.
+      });
+
+    return () => {
+      isMounted = false;
+    };
+  }, []);
+
   return (
     <div className="min-h-screen bg-background text-foreground">
       <SiteHeader />
@@ -135,10 +178,10 @@ function Activities() {
             transition={{
               duration: 0.8,
             }} >
-            {activities.map((activity, index) => (
+            {activityCards.map((activity, index) => (
               <article
-                key={activity.title}
-                className="group relative rounded-[2rem] border border-border bg-card/90 p-6 shadow-sm transition-all hover:-translate-y-1.5 hover:border-primary/35 hover:shadow-xl sm:p-7"
+                key={`${activity.id || activity.title}-${index}`}
+                className="group relative flex h-full flex-col rounded-[2rem] border border-border bg-card/90 p-6 shadow-sm transition-all hover:-translate-y-1.5 hover:border-primary/35 hover:shadow-xl sm:p-7"
               >
                 <div className="flex items-center justify-between">
                   <div className="grid size-12 place-items-center rounded-2xl bg-primary/10 text-primary transition group-hover:bg-primary group-hover:text-primary-foreground">
@@ -146,15 +189,20 @@ function Activities() {
                   </div>
                   <span className="text-xs font-mono text-muted-foreground">0{index + 1}</span>
                 </div>
-                <h3 className="mt-5 font-hi text-xl font-bold text-earth">{activity.title}</h3>
+                <h3 className="mt-5 min-h-[3.5rem] font-hi text-xl font-bold text-earth">{activity.title}</h3>
                 <div className="mt-1 text-sm font-semibold text-primary">{activity.subtitle}</div>
-                <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{activity.desc}</p>
-                <Link
-                  to="/gallery"
-                  className="mt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-primary transition-all group-hover:gap-3"
-                >
-                  कार्य की झलक देखें <ArrowRight className="size-4" />
-                </Link>
+                <p className="mt-3 min-h-[7.5rem] text-sm leading-relaxed text-muted-foreground [display:-webkit-box] overflow-hidden [-webkit-box-orient:vertical] [-webkit-line-clamp:4]">
+                  {activity.desc}
+                </p>
+                {activity.id ? (
+                  <Link
+                    to="/activities/$activityId"
+                    params={{ activityId: String(activity.id) }}
+                    className="mt-auto inline-flex items-center gap-1.5 text-sm font-semibold text-primary transition-all group-hover:gap-3"
+                  >
+                    विस्तार से देखें <ArrowRight className="size-4" />
+                  </Link>
+                ) : null}
               </article>
             ))}
           </motion.div>

@@ -97,9 +97,9 @@ function toBase64(value: string) {
   return window.btoa(binary);
 }
 
-function getDefaultAdminAppOrigin() {
+function getDefaultAdminAppUrl() {
   if (!isBrowser()) {
-    return "http://localhost:5174";
+    return "http://localhost:5174/admin";
   }
 
   const envUrl = import.meta.env.VITE_ADMIN_APP_URL as string | undefined;
@@ -107,27 +107,23 @@ function getDefaultAdminAppOrigin() {
     return envUrl.replace(/\/+$/, "");
   }
 
-  const { protocol, hostname, port } = window.location;
-  const numericPort = Number(port || "80");
-
-  if (!Number.isNaN(numericPort) && numericPort > 0) {
-    return `${protocol}//${hostname}:${numericPort + 1}`;
-  }
-
-  return `${protocol}//${hostname}`;
+  const { origin } = window.location;
+  return `${origin}/admin`;
 }
 
 export function getDashboardPath(loginType: LoginType) {
-  if (loginType === "utthan_manager") return "/registered-students";
-  if (loginType === "sbgbp_manager") return "/registered-spgbp";
-  return "/";
+  if (loginType === "utthan_manager") return "registered-students";
+  if (loginType === "sbgbp_manager") return "registered-spgbp";
+  return "";
 }
 
 export function redirectToAdminDashboard(session: AuthSession) {
   if (!isBrowser()) return;
 
   const encodedSession = toBase64(JSON.stringify(session));
-  const target = new URL(getDashboardPath(session.user.loginType), `${getDefaultAdminAppOrigin()}/`);
+  const adminAppUrl = `${getDefaultAdminAppUrl().replace(/\/+$/, "")}/`;
+  const dashboardPath = getDashboardPath(session.user.loginType);
+  const target = new URL(dashboardPath || ".", adminAppUrl);
   target.searchParams.set("authSession", encodedSession);
   window.location.href = target.toString();
 }

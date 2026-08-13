@@ -34,11 +34,13 @@ import {
 } from 'lucide-react';
 import sbgbLogo from "@/assets/images/sbgb-logo.png";
 import { motion } from "framer-motion";
+import { getPublicAppUrl } from '@/lib/auth';
 
 type NavItem = {
   to: string;
   label: string;
   icon: typeof LayoutDashboard;
+  external?: boolean;
 };
 
 type NavGroup = {
@@ -70,7 +72,7 @@ const navItems: NavItem[] = [
   { to: '/settings', label: 'Settings', icon: Settings },
   { to: '/upload-results', label: 'Upload Results', icon: Upload },
   { to: '/registered-students', label: 'Registered Students', icon: GraduationCap },
-  { to: '/register-new-student', label: 'Register New Student', icon: UserPlus },
+  { to: `${getPublicAppUrl()}/utthan-coaching-organizations`, label: 'Register New Student', icon: UserPlus, external: true },
   { to: '/contacts', label: 'Contacts', icon: Phone },
   { to: '/users-feedback', label: 'Users Feedback', icon: MessageSquare },
 ];
@@ -198,8 +200,27 @@ export default function Sidebar() {
           <p className="px-5 pt-3 pb-1 text-[10px] font-semibold uppercase tracking-widest text-white/30">
             Main Menu
           </p>
-          {navItems.map(({ to, label, icon: Icon }) => {
+          {navItems.map(({ to, label, icon: Icon, external }) => {
             const isActive = isItemActive(to);
+            if (external) {
+              return (
+                <a
+                  key={to}
+                  href={to}
+                  className="flex items-center gap-3 px-4 py-2.5 mx-2 my-0.5 rounded-lg text-sm transition-all duration-150 text-white/60 hover:text-white"
+                  onMouseEnter={(e) => {
+                    (e.currentTarget as HTMLElement).style.backgroundColor = 'rgba(255,255,255,0.09)';
+                  }}
+                  onMouseLeave={(e) => {
+                    (e.currentTarget as HTMLElement).style.backgroundColor = '';
+                  }}
+                >
+                  <Icon size={16} className="flex-shrink-0" />
+                  <span>{label}</span>
+                </a>
+              );
+            }
+
             return (
               <NavLink
                 key={to}

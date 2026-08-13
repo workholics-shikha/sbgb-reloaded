@@ -303,10 +303,10 @@ function AavedanFormPage() {
     return (
       <div className="min-h-screen bg-background text-foreground">
         <SiteHeader />
-        <PageHero title="SBGBP Registration Form" />
+        <PageHero title="SBGBP आवेदन फॉर्म" />
         <section className="border-border">
           <div className="mx-auto max-w-7xl px-4 py-16 text-center text-muted-foreground">
-            Form loading...
+            फॉर्म लोड हो रहा है...
           </div>
         </section>
         <SiteFooter />
@@ -351,19 +351,8 @@ function AavedanFormPage() {
         </div>
 
         <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-20">
-          <div className="mb-8 grid gap-4 lg:grid-cols-[1fr_2fr]">
-            <div className="rounded-[2rem] border border-primary/15 bg-primary/[0.06] p-6">
-              <p className="text-sm font-semibold uppercase tracking-[0.24em] text-primary/70">Dynamic Setup</p>
-              <h2 className="mt-3 text-2xl font-bold text-primary">Frontend + Backend powered SBGBP form</h2>
-              <p className="mt-3 text-sm leading-7 text-muted-foreground">
-                Circle, class, contest type, category aur payment options backend se aa rahe hain. Submit hone par entry seedha <code>sbgbp_registrations</code> table aur admin list mein जाएगी।
-              </p>
-              <div className="mt-6 space-y-3">
-                <InfoChip icon={Landmark} text={selectedCircle || "Circle चुनें"} />
-                <InfoChip icon={FileText} text="Student photo और payment receipt upload करें" />
-                <InfoChip icon={CreditCard} text={`Exam Centre: ${selectedCircleMeta?.exam_centre || "Auto / optional"}`} />
-              </div>
-            </div>
+          <div className="mb-8 grid gap-4">
+             
 
             <form
               onSubmit={handleSubmit(async (values) => {
@@ -386,7 +375,7 @@ function AavedanFormPage() {
                   </p>
                 </div>
                 <div className="rounded-2xl bg-primary/10 px-4 py-3 text-sm font-medium text-primary">
-                  Receipt:{" "}
+                  रसीद:{" "}
                   {selectedReceipt instanceof FileList && selectedReceipt.length > 0
                     ? selectedReceipt[0].name
                     : "अभी चयन नहीं किया गया"}
@@ -395,88 +384,88 @@ function AavedanFormPage() {
 
               {configError && <ErrorText message={configError} />}
 
-              <FormSection title="1. Registration Details" description="Year, circle और contest जानकारी" icon={Landmark}>
+              <FormSection title="1. पंजीकरण विवरण" description="वर्ष, सर्किल और प्रतियोगिता की जानकारी" icon={Landmark}>
                 <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
-                  <SelectField label="Registration Year" required error={errors.regYear?.message} {...register("regYear")}>
-                    <option value="">Select year</option>
+                  <SelectField label="पंजीकरण वर्ष" required error={errors.regYear?.message} {...register("regYear")}>
+                    <option value="">वर्ष चुनें</option>
                     {config.regYearOptions.map((option) => (
                       <option key={option.id} value={option.value}>{option.label}</option>
                     ))}
                   </SelectField>
-                  <SelectField label="Circle" required error={errors.circle?.message} {...register("circle")}>
-                    <option value="">Select circle</option>
+                  <SelectField label="सर्किल" required error={errors.circle?.message} {...register("circle")}>
+                    <option value="">सर्किल चुनें</option>
                     {config.circles.map((option) => (
                       <option key={option.id} value={option.value}>{option.label}</option>
                     ))}
                   </SelectField>
-                  <SelectField label="Contest Type" required error={errors.contestType?.message} {...register("contestType")}>
-                    <option value="">Select contest type</option>
+                  <SelectField label="प्रतियोगिता प्रकार" required error={errors.contestType?.message} {...register("contestType")}>
+                    <option value="">प्रतियोगिता प्रकार चुनें</option>
                     {config.contestTypeOptions.map((option) => (
                       <option key={option.id} value={option.value}>{option.label}</option>
                     ))}
                   </SelectField>
-                  <SelectField label="Class" required error={errors.className?.message} {...register("className")}>
-                    <option value="">Select class</option>
+                  <SelectField label="कक्षा" required error={errors.className?.message} {...register("className")}>
+                    <option value="">कक्षा चुनें</option>
                     {config.classOptions.map((option) => (
                       <option key={option.id} value={option.value}>{option.label}</option>
                     ))}
                   </SelectField>
-                  <SelectField label="Category" required error={errors.userCategory?.message} {...register("userCategory")}>
-                    <option value="">Select category</option>
+                  <SelectField label="श्रेणी" required error={errors.userCategory?.message} {...register("userCategory")}>
+                    <option value="">श्रेणी चुनें</option>
                     {config.categoryOptions.map((option) => (
                       <option key={option.id} value={option.value}>{option.label}</option>
                     ))}
                   </SelectField>
-                  <InputField label="Exam Centre" placeholder="Auto-filled if available" error={errors.examCentre?.message} {...register("examCentre")} />
+                  <InputField label="परीक्षा केंद्र" placeholder="उपलब्ध होने पर स्वतः भर जाएगा" error={errors.examCentre?.message} {...register("examCentre")} />
                 </div>
               </FormSection>
 
-              <FormSection title="2. Student Details" description="विद्यार्थी और अभिभावक की मुख्य जानकारी" icon={FileText}>
+              <FormSection title="2. विद्यार्थी विवरण" description="विद्यार्थी और अभिभावक की मुख्य जानकारी" icon={FileText}>
                 <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
-                  <InputField label="Student Name" required placeholder="पूरा नाम लिखें" error={errors.studentName?.message} {...register("studentName")} />
-                  <InputField label="Father Name" required placeholder="पिता का नाम" error={errors.fatherName?.message} {...register("fatherName")} />
-                  <InputField label="Mother Name" required placeholder="माता का नाम" error={errors.motherName?.message} {...register("motherName")} />
-                  <InputField label="School Name" required placeholder="School / Institution name" error={errors.schoolName?.message} {...register("schoolName")} />
-                  <InputField label="Mobile Number" required placeholder="10 अंकों का मोबाइल" maxLength={10} error={errors.mobile?.message} {...register("mobile")} />
-                  <InputField label="Guardian Mobile" required placeholder="अभिभावक का मोबाइल" maxLength={10} error={errors.mobileGuardian?.message} {...register("mobileGuardian")} />
-                  <InputField label="Email ID" type="email" placeholder="name@example.com" error={errors.email?.message} {...register("email")} />
-                  <InputField label="UID / Aadhaar (optional)" placeholder="UID / Aadhaar" error={errors.uid?.message} {...register("uid")} />
-                  <InputField label="Roll Number (optional)" placeholder="Roll number" error={errors.rollNo?.message} {...register("rollNo")} />
+                  <InputField label="विद्यार्थी का नाम" required placeholder="पूरा नाम लिखें" error={errors.studentName?.message} {...register("studentName")} />
+                  <InputField label="पिता का नाम" required placeholder="पिता का नाम" error={errors.fatherName?.message} {...register("fatherName")} />
+                  <InputField label="माता का नाम" required placeholder="माता का नाम" error={errors.motherName?.message} {...register("motherName")} />
+                  <InputField label="विद्यालय का नाम" required placeholder="विद्यालय / संस्थान का नाम" error={errors.schoolName?.message} {...register("schoolName")} />
+                  <InputField label="मोबाइल नंबर" required placeholder="10 अंकों का मोबाइल" maxLength={10} error={errors.mobile?.message} {...register("mobile")} />
+                  <InputField label="अभिभावक का मोबाइल" required placeholder="अभिभावक का मोबाइल" maxLength={10} error={errors.mobileGuardian?.message} {...register("mobileGuardian")} />
+                  <InputField label="ईमेल आईडी" type="email" placeholder="name@example.com" error={errors.email?.message} {...register("email")} />
+                  <InputField label="यूआईडी / आधार (वैकल्पिक)" placeholder="यूआईडी / आधार" error={errors.uid?.message} {...register("uid")} />
+                  <InputField label="रोल नंबर (वैकल्पिक)" placeholder="रोल नंबर" error={errors.rollNo?.message} {...register("rollNo")} />
                 </div>
-                <TextAreaField label="Permanent Address" required placeholder="पूरा पता लिखें" error={errors.address?.message} {...register("address")} />
+                <TextAreaField label="स्थायी पता" required placeholder="पूरा पता लिखें" error={errors.address?.message} {...register("address")} />
                 <FileField
-                  label="Student Photo"
+                  label="विद्यार्थी का फोटो"
                   required
                   accept=".jpg,.jpeg,.png"
-                  helper="JPG या PNG, maximum 5 MB"
+                  helper="JPG या PNG, अधिकतम 5 MB"
                   error={errors.studentImage?.message as string | undefined}
                   {...register("studentImage")}
                 />
               </FormSection>
 
-              <FormSection title="3. Payment Details" description="Fee, transaction और receipt upload" icon={CreditCard}>
+              <FormSection title="3. भुगतान विवरण" description="शुल्क, ट्रांजैक्शन और रसीद अपलोड" icon={CreditCard}>
                 <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
-                  <SelectField label="Payment Amount" required error={errors.paymentAmount?.message} {...register("paymentAmount")}>
-                    <option value="">Select amount</option>
+                  <SelectField label="भुगतान राशि" required error={errors.paymentAmount?.message} {...register("paymentAmount")}>
+                    <option value="">राशि चुनें</option>
                     {config.paymentAmountOptions.map((option) => (
                       <option key={option.id} value={option.value}>{option.label}</option>
                     ))}
                   </SelectField>
-                  <SelectField label="Payment Status" required error={errors.paymentStatus?.message} {...register("paymentStatus")}>
-                    <option value="">Select status</option>
+                  <SelectField label="भुगतान स्थिति" required error={errors.paymentStatus?.message} {...register("paymentStatus")}>
+                    <option value="">स्थिति चुनें</option>
                     {config.paymentStatusOptions.map((option) => (
                       <option key={option.id} value={option.value}>{option.label}</option>
                     ))}
                   </SelectField>
-                  <InputField label="Transaction ID" placeholder="Transaction / reference number" error={errors.transactionId?.message} {...register("transactionId")} />
-                  <InputField label="Exam Date (optional)" type="date" error={errors.examDate?.message} {...register("examDate")} />
-                  <InputField label="Exam Time (optional)" placeholder="जैसे 10:00 AM - 12:00 PM" error={errors.examTime?.message} {...register("examTime")} />
+                  <InputField label="ट्रांजैक्शन आईडी" placeholder="ट्रांजैक्शन / रेफरेंस नंबर" error={errors.transactionId?.message} {...register("transactionId")} />
+                  <InputField label="परीक्षा तिथि (वैकल्पिक)" type="date" error={errors.examDate?.message} {...register("examDate")} />
+                  <InputField label="परीक्षा समय (वैकल्पिक)" placeholder="जैसे 10:00 AM - 12:00 PM" error={errors.examTime?.message} {...register("examTime")} />
                 </div>
                 <FileField
-                  label="Payment Receipt"
+                  label="भुगतान रसीद"
                   required
                   accept=".pdf,.jpg,.jpeg,.png"
-                  helper="JPG, PNG या PDF, maximum 5 MB"
+                  helper="JPG, PNG या PDF, अधिकतम 5 MB"
                   error={errors.payReceipt?.message as string | undefined}
                   {...register("payReceipt")}
                 />
@@ -519,7 +508,7 @@ function AavedanFormPage() {
                   }}
                   className="rounded-full border border-border px-6 py-3 text-sm font-semibold transition hover:border-primary hover:text-primary"
                 >
-                  Form Reset करें
+                  फॉर्म रीसेट करें
                 </button>
 
                 <button
@@ -527,7 +516,7 @@ function AavedanFormPage() {
                   disabled={isSubmitting}
                   className="rounded-full bg-primary px-8 py-3 text-sm font-semibold text-white shadow-lg transition hover:scale-[1.02] hover:shadow-xl disabled:cursor-not-allowed disabled:opacity-70"
                 >
-                  {isSubmitting ? "Submit हो रहा है..." : "Submit Request"}
+                  {isSubmitting ? "सबमिट हो रहा है..." : "आवेदन सबमिट करें"}
                 </button>
               </div>
 

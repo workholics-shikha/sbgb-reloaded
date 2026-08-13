@@ -12,7 +12,14 @@ function AdminLogin() {
   const [user, setUser] = useState<AuthUser | null>(null);
 
   useEffect(() => {
-    setUser(readAuthSession()?.user ?? null);
+    const session = readAuthSession();
+    const currentUser = session?.user ?? null;
+
+    setUser(currentUser);
+
+    if (session?.user.loginType === "admin") {
+      redirectToAdminDashboard(session);
+    }
   }, []);
 
   return (

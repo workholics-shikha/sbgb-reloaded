@@ -7,10 +7,22 @@ import { fileURLToPath, URL } from 'node:url';
 export default defineConfig({
   plugins: [react(), tailwindcss()],
   server: {
+    port: 5174,
+    strictPort: true,
     proxy: {
       "/api": {
         target: "http://localhost:5000",
         changeOrigin: true,
+      },
+      "^/admin$": {
+        target: "http://127.0.0.1:5175",
+        changeOrigin: true,
+        ws: true,
+      },
+      "/admin/": {
+        target: "http://127.0.0.1:5175",
+        changeOrigin: true,
+        ws: true,
       },
     },
   },
