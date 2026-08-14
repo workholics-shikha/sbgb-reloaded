@@ -1,17 +1,10 @@
 import { useEffect, useMemo, useState } from 'react';
-import { ChevronLeft, ChevronRight, ImagePlus, Images, Pencil, Trash2, Upload, X } from 'lucide-react';
+import { ChevronLeft, ChevronRight, ImagePlus, Images, Pencil, Trash2 } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { API_BASE_URL } from '@/hooks/useSliders';
 import { useCategories } from '@/hooks/useCategories';
 import { useGalleries } from '@/hooks/useGalleries';
 import type { Gallery } from '@/lib/types';
-
-type GalleryFormValues = {
-  category_id: string;
-  title: string;
-  image: string;
-  year: string;
-  status: string;
-};
 
 const PAGE_SIZE = 10;
 
@@ -29,28 +22,12 @@ function resolveImageUrl(imagePath?: string | null) {
 }
 
 export default function GalleriesPage() {
-  const { data, loading, error, addItem, updateItem, deleteItem, uploadImage } = useGalleries();
+  const { data, loading, error, deleteItem } = useGalleries();
   const { data: categories, error: categoriesError } = useCategories();
   const [page, setPage] = useState(1);
-  const [showForm, setShowForm] = useState(false);
-  const [editingItem, setEditingItem] = useState<Gallery | null>(null);
   const [deleteTarget, setDeleteTarget] = useState<Gallery | null>(null);
-  const [saving, setSaving] = useState(false);
   const [formError, setFormError] = useState<string | null>(null);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
-  const [selectedImageFile, setSelectedImageFile] = useState<File | null>(null);
-  const [localPreviewUrl, setLocalPreviewUrl] = useState('');
-  const [formValues, setFormValues] = useState<GalleryFormValues>({ category_id: '', title: '', image: '', year: '', status: '1' });
-
-  useEffect(() => {
-    if (!selectedImageFile) {
-      setLocalPreviewUrl('');
-      return;
-    }
-    const objectUrl = URL.createObjectURL(selectedImageFile);
-    setLocalPreviewUrl(objectUrl);
-    return () => URL.revokeObjectURL(objectUrl);
-  }, [selectedImageFile]);
 
   const galleryCategories = useMemo(
     () =>
@@ -60,7 +37,6 @@ export default function GalleriesPage() {
     [categories],
   );
   const categoryMap = useMemo(() => new Map(galleryCategories.map((item) => [item.value, item.label])), [galleryCategories]);
-  const defaultCategory = galleryCategories[0];
   const displayRows = useMemo(() => [...data].sort((a, b) => Number(b.id) - Number(a.id)), [data]);
   const totalPages = Math.max(1, Math.ceil(displayRows.length / PAGE_SIZE));
   const paginatedRows = useMemo(() => displayRows.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE), [displayRows, page]);
@@ -69,57 +45,6 @@ export default function GalleriesPage() {
   useEffect(() => {
     setPage((current) => Math.min(current, totalPages));
   }, [totalPages]);
-
-  function openAdd() {
-    setEditingItem(null);
-    setFormValues({ category_id: defaultCategory?.value || '', title: '', image: '', year: String(new Date().getFullYear()), status: '1' });
-    setSelectedImageFile(null);
-    setFormError(null);
-    setSuccessMessage(null);
-    setShowForm(true);
-  }
-
-  function openEdit(item: Gallery) {
-    setEditingItem(item);
-    setFormValues({ category_id: item.category_id ?? '', title: item.title ?? '', image: item.image ?? '', year: item.year ?? '', status: String(item.status ?? 1) });
-    setSelectedImageFile(null);
-    setFormError(null);
-    setSuccessMessage(null);
-    setShowForm(true);
-  }
-
-  async function handleSubmit(e: React.FormEvent) {
-    e.preventDefault();
-    setSaving(true);
-    setFormError(null);
-    let imagePath = formValues.image.trim();
-    try {
-      if (selectedImageFile) imagePath = await uploadImage(selectedImageFile);
-      if (!imagePath) throw new Error('Please upload an image');
-
-      const payload = {
-        category_id: Number(formValues.category_id),
-        title: formValues.title.trim(),
-        image: imagePath,
-        year: formValues.year.trim(),
-        status: Number(formValues.status),
-      };
-
-      if (editingItem) {
-        await updateItem(editingItem.id, payload);
-        setSuccessMessage('Gallery updated successfully');
-      } else {
-        await addItem(payload);
-        setSuccessMessage('Gallery added successfully');
-      }
-      setShowForm(false);
-      setSelectedImageFile(null);
-    } catch (submitError) {
-      setFormError(submitError instanceof Error ? submitError.message : 'Unable to save gallery');
-    } finally {
-      setSaving(false);
-    }
-  }
 
   async function handleDelete() {
     if (!deleteTarget) return;
@@ -131,8 +56,6 @@ export default function GalleriesPage() {
       setFormError(deleteError instanceof Error ? deleteError.message : 'Unable to delete gallery');
     }
   }
-
-  const previewUrl = selectedImageFile ? localPreviewUrl : resolveImageUrl(formValues.image);
 
   return (
     <div className="min-h-full bg-[linear-gradient(180deg,#f5fbf7_0%,#eef4ef_55%,#f7f3eb_100%)] px-4 py-6 md:px-6 md:py-8">
@@ -162,22 +85,22 @@ export default function GalleriesPage() {
             {(formError || error || categoriesError) && <div className="mb-5 rounded-2xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">{formError || error || categoriesError}</div>}
             <div className="mb-5 flex flex-col gap-4 rounded-[24px] border border-[#d9e6dd] bg-[linear-gradient(180deg,#fcfdfc_0%,#f4f8f5_100%)] p-4 shadow-[0_12px_32px_rgba(26,71,49,0.05)] md:flex-row md:items-center md:justify-between md:p-5">
               <div><p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#2e7d52]">Database Records</p><h2 className="mt-1 text-2xl font-semibold text-[#1a4731]">Gallery Items</h2></div>
-              <button type="button" onClick={openAdd} className="inline-flex items-center justify-center gap-2 rounded-2xl bg-[linear-gradient(135deg,#e8a317_0%,#c47d10_100%)] px-5 py-3 text-sm font-semibold text-[#173d2b]"><ImagePlus size={17} />Add New Gallery</button>
+              <Link to="/galleries/new" className="inline-flex items-center justify-center gap-2 rounded-2xl bg-[linear-gradient(135deg,#e8a317_0%,#c47d10_100%)] px-5 py-3 text-sm font-semibold text-[#173d2b]"><ImagePlus size={17} />Add New Gallery</Link>
             </div>
             <div className="overflow-hidden rounded-[24px] border border-[#d8e5dc] bg-white shadow-[0_20px_40px_rgba(26,71,49,0.05)]">
               <div className="overflow-x-auto">
                 <table className="w-full min-w-[1120px] border-collapse">
-                  <thead><tr className="bg-[linear-gradient(180deg,#f5fbf7_0%,#edf5ef_100%)] text-left">{['ID', 'Image', 'Title', 'Category', 'Year', 'Status', 'Actions'].map((label) => <th key={label} className="px-4 py-4 text-xs font-bold uppercase tracking-[0.18em] text-[#1a4731]">{label}</th>)}</tr></thead>
+                  <thead><tr className="bg-[linear-gradient(180deg,#f5fbf7_0%,#edf5ef_100%)] text-left">{['No.', 'Image', 'Title', 'Category', 'Year', 'Status', 'Actions'].map((label) => <th key={label} className="px-4 py-4 text-xs font-bold uppercase tracking-[0.18em] text-[#1a4731]">{label}</th>)}</tr></thead>
                   <tbody>
-                    {loading ? <tr><td colSpan={7} className="px-6 py-12 text-center text-sm text-[#6d8377]">Loading galleries...</td></tr> : displayRows.length === 0 ? <tr><td colSpan={7} className="px-6 py-14 text-center text-sm text-[#6d8377]">No gallery records found.</td></tr> : paginatedRows.map((item) => (
+                    {loading ? <tr><td colSpan={7} className="px-6 py-12 text-center text-sm text-[#6d8377]">Loading galleries...</td></tr> : displayRows.length === 0 ? <tr><td colSpan={7} className="px-6 py-14 text-center text-sm text-[#6d8377]">No gallery records found.</td></tr> : paginatedRows.map((item, index) => (
                       <tr key={item.id} className="border-t border-[#edf2ee] text-sm text-[#2d4a3c] hover:bg-[#fbfdfb]">
-                        <td className="px-4 py-4 font-semibold text-[#1f3f2f]">{item.id}</td>
+                        <td className="px-4 py-4 font-semibold text-[#1f3f2f]">{(page - 1) * PAGE_SIZE + index + 1}</td>
                         <td className="px-4 py-4">{item.image ? <img src={resolveImageUrl(item.image)} alt={item.title || 'Gallery image'} className="h-16 w-24 rounded-xl border border-[#dfe9e3] bg-white object-cover" /> : 'No image'}</td>
                         <td className="px-4 py-4 font-semibold text-[#1f3f2f]">{item.title || '-'}</td>
                         <td className="px-4 py-4">{item.category || categoryMap.get(item.category_id) || '-'}</td>
                         <td className="px-4 py-4">{item.year || '-'}</td>
                         <td className="px-4 py-4"><span className={`inline-flex rounded-full px-3 py-1 text-xs font-semibold ${item.is_active ? 'bg-[#edf6ef] text-[#2e7d52]' : 'bg-[#fff2ef] text-[#d94b3d]'}`}>{item.status === 1 ? 'Active' : 'Inactive'}</span></td>
-                        <td className="px-4 py-4"><div className="flex items-center justify-center gap-2"><button type="button" onClick={() => openEdit(item)} className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-[#2e7d52] text-white"><Pencil size={16} /></button><button type="button" onClick={() => setDeleteTarget(item)} className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-[#fff2ef] text-[#d94b3d]"><Trash2 size={16} /></button></div></td>
+                        <td className="px-4 py-4"><div className="flex items-center justify-center gap-2"><Link to={`/galleries/${item.id}/edit`} className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-[#2e7d52] text-white"><Pencil size={16} /></Link><button type="button" onClick={() => setDeleteTarget(item)} className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-[#fff2ef] text-[#d94b3d]"><Trash2 size={16} /></button></div></td>
                       </tr>
                     ))}
                   </tbody>
@@ -188,8 +111,6 @@ export default function GalleriesPage() {
           </div>
         </section>
       </div>
-
-      {showForm && <div className="fixed inset-0 z-50 flex items-center justify-center bg-[#0b1e15]/60 p-4 backdrop-blur-sm"><div className="w-full max-w-5xl overflow-hidden rounded-[28px] border border-[#d7e4db] bg-white shadow-[0_35px_80px_rgba(8,30,20,0.3)]"><div className="bg-[linear-gradient(135deg,#1a4731_0%,#2e7d52_100%)] px-6 py-5 text-white"><div className="flex items-center justify-between"><div><p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#f0cd72]">Gallery Form</p><h2 className="mt-1 text-xl font-semibold">{editingItem ? 'Edit Gallery' : 'Add New Gallery'}</h2></div><button type="button" onClick={() => setShowForm(false)} className="rounded-xl border border-white/10 bg-white/10 p-2 text-white/80"><X size={18} /></button></div></div><form onSubmit={handleSubmit} className="space-y-5 px-6 py-6"><div className="grid gap-4 md:grid-cols-2"><div><label className="mb-1.5 block text-sm font-medium text-[#456353]">Title</label><input required value={formValues.title} onChange={(e) => setFormValues((current) => ({ ...current, title: e.target.value }))} className="w-full rounded-2xl border border-[#d7e4db] px-4 py-3 text-sm text-[#1a4731] outline-none" /></div><div><label className="mb-1.5 block text-sm font-medium text-[#456353]">Category</label><select required value={formValues.category_id} onChange={(e) => setFormValues((current) => ({ ...current, category_id: e.target.value }))} className="w-full rounded-2xl border border-[#d7e4db] bg-white px-4 py-3 text-sm text-[#1a4731] outline-none"><option value="">Choose category</option>{galleryCategories.map((option) => <option key={option.value} value={option.value}>{option.label}</option>)}</select></div></div><div className="grid gap-4 md:grid-cols-2"><div><label className="mb-1.5 block text-sm font-medium text-[#456353]">Year</label><input required value={formValues.year} onChange={(e) => setFormValues((current) => ({ ...current, year: e.target.value }))} className="w-full rounded-2xl border border-[#d7e4db] px-4 py-3 text-sm text-[#1a4731] outline-none" /></div><div><label className="mb-1.5 block text-sm font-medium text-[#456353]">Status</label><select value={formValues.status} onChange={(e) => setFormValues((current) => ({ ...current, status: e.target.value }))} className="w-full rounded-2xl border border-[#d7e4db] bg-white px-4 py-3 text-sm text-[#1a4731] outline-none"><option value="1">Active</option><option value="0">Inactive</option></select></div></div><div><label className="mb-1.5 block text-sm font-medium text-[#456353]">Image</label><label className="flex cursor-pointer items-center justify-center gap-3 rounded-[24px] border border-dashed border-[#b8cfc0] bg-[#f8fbf9] px-4 py-5 text-center"><Upload size={18} className="text-[#2e7d52]" /><div><p className="text-sm font-semibold text-[#1a4731]">{selectedImageFile ? selectedImageFile.name : 'Choose an image file'}</p><p className="mt-1 text-xs text-[#6d8377]">Recommended size 1200 x 800, up to 5MB</p></div><input type="file" accept="image/*" className="hidden" onChange={(e) => setSelectedImageFile(e.target.files?.[0] ?? null)} /></label></div>{(selectedImageFile || formValues.image) && previewUrl && <img src={previewUrl} alt="Gallery preview" className="h-52 w-full rounded-2xl border border-[#e4ece7] bg-white object-cover" />}<div className="flex gap-3 pt-2"><button type="button" onClick={() => setShowForm(false)} className="flex-1 rounded-2xl border border-[#d7e4db] px-4 py-3 text-sm font-medium text-[#5a6d62]">Cancel</button><button type="submit" disabled={saving} className="flex-1 rounded-2xl bg-[linear-gradient(135deg,#1a4731_0%,#2e7d52_100%)] px-4 py-3 text-sm font-semibold text-white disabled:opacity-60">{saving ? 'Saving...' : editingItem ? 'Update Gallery' : 'Save Gallery'}</button></div></form></div></div>}
       {deleteTarget && <div className="fixed inset-0 z-50 flex items-center justify-center bg-[#0b1e15]/60 p-4 backdrop-blur-sm"><div className="w-full max-w-sm rounded-[28px] border border-[#d7e4db] bg-white p-6 shadow-[0_35px_80px_rgba(8,30,20,0.28)]"><div className="mb-4 flex h-12 w-12 items-center justify-center rounded-2xl bg-[#fff2ef] text-[#d94b3d]"><Trash2 size={20} /></div><h3 className="text-lg font-semibold text-[#1a4731]">Delete Gallery</h3><p className="mt-2 text-sm leading-6 text-[#61766a]">This will remove <span className="font-semibold text-[#1f3f2f]">{deleteTarget.title}</span> from the galleries table.</p><div className="mt-6 flex gap-3"><button type="button" onClick={() => setDeleteTarget(null)} className="flex-1 rounded-2xl border border-[#d7e4db] px-4 py-3 text-sm font-medium text-[#5a6d62]">Cancel</button><button type="button" onClick={handleDelete} className="flex-1 rounded-2xl bg-[#d94b3d] px-4 py-3 text-sm font-semibold text-white">Delete</button></div></div></div>}
     </div>
   );

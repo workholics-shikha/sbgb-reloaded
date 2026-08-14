@@ -3,33 +3,50 @@ import { CalendarDays, ChevronRight, MapPin } from "lucide-react";
 
 import { SiteHeader } from "@/components/site/SiteHeader";
 import { PageHero, SiteFooter } from "@/components/site/SiteFooter";
+import socialPostTataPower from "@/assets/activities-hero-real.jpg";
 import {
-  getSuccessStoryBySlug,
-  successStories,
-} from "@/lib/success-stories-data";
+  buildStorySlug,
+  fetchPublicStories,
+  getPlainStoryText,
+  getStoryHtml,
+  resolveStoryImage,
+} from "@/lib/public-stories";
 
 export const Route = createFileRoute("/success-stories/$storySlug")({
-  loader: ({ params }) => {
-    const story = getSuccessStoryBySlug(params.storySlug);
+  loader: async ({ params }) => {
+    let stories = [] as Awaited<ReturnType<typeof fetchPublicStories>>;
+
+    try {
+      stories = await fetchPublicStories();
+    } catch {
+      stories = [];
+    }
+
+    const story = stories.find((item) => buildStorySlug(item) === params.storySlug) || null;
 
     if (!story) {
       throw notFound();
     }
 
-    return { story };
+    return { story, stories };
   },
   head: ({ loaderData }) => ({
     meta: [
       { title: `${loaderData.story.title} | SBGBT` },
-      { name: "description", content: loaderData.story.excerpt },
+      {
+        name: "description",
+        content: getPlainStoryText(loaderData.story.description).slice(0, 160),
+      },
     ],
   }),
   component: SuccessStoryDetailPage,
 });
 
 function SuccessStoryDetailPage() {
-  const { story } = Route.useLoaderData();
-  const latestStories = successStories.filter((item) => item.slug !== story.slug).slice(0, 5);
+  const { story, stories } = Route.useLoaderData();
+  const latestStories = stories.filter((item) => item.id !== story.id).slice(0, 5);
+  const storyHtml = getStoryHtml(story.description);
+  const storyExcerpt = getPlainStoryText(story.description);
 
   return (
     <div className="min-h-screen bg-background text-foreground">
@@ -42,7 +59,7 @@ function SuccessStoryDetailPage() {
             <div>
               <div className="overflow-hidden rounded-[2rem] bg-white shadow-[0_24px_60px_-40px_rgba(18,65,74,0.45)]">
                 <img
-                  src={story.image}
+                  src={resolveStoryImage(story.image) || socialPostTataPower}
                   alt={story.title}
                   className="w-full object-cover"
                 />
@@ -52,11 +69,11 @@ function SuccessStoryDetailPage() {
                 <div className="flex flex-col gap-3 text-sm text-[#274f57] sm:flex-row sm:items-center sm:justify-between">
                   <span className="inline-flex items-center gap-2">
                     <CalendarDays className="size-4" />
-                    {story.date}
+                    {story.story_date || "-"}
                   </span>
                   <span className="inline-flex items-center gap-2">
                     <MapPin className="size-4" />
-                    {story.location}
+                    {story.story_place || "-"}
                   </span>
                 </div>
 
@@ -64,11 +81,16 @@ function SuccessStoryDetailPage() {
                   {story.title}
                 </h1>
 
-                <div className="mt-6 space-y-5 text-lg leading-9 text-[#143840]">
-                  {story.body.map((paragraph) => (
-                    <p key={paragraph}>{paragraph}</p>
-                  ))}
-                </div>
+                {storyExcerpt ? (
+                  <p className="mt-6 text-lg leading-9 text-[#143840]">{storyExcerpt}</p>
+                ) : null}
+
+                {storyHtml ? (
+                  <div
+                    className="prose prose-neutral mt-6 max-w-none text-lg leading-9 text-[#143840] prose-headings:font-hi prose-headings:text-[#955606] prose-p:leading-9"
+                    dangerouslySetInnerHTML={{ __html: storyHtml }}
+                  />
+                ) : null}
               </div>
             </div>
 
@@ -77,13 +99,13 @@ function SuccessStoryDetailPage() {
               <div className="space-y-6">
                 {latestStories.map((item) => (
                   <Link
-                    key={item.slug}
+                    key={item.id}
                     to="/success-stories/$storySlug"
-                    params={{ storySlug: item.slug }}
+                    params={{ storySlug: buildStorySlug(item) }}
                     className="flex gap-4 rounded-[1.4rem] bg-white p-5 shadow-[0_18px_40px_-32px_rgba(17,56,61,0.45)] transition hover:-translate-y-1"
                   >
                     <img
-                      src={item.image}
+                      src={resolveStoryImage(item.image) || socialPostTataPower}
                       alt={item.title}
                       className="h-20 w-24 rounded-lg object-cover"
                     />
@@ -93,7 +115,7 @@ function SuccessStoryDetailPage() {
                       </div>
                       <div className="mt-2 inline-flex items-center gap-2 text-sm text-[#274f57]">
                         <CalendarDays className="size-4" />
-                        {item.date}
+                        {item.story_date || "-"}
                       </div>
                     </div>
                   </Link>

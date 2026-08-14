@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 import { CalendarDays, Newspaper, PlayCircle, Ticket } from "lucide-react";
+
 import {
   Dialog,
   DialogContent,
@@ -9,15 +10,23 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { SiteHeader } from "@/components/site/SiteHeader";
-import { PageHero, SiteFooter, CTASection} from "@/components/site/SiteFooter";
-import galAwards from "@/assets/gallery-awards.jpg";
-import galEnv from "@/assets/gallery-environment.jpg";
-import galHealth from "@/assets/gallery-health.jpg";
-import galLib from "@/assets/gallery-library.jpg";
-import galVillage from "@/assets/gallery-village.jpg";
-import galWomen from "@/assets/gallery-women.jpg";
+import { PageHero, SiteFooter, CTASection } from "@/components/site/SiteFooter";
+import {
+  fetchPublicMedias,
+  normalizeMediaType,
+  resolveMediaImage,
+  type MediaTabType,
+} from "@/lib/public-medias";
 
 export const Route = createFileRoute("/media")({
+  loader: async () => {
+    try {
+      const medias = await fetchPublicMedias();
+      return { medias };
+    } catch {
+      return { medias: [] };
+    }
+  },
   head: () => ({
     meta: [
       { title: "मीडिया कवरेज | SBGBT" },
@@ -37,75 +46,28 @@ export const Route = createFileRoute("/media")({
   component: Media,
 });
 
-const tabs = ["सभी", "प्रिंट मीडिया", "इलेक्ट्रॉनिक मीडिया"] as const;
-
-const press = [
-  {
-    date: "प्रकाशित तिथि: 18 जुलाई 2018",
-    publisher: "प्रकाशक: दैनिक भास्कर",
-    category: "श्रेणी: सोच बदलो गांव बदलो यात्रा",
-    type: "प्रिंट मीडिया" as const,
-    cover: galEnv,
-    title: "गांवों में पौधारोपण और सामुदायिक जागरूकता का अभियान",
-  },
-  {
-    date: "प्रकाशित तिथि: 18 जुलाई 2018",
-    publisher: "प्रकाशक: दैनिक भास्कर",
-    category: "श्रेणी: ग्रामीण विकास",
-    type: "प्रिंट मीडिया" as const,
-    cover: galVillage,
-    title: "धनौरा गांव के मॉडल परिवर्तन को मिला राष्ट्रीय सम्मान",
-  },
-  {
-    date: "प्रकाशित तिथि: 20 जून 2018",
-    publisher: "प्रकाशक: दैनिक भास्कर",
-    category: "श्रेणी: शिक्षा और प्रेरणा",
-    type: "प्रिंट मीडिया" as const,
-    cover: galLib,
-    title: "हर गांव आदर्श बन सकता है – सामुदायिक शिक्षा मॉडल पर विशेष लेख",
-  },
-  {
-    date: "प्रकाशित तिथि: 18 जुलाई 2018",
-    publisher: "प्रकाशक: हिंदुस्तान एक्सप्रेस",
-    category: "श्रेणी: स्मार्ट विलेज पहल",
-    type: "प्रिंट मीडिया" as const,
-    cover: galAwards,
-    title: "जन-जागरूकता ने बदली गांव की पहचान",
-  },
-  {
-    date: "प्रकाशित तिथि: 06 फरवरी 2025",
-    publisher: "प्रकाशक: प्रेस फीचर",
-    category: "श्रेणी: मीडिया कवरेज",
-    type: "इलेक्ट्रॉनिक मीडिया" as const,
-    cover: galWomen,
-    title: "राजस्थान के ग्रामीण बदलाव मॉडल पर SBGBT की विशेष प्रस्तुति",
-  },
-  {
-    date: "प्रकाशित तिथि: 20 जून 2018",
-    publisher: "प्रकाशक: विशेष रिपोर्ट",
-    category: "श्रेणी: जन स्वास्थ्य",
-    type: "इलेक्ट्रॉनिक मीडिया" as const,
-    cover: galHealth,
-    title: "स्वास्थ्य और जागरूकता अभियानों से गांवों में नई ऊर्जा",
-  },
-];
+const tabs: MediaTabType[] = ["सभी", "प्रिंट मीडिया", "इलेक्ट्रॉनिक मीडिया"];
 
 const videos = [
   { id: "Mqw26LHHR9E", title: "शिक्षा का मंदिर – उत्थान भवन, सरमथुरा" },
   { id: "kUMosORZmOo", title: "मानवता की सेवा ही ईश्वर की सेवा" },
-  { id: "3RjwYoCyWrI", title: "सोच बदलो गांव बदलो यात्रा" },
-  { id: "mycj-BJ08Wk", title: "स्थापना दिवस की शुभकामनाएं और प्रेरक संदेश" },
-  { id: "DH3KPEHgAA4", title: "स्मार्ट विलेज कॉन्सेप्ट और उपलब्धियां" },
+  { id: "3RjwYoCyWrI", title: "सोच बदलो गाँव बदलो यात्रा" },
+  { id: "mycj-BJ08Wk", title: "स्थापना दिवस की शुभकामनाएँ और प्रेरक संदेश" },
+  { id: "DH3KPEHgAA4", title: "स्मार्ट विलेज कॉन्सेप्ट और उपलब्धियाँ" },
   { id: "wy3rBd3F-hg", title: "ऐसा जीवन जियो जो दूसरों के लिए प्रेरणा बने" },
 ];
 
 function Media() {
-  const [activeTab, setActiveTab] = useState<(typeof tabs)[number]>("सभी");
+  const { medias } = Route.useLoaderData();
+  const [activeTab, setActiveTab] = useState<MediaTabType>("सभी");
 
   const filteredPress = useMemo(() => {
-    if (activeTab === "सभी") return press;
-    return press.filter((item) => item.type === activeTab);
-  }, [activeTab]);
+    if (activeTab === "सभी") {
+      return medias;
+    }
+
+    return medias.filter((item) => normalizeMediaType(item.type) === activeTab);
+  }, [activeTab, medias]);
 
   return (
     <div className="min-h-screen bg-background text-foreground">
@@ -132,39 +94,69 @@ function Media() {
 
           <div className="mt-8 grid gap-7 md:grid-cols-2 xl:grid-cols-4">
             {filteredPress.map((item) => (
-              <article
-                key={`${item.type}-${item.title}`}
-                className="overflow-hidden rounded-[1.6rem] border border-primary/10 bg-card shadow-[0_18px_35px_-20px_rgba(0,0,0,0.35)] transition hover:-translate-y-1 hover:shadow-[0_24px_50px_-24px_rgba(0,0,0,0.4)]"
-              >
-                <div className="aspect-[16/9] overflow-hidden border-b border-border bg-muted">
-                  <img
-                    src={item.cover}
-                    alt={item.title}
-                    className="size-full object-cover transition duration-700 hover:scale-105"
-                    width={1200}
-                    height={800}
-                  />
-                </div>
-                <div className="p-5">
-                  <h3 className="font-hi text-lg font-semibold leading-snug text-foreground">{item.title}</h3>
-                  <div className="mt-4 space-y-2 text-sm text-foreground/80">
-                    <div className="flex items-start gap-2">
-                      <CalendarDays className="mt-0.5 size-4 shrink-0 text-primary" />
-                      <span>{item.date}</span>
-                    </div>
-                    <div className="flex items-start gap-2">
-                      <Newspaper className="mt-0.5 size-4 shrink-0 text-primary" />
-                      <span>{item.publisher}</span>
-                    </div>
-                    <div className="flex items-start gap-2">
-                      <Ticket className="mt-0.5 size-4 shrink-0 text-primary" />
-                      <span>{item.category}</span>
+              <Dialog key={`${item.id}-${item.title}`}>
+                <article className="overflow-hidden rounded-[1.6rem] border border-primary/10 bg-card shadow-[0_18px_35px_-20px_rgba(0,0,0,0.35)] transition hover:-translate-y-1 hover:shadow-[0_24px_50px_-24px_rgba(0,0,0,0.4)]">
+                  <DialogTrigger asChild>
+                    <button
+                      type="button"
+                      className="block aspect-[16/9] w-full overflow-hidden border-b border-border bg-muted text-left"
+                      aria-label={`${item.title} image preview`}
+                    >
+                      <img
+                        src={resolveMediaImage(item.image)}
+                        alt={item.title}
+                        className="size-full object-cover transition duration-700 hover:scale-105"
+                        width={1200}
+                        height={800}
+                      />
+                    </button>
+                  </DialogTrigger>
+                  <div className="p-5">
+                    <h3 className="font-hi text-lg font-semibold leading-snug text-foreground">
+                      {item.title}
+                    </h3>
+                    <div className="mt-4 space-y-2 text-sm text-foreground/80">
+                      <div className="flex items-start gap-2">
+                        <CalendarDays className="mt-0.5 size-4 shrink-0 text-primary" />
+                        <span>{item.published_date || "-"}</span>
+                      </div>
+                      <div className="flex items-start gap-2">
+                        <Newspaper className="mt-0.5 size-4 shrink-0 text-primary" />
+                        <span>{item.publisher_name || "-"}</span>
+                      </div>
+                      <div className="flex items-start gap-2">
+                        <Ticket className="mt-0.5 size-4 shrink-0 text-primary" />
+                        <span>{item.category || normalizeMediaType(item.type)}</span>
+                      </div>
                     </div>
                   </div>
-                </div>
-              </article>
+                </article>
+
+                <DialogContent className="max-w-5xl border-border bg-background p-3 sm:p-4">
+                  <DialogHeader>
+                    <DialogTitle className="pr-8 font-hi text-base sm:text-lg">
+                      {item.title}
+                    </DialogTitle>
+                  </DialogHeader>
+                  <div className="overflow-hidden rounded-2xl bg-muted">
+                    <img
+                      src={resolveMediaImage(item.image)}
+                      alt={item.title}
+                      className="max-h-[82vh] w-full object-contain"
+                      width={1600}
+                      height={2200}
+                    />
+                  </div>
+                </DialogContent>
+              </Dialog>
             ))}
           </div>
+
+          {filteredPress.length === 0 ? (
+            <div className="mt-8 rounded-[1.6rem] border border-primary/10 bg-card px-6 py-10 text-center text-muted-foreground shadow-sm">
+              इस श्रेणी में अभी कोई मीडिया कवरेज उपलब्ध नहीं है।
+            </div>
+          ) : null}
         </div>
       </section>
 
@@ -174,7 +166,7 @@ function Media() {
           <h2 className="font-display text-2xl font-black sm:text-3xl">वीडियो</h2>
         </div>
         <p className="mt-3 max-w-2xl text-muted-foreground">
-          डॉक्यूमेंट्री, प्रेरक कहानियां और अभियान वीडियो जो SBGBT के कार्यों को जीवंत रूप में सामने लाते हैं।
+          डॉक्यूमेंट्री, प्रेरक कहानियाँ और अभियान वीडियो जो SBGBT के कार्यों को जीवंत रूप में सामने लाते हैं।
         </p>
 
         <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
@@ -205,7 +197,9 @@ function Media() {
               </DialogTrigger>
               <DialogContent className="max-w-4xl border-border bg-background p-3 sm:p-4">
                 <DialogHeader>
-                  <DialogTitle className="pr-8 font-hi text-base sm:text-lg">{video.title}</DialogTitle>
+                  <DialogTitle className="pr-8 font-hi text-base sm:text-lg">
+                    {video.title}
+                  </DialogTitle>
                 </DialogHeader>
                 <div className="overflow-hidden rounded-2xl bg-black">
                   <iframe
@@ -223,9 +217,7 @@ function Media() {
         </div>
       </section>
 
-     {/* CTA */}
       <CTASection />
-     {/* === */} 
       <SiteFooter />
     </div>
   );

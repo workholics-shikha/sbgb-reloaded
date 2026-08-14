@@ -1,11 +1,10 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
-import { useEffect, useState } from "react";
 import {
   ArrowRight,
   BookOpen,
   Building2,
-  GraduationCap,
+  CalendarDays,
   HeartPulse,
   Landmark,
   Leaf,
@@ -14,95 +13,101 @@ import {
   Users2,
   Wallet,
 } from "lucide-react";
-import {
-  fetchPublicActivities,
-  getPlainActivityText,
-} from "@/lib/public-activities";
+
 import { SiteHeader } from "@/components/site/SiteHeader";
-import { PageHero, SiteFooter, CTASection} from "@/components/site/SiteFooter";
+import { CTASection, PageHero, SiteFooter } from "@/components/site/SiteFooter";
+import { fetchPublicEvents, getPlainEventText } from "@/lib/public-events";
 
 export const Route = createFileRoute("/activities")({
+  loader: async () => {
+    try {
+      const rows = await fetchPublicEvents();
+      return { rows };
+    } catch {
+      return { rows: [] };
+    }
+  },
   head: () => ({
     meta: [
       { title: "हमारे कार्य | SBGBT" },
       {
         name: "description",
         content:
-          "शिक्षा, महिला सशक्तिकरण, पंचायत सुदृढ़ीकरण, पर्यावरण संरक्षण, जन स्वास्थ्य और ग्राम विकास से जुड़े SBGBT के प्रमुख कार्यों की जानकारी।",
+          "SBGBT के प्रमुख कार्यक्रम, आयोजन और सामाजिक प्रयासों की जानकारी देखें।",
       },
       { property: "og:title", content: "हमारे कार्य | SBGBT" },
       {
         property: "og:description",
         content:
-          "गांवों में सकारात्मक बदलाव लाने के लिए SBGBT द्वारा चलाए जा रहे प्रमुख कार्यक्रमों और पहलों को जानें।",
+          "गांवों में सकारात्मक बदलाव के लिए SBGBT द्वारा आयोजित प्रमुख कार्यक्रमों और पहलों को जानें।",
       },
     ],
   }),
   component: Activities,
 });
 
-const activities = [
+const fallbackEvents = [
   {
     icon: Megaphone,
     title: "जन जागरूकता अभियान",
-    subtitle: "सूचना से सहभागिता तक",
-    desc: "केंद्र, राज्य और NABARD जैसी योजनाओं की जानकारी स्वयं सहायता समूहों, किसान समूहों, महिला मंडलों और युवाओं तक पहुंचाई जाती है।",
+    subtitle: "सामुदायिक भागीदारी",
+    desc: "सरकारी योजनाओं, शिक्षा और सामाजिक चेतना से जुड़े सामुदायिक कार्यक्रम।",
   },
   {
-    icon: GraduationCap,
-    title: "ग्रामीण शिक्षा सशक्तिकरण",
-    subtitle: "SPGBP छात्रवृत्ति पहल",
-    desc: "शिक्षा पाओ, ज्ञान बढ़ाओ प्रतियोगिता ग्रामीण प्रतिभाओं की पहचान करती है, उन्हें मार्गदर्शन देती है और छात्रवृत्ति से जोड़ती है।",
+    icon: CalendarDays,
+    title: "शैक्षिक आयोजन",
+    subtitle: "प्रतिभा और मार्गदर्शन",
+    desc: "छात्रों के लिए प्रेरक प्रतियोगिताएं, सम्मान समारोह और मार्गदर्शन कार्यक्रम।",
   },
   {
     icon: BookOpen,
-    title: "उत्थान भवन और अध्ययन केंद्र",
-    subtitle: "लाइब्रेरी और कोचिंग सहयोग",
-    desc: "सरमथुरा में अध्ययन केंद्र, पुस्तकालय और कोचिंग सुविधाओं के माध्यम से युवाओं को बेहतर भविष्य के लिए तैयार किया जाता है।",
+    title: "उत्थान सहयोग कार्यक्रम",
+    subtitle: "अध्ययन और अवसर",
+    desc: "युवाओं को अध्ययन, कोचिंग और विकास के अवसरों से जोड़ने वाली पहलें।",
   },
   {
     icon: Users2,
-    title: "महिला सशक्तिकरण",
+    title: "महिला सशक्तिकरण कार्यक्रम",
     subtitle: "स्वावलंबन और नेतृत्व",
-    desc: "बालिका शिक्षा, मार्गदर्शन, आजीविका, स्वास्थ्य और स्वच्छता से जुड़े प्रयासों के माध्यम से ग्रामीण महिलाओं को आगे बढ़ाया जाता है।",
+    desc: "महिलाओं और बालिकाओं के लिए जागरूकता, शिक्षा और आत्मविश्वास से जुड़े कार्यक्रम।",
   },
   {
     icon: Landmark,
-    title: "स्मार्ट विलेज योजना",
-    subtitle: "संगठित ग्राम विकास",
-    desc: "गांवों में जिम्मेदारी, अधिकार और स्थानीय भागीदारी की भावना विकसित कर स्थायी सामाजिक बदलाव की दिशा में काम किया जाता है।",
+    title: "ग्राम विकास पहल",
+    subtitle: "स्थानीय सहभागिता",
+    desc: "गांव स्तर पर संगठन, जिम्मेदारी और विकासोन्मुख सोच को बढ़ावा देने वाले आयोजन।",
   },
   {
     icon: Building2,
     title: "पंचायती राज सुदृढ़ीकरण",
-    subtitle: "स्थानीय शासन को मजबूती",
-    desc: "ग्रामीण नागरिकों को सरकारी योजनाओं और पंचायत प्रक्रिया की जानकारी देकर उन्हें विकास कार्यक्रमों में सक्रिय भागीदार बनाया जाता है।",
+    subtitle: "स्थानीय प्रशासन सहयोग",
+    desc: "ग्राम स्तर पर योजनाओं और अधिकारों की जानकारी से जुड़ी गतिविधियां।",
   },
   {
     icon: Wallet,
-    title: "आत्मनिर्भर और समृद्ध गांव",
-    subtitle: "वित्तीय साक्षरता पहल",
-    desc: "बैंकिंग, क्रेडिट, बचत और औपचारिक वित्तीय सेवाओं की समझ देकर गांवों में आर्थिक सशक्तिकरण को बढ़ावा दिया जाता है।",
+    title: "आर्थिक सशक्तिकरण",
+    subtitle: "वित्तीय जागरूकता",
+    desc: "आत्मनिर्भरता, बचत और वित्तीय जानकारी से जुड़े सार्वजनिक कार्यक्रम।",
   },
   {
     icon: Leaf,
     title: "पर्यावरण संरक्षण",
-    subtitle: "ग्रीन विलेज, क्लीन विलेज",
-    desc: "वृक्षारोपण, जल संरक्षण और स्वच्छता को जन-अभियान बनाकर गांव स्तर पर पर्यावरण चेतना मजबूत की जाती है।",
+    subtitle: "ग्रीन विलेज अभियान",
+    desc: "स्वच्छता, वृक्षारोपण और पर्यावरण चेतना को बढ़ाने वाले आयोजन।",
   },
   {
     icon: HeartPulse,
     title: "जन स्वास्थ्य अभियान",
-    subtitle: "स्वास्थ्य जागरूकता और सेवा",
-    desc: "रक्तदान शिविर, स्वास्थ्य जांच और सामुदायिक जागरूकता कार्यक्रमों के माध्यम से स्वस्थ गांव का लक्ष्य साधा जाता है।",
+    subtitle: "स्वास्थ्य और सेवा",
+    desc: "स्वास्थ्य शिविर, रक्तदान और सामुदायिक स्वास्थ्य कार्यक्रम।",
   },
   {
     icon: Sprout,
-    title: "समाज व राष्ट्र निर्माण",
-    subtitle: "स्थानीय समाधान, स्थायी असर",
-    desc: "स्थानीय समस्याओं को समझकर स्थानीय समाधान विकसित किए जाते हैं, ताकि गांव विकास समितियों के साथ मिलकर बदलाव की गति बनी रहे।",
+    title: "समाज निर्माण प्रयास",
+    subtitle: "स्थायी परिवर्तन",
+    desc: "स्थानीय समस्याओं के समाधान और समाज निर्माण से जुड़े कार्यक्रम।",
   },
-];
+] as const;
 
 type ActivityCard = {
   id?: string;
@@ -112,36 +117,46 @@ type ActivityCard = {
   desc: string;
 };
 
+function getEventSubtitle(
+  fromDate?: string | null,
+  toDate?: string | null,
+  category?: string | null,
+  fallback?: string,
+) {
+  const dateRange = [fromDate, toDate].filter(Boolean).join(" - ");
+
+  if (dateRange) {
+    return dateRange;
+  }
+
+  if (category) {
+    return category;
+  }
+
+  return fallback || "SBGBT Event";
+}
+
 function Activities() {
-  const [activityCards, setActivityCards] = useState<ActivityCard[]>(activities);
+  const { rows } = Route.useLoaderData();
 
-  useEffect(() => {
-    let isMounted = true;
-
-    fetchPublicActivities()
-      .then((rows) => {
-        if (!isMounted || rows.length === 0) {
-          return;
-        }
-
-        setActivityCards(
-          rows.map((row, index) => ({
-            id: row.id,
-            icon: activities[index % activities.length]?.icon || Megaphone,
-            title: row.name,
-            subtitle: row.type || activities[index % activities.length]?.subtitle || "SBGBT पहल",
-            desc: getPlainActivityText(row.description) || activities[index % activities.length]?.desc || "",
-          })),
-        );
-      })
-      .catch(() => {
-        // Keep fallback cards if the live API is unavailable.
-      });
-
-    return () => {
-      isMounted = false;
-    };
-  }, []);
+  const activityCards: ActivityCard[] =
+    rows.length > 0
+      ? rows.map((row, index) => ({
+          id: row.id,
+          icon: fallbackEvents[index % fallbackEvents.length]?.icon || Megaphone,
+          title: row.title,
+          subtitle: getEventSubtitle(
+            row.from_date,
+            row.to_date,
+            row.category,
+            fallbackEvents[index % fallbackEvents.length]?.subtitle,
+          ),
+          desc:
+            getPlainEventText(row.description) ||
+            fallbackEvents[index % fallbackEvents.length]?.desc ||
+            "",
+        }))
+      : [...fallbackEvents];
 
   return (
     <div className="min-h-screen bg-background text-foreground">
@@ -155,29 +170,21 @@ function Activities() {
               ग्रामीण विकास की दिशा में
             </div>
             <h2 className="mt-4 font-display text-3xl font-black text-earth sm:text-4xl">
-              शिक्षा, सहभागिता और स्वावलंबन को जोड़ते हमारे प्रमुख कार्यक्रम
+              SBGBT के प्रमुख कार्यक्रम और सामाजिक आयोजन
             </h2>
             <p className="mt-4 text-base leading-7 text-muted-foreground">
-              SBGBT का हर कार्यक्रम गांव की वास्तविक ज़रूरतों को समझकर तैयार किया गया है, ताकि परिवर्तन केवल नारा न रहे बल्कि ज़मीन पर दिखने वाला परिणाम बने।
+              यहां SBGBT के वे कार्यक्रम और आयोजन दिखाए गए हैं जो समुदाय, शिक्षा, स्वास्थ्य, पर्यावरण
+              और ग्राम विकास से सीधे जुड़े हैं।
             </p>
           </div>
 
           <motion.div
             className="mt-12 grid gap-4 sm:grid-cols-2 sm:gap-5 lg:grid-cols-3"
-            initial={{
-              opacity: 0,
-              x: 60,
-              scale: 0.9,
-            }}
-            whileInView={{
-              opacity: 1,
-              x: 0,
-              scale: 1,
-            }}
+            initial={{ opacity: 0, x: 60, scale: 0.9 }}
+            whileInView={{ opacity: 1, x: 0, scale: 1 }}
             viewport={{ once: true }}
-            transition={{
-              duration: 0.8,
-            }} >
+            transition={{ duration: 0.8 }}
+          >
             {activityCards.map((activity, index) => (
               <article
                 key={`${activity.id || activity.title}-${index}`}
@@ -187,18 +194,22 @@ function Activities() {
                   <div className="grid size-12 place-items-center rounded-2xl bg-primary/10 text-primary transition group-hover:bg-primary group-hover:text-primary-foreground">
                     <activity.icon className="size-6" />
                   </div>
-                  <span className="text-xs font-mono text-muted-foreground">0{index + 1}</span>
+                  <span className="text-xs font-mono text-muted-foreground">
+                    {String(index + 1).padStart(2, "0")}
+                  </span>
                 </div>
-                <h3 className="mt-5 min-h-[3.5rem] font-hi text-xl font-bold text-earth">{activity.title}</h3>
+                <h3 className="mt-5 min-h-[3.9rem] pb-1 font-hi text-xl font-bold leading-[1.45] text-earth">
+                  {activity.title}
+                </h3>
                 <div className="mt-1 text-sm font-semibold text-primary">{activity.subtitle}</div>
-                <p className="mt-3 min-h-[7.5rem] text-sm leading-relaxed text-muted-foreground [display:-webkit-box] overflow-hidden [-webkit-box-orient:vertical] [-webkit-line-clamp:4]">
+                <p className="mt-3 min-h-[8.5rem] pb-1 text-sm leading-7 text-muted-foreground [display:-webkit-box] overflow-hidden [-webkit-box-orient:vertical] [-webkit-line-clamp:4]">
                   {activity.desc}
                 </p>
                 {activity.id ? (
                   <Link
                     to="/activities/$activityId"
                     params={{ activityId: String(activity.id) }}
-                    className="mt-auto inline-flex items-center gap-1.5 text-sm font-semibold text-primary transition-all group-hover:gap-3"
+                    className="mt-auto inline-flex items-center gap-1.5 pb-1 text-sm font-semibold leading-6 text-primary transition-all group-hover:gap-3"
                   >
                     विस्तार से देखें <ArrowRight className="size-4" />
                   </Link>
@@ -209,10 +220,7 @@ function Activities() {
         </div>
       </section>
 
-      {/* CTA */}
-       <CTASection />
-      {/* === */} 
-
+      <CTASection />
       <SiteFooter />
     </div>
   );

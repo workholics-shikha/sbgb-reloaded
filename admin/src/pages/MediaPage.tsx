@@ -1,23 +1,12 @@
 import { useEffect, useMemo, useState } from 'react';
-import { ChevronLeft, ChevronRight, ImagePlus, Newspaper, Pencil, Trash2, Upload, X } from 'lucide-react';
+import { ChevronLeft, ChevronRight, ImagePlus, Newspaper, Pencil, Trash2 } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { API_BASE_URL } from '@/hooks/useSliders';
 import { useCategories } from '@/hooks/useCategories';
 import { useMedias } from '@/hooks/useMedias';
 import type { MediaItem } from '@/lib/types';
 
-type MediaFormValues = {
-  category_id: string;
-  type: string;
-  image: string;
-  title: string;
-  published_date: string;
-  publisher_name: string;
-  description: string;
-  status: string;
-};
-
 const PAGE_SIZE = 10;
-const DEFAULT_TYPE_OPTIONS = ['Print Media', 'Electronic Media'];
 
 function resolveImageUrl(imagePath?: string | null) {
   if (!imagePath) return '';
@@ -35,38 +24,12 @@ function resolveImageUrl(imagePath?: string | null) {
 }
 
 export default function MediaPage() {
-  const { data, loading, error, addItem, updateItem, deleteItem, uploadImage } = useMedias();
+  const { data, loading, error, deleteItem } = useMedias();
   const { data: categories, error: categoriesError } = useCategories();
   const [page, setPage] = useState(1);
-  const [showForm, setShowForm] = useState(false);
-  const [editingItem, setEditingItem] = useState<MediaItem | null>(null);
   const [deleteTarget, setDeleteTarget] = useState<MediaItem | null>(null);
-  const [saving, setSaving] = useState(false);
   const [formError, setFormError] = useState<string | null>(null);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
-  const [selectedImageFile, setSelectedImageFile] = useState<File | null>(null);
-  const [localPreviewUrl, setLocalPreviewUrl] = useState('');
-  const [formValues, setFormValues] = useState<MediaFormValues>({
-    category_id: '',
-    type: DEFAULT_TYPE_OPTIONS[0],
-    image: '',
-    title: '',
-    published_date: '',
-    publisher_name: '',
-    description: '',
-    status: '1',
-  });
-
-  useEffect(() => {
-    if (!selectedImageFile) {
-      setLocalPreviewUrl('');
-      return;
-    }
-
-    const objectUrl = URL.createObjectURL(selectedImageFile);
-    setLocalPreviewUrl(objectUrl);
-    return () => URL.revokeObjectURL(objectUrl);
-  }, [selectedImageFile]);
 
   const mediaCategories = useMemo(
     () =>
@@ -76,11 +39,6 @@ export default function MediaPage() {
     [categories],
   );
   const categoryMap = useMemo(() => new Map(mediaCategories.map((item) => [item.value, item.label])), [mediaCategories]);
-  const defaultCategory = mediaCategories[0];
-  const typeOptions = useMemo(() => {
-    const merged = [...DEFAULT_TYPE_OPTIONS, ...data.map((item) => String(item.type || '').trim()).filter(Boolean)];
-    return Array.from(new Set(merged));
-  }, [data]);
   const displayRows = useMemo(() => [...data].sort((a, b) => Number(b.id) - Number(a.id)), [data]);
   const totalPages = Math.max(1, Math.ceil(displayRows.length / PAGE_SIZE));
   const paginatedRows = useMemo(() => displayRows.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE), [displayRows, page]);
@@ -97,84 +55,6 @@ export default function MediaPage() {
     setPage((current) => Math.min(current, totalPages));
   }, [totalPages]);
 
-  function openAdd() {
-    setEditingItem(null);
-    setFormValues({
-      category_id: defaultCategory?.value || '',
-      type: DEFAULT_TYPE_OPTIONS[0],
-      image: '',
-      title: '',
-      published_date: '',
-      publisher_name: '',
-      description: '',
-      status: '1',
-    });
-    setSelectedImageFile(null);
-    setFormError(null);
-    setSuccessMessage(null);
-    setShowForm(true);
-  }
-
-  function openEdit(item: MediaItem) {
-    setEditingItem(item);
-    setFormValues({
-      category_id: item.category_id ?? '',
-      type: item.type ?? DEFAULT_TYPE_OPTIONS[0],
-      image: item.image ?? '',
-      title: item.title ?? '',
-      published_date: item.published_date ?? '',
-      publisher_name: item.publisher_name ?? '',
-      description: item.description ?? '',
-      status: String(item.status ?? 1),
-    });
-    setSelectedImageFile(null);
-    setFormError(null);
-    setSuccessMessage(null);
-    setShowForm(true);
-  }
-
-  async function handleSubmit(e: React.FormEvent) {
-    e.preventDefault();
-    setSaving(true);
-    setFormError(null);
-
-    let imagePath = formValues.image.trim();
-
-    try {
-      if (selectedImageFile) {
-        imagePath = await uploadImage(selectedImageFile);
-      }
-
-      if (!imagePath) throw new Error('Please upload an image');
-
-      const payload = {
-        category_id: Number(formValues.category_id),
-        type: formValues.type.trim(),
-        image: imagePath,
-        title: formValues.title.trim(),
-        published_date: formValues.published_date.trim(),
-        publisher_name: formValues.publisher_name.trim(),
-        description: formValues.description.trim(),
-        status: Number(formValues.status),
-      };
-
-      if (editingItem) {
-        await updateItem(editingItem.id, payload);
-        setSuccessMessage('Media updated successfully');
-      } else {
-        await addItem(payload);
-        setSuccessMessage('Media added successfully');
-      }
-
-      setShowForm(false);
-      setSelectedImageFile(null);
-    } catch (submitError) {
-      setFormError(submitError instanceof Error ? submitError.message : 'Unable to save media');
-    } finally {
-      setSaving(false);
-    }
-  }
-
   async function handleDelete() {
     if (!deleteTarget) return;
     try {
@@ -185,8 +65,6 @@ export default function MediaPage() {
       setFormError(deleteError instanceof Error ? deleteError.message : 'Unable to delete media');
     }
   }
-
-  const previewUrl = selectedImageFile ? localPreviewUrl : resolveImageUrl(formValues.image);
 
   return (
     <div className="min-h-full bg-[linear-gradient(180deg,#f5fbf7_0%,#eef4ef_55%,#f7f3eb_100%)] px-4 py-6 md:px-6 md:py-8">
@@ -227,10 +105,10 @@ export default function MediaPage() {
                 <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#2e7d52]">Database Records</p>
                 <h2 className="mt-1 text-2xl font-semibold text-[#1a4731]">Media Items</h2>
               </div>
-              <button type="button" onClick={openAdd} className="inline-flex items-center justify-center gap-2 rounded-2xl bg-[linear-gradient(135deg,#e8a317_0%,#c47d10_100%)] px-5 py-3 text-sm font-semibold text-[#173d2b]">
+              <Link to="/media/new" className="inline-flex items-center justify-center gap-2 rounded-2xl bg-[linear-gradient(135deg,#e8a317_0%,#c47d10_100%)] px-5 py-3 text-sm font-semibold text-[#173d2b]">
                 <ImagePlus size={17} />
                 Add New Media
-              </button>
+              </Link>
             </div>
 
             <div className="overflow-hidden rounded-[24px] border border-[#d8e5dc] bg-white shadow-[0_20px_40px_rgba(26,71,49,0.05)]">
@@ -261,7 +139,7 @@ export default function MediaPage() {
                           <td className="px-4 py-4"><span className={`inline-flex rounded-full px-3 py-1 text-xs font-semibold ${item.is_active ? 'bg-[#edf6ef] text-[#2e7d52]' : 'bg-[#fff2ef] text-[#d94b3d]'}`}>{item.status === 1 ? 'Active' : 'Inactive'}</span></td>
                           <td className="px-4 py-4">
                             <div className="flex items-center justify-center gap-2">
-                              <button type="button" onClick={() => openEdit(item)} className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-[#2e7d52] text-white"><Pencil size={16} /></button>
+                              <Link to={`/media/${item.id}/edit`} className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-[#2e7d52] text-white"><Pencil size={16} /></Link>
                               <button type="button" onClick={() => setDeleteTarget(item)} className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-[#fff2ef] text-[#d94b3d]"><Trash2 size={16} /></button>
                             </div>
                           </td>
@@ -285,85 +163,6 @@ export default function MediaPage() {
           </div>
         </section>
       </div>
-
-      {showForm && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-[#0b1e15]/60 p-4 backdrop-blur-sm">
-          <div className="w-full max-w-5xl overflow-hidden rounded-[28px] border border-[#d7e4db] bg-white shadow-[0_35px_80px_rgba(8,30,20,0.3)]">
-            <div className="bg-[linear-gradient(135deg,#1a4731_0%,#2e7d52_100%)] px-6 py-5 text-white">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#f0cd72]">Media Form</p>
-                  <h2 className="mt-1 text-xl font-semibold">{editingItem ? 'Edit Media' : 'Add New Media'}</h2>
-                </div>
-                <button type="button" onClick={() => setShowForm(false)} className="rounded-xl border border-white/10 bg-white/10 p-2 text-white/80"><X size={18} /></button>
-              </div>
-            </div>
-
-            <form onSubmit={handleSubmit} className="space-y-5 px-6 py-6">
-              <div className="grid gap-4 md:grid-cols-2">
-                <div>
-                  <label className="mb-1.5 block text-sm font-medium text-[#456353]">Title</label>
-                  <input required value={formValues.title} onChange={(e) => setFormValues((current) => ({ ...current, title: e.target.value }))} className="w-full rounded-2xl border border-[#d7e4db] px-4 py-3 text-sm text-[#1a4731] outline-none" />
-                </div>
-                <div>
-                  <label className="mb-1.5 block text-sm font-medium text-[#456353]">Category</label>
-                  <select required value={formValues.category_id} onChange={(e) => setFormValues((current) => ({ ...current, category_id: e.target.value }))} className="w-full rounded-2xl border border-[#d7e4db] bg-white px-4 py-3 text-sm text-[#1a4731] outline-none">
-                    <option value="">Choose category</option>
-                    {mediaCategories.map((option) => <option key={option.value} value={option.value}>{option.label}</option>)}
-                  </select>
-                </div>
-              </div>
-              <div className="grid gap-4 md:grid-cols-2">
-                <div>
-                  <label className="mb-1.5 block text-sm font-medium text-[#456353]">Type</label>
-                  <select required value={formValues.type} onChange={(e) => setFormValues((current) => ({ ...current, type: e.target.value }))} className="w-full rounded-2xl border border-[#d7e4db] bg-white px-4 py-3 text-sm text-[#1a4731] outline-none">
-                    {typeOptions.map((option) => <option key={option} value={option}>{option}</option>)}
-                  </select>
-                </div>
-                <div>
-                  <label className="mb-1.5 block text-sm font-medium text-[#456353]">Image</label>
-                  <label className="flex cursor-pointer items-center justify-center gap-3 rounded-[24px] border border-dashed border-[#b8cfc0] bg-[#f8fbf9] px-4 py-5 text-center">
-                    <Upload size={18} className="text-[#2e7d52]" />
-                    <div>
-                      <p className="text-sm font-semibold text-[#1a4731]">{selectedImageFile ? selectedImageFile.name : 'Choose an image file'}</p>
-                      <p className="mt-1 text-xs text-[#6d8377]">Recommended size 1200 x 800, up to 5MB</p>
-                    </div>
-                    <input type="file" accept="image/*" className="hidden" onChange={(e) => setSelectedImageFile(e.target.files?.[0] ?? null)} />
-                  </label>
-                </div>
-              </div>
-              <div className="grid gap-4 md:grid-cols-2">
-                <div>
-                  <label className="mb-1.5 block text-sm font-medium text-[#456353]">Published Date</label>
-                  <input required value={formValues.published_date} onChange={(e) => setFormValues((current) => ({ ...current, published_date: e.target.value }))} className="w-full rounded-2xl border border-[#d7e4db] px-4 py-3 text-sm text-[#1a4731] outline-none" />
-                </div>
-                <div>
-                  <label className="mb-1.5 block text-sm font-medium text-[#456353]">Publisher Name</label>
-                  <input required value={formValues.publisher_name} onChange={(e) => setFormValues((current) => ({ ...current, publisher_name: e.target.value }))} className="w-full rounded-2xl border border-[#d7e4db] px-4 py-3 text-sm text-[#1a4731] outline-none" />
-                </div>
-              </div>
-              <div className="grid gap-4 md:grid-cols-2">
-                <div>
-                  <label className="mb-1.5 block text-sm font-medium text-[#456353]">Status</label>
-                  <select value={formValues.status} onChange={(e) => setFormValues((current) => ({ ...current, status: e.target.value }))} className="w-full rounded-2xl border border-[#d7e4db] bg-white px-4 py-3 text-sm text-[#1a4731] outline-none">
-                    <option value="1">Active</option>
-                    <option value="0">Inactive</option>
-                  </select>
-                </div>
-              </div>
-              {(selectedImageFile || formValues.image) && previewUrl && <img src={previewUrl} alt="Media preview" className="h-52 w-full rounded-2xl border border-[#e4ece7] bg-white object-cover" />}
-              <div>
-                <label className="mb-1.5 block text-sm font-medium text-[#456353]">Description</label>
-                <textarea value={formValues.description} onChange={(e) => setFormValues((current) => ({ ...current, description: e.target.value }))} rows={8} className="w-full rounded-2xl border border-[#d7e4db] px-4 py-3 text-sm text-[#1a4731] outline-none" />
-              </div>
-              <div className="flex gap-3 pt-2">
-                <button type="button" onClick={() => setShowForm(false)} className="flex-1 rounded-2xl border border-[#d7e4db] px-4 py-3 text-sm font-medium text-[#5a6d62]">Cancel</button>
-                <button type="submit" disabled={saving} className="flex-1 rounded-2xl bg-[linear-gradient(135deg,#1a4731_0%,#2e7d52_100%)] px-4 py-3 text-sm font-semibold text-white disabled:opacity-60">{saving ? 'Saving...' : editingItem ? 'Update Media' : 'Save Media'}</button>
-              </div>
-            </form>
-          </div>
-        </div>
-      )}
 
       {deleteTarget && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-[#0b1e15]/60 p-4 backdrop-blur-sm">

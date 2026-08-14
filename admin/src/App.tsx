@@ -7,12 +7,16 @@ import CategoriesPage from '@/pages/CategoriesPage';
 import ActivitiesPage from '@/pages/ActivitiesPage';
 import ActivityEditorPage from '@/pages/ActivityEditorPage';
 import InnerActivitiesPage from '@/pages/InnerActivitiesPage';
+import InnerActivityEditorPage from '@/pages/InnerActivityEditorPage';
 import ArticlesPage from '@/pages/ArticlesPage';
 import ArticleViewPage from '@/pages/ArticleViewPage';
 import EventsPage from '@/pages/EventsPage';
+import EventEditorPage from '@/pages/EventEditorPage';
 import EventViewPage from '@/pages/EventViewPage';
 import MediaPage from '@/pages/MediaPage';
+import MediaEditorPage from '@/pages/MediaEditorPage';
 import GalleriesPage from '@/pages/GalleriesPage';
+import GalleryEditorPage from '@/pages/GalleryEditorPage';
 import ImportantLinksPage from '@/pages/ImportantLinksPage';
 import VideosPage from '@/pages/VideosPage';
 import PatrikaPage from '@/pages/PatrikaPage';
@@ -89,12 +93,20 @@ function App() {
               <Route path="/activities/new" element={<ActivityEditorPage />} />
               <Route path="/activities/:id/edit" element={<ActivityEditorPage />} />
               <Route path="/inner-activities" element={<InnerActivitiesPage />} />
+              <Route path="/inner-activities/new" element={<InnerActivityEditorPage />} />
+              <Route path="/inner-activities/:id/edit" element={<InnerActivityEditorPage />} />
               <Route path="/articles" element={<ArticlesPage />} />
               <Route path="/articles/:id" element={<ArticleViewPage />} />
               <Route path="/events" element={<EventsPage />} />
+              <Route path="/events/new" element={<EventEditorPage />} />
+              <Route path="/events/:id/edit" element={<EventEditorPage />} />
               <Route path="/events/:id" element={<EventViewPage />} />
               <Route path="/media" element={<MediaPage />} />
+              <Route path="/media/new" element={<MediaEditorPage />} />
+              <Route path="/media/:id/edit" element={<MediaEditorPage />} />
               <Route path="/galleries" element={<GalleriesPage />} />
+              <Route path="/galleries/new" element={<GalleryEditorPage />} />
+              <Route path="/galleries/:id/edit" element={<GalleryEditorPage />} />
               <Route path="/important-links" element={<ImportantLinksPage />} />
               <Route path="/videos" element={<VideosPage />} />
               <Route path="/patrika" element={<PatrikaPage />} />

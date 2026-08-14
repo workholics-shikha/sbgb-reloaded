@@ -1505,12 +1505,19 @@ function Home() {
                     ];
 
                   return (
-                    <motion.button
+                    <motion.div
                       key={`${item.title}-${renderedIndex}`}
                       data-initiative-card
-                      type="button"
+                      role="button"
+                      tabIndex={0}
                       onClick={() => setInitiativeCarouselPosition(renderedIndex)}
                       onFocus={() => setInitiativeCarouselPosition(renderedIndex)}
+                      onKeyDown={(event) => {
+                        if (event.key === "Enter" || event.key === " ") {
+                          event.preventDefault();
+                          setInitiativeCarouselPosition(renderedIndex);
+                        }
+                      }}
                       whileHover={{ y: -8, scale: 1.014, rotate: itemIndex % 2 === 0 ? 0.2 : -0.2 }}
                       transition={{ duration: 0.35, ease: "easeOut" }}
                       className="group relative min-h-[424px] w-[88%] shrink-0 snap-center text-left sm:w-[54%] lg:w-[35%]"
@@ -1561,7 +1568,7 @@ function Home() {
                           </Link>
                         ) : null}
                       </div>
-                    </motion.button>
+                    </motion.div>
                   );
                 })}
               </div>

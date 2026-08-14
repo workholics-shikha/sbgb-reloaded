@@ -1,16 +1,24 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 import { ChevronLeft, ChevronRight, Images, Sparkles } from "lucide-react";
+
 import { SiteHeader } from "@/components/site/SiteHeader";
-import { PageHero, SiteFooter, CTASection} from "@/components/site/SiteFooter";
-import galAwards from "@/assets/gallery-awards.jpg";
-import galEnv from "@/assets/gallery-environment.jpg";
-import galHealth from "@/assets/gallery-health.jpg";
-import galLib from "@/assets/gallery-library.jpg";
-import galVillage from "@/assets/gallery-village.jpg";
-import galWomen from "@/assets/gallery-women.jpg";
+import { PageHero, SiteFooter, CTASection } from "@/components/site/SiteFooter";
+import {
+  fetchPublicGalleries,
+  resolveGalleryImage,
+  type PublicGalleryRecord,
+} from "@/lib/public-galleries";
 
 export const Route = createFileRoute("/gallery")({
+  loader: async () => {
+    try {
+      const galleries = await fetchPublicGalleries();
+      return { galleries };
+    } catch {
+      return { galleries: [] };
+    }
+  },
   head: () => ({
     meta: [
       { title: "गैलरी | SBGBT" },
@@ -24,62 +32,55 @@ export const Route = createFileRoute("/gallery")({
   component: Gallery,
 });
 
-const categories = [
-  "सभी",
-  "सोच बदलो गांव बदलो यात्रा",
-  "आओ पढ़ो आगे बढ़ो",
-  "क्लीन विलेज ग्रीन विलेज",
-  "उत्थान कोचिंग संस्थान",
-  "शिक्षा पाओ ज्ञान बढ़ाओ",
-  "महिला सशक्तिकरण",
-  "आधुनिक खेती हमारा प्रयास",
-] as const;
+const pageSize = 6;
+const allCategoriesLabel = "सभी";
+const allYearsLabel = "सभी वर्ष";
 
-const years = ["सभी वर्ष", "2019", "2018", "2017"] as const;
-
-type Category = (typeof categories)[number];
-type Year = (typeof years)[number];
-
-type GalleryItem = {
+type GalleryViewItem = {
+  id: string;
   src: string;
   title: string;
-  category: Category;
-  year: Exclude<Year, "सभी वर्ष">;
+  category: string;
+  year: string;
 };
 
-const galleryItems: GalleryItem[] = [
-  { src: galVillage, title: "सोच बदलो गांव बदलो यात्रा – भवनपुरा", category: "सोच बदलो गांव बदलो यात्रा", year: "2018" },
-  { src: galLib, title: "आओ पढ़ो आगे बढ़ो अभियान", category: "आओ पढ़ो आगे बढ़ो", year: "2018" },
-  { src: galAwards, title: "धनौरा विकास समिति सम्मान समारोह", category: "शिक्षा पाओ ज्ञान बढ़ाओ", year: "2018" },
-  { src: galHealth, title: "एनीमिया जागरूकता और स्वास्थ्य सहयोग", category: "महिला सशक्तिकरण", year: "2018" },
-  { src: galWomen, title: "बालिका शिक्षा ही सशक्तिकरण का आधार", category: "महिला सशक्तिकरण", year: "2017" },
-  { src: galEnv, title: "वृक्षारोपण और हरित ग्राम पहल", category: "क्लीन विलेज ग्रीन विलेज", year: "2018" },
-  { src: galWomen, title: "सामुदायिक सहभागिता के प्रेरक पल", category: "महिला सशक्तिकरण", year: "2018" },
-  { src: galAwards, title: "प्रतिभा सम्मान और प्रेरणा समारोह", category: "शिक्षा पाओ ज्ञान बढ़ाओ", year: "2018" },
-  { src: galVillage, title: "सामाजिक चेतना और ग्राम संगठन", category: "सोच बदलो गांव बदलो यात्रा", year: "2018" },
-  { src: galLib, title: "हमीरा विकास समिति की छात्र पहल", category: "शिक्षा पाओ ज्ञान बढ़ाओ", year: "2018" },
-  { src: galHealth, title: "गर्भवती महिलाओं के लिए स्वास्थ्य सहयोग", category: "महिला सशक्तिकरण", year: "2019" },
-  { src: galEnv, title: "स्वच्छता और हरियाली अभियान", category: "क्लीन विलेज ग्रीन विलेज", year: "2018" },
-  { src: galVillage, title: "उत्थान कोचिंग संस्थान के अध्ययन क्षण", category: "उत्थान कोचिंग संस्थान", year: "2019" },
-  { src: galAwards, title: "कार्यक्रम के यादगार दृश्य", category: "सोच बदलो गांव बदलो यात्रा", year: "2017" },
-  { src: galEnv, title: "आधुनिक खेती और आजीविका प्रयास", category: "आधुनिक खेती हमारा प्रयास", year: "2018" },
-];
+function mapGalleryItem(item: PublicGalleryRecord): GalleryViewItem {
+  return {
+    id: item.id,
+    src: resolveGalleryImage(item.image),
+    title: item.title || "Gallery Image",
+    category: item.category || "गैलरी",
+    year: item.year || "-",
+  };
+}
 
-const pageSize = 6;
-  
 function Gallery() {
-  const [activeCategory, setActiveCategory] = useState<Category>("सभी");
-  const [activeYear, setActiveYear] = useState<Year>("सभी वर्ष");
+  const { galleries } = Route.useLoaderData();
+
+  const galleryItems = useMemo(() => galleries.map(mapGalleryItem), [galleries]);
+
+  const categories = useMemo(
+    () => [allCategoriesLabel, ...Array.from(new Set(galleryItems.map((item) => item.category)))],
+    [galleryItems],
+  );
+
+  const years = useMemo(
+    () => [allYearsLabel, ...Array.from(new Set(galleryItems.map((item) => item.year))).sort((a, b) => b.localeCompare(a))],
+    [galleryItems],
+  );
+
+  const [activeCategory, setActiveCategory] = useState<string>(allCategoriesLabel);
+  const [activeYear, setActiveYear] = useState<string>(allYearsLabel);
   const [page, setPage] = useState(1);
-  const [selectedItem, setSelectedItem] = useState<GalleryItem | null>(null);
+  const [selectedItem, setSelectedItem] = useState<GalleryViewItem | null>(null);
 
   const filteredItems = useMemo(() => {
     return galleryItems.filter((item) => {
-      const matchesCategory = activeCategory === "सभी" || item.category === activeCategory;
-      const matchesYear = activeYear === "सभी वर्ष" || item.year === activeYear;
+      const matchesCategory = activeCategory === allCategoriesLabel || item.category === activeCategory;
+      const matchesYear = activeYear === allYearsLabel || item.year === activeYear;
       return matchesCategory && matchesYear;
     });
-  }, [activeCategory, activeYear]);
+  }, [activeCategory, activeYear, galleryItems]);
 
   const totalPages = Math.max(1, Math.ceil(filteredItems.length / pageSize));
   const safePage = Math.min(page, totalPages);
@@ -88,7 +89,6 @@ function Gallery() {
   return (
     <div className="min-h-screen bg-background text-foreground">
       <SiteHeader />
-
       <PageHero title="गैलरी" />
 
       <section className="border-border bg-background">
@@ -101,7 +101,7 @@ function Gallery() {
                 </div>
                 <div>
                   <div className="text-xs font-semibold uppercase tracking-[0.2em] text-primary">फ़िल्टर</div>
-                  <div className="mt-1 font-display text-xl font-black">गैलरी श्रेणियां</div>
+                  <div className="mt-1 font-display text-xl font-black">गैलरी श्रेणियाँ</div>
                 </div>
               </div>
 
@@ -137,7 +137,7 @@ function Gallery() {
                     {activeCategory}
                   </h2>
                   <p className="mt-3 max-w-2xl text-muted-foreground">
-                    यहां आप SBGBT की यात्राओं, कार्यक्रमों, सामुदायिक बैठकों और प्रेरक पहलों की दृश्य झलक देख सकते हैं।
+                    यहाँ आप SBGBT की यात्राओं, कार्यक्रमों, सामुदायिक बैठकों और प्रेरक पहलों की दृश्य झलक देख सकते हैं।
                   </p>
                 </div>
 
@@ -148,7 +148,7 @@ function Gallery() {
                   <select
                     value={activeYear}
                     onChange={(event) => {
-                      setActiveYear(event.target.value as Year);
+                      setActiveYear(event.target.value);
                       setPage(1);
                     }}
                     className="mt-3 w-full rounded-full border border-border bg-background px-4 py-2.5 text-sm outline-none transition focus:border-primary sm:min-w-[180px]"
@@ -165,7 +165,7 @@ function Gallery() {
               <div className="mt-8 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
                 {paginatedItems.map((item) => (
                   <button
-                    key={`${item.title}-${item.year}`}
+                    key={`${item.id}-${item.title}`}
                     type="button"
                     onClick={() => setSelectedItem(item)}
                     className="group relative overflow-hidden rounded-[1.9rem] border border-border bg-card text-left shadow-sm transition hover:-translate-y-1.5 hover:border-primary/35 hover:shadow-xl"
@@ -231,7 +231,7 @@ function Gallery() {
           </div>
         </div>
       </section>
-  
+
       {selectedItem && (
         <div
           className="fixed inset-0 z-50 bg-ink/85 p-4 backdrop-blur"
@@ -272,11 +272,8 @@ function Gallery() {
           </div>
         </div>
       )}
-      
-      {/* CTA */}
-       <CTASection />
-      {/* === */} 
 
+      <CTASection />
       <SiteFooter />
     </div>
   );

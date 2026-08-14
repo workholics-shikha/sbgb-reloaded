@@ -1,20 +1,10 @@
 import { useEffect, useMemo, useState } from 'react';
-import { ChevronLeft, ChevronRight, Eye, CalendarRange, ImagePlus, Pencil, Trash2, Upload, X } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
+import { ChevronLeft, ChevronRight, Eye, CalendarRange, ImagePlus, Pencil, Trash2 } from 'lucide-react';
+import { Link, useNavigate } from 'react-router-dom';
 import { API_BASE_URL } from '@/hooks/useSliders';
 import { useCategories } from '@/hooks/useCategories';
 import { useEvents } from '@/hooks/useEvents';
 import type { EventItem } from '@/lib/types';
-
-type EventFormValues = {
-  category_id: string;
-  title: string;
-  from_date: string;
-  to_date: string;
-  description: string;
-  image: string;
-  status: string;
-};
 
 const PAGE_SIZE = 10;
 
@@ -43,41 +33,13 @@ function resolveImageUrl(imagePath?: string | null) {
 }
 
 export default function EventsPage() {
-  const { data, loading, error, addItem, updateItem, deleteItem, uploadImage } = useEvents();
+  const { data, loading, error, deleteItem } = useEvents();
   const { data: categories, error: categoriesError } = useCategories();
   const navigate = useNavigate();
   const [page, setPage] = useState(1);
-  const [showForm, setShowForm] = useState(false);
-  const [editingEvent, setEditingEvent] = useState<EventItem | null>(null);
-  const [formValues, setFormValues] = useState<EventFormValues>({
-    category_id: '',
-    title: '',
-    from_date: '',
-    to_date: '',
-    description: '',
-    image: '',
-    status: '1',
-  });
-  const [selectedImageFile, setSelectedImageFile] = useState<File | null>(null);
-  const [saving, setSaving] = useState(false);
   const [deleteTarget, setDeleteTarget] = useState<EventItem | null>(null);
   const [formError, setFormError] = useState<string | null>(null);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
-  const [localPreviewUrl, setLocalPreviewUrl] = useState('');
-
-  useEffect(() => {
-    if (!selectedImageFile) {
-      setLocalPreviewUrl('');
-      return;
-    }
-
-    const objectUrl = URL.createObjectURL(selectedImageFile);
-    setLocalPreviewUrl(objectUrl);
-
-    return () => {
-      URL.revokeObjectURL(objectUrl);
-    };
-  }, [selectedImageFile]);
 
   const eventCategoryOptions = useMemo(
     () =>
@@ -94,8 +56,6 @@ export default function EventsPage() {
     () => new Map(eventCategoryOptions.map((category) => [category.value, category.label])),
     [eventCategoryOptions],
   );
-
-  const defaultCategory = eventCategoryOptions[0];
 
   const stats = useMemo(() => {
     const activeCount = data.filter((event) => event.is_active).length;
@@ -122,83 +82,6 @@ export default function EventsPage() {
     setPage((current) => Math.min(current, totalPages));
   }, [totalPages]);
 
-  function openAdd() {
-    setEditingEvent(null);
-    setFormValues({
-      category_id: defaultCategory?.value || '',
-      title: '',
-      from_date: '',
-      to_date: '',
-      description: '',
-      image: '',
-      status: '1',
-    });
-    setSelectedImageFile(null);
-    setFormError(null);
-    setSuccessMessage(null);
-    setShowForm(true);
-  }
-
-  function openEdit(event: EventItem) {
-    setEditingEvent(event);
-    setFormValues({
-      category_id: event.category_id ?? '',
-      title: event.title ?? '',
-      from_date: event.from_date ?? '',
-      to_date: event.to_date ?? '',
-      description: event.description ?? '',
-      image: event.image ?? '',
-      status: String(event.status ?? 1),
-    });
-    setSelectedImageFile(null);
-    setFormError(null);
-    setSuccessMessage(null);
-    setShowForm(true);
-  }
-
-  async function handleSubmit(e: React.FormEvent) {
-    e.preventDefault();
-    setSaving(true);
-    setFormError(null);
-
-    let imagePath = formValues.image.trim();
-
-    try {
-      if (selectedImageFile) {
-        imagePath = await uploadImage(selectedImageFile);
-      }
-
-      if (!imagePath) {
-        throw new Error('Please upload an image');
-      }
-
-      const payload = {
-        category_id: Number(formValues.category_id),
-        title: formValues.title.trim(),
-        from_date: formValues.from_date.trim(),
-        to_date: formValues.to_date.trim(),
-        description: formValues.description.trim(),
-        image: imagePath,
-        status: Number(formValues.status),
-      };
-
-      if (editingEvent) {
-        await updateItem(editingEvent.id, payload);
-        setSuccessMessage('Event updated successfully');
-      } else {
-        await addItem(payload);
-        setSuccessMessage('Event added successfully');
-      }
-
-      setShowForm(false);
-      setSelectedImageFile(null);
-    } catch (submitError) {
-      setFormError(submitError instanceof Error ? submitError.message : 'Unable to save event');
-    } finally {
-      setSaving(false);
-    }
-  }
-
   async function handleDelete() {
     if (!deleteTarget) {
       return;
@@ -212,8 +95,6 @@ export default function EventsPage() {
       setFormError(deleteError instanceof Error ? deleteError.message : 'Unable to delete event');
     }
   }
-
-  const previewUrl = selectedImageFile ? localPreviewUrl : resolveImageUrl(formValues.image);
 
   return (
     <div className="min-h-full bg-[linear-gradient(180deg,#f5fbf7_0%,#eef4ef_55%,#f7f3eb_100%)] px-4 py-6 md:px-6 md:py-8">
@@ -280,14 +161,13 @@ export default function EventsPage() {
                 <h2 className="mt-1 text-2xl font-semibold text-[#1a4731]">Events</h2>
               </div>
 
-              <button
-                type="button"
-                onClick={openAdd}
+              <Link
+                to="/events/new"
                 className="inline-flex items-center justify-center gap-2 rounded-2xl bg-[linear-gradient(135deg,#e8a317_0%,#c47d10_100%)] px-5 py-3 text-sm font-semibold text-[#173d2b] shadow-[0_14px_30px_rgba(232,163,23,0.28)] transition-transform hover:-translate-y-0.5"
               >
                 <ImagePlus size={17} />
                 Add New Event
-              </button>
+              </Link>
             </div>
 
             <div className="overflow-hidden rounded-[24px] border border-[#d8e5dc] bg-white shadow-[0_20px_40px_rgba(26,71,49,0.05)]">
@@ -379,14 +259,13 @@ export default function EventsPage() {
                               >
                                 <Eye size={16} />
                               </button>
-                              <button
-                                type="button"
-                                onClick={() => openEdit(event)}
+                              <Link
+                                to={`/events/${event.id}/edit`}
                                 className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-[#2e7d52] text-white shadow-[0_10px_20px_rgba(46,125,82,0.18)] transition-transform hover:-translate-y-0.5"
                                 title="Edit"
                               >
                                 <Pencil size={16} />
-                              </button>
+                              </Link>
                               <button
                                 type="button"
                                 onClick={() => setDeleteTarget(event)}
@@ -437,175 +316,6 @@ export default function EventsPage() {
           </div>
         </section>
       </div>
-
-      {showForm && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-[#0b1e15]/60 p-4 backdrop-blur-sm">
-          <div className="w-full max-w-5xl overflow-hidden rounded-[28px] border border-[#d7e4db] bg-white shadow-[0_35px_80px_rgba(8,30,20,0.3)]">
-            <div className="bg-[linear-gradient(135deg,#1a4731_0%,#2e7d52_100%)] px-6 py-5 text-white">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#f0cd72]">Event Form</p>
-                  <h2 className="mt-1 text-xl font-semibold">{editingEvent ? 'Edit Event' : 'Add New Event'}</h2>
-                </div>
-                <button
-                  type="button"
-                  onClick={() => setShowForm(false)}
-                  className="rounded-xl border border-white/10 bg-white/10 p-2 text-white/80 transition-colors hover:bg-white/15 hover:text-white"
-                >
-                  <X size={18} />
-                </button>
-              </div>
-            </div>
-
-            <form onSubmit={handleSubmit} className="space-y-5 px-6 py-6">
-              <div className="grid gap-4 md:grid-cols-2">
-                <div>
-                  <label className="mb-1.5 block text-sm font-medium text-[#456353]">Title</label>
-                  <input
-                    required
-                    value={formValues.title}
-                    onChange={(e) => setFormValues((current) => ({ ...current, title: e.target.value }))}
-                    className="w-full rounded-2xl border border-[#d7e4db] px-4 py-3 text-sm text-[#1a4731] outline-none transition focus:border-[#2e7d52] focus:ring-4 focus:ring-[#2e7d52]/10"
-                  />
-                </div>
-
-                <div>
-                  <label className="mb-1.5 block text-sm font-medium text-[#456353]">Category</label>
-                  <select
-                    required
-                    value={formValues.category_id}
-                    onChange={(e) => setFormValues((current) => ({ ...current, category_id: e.target.value }))}
-                    className="w-full rounded-2xl border border-[#d7e4db] bg-white px-4 py-3 text-sm text-[#1a4731] outline-none transition focus:border-[#2e7d52] focus:ring-4 focus:ring-[#2e7d52]/10"
-                  >
-                    <option value="">Choose category</option>
-                    {eventCategoryOptions.map((option) => (
-                      <option key={option.value} value={option.value}>
-                        {option.label}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-              </div>
-
-              <div className="grid gap-4 md:grid-cols-2">
-                <div>
-                  <label className="mb-1.5 block text-sm font-medium text-[#456353]">From Date</label>
-                  <input
-                    required
-                    value={formValues.from_date}
-                    onChange={(e) => setFormValues((current) => ({ ...current, from_date: e.target.value }))}
-                    className="w-full rounded-2xl border border-[#d7e4db] px-4 py-3 text-sm text-[#1a4731] outline-none transition focus:border-[#2e7d52] focus:ring-4 focus:ring-[#2e7d52]/10"
-                  />
-                </div>
-
-                <div>
-                  <label className="mb-1.5 block text-sm font-medium text-[#456353]">To Date</label>
-                  <input
-                    required
-                    value={formValues.to_date}
-                    onChange={(e) => setFormValues((current) => ({ ...current, to_date: e.target.value }))}
-                    className="w-full rounded-2xl border border-[#d7e4db] px-4 py-3 text-sm text-[#1a4731] outline-none transition focus:border-[#2e7d52] focus:ring-4 focus:ring-[#2e7d52]/10"
-                  />
-                </div>
-              </div>
-
-              <div className="grid gap-4 md:grid-cols-2">
-                <div>
-                  <label className="mb-1.5 block text-sm font-medium text-[#456353]">Image</label>
-                  <label className="flex cursor-pointer items-center justify-center gap-3 rounded-[24px] border border-dashed border-[#b8cfc0] bg-[#f8fbf9] px-4 py-5 text-center transition hover:border-[#2e7d52] hover:bg-[#f2f8f4]">
-                    <Upload size={18} className="text-[#2e7d52]" />
-                    <div>
-                      <p className="text-sm font-semibold text-[#1a4731]">
-                        {selectedImageFile ? selectedImageFile.name : 'Choose an image file'}
-                      </p>
-                      <p className="mt-1 text-xs text-[#6d8377]">Recommended size 1200 x 800, up to 5MB</p>
-                    </div>
-                    <input
-                      type="file"
-                      accept="image/*"
-                      className="hidden"
-                      onChange={(e) => {
-                        const file = e.target.files?.[0] ?? null;
-                        setSelectedImageFile(file);
-                      }}
-                    />
-                  </label>
-                </div>
-
-                <div>
-                  <label className="mb-1.5 block text-sm font-medium text-[#456353]">Status</label>
-                  <select
-                    value={formValues.status}
-                    onChange={(e) => setFormValues((current) => ({ ...current, status: e.target.value }))}
-                    className="w-full rounded-2xl border border-[#d7e4db] bg-white px-4 py-3 text-sm text-[#1a4731] outline-none transition focus:border-[#2e7d52] focus:ring-4 focus:ring-[#2e7d52]/10"
-                  >
-                    <option value="1">Active</option>
-                    <option value="0">Inactive</option>
-                  </select>
-                </div>
-              </div>
-
-              {(selectedImageFile || formValues.image) && (
-                <div className="rounded-[24px] border border-[#d7e4db] bg-[#fbfdfb] p-4">
-                  <div className="flex items-start justify-between gap-3">
-                    <div>
-                      <p className="text-sm font-semibold text-[#1a4731]">Image Preview</p>
-                      <p className="mt-1 break-all text-xs text-[#6d8377]">
-                        {selectedImageFile ? selectedImageFile.name : formValues.image}
-                      </p>
-                    </div>
-                    {selectedImageFile && (
-                      <button
-                        type="button"
-                        onClick={() => setSelectedImageFile(null)}
-                        className="rounded-xl border border-[#d7e4db] px-3 py-1.5 text-xs font-medium text-[#5a6d62] transition-colors hover:bg-white"
-                      >
-                        Remove
-                      </button>
-                    )}
-                  </div>
-
-                  {previewUrl && (
-                    <img
-                      src={previewUrl}
-                      alt="Event preview"
-                      className="mt-4 h-52 w-full rounded-2xl border border-[#e4ece7] bg-white object-cover"
-                    />
-                  )}
-                </div>
-              )}
-
-              <div>
-                <label className="mb-1.5 block text-sm font-medium text-[#456353]">Description</label>
-                <textarea
-                  required
-                  value={formValues.description}
-                  onChange={(e) => setFormValues((current) => ({ ...current, description: e.target.value }))}
-                  rows={10}
-                  className="w-full rounded-2xl border border-[#d7e4db] px-4 py-3 text-sm text-[#1a4731] outline-none transition focus:border-[#2e7d52] focus:ring-4 focus:ring-[#2e7d52]/10"
-                />
-              </div>
-
-              <div className="flex gap-3 pt-2">
-                <button
-                  type="button"
-                  onClick={() => setShowForm(false)}
-                  className="flex-1 rounded-2xl border border-[#d7e4db] px-4 py-3 text-sm font-medium text-[#5a6d62] transition-colors hover:bg-[#f7faf8]"
-                >
-                  Cancel
-                </button>
-                <button
-                  type="submit"
-                  disabled={saving}
-                  className="flex-1 rounded-2xl bg-[linear-gradient(135deg,#1a4731_0%,#2e7d52_100%)] px-4 py-3 text-sm font-semibold text-white shadow-[0_12px_24px_rgba(26,71,49,0.22)] transition-opacity disabled:opacity-60"
-                >
-                  {saving ? 'Saving...' : editingEvent ? 'Update Event' : 'Save Event'}
-                </button>
-              </div>
-            </form>
-          </div>
-        </div>
-      )}
 
       {deleteTarget && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-[#0b1e15]/60 p-4 backdrop-blur-sm">

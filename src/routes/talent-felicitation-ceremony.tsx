@@ -116,7 +116,7 @@ function TalentFelicitationCeremonyPage() {
               <div className="overflow-x-auto">
                 <table className="min-w-full border-collapse">
                   <thead>
-                    <tr className="bg-[#6cc8d0] text-left text-[#103942]">
+                    <tr className="bg-[#143c35] text-left text-[#f6fffd]">
                       <th className="border-r border-[#9b6a28] px-4 py-4 text-l font-bold">
                         क्र. सं.
                       </th>
@@ -139,7 +139,7 @@ function TalentFelicitationCeremonyPage() {
                           {index === 0 ? (
                             <td
                               rowSpan={group.items.length}
-                              className="border-r border-t border-[#c58a45] bg-[#74c6cd] px-4 py-5 text-center text-l font-bold text-[#103942]"
+                              className="border-r border-t border-[#c58a45] bg-[#143c35] px-4 py-5 text-center text-l font-bold text-[#ffff]"
                             >
                               {group.id}
                             </td>
